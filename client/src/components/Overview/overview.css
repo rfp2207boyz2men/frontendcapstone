@@ -1,9 +1,17 @@
+.main-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ----------------- Image Gallery ----------------- */
+
 .image-container {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: row;
-  background-color: #F5E8C7;
+  background-color: #94B49F;
 }
 
 .g-container {
@@ -14,7 +22,7 @@
 }
 
 .g-entry {
-  background-color: rebeccapurple;
+  background-color: #fff;
   width: 50px;
   margin: 20px;
   height: 50px;
@@ -23,7 +31,7 @@
 
 .g-entry:hover {
   cursor: pointer;
-  border-bottom: 5px solid #000;
+  border-bottom: 5px solid #666;
 }
 
 .pv-container {
@@ -34,12 +42,65 @@
 }
 
 .arrow {
+  color: #fff;
   cursor: pointer;
   font-size: 20px;
 }
 
 .expand {
+  color: #fff;
   cursor: pointer;
   font-size: 30px;
   align-self: flex-start;
+}
+
+/* ----------------- Product Information ----------------- */
+
+.info-container {
+  margin: 0 30px;
+  width: 250px;
+}
+
+.star {
+  margin: 0 2px;
+}
+
+.style-title {
+  display: inline-flex;
+}
+
+.style-entry {
+  border-radius: 30px;
+  border: solid 0.5px #333;
+  height: 50px;
+  width: 50px;
+  margin: 5px;
+  background-color: #94B49F;
+}
+
+.style-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* ----------------- Add To Cart ----------------- */
+
+.add-container {
+  margin: 30px 0;
+}
+
+.add-container > button {
+  padding: 10px 10px;
+  margin: 5px 7px;
+}
+
+
+/* ----------------- Product Overview ----------------- */
+.prodview-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
