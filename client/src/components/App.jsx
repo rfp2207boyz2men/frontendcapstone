@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { FaBeer } from 'react-icons/fa';
 import Parse from '../parse.js';
 import axios from 'axios';
-import Related from './Related.jsx';
+import Related from './RelatedAndComp/Related.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -13,7 +13,8 @@ class App extends React.Component {
       cart: [],
       qanda: [],
       interactions: [],
-      selectedProduct: ''
+      selectedProduct: '',
+      componentMounted: false
     };
   }
 
@@ -29,10 +30,10 @@ class App extends React.Component {
       .then(() => {
         Parse.getAll(`reviews`, `?product_id=${this.state.selectedProduct.id}`)
           .then((reviews) => {
-            this.setState({reviews: reviews.data.results})
-            console.log(this.state.products)
-            console.log(this.state.selectedProduct)
-            console.log(this.state.reviews)
+            this.setState({reviews: reviews.data.results, componentMounted: true})
+            // console.log(this.state.products)
+            // console.log(this.state.selectedProduct)
+            // console.log(this.state.reviews)
           })
       })
       .catch((err) => console.log(err))
@@ -54,7 +55,7 @@ class App extends React.Component {
           <>Manuel</>
         </div>
         <div>
-          <>Tony</>
+          <Related mounted = {this.state.componentMounted} currentProduct = {this.state.selectedProduct}/>
         </div>
         <div>
           <>Paul</>
