@@ -1,0 +1,26 @@
+.image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  background-color: #F5E8C7;
+}
+
+.g-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.g-entry {
+  background-color: rebeccapurple;
+  width: 50px;
+  margin: 20px;
+  height: 50px;
+}
+
+.g-entry:hover {
+  cursor: pointer;
+  border-bottom: 5px solid #000;
+}

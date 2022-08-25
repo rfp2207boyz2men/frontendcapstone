@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { FaBeer } from 'react-icons/fa';
 import Parse from '../parse.js';
 import axios from 'axios';
+import Overview from './Overview/Overview.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -47,9 +48,10 @@ class App extends React.Component {
     return (
       <div>
         <div className="header">
-          <div><h1>Odin <FaBeer /></h1></div>
-          <div><input></input></div>
+          <h1>Odin <FaBeer /></h1>
+          <input></input>
         </div>
+        <Overview />
       </div>
     )
   }
