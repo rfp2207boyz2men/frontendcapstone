@@ -12,8 +12,8 @@ let authorization = { headers: { Authorization: API_KEY } };
 //{ headers: { Authorization: API_KEY } }
 
 const Parse = {
-  getAll: (endpoint) => {
-    return axios.get(`${url}${endpoint}`, authorization)
+  getAll: (endpoint, params = '') => {
+    return axios.get(`${url}${endpoint}${params}`, authorization)
     // .then((data) => {console.log(data)})
     // .catch((err) => console.log('error'))
   }
