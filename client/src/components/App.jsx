@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { FaBeer } from 'react-icons/fa';
 import Parse from '../parse.js';
 import axios from 'axios';
-import Overview from './Overview/Overview.jsx';
+import Overview from './ProductDetail/Overview.jsx';
 
 class App extends React.Component {
   constructor(props) {
