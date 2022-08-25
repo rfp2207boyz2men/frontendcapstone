@@ -2,7 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import { FaBeer } from 'react-icons/fa';
 import Parse from '../parse.js';
 import axios from 'axios';
-import Related from './Related.jsx';
+// import Related from './Related.jsx';
+import QandA from './QandA/QandA.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -13,7 +14,8 @@ class App extends React.Component {
       cart: [],
       qanda: [],
       interactions: [],
-      selectedProduct: ''
+      selectedProduct: '',
+      componentMount: false
     };
   }
 
@@ -35,8 +37,7 @@ class App extends React.Component {
             console.log(this.state.reviews)
           })
       })
-      .catch((err) => console.log(err))
-
+      .catch((err) => console.log(err));
   }
   //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/productsundefined
   //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews:40348?count=10
@@ -57,7 +58,7 @@ class App extends React.Component {
           <>Tony</>
         </div>
         <div>
-          <>Paul</>
+          <QandA mounted={this.state.componentMount}/>
         </div>
         <div>
           <>Dan</>
