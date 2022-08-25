@@ -18,9 +18,28 @@
   width: 50px;
   margin: 20px;
   height: 50px;
+  transition: all .5s ease;
 }
 
 .g-entry:hover {
   cursor: pointer;
   border-bottom: 5px solid #000;
+}
+
+.pv-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+}
+
+.arrow {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.expand {
+  cursor: pointer;
+  font-size: 30px;
+  align-self: flex-start;
 }

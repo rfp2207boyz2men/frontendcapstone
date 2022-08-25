@@ -23,9 +23,9 @@ class imageGallery extends React.Component {
           <GalleryEntry />
           <GalleryEntry />
           <GalleryEntry />
-          <IoMdArrowDropdown />
+          <IoMdArrowDropdown className='arrow' />
         </div>
-        <div className=''>
+        <div>
           <ProductView />
         </div>
       </div>
