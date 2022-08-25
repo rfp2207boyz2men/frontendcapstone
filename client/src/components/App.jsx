@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { FaBeer } from 'react-icons/fa';
 import Parse from '../parse.js';
-//import '../styles.css';
 import axios from 'axios';
 
 class App extends React.Component {
