@@ -71,11 +71,6 @@ class App extends React.Component {
       .catch((err) => console.log(err));
   };
 
-  handleSave(e) {
-    e.preventDefault();
-    console.log('working');
-  }
-
   renderStars = (rating) => {
     let ratingCopy = rating;
     let stars = [];
@@ -105,10 +100,6 @@ class App extends React.Component {
             <div><input></input></div>
           </div>
           <div>
-            <Overview
-            selectedProduct={this.state.selectedProduct}
-            handleSave={this.handleSave.bind(this)}
-            />
           </div>
           <div>
             <>Tony</>

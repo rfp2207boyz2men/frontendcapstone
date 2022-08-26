@@ -10,7 +10,7 @@ const ProductInformation = ({ selectedProduct, handleClick }) => (
     <h2>{selectedProduct.name}</h2>
     <p>${selectedProduct.default_price}</p>
     <StyleSelector />
-    <AddToCart handleClick={handleClick} />
+    <AddToCart />
   </div>
 
 )

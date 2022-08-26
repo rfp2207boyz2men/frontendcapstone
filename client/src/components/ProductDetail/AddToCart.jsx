@@ -1,13 +1,12 @@
-import e from 'express';
 import React from 'react';
 import { TiStarFullOutline } from 'react-icons/ti'
 
 
-const AddToCart = ({ handleClick }) => (
+const AddToCart = ({  }) => (
   <div className='add-container'>
     <button>SELECT SIZE</button>
     <button>QUANTITY: 42</button>
-    <button onClick={handleClick} >ADD TO CART</button>
+    <button>ADD TO CART</button>
     <button ><TiStarFullOutline /></button>
   </div>
 )
