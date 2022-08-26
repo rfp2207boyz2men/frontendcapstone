@@ -2,11 +2,10 @@ import React, { useState, useEffect, useContext } from 'react';
 import { FaBeer } from 'react-icons/fa';
 import Parse from '../parse.js';
 import axios from 'axios';
-// import Related from './Related.jsx';
 import QandA from './QandA/QandA.jsx';
 import Reviews from './Reviews/Reviews.jsx';
-import { BiLoaderCircle } from 'react-icons/bi';
-// import Related from './Related.jsx';
+import { TiStarFullOutline, TiStarHalfOutline, TiStarOutline } from 'react-icons/ti';
+import { AtomSpinner } from 'react-epic-spinners';
 
 class App extends React.Component {
   constructor(props) {
@@ -39,9 +38,13 @@ class App extends React.Component {
         state.reviews = reviews.data.results;
         return this.setState(state);
       })
+      .catch((err) => console.log(err));
   }
   //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/productsundefined
   //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews:40348?count=10
+
+
+
     //If desired, can set default to the first product (which may be hardcoded)
     // this.updateSelectedProduct(40344);
 
@@ -67,7 +70,24 @@ class App extends React.Component {
         state.reviews = reviews.data.results;
         return this.setState(state);
       })
+      .catch((err) => console.log(err));
     };
+
+  renderStars = (rating) => {
+    let ratingCopy = rating;
+    let stars = [];
+    for (let i = 0; i < 5; i++) {
+      if (ratingCopy >= 0 && ratingCopy < 0.33 || ratingCopy < 0) {
+        stars.push(<TiStarOutline key = {i}/>);
+      } else if (ratingCopy >= 0.33 && ratingCopy <= 0.67) {
+        stars.push(<TiStarHalfOutline key = {i}/>);
+      } else {
+        stars.push(<TiStarFullOutline key = {i}/>);
+      }
+      ratingCopy--;
+    }
+    return stars;
+  };
   //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/?product_id=40344
   //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/?product_id=40344&count=10
 
@@ -95,10 +115,11 @@ class App extends React.Component {
             <Reviews
               selectedProduct={this.state.selectedProduct}
               reviews={this.state.reviews}
+              renderStars={this.renderStars.bind(this)}
             />
           </div>
         </div>
-        :<BiLoaderCircle />
+        :<AtomSpinner color='green' />
         }
       </div>
     )
