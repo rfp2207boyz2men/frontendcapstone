@@ -51,7 +51,7 @@ class Overview extends React.Component {
     return (
       <div>
         <div className='main-container'>
-          <ImageGallery />
+          <ImageGallery styles={this.state.styles} />
           <ProductInformation selectedProduct={this.props.selectedProduct} styles={this.state.styles}/>
         </div>
         <div>
