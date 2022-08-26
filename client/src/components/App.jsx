@@ -22,6 +22,8 @@ class App extends React.Component {
       selectedProduct: '',
       loading: false
     };
+
+    this.retrieveStorage = this.retrieveStorage.bind(this);
   }
 
   componentDidMount() {
@@ -42,6 +44,8 @@ class App extends React.Component {
         return this.setState(state);
       })
       .catch((err) => console.log(err));
+
+
 
     //If desired, can set default to the first product (which may be hardcoded)
     // this.updateSelectedProduct(40344);
@@ -70,6 +74,11 @@ class App extends React.Component {
       })
       .catch((err) => console.log(err));
   };
+
+  retrieveStorage() {
+    const str = localStorage.getItem('styles');
+    return JSON.parse(str);
+  }
 
   renderStars = (rating) => {
     let ratingCopy = rating;
@@ -100,6 +109,8 @@ class App extends React.Component {
             <div><input></input></div>
           </div>
           <div>
+            <Overview selectedProduct={this.state.selectedProduct}
+            retrieveStorage={this.retrieveStorage}/>
           </div>
           <div>
             <>Tony</>

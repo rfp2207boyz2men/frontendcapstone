@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Style = () => (
-  <div className='style-entry'></div>
+const Style = ({url}) => (
+  <img src={url} className='style-entry'></img>
 )
 
 export default Style;

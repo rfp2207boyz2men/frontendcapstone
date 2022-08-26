@@ -54,7 +54,7 @@
   align-self: flex-start;
 }
 
-/* ----------------- Product Information ----------------- */
+/* ----------------- Style Information ----------------- */
 
 .info-container {
   margin: 0 30px;
@@ -70,8 +70,10 @@
 }
 
 .style-entry {
+  cursor: pointer;
   border-radius: 30px;
   border: solid 0.5px #333;
+  object-fit: cover;
   height: 50px;
   width: 50px;
   margin: 5px;
