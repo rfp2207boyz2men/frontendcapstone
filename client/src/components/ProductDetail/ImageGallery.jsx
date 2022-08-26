@@ -18,11 +18,11 @@ class imageGallery extends React.Component {
     return (
       <div className='image-container'>
         <div className='g-container'>
-          {/* {this.props.styles.map(style => {
-            style.photos.forEach(pic => {
-              return <GalleryEntry key={style.style_id} pic={} />
-            })
-          })} */}
+          {this.props.styles.map(style => {
+            for (let i = 0; i < 5; i++) {
+              return <GalleryEntry key={style.style_id} pic={style.photos} />
+            }
+          })}
           <TiArrowSortedDown className='arrow' />
         </div>
         <div>
