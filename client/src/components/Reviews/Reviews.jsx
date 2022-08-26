@@ -3,6 +3,7 @@ import Parse from '../../parse.js';
 import Tile from './Tile.jsx';
 import SideBar from './SideBar.jsx';
 import './ReviewsStyles.css';
+import { OrbitSpinner } from 'react-epic-spinners';
 
 class Reviews extends React.Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class Reviews extends React.Component {
       reviewsPage: 0,
       reviewsCount: 0,
       metaData: [],
+      loading: false,
     };
   }
 
@@ -36,7 +38,6 @@ class Reviews extends React.Component {
         let averageRatingTotal = (ratingStrengths.reduce((prev, cur) => prev + cur, 0)) / totalRatings;
         let ratingPercentages = ratings.map((rating) => (rating / totalRatings) * 100);
 
-        // console.log(data);
         let recommendations = data.recommended;
         let totalRecommendations = parseInt(recommendations.false) + parseInt(recommendations.true);
         let averageRecommended = ((parseInt(recommendations.true) / totalRecommendations) * 100);
@@ -45,6 +46,8 @@ class Reviews extends React.Component {
         state.ratingPercentages = ratingPercentages;
         state.averageRecommended = averageRecommended.toFixed(0);
         state.totalReviews = totalRatings;
+        state.characteristics = data.characteristics;
+        state.loading = true;
 
         this.setState(state);
       })
@@ -62,26 +65,33 @@ class Reviews extends React.Component {
     };
 
     return(
-      <div className='reviewMain'>
-        <SideBar
-          renderStars = {this.props.renderStars}
-          averageRating = {this.state.averageRating}
-          ratingPercentages = {this.state.ratingPercentages}
-          averageRecommended = {this.state.averageRecommended}
-        />
-        <div className='reviewList'>
-          {this.props.reviews.map((review, index) => (
-            <Tile
-              review = {review}
-              key = {index}
-              index = {index}
-              renderStars = {this.props.renderStars}
-            />
-          ))}
+      <div>
+        {this.state.loading
+        ?<div className='reviewMain'>
+          <SideBar
+            renderStars = {this.props.renderStars}
+            averageRating = {this.state.averageRating}
+            ratingPercentages = {this.state.ratingPercentages}
+            averageRecommended = {this.state.averageRecommended}
+            characteristics = {this.state.characteristics}
+          />
+          <div className='reviewList'>
+            {this.props.reviews.map((review, index) => (
+              <Tile
+                review = {review}
+                key = {index}
+                index = {index}
+                renderStars = {this.props.renderStars}
+              />
+            ))}
+          </div>
+          <div className='reviewExpandButtonSection'>
+            {this.props.reviews.length - this.state.reviewsShowClick > 2
+            && <button className='reviewExpandButton'>MORE REVIEWS</button>}
+            <button style={widenAdd} className='reviewExpandButton'>ADD A REVIEW +</button>
+          </div>
         </div>
-        {this.props.reviews.length - this.state.reviewsShowClick > 2
-        && <button className='reviewExpandButton'>MORE REVIEWS</button>}
-        <button style={widenAdd} className='reviewExpandButton'>ADD A REVIEW +</button>
+        :<OrbitSpinner color='green' />}
       </div>
     )
   }

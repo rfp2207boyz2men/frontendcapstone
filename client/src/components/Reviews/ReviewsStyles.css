@@ -3,26 +3,32 @@
 */
 .reviewMain {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   width: 1600px;
   height: 1200px;
+  padding: 20px 10px;
   /* background-color: pink; */
   border: 2px solid black;
-  overflow-y: auto;
+  /* overflow-y: auto; */
 }
 
 .reviewSideBar {
-  height: 800px;
+  display: flex;
+  flex-direction: column;
+  height: 1150px;
   width: 400px;
   margin-right: 120px;
+  padding: 20px 10px;
   /* background-color: gray; */
   border: 2px solid rgb(8, 88, 8);
 }
 
 .reviewList {
-  height: 700px;
-  width: 1000px;
+  height: 1000px;
+  width: 1050px;
+  border: 2px solid black;
+  overflow-y: auto;
 }
 
 /*
@@ -55,8 +61,13 @@
 
 .reviewBar {
   height: 10px;
+  margin-top: 30px;
   /* background-color: pink; */
   /* border: 2px solid red; */
+}
+
+.reviewExpandButtonSection {
+  margin-top: 20px;
 }
 
 /*
