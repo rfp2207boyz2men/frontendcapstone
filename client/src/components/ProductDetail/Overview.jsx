@@ -1,5 +1,6 @@
 import React from 'react';
 import './overview.css';
+import Parse from '../../parse.js';
 import ImageGallery from './ImageGallery.jsx';
 import ProductInformation from './ProductInformation.jsx';
 import ProductOverview from './ProductOverview.jsx';
@@ -9,20 +10,28 @@ class Overview extends React.Component {
     super(props)
 
     this.state = {
-      imageGallery: [],
+      styles: [],
     }
   }
 
+  componentDidMount () {
+    let params = `?product_id=${this.props.selectedProduct.id}/related`;
+
+    Parse.getAll(`products/`, params)
+      .then((styles) => {
+        console.log('styles?', styles.data);
+      })
+  }
 
   render() {
     return (
       <div>
         <div className='main-container'>
           <ImageGallery />
-          <ProductInformation />
+          <ProductInformation selectedProduct={this.props.selectedProduct} />
         </div>
         <div>
-          <ProductOverview />
+          <ProductOverview selectedProduct={this.props.selectedProduct} />
         </div>
       </div>
     )

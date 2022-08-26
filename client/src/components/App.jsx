@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { FaBeer } from 'react-icons/fa';
 import Parse from '../parse.js';
 import axios from 'axios';
+import Overview from './ProductDetail/Overview.jsx';
 import Reviews from './Reviews/Reviews.jsx';
 import { BiLoaderCircle } from 'react-icons/bi';
 // import Related from './Related.jsx';
@@ -79,6 +80,7 @@ class App extends React.Component {
             <div><input></input></div>
           </div>
           <div>
+            <Overview selectedProduct={this.state.selectedProduct} />
             <>Manuel</>
           </div>
           <div>
