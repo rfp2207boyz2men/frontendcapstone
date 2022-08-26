@@ -18,7 +18,6 @@ const Breakdowns = (props) => {
         </div>
       )
     }
-    console.log(ratingBars);
     return ratingBars;
   }
 

@@ -11,8 +11,7 @@ class Answers extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.qId);
-    console.log(this.props.answers);
+
   }
 
 
