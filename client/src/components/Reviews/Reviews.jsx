@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Parse from '../../parse.js';
 import Tile from './Tile.jsx';
-<<<<<<< HEAD
-=======
 import SideBar from './SideBar.jsx';
->>>>>>> 16adfd8068b146ab5fe2f8e242e053cc829aad42
 import './ReviewsStyles.css';
 
 class Reviews extends React.Component {
@@ -13,13 +10,10 @@ class Reviews extends React.Component {
     this.state = {
       reviewsShowClick: 2,
       reviewsSlice: [],
-<<<<<<< HEAD
-=======
       totalReviews: 0,
       averageRating: 0,
       ratingPercentages: [],
       averageRecommended: 0,
->>>>>>> 16adfd8068b146ab5fe2f8e242e053cc829aad42
       reviewsPage: 0,
       reviewsCount: 0,
       metaData: [],
@@ -32,16 +26,6 @@ class Reviews extends React.Component {
     let state = {};
     let params = `?product_id=${this.props.selectedProduct.id}`
 
-<<<<<<< HEAD
-    // Parse.getAll(`reviews`, params)
-    // .then((reviews) => console.log(reviews))
-
-  };
-
-  render() {
-    return(
-      <div className='reviewMain'>
-=======
     Parse.getAll(`reviews/meta`, params)
       .then((meta) => {
         let data = meta.data;
@@ -85,19 +69,12 @@ class Reviews extends React.Component {
           ratingPercentages = {this.state.ratingPercentages}
           averageRecommended = {this.state.averageRecommended}
         />
->>>>>>> 16adfd8068b146ab5fe2f8e242e053cc829aad42
         <div className='reviewList'>
           {this.props.reviews.map((review, index) => (
             <Tile
               review = {review}
               key = {index}
               index = {index}
-<<<<<<< HEAD
-              showClick = {this.state.reviewsShowClick}
-            />
-          ))}
-        </div>
-=======
               renderStars = {this.props.renderStars}
             />
           ))}
@@ -105,7 +82,6 @@ class Reviews extends React.Component {
         {this.props.reviews.length - this.state.reviewsShowClick > 2
         && <button className='reviewExpandButton'>MORE REVIEWS</button>}
         <button style={widenAdd} className='reviewExpandButton'>ADD A REVIEW +</button>
->>>>>>> 16adfd8068b146ab5fe2f8e242e053cc829aad42
       </div>
     )
   }
@@ -116,7 +92,6 @@ export default Reviews;
 
 /*
 Display list of reviews
-
 */
 
 /*
@@ -153,3 +128,4 @@ Display list of reviews
     }
 }
 */
+

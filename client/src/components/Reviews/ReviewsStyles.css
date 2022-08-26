@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-.reviewTile {
-  /* background-color: red; */
-  border-bottom: 1px solid gray;
-=======
 /*
   MAIN DIVS
 */
@@ -81,5 +76,4 @@
 .reviewExpandButton {
   height: 60px;
   margin-right: 10px;
->>>>>>> 16adfd8068b146ab5fe2f8e242e053cc829aad42
 }
