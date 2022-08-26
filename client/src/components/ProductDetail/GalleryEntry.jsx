@@ -1,9 +1,7 @@
 import React from 'react';
 
 const GalleryEntry = ({pic}) => (
-  <div className='g-entry'>
-    <img src={pic.thumbnail_url} ></img>
-  </div>
+  <img src={pic[0].thumbnail_url} className='g-entry'></img>
 )
 
 export default GalleryEntry;
