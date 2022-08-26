@@ -1,4 +1,85 @@
+<<<<<<< HEAD
 .reviewTile {
   /* background-color: red; */
   border-bottom: 1px solid gray;
+=======
+/*
+  MAIN DIVS
+*/
+.reviewMain {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 1600px;
+  height: 1200px;
+  /* background-color: pink; */
+  border: 2px solid black;
+  overflow-y: auto;
+}
+
+.reviewSideBar {
+  height: 800px;
+  width: 400px;
+  margin-right: 120px;
+  /* background-color: gray; */
+  border: 2px solid rgb(8, 88, 8);
+}
+
+.reviewList {
+  height: 700px;
+  width: 1000px;
+}
+
+/*
+  SIDE BAR
+*/
+
+.averageRating {
+  display: flex;
+  border: 1px solid gray;
+}
+
+.ratingBreakdown {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 400px;
+  height: 400px;
+  border: 1px solid gray;
+}
+
+.reviewBarSection {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid rgb(65, 65, 65);
+}
+
+.reviewBarLabel {
+  width: 80px;
+}
+
+.reviewBar {
+  height: 10px;
+  /* background-color: pink; */
+  /* border: 2px solid red; */
+}
+
+/*
+  REVIEW LIST
+*/
+
+.reviewTile {
+  /* background-color: red; */
+  border-bottom: 1px solid gray;
+}
+
+.ratingResponse {
+  background-color: rgba(180, 179, 179, 0.938);
+  width: 80%;
+}
+
+.reviewExpandButton {
+  height: 60px;
+  margin-right: 10px;
+>>>>>>> 16adfd8068b146ab5fe2f8e242e053cc829aad42
 }

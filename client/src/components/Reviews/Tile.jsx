@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
+<<<<<<< HEAD
 import { TiStarFullOutline, TiStarHalfOutline, TiStarOutline } from 'react-icons/ti';
+=======
+>>>>>>> 16adfd8068b146ab5fe2f8e242e053cc829aad42
 import { GrCheckmark } from 'react-icons/gr';
 
 
@@ -21,6 +24,7 @@ const List = (props) => {
 
   return (
     <div className='reviewTile'>
+<<<<<<< HEAD
       <TiStarFullOutline />
       <TiStarFullOutline />
       <TiStarFullOutline />
@@ -29,6 +33,16 @@ const List = (props) => {
       <p>{renderName()}</p>
       <h3>{props.review.summary}</h3>
       <p>{props.review.body}</p>
+=======
+      <div className='ratingStars'>{props.renderStars(props.review.rating).map((star) => star)}{props.review.rating}</div>
+      <p>{renderName()}</p>
+      <h3>{props.review.summary}</h3>
+      <p>{props.review.body}</p>
+      {props.review.response && <div className='ratingResponse'>
+        <span><b>Response:</b></span>
+        <p>{props.review.body}</p>
+      </div>}
+>>>>>>> 16adfd8068b146ab5fe2f8e242e053cc829aad42
       {props.review.recommend && <p><GrCheckmark/> I recommend this product</p>}
       <p>Helpful? <span><u>Yes</u></span> ({props.review.helpfulness}) | <span><u>Report</u></span></p>
     </div>

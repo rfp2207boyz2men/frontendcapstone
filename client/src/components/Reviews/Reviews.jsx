@@ -1,6 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Parse from '../../parse.js';
 import Tile from './Tile.jsx';
+<<<<<<< HEAD
+=======
+import SideBar from './SideBar.jsx';
+>>>>>>> 16adfd8068b146ab5fe2f8e242e053cc829aad42
 import './ReviewsStyles.css';
 
 class Reviews extends React.Component {
@@ -9,6 +13,13 @@ class Reviews extends React.Component {
     this.state = {
       reviewsShowClick: 2,
       reviewsSlice: [],
+<<<<<<< HEAD
+=======
+      totalReviews: 0,
+      averageRating: 0,
+      ratingPercentages: [],
+      averageRecommended: 0,
+>>>>>>> 16adfd8068b146ab5fe2f8e242e053cc829aad42
       reviewsPage: 0,
       reviewsCount: 0,
       metaData: [],
@@ -21,6 +32,7 @@ class Reviews extends React.Component {
     let state = {};
     let params = `?product_id=${this.props.selectedProduct.id}`
 
+<<<<<<< HEAD
     // Parse.getAll(`reviews`, params)
     // .then((reviews) => console.log(reviews))
 
@@ -29,16 +41,71 @@ class Reviews extends React.Component {
   render() {
     return(
       <div className='reviewMain'>
+=======
+    Parse.getAll(`reviews/meta`, params)
+      .then((meta) => {
+        let data = meta.data;
+
+        let ratings = Object.values(data.ratings);
+        let totalRatings = ratings.reduce((prev, cur) => prev + parseInt(cur), 0);
+        let ratingStrengths = ratings.map((rating, index) => rating * (index + 1));
+        let averageRatingTotal = (ratingStrengths.reduce((prev, cur) => prev + cur, 0)) / totalRatings;
+        let ratingPercentages = ratings.map((rating) => (rating / totalRatings) * 100);
+
+        // console.log(data);
+        let recommendations = data.recommended;
+        let totalRecommendations = parseInt(recommendations.false) + parseInt(recommendations.true);
+        let averageRecommended = ((parseInt(recommendations.true) / totalRecommendations) * 100);
+
+        state.averageRating = averageRatingTotal.toFixed(1);
+        state.ratingPercentages = ratingPercentages;
+        state.averageRecommended = averageRecommended.toFixed(0);
+        state.totalReviews = totalRatings;
+
+        this.setState(state);
+      })
+      .catch((err) => console.log(err));
+
+  };
+
+
+
+
+  render() {
+    //tentative widths, fix later
+    let widenAdd = {
+      width: this.props.reviews.length - this.state.reviewsShowClick > 2 ? '20%' : '50%'
+    };
+
+    return(
+      <div className='reviewMain'>
+        <SideBar
+          renderStars = {this.props.renderStars}
+          averageRating = {this.state.averageRating}
+          ratingPercentages = {this.state.ratingPercentages}
+          averageRecommended = {this.state.averageRecommended}
+        />
+>>>>>>> 16adfd8068b146ab5fe2f8e242e053cc829aad42
         <div className='reviewList'>
           {this.props.reviews.map((review, index) => (
             <Tile
               review = {review}
               key = {index}
               index = {index}
+<<<<<<< HEAD
               showClick = {this.state.reviewsShowClick}
             />
           ))}
         </div>
+=======
+              renderStars = {this.props.renderStars}
+            />
+          ))}
+        </div>
+        {this.props.reviews.length - this.state.reviewsShowClick > 2
+        && <button className='reviewExpandButton'>MORE REVIEWS</button>}
+        <button style={widenAdd} className='reviewExpandButton'>ADD A REVIEW +</button>
+>>>>>>> 16adfd8068b146ab5fe2f8e242e053cc829aad42
       </div>
     )
   }
