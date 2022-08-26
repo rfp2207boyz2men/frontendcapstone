@@ -3,10 +3,12 @@
 */
 
 body {
-  width: 1400px;
+  width: 1500px;
   font-family: 'Noto Sans', sans-serif;
   font-size: small;
   margin: auto;
+  border-left: 1px dotted red;
+  border-right: 1px dotted red;
 }
 
 .header {
@@ -31,6 +33,14 @@ body {
   padding: 20px;
 }
 
+.toprightHeader {
+  width: 800px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 50px;
+}
+
 .logo {
   margin-top: 10px;
   font-size: 50px;
@@ -42,14 +52,27 @@ body {
 }
 
 .search {
-  width: 800px;
-  border-radius: 10px;
+  width: 700px;
   margin-top: 5px;
   height: 30px;
-  margin-right: 50px;
   border-style: none;
-  background-color:whitesmoke;
+  padding-top: 5px;
+  outline:none;
+}
+
+.searchbar {
+  border-bottom: 1px solid black;
   padding: 5px;
+}
+
+.shoppingBag {
+  margin-top: 15px;
+  font-size: 25px;
+  padding: 5px;
+}
+
+.star {
+  color: teal;
 }
 
 /*
@@ -57,16 +80,20 @@ body {
 */
 
 .relatedSection {
-  height: 350px;
+  height: 450px;
   display: flex;
   justify-content: space-around;
 }
 
 .related {
-  height: 350px;
+  height: 400px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.sectionTitle {
+  font-weight: lighter;
 }
 
 /*
@@ -76,20 +103,20 @@ body {
 .productCard {
   border: 1px solid black;
   width: 255px;
-  height: 350px;
+  height: 400px;
   margin-left: 10px;
   margin-right: 10px;
 }
 
 .productCardImg {
   width: 255px;
-  height: 255px;
+  height: 300px;
   position: relative;
 }
 
 .productImages {
   width: 255px;
-  height: 255px;
+  height: 300px;
 }
 
 .productCardDesc {
@@ -100,6 +127,7 @@ body {
 }
 
 .productCardRating {
+  margin-top: 5px;
   padding-left: 10px;
   padding-top: 10px;
   width: 255px;
@@ -120,4 +148,14 @@ body {
 .cardPrice {
   font-size: small;
   font-weight: lighter;
+}
+
+/*
+  Questions Section
+*/
+
+.questionsSection {
+  width: 1200px;
+  height: 400px;
+  margin-top: 100px;
 }

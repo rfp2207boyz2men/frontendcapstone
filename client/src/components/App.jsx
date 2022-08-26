@@ -4,13 +4,16 @@ import { FaBeer } from 'react-icons/fa';
 import Parse from '../parse.js';
 import axios from 'axios';
 import Related from './RelatedAndComp/Related.jsx';
+import Outfits from './RelatedAndComp/Outfits.jsx';
 import Overview from './ProductDetail/Overview.jsx';
 import Reviews from './Reviews/Reviews.jsx';
 import { TiStarFullOutline, TiStarHalfOutline, TiStarOutline } from 'react-icons/ti';
 import { GiTriquetra } from 'react-icons/gi'
 import { OrbitSpinner } from 'react-epic-spinners';
-import { BsSearch } from 'react-icons/bs'
+import { BsSearch, BsBag } from 'react-icons/bs'
 import QandA from './QandA/QandA.jsx';
+import { GoSearch } from 'react-icons/go';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -126,18 +129,24 @@ class App extends React.Component {
     return (
       <div>
         {this.state.loading
-         ? <div>
+         ? <div className="main">
           <div className="header">
             <div className="logoheader"><div className="logotext"><h1>Odin</h1></div><div className="logo"><GiTriquetra /></div></div>
-            <div><input className="search" placeholder="Search"></input></div>
+            <div className="toprightHeader">
+              <div className="searchbar"><input className="search" placeholder="Search"></input><GoSearch/></div>
+              <div className="shoppingBag"><BsBag /></div>
+            </div>
           </div>
           <div>
             <Overview selectedProduct={this.state.selectedProduct}/>
           </div>
-          <div className = 'relatedSection'>
+          <div className='relatedSection'>
             <Related selectedProduct={this.state.selectedProduct}/>
           </div>
           <div>
+            <Outfits outfits={this.state.outfits} />
+          </div>
+          <div className="questionsSection">
             <QandA
               selectedProduct={this.state.selectedProduct}
             />

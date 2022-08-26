@@ -7,7 +7,7 @@ import { TiStarFullOutline, TiStarOutline } from 'react-icons/ti';
 import Carousel from 'react-bootstrap/Carousel';
 
 
-class ProductCard extends React.Component {
+class OutfitCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,15 +22,7 @@ class ProductCard extends React.Component {
   }
 
   componentDidMount() {
-    Parse.getAll('products', `/${this.props.product_id}/`)
-      .then((productInfo) => {
-        this.setState({product_info: productInfo.data})
-      })
-    Parse.getAll('products', `/${this.props.product_id}/styles`)
-      .then((productStyles) => {
-        this.setState({product_styles: productStyles.data.results, productCardLoad: true})
-        console.log(this.state.product_info)
-      })
+
   }
 
   mouseHoverStar() {
@@ -53,9 +45,9 @@ class ProductCard extends React.Component {
         </div>
         <div>
           <div className = 'productCardDesc'>
-          <div className = 'cardCat'>{this.state.product_info.category ? this.state.product_info.category.toUpperCase() : this.state.product_info.category}</div>
+          <div className = 'cardCat'>{this.state.product_info.category}</div>
           <div className = 'cardName'><strong>{this.state.product_info.name}</strong></div>
-          <div className = 'cardPrice'>${this.state.product_info.default_price}</div>
+          <div className = 'cardPrice'>{this.state.product_info.default_price}</div>
           </div>
           <div className = 'productCardRating'>
           <TiStarFullOutline className='star'/>
@@ -73,4 +65,4 @@ class ProductCard extends React.Component {
   }
 }
 
-export default ProductCard;
+export default OutfitCard;
