@@ -1,12 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-<<<<<<< HEAD
-const Bars = (props) => {
-
-  return (
-    <div className='reviewsSide'>
-
-=======
 const SideBar = (props) => {
 
   let renderBars = () => {
@@ -57,13 +50,8 @@ const SideBar = (props) => {
       <div className='ratingBreakdown'>
         {renderBars().map((bar) => bar)}
       </div>
->>>>>>> 16adfd8068b146ab5fe2f8e242e053cc829aad42
     </div>
   );
 };
 
-<<<<<<< HEAD
-export default Bars;
-=======
 export default SideBar;
->>>>>>> 16adfd8068b146ab5fe2f8e242e053cc829aad42
