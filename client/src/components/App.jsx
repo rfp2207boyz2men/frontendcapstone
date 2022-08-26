@@ -5,7 +5,6 @@ import axios from 'axios';
 import Related from './RelatedAndComp/Related.jsx';
 import Reviews from './Reviews/Reviews.jsx';
 import { BiLoaderCircle } from 'react-icons/bi';
-// import Related from './Related.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -34,18 +33,13 @@ class App extends React.Component {
         state.loading = true;
         return Parse.getAll(`reviews/`, `?product_id=${state.selectedProduct.id}`);
       })
-      .then(() => {
-        Parse.getAll(`reviews`, `?product_id=${this.state.selectedProduct.id}`)
-          .then((reviews) => {
-            this.setState({reviews: reviews.data.results, componentMounted: true})
-            // console.log(this.state.products)
-            // console.log(this.state.selectedProduct)
-            // console.log(this.state.reviews)
-          })})
       .then((reviews) => {
         state.reviewsData = reviews.data;
         state.reviews = reviews.data.results;
         return this.setState(state);
+      })
+      .catch((err) => {
+        console.log(err)
       })
 
     //If desired, can set default to the first product (which may be hardcoded)
@@ -73,6 +67,10 @@ class App extends React.Component {
         state.reviews = reviews.data.results;
         return this.setState(state);
       })
+      .catch((err) => {
+        console.log(err)
+      })
+
   }
 
   //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/?product_id=40344
@@ -90,8 +88,8 @@ class App extends React.Component {
           <div>
             <>Manuel</>
           </div>
-          <div>
-            <>Tony</>
+          <div className = 'relatedSection'>
+            <Related selectedProduct={this.state.selectedProduct}/>
           </div>
           <div>
             <>Paul</>
