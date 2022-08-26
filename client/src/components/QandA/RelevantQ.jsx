@@ -7,18 +7,27 @@ class RelevantQ extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: 2
+      count: 2,
     };
-    console.log(this.props.question)
+  }
+
+  componentDidMount() {
+    let questionId = this.props.question.question_id;
+    let params = `?question_id=${questionId}`;
+
+    Parse.getAll(`qa/questions/${questionId}/answers`, params)
+      .then((answers) => {
+        let results = answers.data;
+        console.log(results);
+      })
   }
 
   render() {
-
-
+    let question = this.props.question.question_body;
 
     return(
       <div className='question'>
-        <h3>Q: {this.props.question.question_body}
+        <h3>Q: {question}
           <span>
             Helpful? <button><u> Yes </u></button> ({this.props.question.question_helpfulness}) | <button><u> Add Answer </u></button>
           </span>
