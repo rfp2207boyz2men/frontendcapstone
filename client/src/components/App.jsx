@@ -10,6 +10,7 @@ import { TiStarFullOutline, TiStarHalfOutline, TiStarOutline } from 'react-icons
 import { GiTriquetra } from 'react-icons/gi'
 import { OrbitSpinner } from 'react-epic-spinners';
 import { BsSearch } from 'react-icons/bs'
+import QandA from './QandA/QandA.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -22,7 +23,6 @@ class App extends React.Component {
       cart: [],
       qanda: [],
       interactions: [],
-      selectedProduct: '',
       loading: false
     };
   }
@@ -48,12 +48,14 @@ class App extends React.Component {
         this.retrieveStorage();
       })
       .catch((err) => console.log(err));
-
+  }
+  //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/productsundefined
+  //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews:40348?count=10
 
 
     //If desired, can set default to the first product (which may be hardcoded)
     // this.updateSelectedProduct(40344);
-  }
+
 
   unloadComponents = (product_id) => {
     this.setState({ loading: false }, () => this.SelectedProduct(product_id))
@@ -79,7 +81,8 @@ class App extends React.Component {
       .catch((err) => {
         console.log(err)
       })
-  };
+  }
+
 
   retrieveStorage() {
     const storage = { ...localStorage };
@@ -116,7 +119,6 @@ class App extends React.Component {
     }
     return stars;
   };
-
   //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/?product_id=40344
   //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/?product_id=40344&count=10
 
@@ -136,7 +138,9 @@ class App extends React.Component {
             <Related selectedProduct={this.state.selectedProduct}/>
           </div>
           <div>
-            <>Paul</>
+            <QandA
+              selectedProduct={this.state.selectedProduct}
+            />
           </div>
           <div>
             <Reviews
