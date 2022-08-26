@@ -9,7 +9,7 @@ class QandA extends React.Component {
     super(props);
     this.state = {
       questions: [],
-      count: 4,
+      count: 2,
       questionQuery: '',
       showMore: false
     };
@@ -45,28 +45,38 @@ class QandA extends React.Component {
 
 
   render() {
+    let questionList;
+
+    if(this.state.showMore) {
+      questionList = this.state.questions.map(question =>
+        <RelevantQ key={question.question_id} question={question} />)
+    } else {
+      questionList = this.state.questions.slice(0, this.state.count).map(question =>
+        <RelevantQ key={question.question_id} question={question} />
+      )
+    }
 
     return(
-      <div className='questions'>
+      <div className='qnda'>
         <h2 className='qanda-heading'>QUESTIONS AND ANSWERS</h2>
-        <div>
-          <form>
-            <input
-              type='search'
-              placeholder='Have a question? Search for answers...'
-              name='questionQuery'
-              onChange={this.handleChange}
-            />
-            <BiSearch />
-          </form>
-        </div>
-        <div className='question-list'>
-          {this.state.questions.slice(0, this.state.count).map(question => (
-            <RelevantQ key={question.question_id} question={question} />
-          ))}
-        </div>
-        <button onClick={this.handleShowMore}>{this.state.showMore ? 'Show Less' : 'More Answered Questions'}</button>
-        <button> Add a Question + </button>
+          {this.state.questions.length &&
+          <div className='question-body'>
+
+            <form>
+              <input
+                type='search'
+                placeholder='Have a question? Search for answers...'
+                name='questionQuery'
+                onChange={this.handleChange}
+              />
+              <BiSearch />
+            </form>
+            <div className='question-list'>
+              {questionList}
+            </div>
+            <button onClick={this.handleShowMore}>{this.state.showMore ? 'Show Less' : 'More Answered Questions'}</button>
+          </div>}
+          <button> Add a Question + </button>
       </div>
     );
   }

@@ -1,5 +1,12 @@
+/*
+  MAIN
+*/
+
 body {
-  border: 1px solid red;
+  width: 1400px;
+  font-family: 'Noto Sans', sans-serif;
+  font-size: small;
+  margin: auto;
 }
 
 .header {
@@ -7,4 +14,110 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 20px;
+}
+
+.spinner {
+  margin-left: 50%;
+  margin-top: 25%;
+  height: 250px;
+  width: 250px;
+}
+
+.logoheader {
+  width: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.logo {
+  margin-top: 10px;
+  font-size: 50px;
+  color: teal;
+}
+
+.logotext {
+  font-size: 20px;
+}
+
+.search {
+  width: 800px;
+  border-radius: 10px;
+  margin-top: 5px;
+  height: 30px;
+  margin-right: 50px;
+  border-style: none;
+  background-color:whitesmoke;
+  padding: 5px;
+}
+
+/*
+  Related Items
+*/
+
+.relatedSection {
+  height: 350px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.related {
+  height: 350px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+/*
+  Product Cards
+*/
+
+.productCard {
+  border: 1px solid black;
+  width: 255px;
+  height: 350px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.productCardImg {
+  width: 255px;
+  height: 255px;
+  position: relative;
+}
+
+.productImages {
+  width: 255px;
+  height: 255px;
+}
+
+.productCardDesc {
+  padding-left: 10px;
+  padding-top: 10px;
+  width: 255px;
+  height: 50px;
+}
+
+.productCardRating {
+  padding-left: 10px;
+  padding-top: 10px;
+  width: 255px;
+}
+
+.starCard {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  font-size: 25px;
+  color:teal;
+}
+
+.cardCat, .cardName, .cardPrice {
+  padding: 1px;
+}
+
+.cardPrice {
+  font-size: small;
+  font-weight: lighter;
 }
