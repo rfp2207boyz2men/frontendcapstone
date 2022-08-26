@@ -21,6 +21,9 @@ class App extends React.Component {
     this.state = {
       products: [],
       outfits: [],
+      styles: [],
+      localName: 'No style selected',
+      localId: 0,
       reviewsData: [],
       reviews: [],
       cart: [],
@@ -28,6 +31,9 @@ class App extends React.Component {
       interactions: [],
       loading: false
     };
+
+    this.handleLocalClick = this.handleLocalClick.bind(this);
+    this.handleLocalSave = this.handleLocalSave.bind(this);
   }
 
   componentDidMount() {
@@ -49,8 +55,10 @@ class App extends React.Component {
       })
       .then(() => {
         this.retrieveStorage();
+        this.retrieveStyles();
       })
       .catch((err) => console.log(err));
+
   }
   //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/productsundefined
   //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews:40348?count=10
@@ -86,6 +94,16 @@ class App extends React.Component {
       })
   }
 
+  retrieveStyles() {
+    let state = {};
+    let params = `${this.state.selectedProduct.id}/styles`;
+
+    Parse.getAll(`products/`, params)
+    .then((styles) => {
+      state.styles = styles.data.results;
+      return this.setState(state);
+    })
+  }
 
   retrieveStorage() {
     const storage = { ...localStorage };
@@ -95,6 +113,28 @@ class App extends React.Component {
       })
     }
   }
+
+  handleLocalClick(e) {
+    e.preventDefault();
+    this.setState({
+      localName: e.target.name,
+      localId: parseInt(e.target.id),
+    })
+  }
+
+
+  handleLocalSave(e) {
+    e.preventDefault();
+      let styleObj = this.state.styles.filter((style => {
+        return style.style_id === this.state.localId;
+      }));
+
+      if (!localStorage.getItem(this.state.localName)) {
+        const jsonObj = JSON.stringify(styleObj);
+        localStorage.setItem(this.state.localId, jsonObj);
+        console.log('item saved in localStorage');
+      }
+   }
 
   // Not tested yet, why are event not firing??
    removeStorage (e) {
@@ -138,7 +178,12 @@ class App extends React.Component {
             </div>
           </div>
           <div>
-            <Overview selectedProduct={this.state.selectedProduct}/>
+            <Overview selectedProduct={this.state.selectedProduct}
+            styles={this.state.styles}
+            localName={this.state.localName}
+            handleLocalClick={this.handleLocalClick}
+            handleLocalSave={this.handleLocalSave}
+            />
           </div>
           <div className='relatedSection'>
             <Related selectedProduct={this.state.selectedProduct}/>
