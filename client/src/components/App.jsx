@@ -4,6 +4,7 @@ import { FaBeer } from 'react-icons/fa';
 import Parse from '../parse.js';
 import axios from 'axios';
 import Related from './RelatedAndComp/Related.jsx';
+import Overview from './ProductDetail/Overview.jsx';
 import Reviews from './Reviews/Reviews.jsx';
 import { TiStarFullOutline, TiStarHalfOutline, TiStarOutline } from 'react-icons/ti';
 import { GiTriquetra } from 'react-icons/gi'
@@ -15,6 +16,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       products: [],
+      outfits: [],
       reviewsData: [],
       reviews: [],
       cart: [],
@@ -42,9 +44,12 @@ class App extends React.Component {
         state.reviews = reviews.data.results;
         return this.setState(state);
       })
-      .catch((err) => {
-        console.log(err)
+      .then(() => {
+        this.retrieveStorage();
       })
+      .catch((err) => console.log(err));
+
+
 
     //If desired, can set default to the first product (which may be hardcoded)
     // this.updateSelectedProduct(40344);
@@ -76,6 +81,26 @@ class App extends React.Component {
       })
   };
 
+  retrieveStorage() {
+    const storage = { ...localStorage };
+    for (let key in storage) {
+      this.setState({
+        outfits: [...this.state.outfits, JSON.parse(storage[key])]
+      })
+    }
+  }
+
+  // Not tested yet, why are event not firing??
+   removeStorage (e) {
+    localStorage.removeItem(e.target.id);
+    this.setState(outfits =>
+      this.state.outfits.filter(outfit => {
+        return outfit.style_id !== e.target.id;
+      }),
+    );
+  };
+
+
   renderStars = (rating) => {
     let ratingCopy = rating;
     let stars = [];
@@ -105,7 +130,7 @@ class App extends React.Component {
             <div><input className="search" placeholder="Search"></input></div>
           </div>
           <div>
-            <>Manuel</>
+            <Overview selectedProduct={this.state.selectedProduct}/>
           </div>
           <div className = 'relatedSection'>
             <Related selectedProduct={this.state.selectedProduct}/>
