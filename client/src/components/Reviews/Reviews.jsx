@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Parse from '../../parse.js';
+import List from './List.jsx';
 import Tile from './Tile.jsx';
 import SideBar from './SideBar.jsx';
 import './ReviewsStyles.css';
@@ -11,6 +12,7 @@ class Reviews extends React.Component {
     this.state = {
       reviewsShowClick: 2,
       reviewsSlice: [],
+      ratings: [],
       totalReviews: 0,
       averageRating: 0,
       ratingPercentages: [],
@@ -42,6 +44,7 @@ class Reviews extends React.Component {
         let totalRecommendations = parseInt(recommendations.false) + parseInt(recommendations.true);
         let averageRecommended = ((parseInt(recommendations.true) / totalRecommendations) * 100);
 
+        state.ratings = ratings;
         state.averageRating = averageRatingTotal.toFixed(1);
         state.ratingPercentages = ratingPercentages;
         state.averageRecommended = averageRecommended.toFixed(0);
@@ -70,26 +73,17 @@ class Reviews extends React.Component {
         ?<div className='reviewMain'>
           <SideBar
             renderStars = {this.props.renderStars}
+            ratings = {this.state.ratings}
             averageRating = {this.state.averageRating}
             ratingPercentages = {this.state.ratingPercentages}
             averageRecommended = {this.state.averageRecommended}
             characteristics = {this.state.characteristics}
           />
-          <div className='reviewList'>
-            {this.props.reviews.map((review, index) => (
-              <Tile
-                review = {review}
-                key = {index}
-                index = {index}
-                renderStars = {this.props.renderStars}
-              />
-            ))}
-          </div>
-          <div className='reviewExpandButtonSection'>
-            {this.props.reviews.length - this.state.reviewsShowClick > 2
-            && <button className='reviewExpandButton'>MORE REVIEWS</button>}
-            <button style={widenAdd} className='reviewExpandButton'>ADD A REVIEW +</button>
-          </div>
+          <List
+            reviews = {this.props.reviews}
+            renderStars = {this.props.renderStars}
+            reviewsShowClick = {this.props.reviewsShowClick}
+          />
         </div>
         :<OrbitSpinner color='green' />}
       </div>

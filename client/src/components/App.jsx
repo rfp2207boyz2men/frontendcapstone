@@ -63,7 +63,7 @@ class App extends React.Component {
 
   updateSelectedProduct = (product_id) => {
     let state = {};
-    let params = `?product_id=${product_id}`;
+    let params = `?product_id=${product_id}&count=20`;
 
     Parse.getAll(`products/`, params)
       .then((products) => {
