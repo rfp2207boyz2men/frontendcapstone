@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
+import ReactDOM from 'react-dom';
 import { FaBeer } from 'react-icons/fa';
 import Parse from '../parse.js';
 import axios from 'axios';
 import Related from './RelatedAndComp/Related.jsx';
 import Reviews from './Reviews/Reviews.jsx';
 import { TiStarFullOutline, TiStarHalfOutline, TiStarOutline } from 'react-icons/ti';
-import { AtomSpinner } from 'react-epic-spinners';
+import { GiTriquetra } from 'react-icons/gi'
+import { OrbitSpinner } from 'react-epic-spinners';
+import { BsSearch } from 'react-icons/bs'
 
 class App extends React.Component {
   constructor(props) {
@@ -98,8 +101,8 @@ class App extends React.Component {
         {this.state.loading
          ? <div>
           <div className="header">
-            <div><h1>Odin <FaBeer /></h1></div>
-            <div><input></input></div>
+            <div className="logoheader"><div className="logotext"><h1>Odin</h1></div><div className="logo"><GiTriquetra /></div></div>
+            <div><input className="search" placeholder="Search"></input></div>
           </div>
           <div>
             <>Manuel</>
@@ -118,7 +121,7 @@ class App extends React.Component {
             />
           </div>
         </div>
-        :<AtomSpinner color='green' />
+        : <div className = 'spinner'><OrbitSpinner color='teal' /></div>
         }
       </div>
     )

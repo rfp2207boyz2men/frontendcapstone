@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
+import ReactDOM from 'react-dom';
 import { FaBeer } from 'react-icons/fa';
 import Parse from '../../parse.js';
-import { BiLoaderCircle } from 'react-icons/bi';
+import { OrbitSpinner } from 'react-epic-spinners';
 import { TiStarFullOutline, TiStarOutline } from 'react-icons/ti'
 
 
@@ -12,8 +13,12 @@ class ProductCard extends React.Component {
     this.state = {
       product_info: {},
       product_styles: [],
-      productCardLoad: false
+      productCardLoad: false,
+      mouseStarHover: false
     };
+
+    this.mouseHoverStar = this.mouseHoverStar.bind(this);
+    this.mouseExitStar = this.mouseExitStar.bind(this)
   }
 
   componentDidMount() {
@@ -28,6 +33,14 @@ class ProductCard extends React.Component {
       })
   }
 
+  mouseHoverStar() {
+    this.setState({mouseStarHover: true})
+  }
+
+  mouseExitStar(){
+    this.setState({mouseStarHover: false})
+  }
+
   render() {
     return (
       <div>
@@ -36,7 +49,7 @@ class ProductCard extends React.Component {
       <div className = 'productCard'>
         <div className = 'productCardImg'>
           <img className = 'productImages' src={ this.state.product_styles[0].photos[0].thumbnail_url || `https://via.placeholder.com/150`}/>
-          <div className = "starCard"><TiStarOutline /></div>
+          <div className = "starCard" onMouseEnter={this.mouseHoverStar} onMouseLeave={this.mouseExitStar}>{this.state.mouseStarHover ? <TiStarFullOutline/> : <TiStarOutline />}</div>
         </div>
         <div>
           <div  className = 'productCardDesc'>
@@ -54,7 +67,7 @@ class ProductCard extends React.Component {
         </div>
       </div>
       </div>
-      :<BiLoaderCircle />
+      :<OrbitSpinner color="teal" />
       }
     </div>
     )
