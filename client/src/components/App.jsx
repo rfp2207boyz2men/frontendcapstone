@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { FaBeer } from 'react-icons/fa';
 import Parse from '../parse.js';
 import axios from 'axios';
+import Overview from './ProductDetail/Overview.jsx';
 import Reviews from './Reviews/Reviews.jsx';
 import { TiStarFullOutline, TiStarHalfOutline, TiStarOutline } from 'react-icons/ti';
 // import { BiLoaderCircle } from 'react-icons/bi';
@@ -70,6 +71,11 @@ class App extends React.Component {
       .catch((err) => console.log(err));
   };
 
+  handleSave(e) {
+    e.preventDefault();
+    console.log('working');
+  }
+
   renderStars = (rating) => {
     let ratingCopy = rating;
     let stars = [];
@@ -99,7 +105,10 @@ class App extends React.Component {
             <div><input></input></div>
           </div>
           <div>
-            <>Manuel</>
+            <Overview
+            selectedProduct={this.state.selectedProduct}
+            handleSave={this.handleSave.bind(this)}
+            />
           </div>
           <div>
             <>Tony</>

@@ -11,6 +11,7 @@ class Overview extends React.Component {
 
     this.state = {
       styles: [],
+      watch: false,
     }
   }
 
@@ -23,15 +24,27 @@ class Overview extends React.Component {
       })
   }
 
+  // handleClick(e) {
+  //   e.preventDefault();
+  //   this.setState({
+  //     watch: true
+  //   })
+  //   console.log('nested btn working')
+  // }
+
   render() {
     return (
       <div>
         <div className='main-container'>
           <ImageGallery />
-          <ProductInformation selectedProduct={this.props.selectedProduct} />
+          <ProductInformation selectedProduct={this.props.selectedProduct}
+          handleClick={this.props.handleSave}/>
         </div>
         <div>
-          <ProductOverview selectedProduct={this.props.selectedProduct} />
+          <ProductOverview
+          selectedProduct={this.props.selectedProduct}
+
+           />
         </div>
       </div>
     )

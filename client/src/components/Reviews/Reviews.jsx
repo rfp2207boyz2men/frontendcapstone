@@ -92,7 +92,6 @@ export default Reviews;
 
 /*
 Display list of reviews
-
 */
 
 /*
@@ -129,3 +128,4 @@ Display list of reviews
     }
 }
 */
+
