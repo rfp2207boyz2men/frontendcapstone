@@ -14,6 +14,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       products: [],
+      outfits: [],
       reviewsData: [],
       reviews: [],
       cart: [],
@@ -22,8 +23,6 @@ class App extends React.Component {
       selectedProduct: '',
       loading: false
     };
-
-    this.retrieveStorage = this.retrieveStorage.bind(this);
   }
 
   componentDidMount() {
@@ -42,6 +41,9 @@ class App extends React.Component {
         state.reviewsData = reviews.data;
         state.reviews = reviews.data.results;
         return this.setState(state);
+      })
+      .then(() => {
+        this.retrieveStorage();
       })
       .catch((err) => console.log(err));
 
@@ -76,9 +78,24 @@ class App extends React.Component {
   };
 
   retrieveStorage() {
-    const str = localStorage.getItem('styles');
-    return JSON.parse(str);
+    const storage = { ...localStorage };
+    for (let key in storage) {
+      this.setState({
+        outfits: [...this.state.outfits, JSON.parse(storage[key])]
+      })
+    }
   }
+
+  // Not tested yet, why are event not firing??
+   removeStorage (e) {
+    localStorage.removeItem(e.target.id);
+    this.setState(outfits =>
+      this.state.outfits.filter(outfit => {
+        return outfit.style_id !== e.target.id;
+      }),
+    );
+  };
+
 
   renderStars = (rating) => {
     let ratingCopy = rating;
@@ -109,8 +126,7 @@ class App extends React.Component {
             <div><input></input></div>
           </div>
           <div>
-            <Overview selectedProduct={this.state.selectedProduct}
-            retrieveStorage={this.retrieveStorage}/>
+            <Overview selectedProduct={this.state.selectedProduct}/>
           </div>
           <div>
             <>Tony</>

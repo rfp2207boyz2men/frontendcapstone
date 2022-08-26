@@ -12,20 +12,14 @@ class Overview extends React.Component {
     this.state = {
       styles: [],
       currentProduct: [],
+      test: [],
       watch: false,
     }
   }
 
   componentDidMount () {
     let state = {};
-    let params = `${this.props.selectedProduct.id}`;
-
-
-    Parse.getAll(`products/`, params)
-    .then((product) => {
-      state.currentProduct = product.data;
-      params = `${this.props.selectedProduct.id}/styles`;
-    })
+    let params = `${this.props.selectedProduct.id}/styles`;
 
     Parse.getAll(`products/`, params)
     .then((styles) => {
@@ -33,26 +27,24 @@ class Overview extends React.Component {
       return this.setState(state);
     })
     .then(() =>  {
-      if (!localStorage.getItem('styles')) {
-        this.populateStorage();
-      } else {
-        const data = this.props.retrieveStorage();
-        console.log(data);
-      }
+
+      this.state.styles.forEach((style) => {
+        if (!JSON.stringify(style.photos).includes(null)) {
+          if (localStorage.length < 5 && !localStorage.getItem(style.style_id)) {
+            const jsonObj = JSON.stringify(style);
+            localStorage.setItem(style.style_id, jsonObj);
+          }
+        }
+      })
+
     })
     .catch((err) => console.log(err));
   }
 
-  populateStorage() {
-    const jsonObj = JSON.stringify(this.state.styles);
-    localStorage.setItem('styles', jsonObj);
-  }
-
-
-
-   handleClick () {
-    console.log('test???');
-  }
+  // populateStorage() {
+  //   const jsonObj = JSON.stringify(this.state.styles);
+  //   localStorage.setItem('styles', jsonObj);
+  // }
 
 
   render() {
@@ -60,7 +52,7 @@ class Overview extends React.Component {
       <div>
         <div className='main-container'>
           <ImageGallery />
-          <ProductInformation styles={this.state.styles}/>
+          <ProductInformation selectedProduct={this.props.selectedProduct} styles={this.state.styles}/>
         </div>
         <div>
           <ProductOverview
