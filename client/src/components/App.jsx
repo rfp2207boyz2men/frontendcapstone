@@ -3,6 +3,7 @@ import { FaBeer } from 'react-icons/fa';
 import Parse from '../parse.js';
 import axios from 'axios';
 import QandA from './QandA/QandA.jsx';
+import Overview from './ProductDetail/Overview.jsx';
 import Reviews from './Reviews/Reviews.jsx';
 import { TiStarFullOutline, TiStarHalfOutline, TiStarOutline } from 'react-icons/ti';
 import { AtomSpinner } from 'react-epic-spinners';
@@ -12,6 +13,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       products: [],
+      outfits: [],
       reviewsData: [],
       reviews: [],
       cart: [],
@@ -38,10 +40,15 @@ class App extends React.Component {
         state.reviews = reviews.data.results;
         return this.setState(state);
       })
+      .then(() => {
+        this.retrieveStorage();
+      })
       .catch((err) => console.log(err));
   }
   //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/productsundefined
   //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews:40348?count=10
+
+
 
 
 
@@ -73,6 +80,26 @@ class App extends React.Component {
       .catch((err) => console.log(err));
     };
 
+  retrieveStorage() {
+    const storage = { ...localStorage };
+    for (let key in storage) {
+      this.setState({
+        outfits: [...this.state.outfits, JSON.parse(storage[key])]
+      })
+    }
+  }
+
+  // Not tested yet, why are event not firing??
+   removeStorage (e) {
+    localStorage.removeItem(e.target.id);
+    this.setState(outfits =>
+      this.state.outfits.filter(outfit => {
+        return outfit.style_id !== e.target.id;
+      }),
+    );
+  };
+
+
   renderStars = (rating) => {
     let ratingCopy = rating;
     let stars = [];
@@ -101,7 +128,7 @@ class App extends React.Component {
             <div><input></input></div>
           </div>
           <div>
-            <>Manuel</>
+            <Overview selectedProduct={this.state.selectedProduct}/>
           </div>
           <div>
             <>Tony</>
