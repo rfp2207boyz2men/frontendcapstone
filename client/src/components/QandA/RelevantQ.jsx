@@ -7,25 +7,24 @@ class RelevantQ extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      totalQuestions: [],
-      relevantQuestions: [],
-      questionQuery: ''
+      count: 2
     };
+    console.log(this.props.question)
   }
 
-
-
   render() {
+
+
+
     return(
       <div className='question'>
-        <span>
-          <h3>Q: {this.props.question.question_body}</h3>
-          <p>
-              Helpful? <button><u> Yes </u></button> ({this.props.question.question_helpfulness}) | <button><u> Add Answer </u></button>
-          </p>
-        </span>
+        <h3>Q: {this.props.question.question_body}
+          <span>
+            Helpful? <button><u> Yes </u></button> ({this.props.question.question_helpfulness}) | <button><u> Add Answer </u></button>
+          </span>
+        </h3>
         <div className ='answer-list'>
-          {/* <Answers answers={this.props.questions.answers} /> */}
+          {this.props.question.answers !== {} && (<Answers answers={this.props.question.answers} qId={this.props.question.question_id}/>)}
         </div>
       </div>
     );

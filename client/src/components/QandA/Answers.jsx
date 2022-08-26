@@ -6,30 +6,24 @@ class Answers extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      totalQuestions: [],
-      relevantQuestions: [],
-      questionQuery: ''
+
     };
   }
 
+  componentDidMount() {
+    console.log(this.props.qId);
+    console.log(this.props.answers);
+  }
 
 
   render() {
+    let qId = this.props.qId;
+
     return(
-      <div className='questions'>
-        <h4 className='qanda-heading'>QUESTIONS AND ANSWERS</h4>
-        <div>
-          <form>
-            <input
-              type='search'
-              placeholder='Have a question? Search for answers...'
-              name='questionQuery'
-            />
-            <button type='submit'>
-              <BiSearch />
-            </button>
-          </form>
-        </div>
+      <div className='answer-list'>
+        <h3> A:
+
+        </h3>
       </div>
     );
   }

@@ -10,9 +10,23 @@ class QandA extends React.Component {
     this.state = {
       questions: [],
       count: 4,
-      questionQuery: ''
+      questionQuery: '',
+      showMore: false
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleShowMore = this.handleShowMore.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({
+      questionQuery: event.target.value
+    });
+  }
+
+  handleShowMore() {
+    this.setState({
+      showMore: !this.state.showMore
+    });
   }
 
   componentDidMount() {
@@ -20,21 +34,18 @@ class QandA extends React.Component {
     Parse.getAll(`qa/questions`, params)
       .then((questions) => {
         let results = questions.data.results;
-        results.sort((a,b) => b.question_helpfulness - a.question_helpfulness);
+        return results.sort((a,b) => b.question_helpfulness - a.question_helpfulness);
+      })
+      .then((results) => {
         this.setState({
           questions: results
-        });
-        console.log(this.state.questions);
+        })
       })
   }
 
-  handleChange(event) {
-    this.setState({
-      questionQuery: event.target.value
-    })
-  }
 
   render() {
+
     return(
       <div className='questions'>
         <h2 className='qanda-heading'>QUESTIONS AND ANSWERS</h2>
@@ -46,16 +57,16 @@ class QandA extends React.Component {
               name='questionQuery'
               onChange={this.handleChange}
             />
-            <button type='submit'>
-              <BiSearch />
-            </button>
+            <BiSearch />
           </form>
         </div>
         <div className='question-list'>
-          {this.state.questions.map(question => (
-            <RelevantQ question={question} />
+          {this.state.questions.slice(0, this.state.count).map(question => (
+            <RelevantQ key={question.question_id} question={question} />
           ))}
         </div>
+        <button onClick={this.handleShowMore}>{this.state.showMore ? 'Show Less' : 'More Answered Questions'}</button>
+        <button> Add a Question + </button>
       </div>
     );
   }
