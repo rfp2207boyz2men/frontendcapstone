@@ -9,24 +9,27 @@ class imageGallery extends React.Component {
     super(props)
 
     this.state = {
-
     }
+
+
   }
+
 
 
   render() {
     return (
       <div className='image-container'>
         <div className='g-container'>
-          <GalleryEntry />
-          <GalleryEntry />
-          <GalleryEntry />
-          <GalleryEntry />
-          <GalleryEntry />
+
+          {this.props.styles.map(style => {
+            for (let i = 0; i < 5; i++) {
+              return <GalleryEntry key={style.style_id} pic={style.photos} />
+            }
+          })}
           <TiArrowSortedDown className='arrow' />
         </div>
         <div>
-          <ProductView />
+          <ProductView styles={this.props.styles} />
         </div>
       </div>
     )

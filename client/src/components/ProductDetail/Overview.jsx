@@ -12,47 +12,21 @@ class Overview extends React.Component {
     this.state = {
       styles: [],
       currentProduct: [],
-      test: [],
-      watch: false,
     }
   }
 
   componentDidMount () {
-    let state = {};
-    let params = `${this.props.selectedProduct.id}/styles`;
-
-    Parse.getAll(`products/`, params)
-    .then((styles) => {
-      state.styles = styles.data.results;
-      return this.setState(state);
-    })
-    .then(() =>  {
-
-      this.state.styles.forEach((style) => {
-        if (!JSON.stringify(style.photos).includes(null)) {
-          if (localStorage.length < 5 && !localStorage.getItem(style.style_id)) {
-            const jsonObj = JSON.stringify(style);
-            localStorage.setItem(style.style_id, jsonObj);
-          }
-        }
-      })
-
-    })
-    .catch((err) => console.log(err));
   }
-
-  // populateStorage() {
-  //   const jsonObj = JSON.stringify(this.state.styles);
-  //   localStorage.setItem('styles', jsonObj);
-  // }
-
 
   render() {
     return (
       <div>
         <div className='main-container'>
-          <ImageGallery />
-          <ProductInformation selectedProduct={this.props.selectedProduct} styles={this.state.styles}/>
+          <ImageGallery styles={this.props.styles} />
+          <ProductInformation selectedProduct={this.props.selectedProduct} styles={this.props.styles}
+          localName={this.props.localName}
+          handleLocalClick={this.props.handleLocalClick}
+          handleLocalSave={this.props.handleLocalSave}/>
         </div>
         <div>
           <ProductOverview
