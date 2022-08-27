@@ -1,6 +1,7 @@
-/*
+/*******************
   MAIN DIVS
-*/
+********************/
+
 .reviewMain {
   display: flex;
   flex-direction: column;
@@ -31,8 +32,12 @@
   overflow-y: auto;
 }
 
-/*
+/*******************
   SIDE BAR
+********************/
+
+/*
+  AVERAGE RATING
 */
 
 .averageRating {
@@ -40,7 +45,16 @@
   border: 1px solid gray;
 }
 
+/*
+  RECOMMENDATIONS
+*/
+
+/*
+  RATING BREAKDOWNS
+*/
+
 .ratingBreakdown {
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -52,30 +66,80 @@
 .reviewBarSection {
   display: flex;
   flex-direction: row;
+  width: inherit;
   border: 1px solid rgb(65, 65, 65);
 }
 
+.reviewBarSection:hover {
+  cursor: pointer;
+  background-color: rgb(216, 207, 207);
+  transition: 0.3s;
+}
+
 .reviewBarLabel {
-  width: 80px;
+  width: 50px;
+  margin-right: 10px;
 }
 
 .reviewBar {
   height: 10px;
+  width: 300px;
   margin-top: 30px;
   /* background-color: pink; */
   /* border: 2px solid red; */
 }
 
-.reviewExpandButtonSection {
-  margin-top: 20px;
+/*
+  CHARACTERISTICS
+*/
+
+.reviewCharacteristicSection {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 400px;
+  border: 2px solid black;
 }
 
-/*
+.reviewCharacteristicLabel {
+  height: 10px;
+  width: 50px;
+  margin-right: 10px;
+}
+
+.reviewCharacteristicBarSection {
+  display: flex;
+  flex-direction: row;
+}
+
+.reviewCharacteristicBar {
+  height: 10px;
+  /* width: 300px; */
+  background-color: gray;
+  margin: 5px 2px;
+}
+
+.reviewCharacteristicBarLabels {
+  display: flex;
+  flex-direction: row;
+  width: 300px;
+  margin-left: 60px;
+  justify-content: space-between;
+  /* text-align: center; */
+  height: 30px;
+  /* font-size: 30px; */
+}
+
+
+
+/**********************
   REVIEW LIST
-*/
+***********************/
 
 .reviewTile {
   /* background-color: red; */
+  height: 200px;
   border-bottom: 1px solid gray;
 }
 
@@ -84,7 +148,12 @@
   width: 80%;
 }
 
+.reviewExpandButtonSection {
+  margin-top: 20px;
+}
+
 .reviewExpandButton {
   height: 60px;
   margin-right: 10px;
 }
+

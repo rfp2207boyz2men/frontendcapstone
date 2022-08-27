@@ -11,30 +11,17 @@ const Breakdowns = (props) => {
       ratingBars.push(
         <div className='reviewBarSection' key={i}>
           <p className='reviewBarLabel'><u>{i+1} stars</u></p>
-          <div style={renderBarSize(i, 'green')} className='reviewGreenBar reviewBar'></div>
-          <div style={renderBarSize(i, 'gray')} className='reviewGrayBar reviewBar'></div>
-          {/* <p>{props.ratingPercentages[i].toFixed(0)}</p>
-          <p>{100 - props.ratingPercentages[i].toFixed(0)}</p> */}
+          <div style={renderBarSize(i)} className='reviewBar'></div>
+          <p>({props.ratings[i+1]})</p>
         </div>
       )
     }
-    console.log(ratingBars);
     return ratingBars;
   }
 
-  let renderBarSize = (index, color) => {
-    let barStyle = { width: '', backgroundColor: '' };
-    //total size of bars should be 300px (tentative)
-    if (color === 'green') {
-      let width = 300 * (props.ratingPercentages[index]/100)
-      barStyle.width = `${width}px`;
-      barStyle.backgroundColor = 'green'
-    } else {
-      let width = 300 * (1 - (props.ratingPercentages[index]/100));
-      barStyle.width = `${width}px`;
-      barStyle.backgroundColor = 'gray';
-    }
-    return barStyle;
+  let renderBarSize = (index) => {
+    let background = {background: `linear-gradient(to right, green, green ${props.ratingPercentages[index]}%, gray ${props.ratingPercentages[index]}%)`};
+    return background;
   };
 
   return (
