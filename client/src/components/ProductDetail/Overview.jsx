@@ -5,37 +5,25 @@ import ImageGallery from './ImageGallery.jsx';
 import ProductInformation from './ProductInformation.jsx';
 import ProductOverview from './ProductOverview.jsx';
 
-class Overview extends React.Component {
-  constructor(props) {
-    super(props)
+function Overview ({ styles, selectedProduct, handleLocalClick, handleLocalSave, localName }) {
 
-    this.state = {
-      styles: [],
-      currentProduct: [],
-    }
-  }
-
-  componentDidMount () {
-  }
-
-  render() {
     return (
       <div>
         <div className='main-container'>
-          <ImageGallery styles={this.props.styles} />
-          <ProductInformation selectedProduct={this.props.selectedProduct} styles={this.props.styles}
-          localName={this.props.localName}
-          handleLocalClick={this.props.handleLocalClick}
-          handleLocalSave={this.props.handleLocalSave}/>
+          <ImageGallery styles={styles} />
+          <ProductInformation selectedProduct={selectedProduct} styles={styles}
+          localName={localName}
+          handleLocalClick={handleLocalClick}
+          handleLocalSave={handleLocalSave}/>
         </div>
         <div>
           <ProductOverview
-          selectedProduct={this.props.selectedProduct}
+          selectedProduct={selectedProduct}
            />
         </div>
       </div>
     )
-  }
+
 }
 
 

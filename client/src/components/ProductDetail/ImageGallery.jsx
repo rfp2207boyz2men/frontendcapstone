@@ -4,24 +4,12 @@ import './overview.css';
 import GalleryEntry from './GalleryEntry.jsx'
 import ProductView from './ProductView.jsx'
 
-class imageGallery extends React.Component {
-  constructor(props) {
-    super(props)
+function imageGallery ({ styles }) {
 
-    this.state = {
-    }
-
-
-  }
-
-
-
-  render() {
     return (
       <div className='image-container'>
         <div className='g-container'>
-
-          {this.props.styles.map(style => {
+          {styles.map(style => {
             for (let i = 0; i < 5; i++) {
               return <GalleryEntry key={style.style_id} pic={style.photos} />
             }
@@ -29,11 +17,11 @@ class imageGallery extends React.Component {
           <TiArrowSortedDown className='arrow' />
         </div>
         <div>
-          <ProductView styles={this.props.styles} />
+          <ProductView styles={styles} />
         </div>
       </div>
     )
-  }
+
 }
 
 
