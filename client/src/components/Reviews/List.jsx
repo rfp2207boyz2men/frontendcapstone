@@ -1,19 +1,44 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Tile from './Tile.jsx';
+import Parse from '../../parse.js';
+import { OrbitSpinner } from 'react-epic-spinners';
 
 class List extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      reviews: [],
+      showAmount: 2,
+      initialized: false
     };
+  }
+
+  componentDidMount() {
+    console.log(this.state);
+    this.getReviews()
+  }
+
+  handleShowMore = () => {
+
+  };
+
+  getReviews = () => {
+    let params = `?product_id=${this.props.selectedProduct.id}&count=${this.state.showAmount}`;
+    Parse.getAll(`reviews/`, params)
+    .then((reviews) => {
+      return this.setState({
+        reviews: reviews.data.results,
+        initialized: true
+      })
+    })
   }
 
   render() {
     return (
       <div className='reviewsMainBar'>
-        <div className='reviewList'>
-          {this.props.reviews.map((review, index) => (
+        {this.state.initialized
+        ?<div><div className='reviewList'>
+          {this.state.reviews.map((review, index) => (
             <Tile
               review = {review}
               key = {index}
@@ -23,10 +48,11 @@ class List extends React.Component {
           ))}
         </div>
         <div className='reviewExpandButtonSection'>
-          {this.props.reviews.length - this.state.reviewsShowClick > 2
+          {this.state.reviews.length
           && <button className='reviewExpandButton'>MORE REVIEWS</button>}
           <button  className='reviewExpandButton'>ADD A REVIEW +</button>
-        </div>
+        </div></div>
+        :<OrbitSpinner color='green'/>}
       </div>
     )
   }

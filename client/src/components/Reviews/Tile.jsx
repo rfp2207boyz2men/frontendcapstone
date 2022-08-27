@@ -13,6 +13,7 @@ const List = (props) => {
   // };
 
   let renderName = () => {
+    console.log(props.review);
     let name = props.review.reviewer_name;
     // let date = props.review.date;
     let date = moment(props.review.date).format('MMM DD[,] YYYY');
