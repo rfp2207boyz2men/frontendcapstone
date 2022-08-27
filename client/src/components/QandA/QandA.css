@@ -1,0 +1,16 @@
+/*
+
+*/
+
+.qanda {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 10px;
+  width: auto;
+  height: auto;
+  border: 2px solid black;
+}
+
+.qanda-search {
+  display: flex;
+}

@@ -3,6 +3,7 @@ import { BiSearch } from 'react-icons/bi';
 import Parse from '../../parse.js';
 import axios from 'axios';
 import RelevantQ from './RelevantQ.jsx'
+import './QandA.css';
 
 class QandA extends React.Component {
   constructor(props) {
@@ -57,13 +58,14 @@ class QandA extends React.Component {
     }
 
     return(
-      <div className='qnda'>
+      <div className='qanda'>
         <h2 className='qanda-heading'>QUESTIONS AND ANSWERS</h2>
           {this.state.questions.length &&
           <div className='question-body'>
 
             <form>
               <input
+                className= 'qanda-search'
                 type='search'
                 placeholder='Have a question? Search for answers...'
                 name='questionQuery'
