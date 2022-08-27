@@ -1,16 +1,26 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useState, createContext, useContext } from 'react';
 import Parse from '../../parse.js';
+import { OverviewProvider } from './OverviewContext.js';
 import ImageGallery from './ImageGallery.jsx';
 import ProductInformation from './ProductInformation.jsx';
 import ProductOverview from './ProductOverview.jsx';
 
-function Overview ({ styles, selectedProduct, handleLocalClick, handleLocalSave, localName }) {
+function Overview ({ selectedProduct, handleLocalClick, handleLocalSave, localName }) {
 
-    return (
+  useEffect(() => {
+    let params = `${selectedProduct.id}/styles`;
+    Parse.getAll(`products/`, params)
+    .then((stylesData) => {
+      setStyles(stylesData.data);
+    })
+  }, [])
+
+  return (
+    <OverviewProvider>
       <div>
         <div className='main-container'>
-          <ImageGallery styles={styles} />
+          <ImageGallery selectedProduct={selectedProduct} />
           <ProductInformation selectedProduct={selectedProduct} styles={styles}
           localName={localName}
           handleLocalClick={handleLocalClick}
@@ -19,9 +29,10 @@ function Overview ({ styles, selectedProduct, handleLocalClick, handleLocalSave,
         <div>
           <ProductOverview
           selectedProduct={selectedProduct}
-           />
+          />
         </div>
       </div>
+    </OverviewProvider>
     )
 
 }

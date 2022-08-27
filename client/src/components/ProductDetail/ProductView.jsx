@@ -1,17 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TiArrowLeftThick, TiArrowRightThick } from 'react-icons/ti';
 import { TiArrowMaximise } from 'react-icons/ti';
 
-function ProductView ({ styles }) {
+function ProductView ({ styles, selectedStyle }) {
+ const [stylesList, setStyles] = useState([]);
+
   return (
-    <div>
-      <div className='pv-container'>
-        <TiArrowLeftThick className='arrow' />
-        <img src="https://via.placeholder.com/500" alt="Product description"></img>
-        <TiArrowRightThick className='arrow' />
-        <TiArrowMaximise className='expand' />
-      </div>
-    </div>
+    <div></div>
   )
 }
 

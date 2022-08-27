@@ -21,6 +21,7 @@ class App extends React.Component {
       styles: [],
       localName: 'No style selected',
       localId: 0,
+      selectedStyle: [],
       reviewsData: [],
       reviews: [],
       cart: [],
@@ -113,18 +114,20 @@ class App extends React.Component {
 
   handleLocalClick(e) {
     e.preventDefault();
+
     this.setState({
       localName: e.target.name,
       localId: parseInt(e.target.id),
     })
+
   }
+
 
 
   handleLocalSave(e) {
     e.preventDefault();
-      let styleObj = this.state.styles.filter((style => {
-        return style.style_id === this.state.localId;
-      }));
+
+    let styleObj = this.getStyleObj(this.state.localId);
 
       if (!localStorage.getItem(this.state.localName)) {
         const jsonObj = JSON.stringify(styleObj);
@@ -133,15 +136,11 @@ class App extends React.Component {
       }
    }
 
-  // Not tested yet, why are event not firing??
-   removeStorage (e) {
-    localStorage.removeItem(e.target.id);
-    this.setState(outfits =>
-      this.state.outfits.filter(outfit => {
-        return outfit.style_id !== e.target.id;
-      }),
-    );
-  };
+   getStyleObj(id) {
+    return this.state.styles.filter((style => {
+      return style.style_id === id;
+    }));
+  }
 
 
   renderStars = (rating) => {

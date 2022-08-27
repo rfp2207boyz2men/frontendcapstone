@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { render } from 'react-dom';
+import OverviewContext from './OverviewContext.js';
 import Style from './Style.jsx';
 
 function StyleSelector ({styles, localName, handleLocalClick}) {
@@ -12,7 +13,7 @@ function StyleSelector ({styles, localName, handleLocalClick}) {
       </div>
       <div className='style-container'>
         {styles.map(style => {
-          return <Style handleClick={handleLocalClick} key={style.style_id}
+          return <Style handleClick={handleLocalClick} key={style.style_id} obj={style}
            id={style.style_id}
            name={style.name}
            url={style.photos[0].thumbnail_url}
