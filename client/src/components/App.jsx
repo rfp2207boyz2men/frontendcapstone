@@ -25,10 +25,13 @@ class App extends React.Component {
       localName: 'No style selected',
       localId: 0,
       reviewsData: [],
-      reviews: [],
+      metaData: {},
+      averageRating: 0,
+      totalReviews: 0,
       cart: [],
       qanda: [],
       interactions: [],
+      selectedProduct: '',
       loading: false
     };
 
@@ -41,23 +44,24 @@ class App extends React.Component {
     let state = {};
 
     Parse.getAll(`products/`)
-      .then((products) => {
-        let defaultIndex = Math.floor(Math.random() * products.data.length);
-        state.products = products.data;
-        state.selectedProduct = products.data[defaultIndex];
-        state.loading = true;
-        return Parse.getAll(`reviews/`, `?product_id=${state.selectedProduct.id}`);
-      })
-      .then((reviews) => {
-        state.reviewsData = reviews.data;
-        state.reviews = reviews.data.results;
-        return this.setState(state);
-      })
-      .then(() => {
-        this.retrieveStorage();
-        this.retrieveStyles();
-      })
-      .catch((err) => console.log(err));
+    .then((products) => {
+      let defaultIndex = Math.floor(Math.random() * products.data.length);
+      state.products = products.data;
+      state.selectedProduct = products.data[defaultIndex];
+      state.loading = true;
+      return Parse.getAll(`reviews/meta/`, `?product_id=${state.selectedProduct.id}`);
+    })
+    .then((meta) => {
+      state.metaData = meta.data;
+      state.averageRating = this.getAverageRating(meta.data.ratings)
+      state.totalReviews = this.getTotalRating(meta.data.recommended)
+      return this.setState(state);
+    })
+    .then(() => {
+      this.retrieveStorage();
+      this.retrieveStyles();
+    })
+    .catch((err) => console.log(err));
 
   }
   //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/productsundefined
@@ -66,32 +70,43 @@ class App extends React.Component {
 
     //If desired, can set default to the first product (which may be hardcoded)
     // this.updateSelectedProduct(40344);
+  getAverageRating = (ratings) => {
+    let ratingValues = Object.values(ratings);
+    let totalRatings = ratingValues.reduce((prev, cur) => prev + parseInt(cur), 0);
+    let ratingStrengths = ratingValues.map((rating, index) => rating * (index + 1));
+    let averageRatingTotal = (ratingStrengths.reduce((prev, cur) => prev + cur, 0)) / totalRatings;
+    return averageRatingTotal.toFixed(1);
+  };
 
+  getTotalRating = (recommended) => {
+    let recommendValues = Object.values(recommended);
+    let totalRecommended = recommendValues.reduce((prev, cur) => prev + parseInt(cur), 0);
+    return totalRecommended;
+  };
 
   unloadComponents = (product_id) => {
     this.setState({ loading: false }, () => this.SelectedProduct(product_id))
-  }
+  };
 
   updateSelectedProduct = (product_id) => {
     let state = {};
     let params = `?product_id=${product_id}`;
 
-    Parse.getAll(`products/`, params)
+    Parse.getAll(`products/`)
       .then((products) => {
         let defaultIndex = Math.floor(Math.random() * products.data.length);
         state.products = products.data;
         state.selectedProduct = products.data[defaultIndex];
         state.loading = true;
-        return Parse.getAll(`reviews/`, params);
+        return Parse.getAll(`reviews/meta/`, params);
       })
-      .then((reviews) => {
-        state.reviewsData = reviews.data;
-        state.reviews = reviews.data.results;
+      .then((meta) => {
+        state.metaData = meta.data;
+        state.averageRating = this.getAverageRating(meta.data.ratings)
+        state.totalRating = this.getTotalRating(meta.data.recommended)
         return this.setState(state);
       })
-      .catch((err) => {
-        console.log(err)
-      })
+      .catch((err) => console.log(err));
   }
 
   retrieveStyles() {
@@ -146,7 +161,6 @@ class App extends React.Component {
     );
   };
 
-
   renderStars = (rating) => {
     let ratingCopy = rating;
     let stars = [];
@@ -162,50 +176,48 @@ class App extends React.Component {
     }
     return stars;
   };
-  //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/?product_id=40344
-  //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/?product_id=40344&count=10
 
   render() {
     return (
       <div>
         {this.state.loading
          ? <div className="main">
-          <div className="header">
-            <div className="logoheader"><div className="logotext"><h1>Odin</h1></div><div className="logo"><GiTriquetra /></div></div>
-            <div className="toprightHeader">
-              <div className="searchbar"><input className="search" placeholder="Search"></input><GoSearch/></div>
-              <div className="shoppingBag"><BsBag /></div>
+            <div className="header">
+              <div className="logoheader"><div className="logotext"><h1>Odin</h1></div><div className="logo"><GiTriquetra /></div></div>
+              <div className="toprightHeader">
+                <div className="searchbar"><input className="search" placeholder="Search"></input><GoSearch/></div>
+                <div className="shoppingBag"><BsBag /></div>
+              </div>
             </div>
-          </div>
-          <div>
-            <Overview selectedProduct={this.state.selectedProduct}
-            styles={this.state.styles}
-            localName={this.state.localName}
-            handleLocalClick={this.handleLocalClick}
-            handleLocalSave={this.handleLocalSave}
-            />
-          </div>
-          <div className='relatedSection'>
-            <Related selectedProduct={this.state.selectedProduct}/>
-          </div>
-          <div>
-            <Outfits outfits={this.state.outfits} />
-          </div>
-          <div className="questionsSection">
-            <QandA
-              selectedProduct={this.state.selectedProduct}
-            />
-          </div>
-          <div>
-            <Reviews
-              selectedProduct={this.state.selectedProduct}
-              reviews={this.state.reviews}
-              renderStars={this.renderStars.bind(this)}
-            />
-          </div>
-        </div>
-        : <div className = 'spinner'><OrbitSpinner color='teal' /></div>
-        }
+              <div>
+                <Overview selectedProduct={this.state.selectedProduct}
+                  styles={this.state.styles}
+                  localName={this.state.localName}
+                  handleLocalClick={this.handleLocalClick}
+                  handleLocalSave={this.handleLocalSave}/>
+              </div>
+              <div className = 'relatedSection'>
+                <Related selectedProduct={this.state.selectedProduct}/>
+              </div>
+            <div>
+              <Outfits outfits={this.state.outfits} />
+            </div>
+            <div className="questionsSection">
+              <QandA
+                  selectedProduct={this.state.selectedProduct}
+                />
+            </div>
+            <div>
+              <Reviews
+                selectedProduct={this.state.selectedProduct}
+                totalReviews = {this.state.totalReviews}
+                averageRating = {this.state.averageRating}
+                metaData = {this.state.metaData}
+                renderStars={this.renderStars.bind(this)}/>
+            </div>
+            </div>
+          :<div className="spinner"><OrbitSpinner color='teal'/></div>
+          }
       </div>
     )
   }
