@@ -5,15 +5,7 @@ import { GrCheckmark } from 'react-icons/gr';
 
 const List = (props) => {
 
-  // let renderStars = () => {
-  //   let rating = props.review.rating;
-  //   while (rating > 0) {
-
-  //   }
-  // };
-
   let renderName = () => {
-    console.log(props.review);
     let name = props.review.reviewer_name;
     // let date = props.review.date;
     let date = moment(props.review.date).format('MMM DD[,] YYYY');
