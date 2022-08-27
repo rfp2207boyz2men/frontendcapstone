@@ -37,6 +37,7 @@ class App extends React.Component {
 
     this.handleLocalClick = this.handleLocalClick.bind(this);
     this.handleLocalSave = this.handleLocalSave.bind(this);
+    this.handleOutfitAdds = this.handleOutfitAdds.bind(this);
   }
 
   componentDidMount() {
@@ -177,18 +178,29 @@ class App extends React.Component {
     return stars;
   };
 
+  handleOutfitAdds(outfitData) {
+    this.setState({outfits: [...this.state.outfits, outfitData]})
+    console.log(this.state.outfits)
+  }
+
   render() {
     return (
       <div>
         {this.state.loading
-         ? <div className="main">
-            <div className="header">
-              <div className="logoheader"><div className="logotext"><h1>Odin</h1></div><div className="logo"><GiTriquetra /></div></div>
-              <div className="toprightHeader">
-                <div className="searchbar"><input className="search" placeholder="Search"></input><GoSearch/></div>
-                <div className="shoppingBag"><BsBag /></div>
-              </div>
-            </div>
+         ? <div>
+         <div className="header">
+         <div className="logoheader">
+           <div className="logotext">
+             <h1>Odin</h1>
+           </div>
+           <div className="logo"><GiTriquetra /></div>
+         </div>
+         <div className="toprightHeader">
+           <div className="searchbar"><input className="search" placeholder="Search"></input><GoSearch  className="searchIcon"/></div>
+           <div className="shoppingBag"><BsBag /></div>
+         </div>
+       </div>
+            <div className="main">
               <div>
                 <Overview selectedProduct={this.state.selectedProduct}
                   styles={this.state.styles}
@@ -196,11 +208,11 @@ class App extends React.Component {
                   handleLocalClick={this.handleLocalClick}
                   handleLocalSave={this.handleLocalSave}/>
               </div>
-              <div className = 'relatedSection'>
+              <div className='relatedSection'>
                 <Related selectedProduct={this.state.selectedProduct}/>
               </div>
             <div>
-              <Outfits outfits={this.state.outfits} />
+              <Outfits outfits={this.state.outfits} current={this.state.selectedProduct} outfitAdd={this.handleOutfitAdds}/>
             </div>
             <div className="questionsSection">
               <QandA
@@ -216,6 +228,7 @@ class App extends React.Component {
                 renderStars={this.renderStars.bind(this)}/>
             </div>
             </div>
+          </div>
           :<div className="spinner"><OrbitSpinner color='teal'/></div>
           }
       </div>

@@ -3,19 +3,29 @@
 */
 
 body {
-  width: 1500px;
+  width: 1200px;
   font-family: 'Noto Sans', sans-serif;
   font-size: small;
   margin: auto;
-  border-left: 1px dotted red;
-  border-right: 1px dotted red;
+  /* border-left: 1px dotted red;
+  border-right: 1px dotted red; */
+}
+
+.main {
+  width: 1200px;
+  /* border: 1px dotted blue; */
+  display: flex;
+  flex-direction: column;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 100px;
+  width: 1200px
 }
 
 .spinner {
@@ -34,7 +44,7 @@ body {
 }
 
 .toprightHeader {
-  width: 800px;
+  width: 600px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -43,16 +53,16 @@ body {
 
 .logo {
   margin-top: 10px;
-  font-size: 50px;
+  font-size: 60px;
   color: teal;
 }
 
 .logotext {
-  font-size: 20px;
+  font-size: 25px;
 }
 
 .search {
-  width: 700px;
+  width: 500px;
   margin-top: 5px;
   height: 30px;
   border-style: none;
@@ -62,7 +72,11 @@ body {
 
 .searchbar {
   border-bottom: 1px solid black;
-  padding: 5px;
+  padding: 1px;
+}
+
+.searchIcon {
+  font-size: 20px;
 }
 
 .shoppingBag {
@@ -73,6 +87,7 @@ body {
 
 .star {
   color: teal;
+  font-size: 16px;
 }
 
 /*
@@ -80,9 +95,8 @@ body {
 */
 
 .relatedSection {
-  height: 450px;
-  display: flex;
-  justify-content: space-around;
+  height: 500px;
+  width: 1000px;
 }
 
 .related {
@@ -158,4 +172,39 @@ body {
   width: 1200px;
   height: 400px;
   margin-top: 100px;
+}
+
+/*
+  Outfits
+*/
+
+.plusCardArea {
+  background-color: #cccccc;
+  color: white;
+  height: 300px;
+  width: 255px;
+  position: relative;
+}
+
+.plusCardArea:hover {
+  background-color: teal;
+  color: white;
+  height: 300px;
+  width: 255px;
+  position: relative;
+}
+
+.plusSymbol {
+  position: absolute;
+  top: 42%;
+  left: 42%;
+  font-size: 50px;
+}
+
+.plusSymbolText {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
 }

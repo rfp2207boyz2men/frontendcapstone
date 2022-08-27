@@ -11,8 +11,6 @@ class OutfitCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      product_info: {},
-      product_styles: [],
       productCardLoad: false,
       mouseStarHover: false
     };
@@ -40,7 +38,7 @@ class OutfitCard extends React.Component {
        ?
         <div className = 'productCard'>
         <div className = 'productCardImg'>
-          <img className = 'productImages' src={ this.state.product_styles[0].photos[0].thumbnail_url || `https://via.placeholder.com/150`}/>
+          <img className = 'productImages' src={ this.props.products.product_styles[0].photos[0].thumbnail_url || `https://via.placeholder.com/150`}/>
           <div className = "starCard" onMouseEnter={this.mouseHoverStar} onMouseLeave={this.mouseExitStar}>{this.state.mouseStarHover ? <TiStarFullOutline/> : <TiStarOutline />}</div>
         </div>
         <div>
@@ -58,7 +56,7 @@ class OutfitCard extends React.Component {
           </div>
         </div>
       </div>
-      : <OrbitSpinner color="teal" />
+      : null
       }
     </div>
     )
