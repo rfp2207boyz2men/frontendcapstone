@@ -12,7 +12,7 @@ const Breakdowns = (props) => {
         <div className='reviewBarSection' key={i}>
           <p className='reviewBarLabel'><u>{i+1} stars</u></p>
           <div style={renderBarSize(i)} className='reviewBar'></div>
-          <p>({props.ratings[i]})</p>
+          <p>({props.ratings[i+1]})</p>
         </div>
       )
     }

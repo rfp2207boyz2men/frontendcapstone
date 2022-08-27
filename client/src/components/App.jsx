@@ -16,7 +16,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: [],
+      // products: [],
       outfits: [],
       styles: [],
       localName: 'No style selected',
@@ -28,7 +28,7 @@ class App extends React.Component {
       cart: [],
       qanda: [],
       interactions: [],
-      selectedProduct: '',
+      selectedProduct: {},
       loading: false
     };
 
@@ -38,36 +38,15 @@ class App extends React.Component {
 
   componentDidMount() {
     //Default to a random product
-    let state = {};
-
     Parse.getAll(`products/`)
     .then((products) => {
       let defaultIndex = Math.floor(Math.random() * products.data.length);
-      state.products = products.data;
-      state.selectedProduct = products.data[defaultIndex];
-      state.loading = true;
-      return Parse.getAll(`reviews/meta/`, `?product_id=${state.selectedProduct.id}`);
+      return this.updateSelectedProduct(products.data[defaultIndex].id);
     })
-    .then((meta) => {
-      state.metaData = meta.data;
-      state.averageRating = this.getAverageRating(meta.data.ratings)
-      state.totalReviews = this.getTotalRating(meta.data.recommended)
-      return this.setState(state);
-    })
-    .then(() => {
-      this.retrieveStorage();
-      this.retrieveStyles();
-    })
-    .catch((err) => console.log(err));
-
   }
-  //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/productsundefined
-  //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews:40348?count=10
 
-
-    //If desired, can set default to the first product (which may be hardcoded)
-    // this.updateSelectedProduct(40344);
   getAverageRating = (ratings) => {
+    //Get average rating through gpa style math
     let ratingValues = Object.values(ratings);
     let totalRatings = ratingValues.reduce((prev, cur) => prev + parseInt(cur), 0);
     let ratingStrengths = ratingValues.map((rating, index) => rating * (index + 1));
@@ -75,32 +54,38 @@ class App extends React.Component {
     return averageRatingTotal.toFixed(1);
   };
 
-  getTotalRating = (recommended) => {
+  getTotalReviews = (recommended) => {
+    //Get total amount of reviews by adding yes + no recommendations
     let recommendValues = Object.values(recommended);
     let totalRecommended = recommendValues.reduce((prev, cur) => prev + parseInt(cur), 0);
     return totalRecommended;
   };
 
   unloadComponents = (product_id) => {
-    this.setState({ loading: false }, () => this.SelectedProduct(product_id))
+    this.setState({ loading: false }, () => this.updateSelectedProduct(product_id))
   };
-
+  // IF YOU WANT TO UPDATE SELECTED PRODUCT, USE ^ unloadComponents ^
+  // DO NOT CALL updateSelectedProduct DIRECTLY
+  //   IT WON'T REFRESH THE WIDGITS
   updateSelectedProduct = (product_id) => {
     let state = {};
     let params = `?product_id=${product_id}`;
 
-    Parse.getAll(`products/`)
-      .then((products) => {
-        let defaultIndex = Math.floor(Math.random() * products.data.length);
-        state.products = products.data;
-        state.selectedProduct = products.data[defaultIndex];
-        state.loading = true;
+    Parse.getAll(`products/`, product_id)
+      .then((product) => {
+        state.selectedProduct = product.data;
         return Parse.getAll(`reviews/meta/`, params);
       })
       .then((meta) => {
         state.metaData = meta.data;
         state.averageRating = this.getAverageRating(meta.data.ratings)
-        state.totalRating = this.getTotalRating(meta.data.recommended)
+        state.totalReviews = this.getTotalReviews(meta.data.recommended)
+        return state.loading = true;
+      })
+      .then(() => {
+        //Consider refactoring these two functions to only have to update state once (preferably with the this.setState already here)
+        this.retrieveStorage();
+        this.retrieveStyles();
         return this.setState(state);
       })
       .catch((err) => console.log(err));
@@ -180,7 +165,7 @@ class App extends React.Component {
         {this.state.loading
         ?<div>
           <div className="header">
-            <div><h1>Odin <FaBeer /></h1></div>
+            <div><h1>Odin <GiTriquetra /></h1></div>
             <div><input></input></div>
           </div>
           <div>
