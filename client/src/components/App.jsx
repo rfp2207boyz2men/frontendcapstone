@@ -80,13 +80,13 @@ class App extends React.Component {
         state.metaData = meta.data;
         state.averageRating = this.getAverageRating(meta.data.ratings)
         state.totalReviews = this.getTotalReviews(meta.data.recommended)
-        return state.loading = true;
+        state.loading = true;
+        return this.setState(state);
       })
       .then(() => {
         //Consider refactoring these two functions to only have to update state once (preferably with the this.setState already here)
         this.retrieveStorage();
         this.retrieveStyles();
-        return this.setState(state);
       })
       .catch((err) => console.log(err));
   }
@@ -189,10 +189,11 @@ class App extends React.Component {
           <div>
             <Reviews
               selectedProduct={this.state.selectedProduct}
-              totalReviews = {this.state.totalReviews}
-              averageRating = {this.state.averageRating}
-              metaData = {this.state.metaData}
+              totalReviews={this.state.totalReviews}
+              averageRating={this.state.averageRating}
+              metaData={this.state.metaData}
               renderStars={this.renderStars.bind(this)}
+              productName={this.state.selectedProduct.name}
             />
           </div>
         </div>

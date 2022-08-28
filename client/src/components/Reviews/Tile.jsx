@@ -17,7 +17,7 @@ const List = (props) => {
     <div className='reviewTile'>
       <div className='ratingStars'>{props.renderStars(props.review.rating).map((star) => star)}{props.review.rating}</div>
       <p>{renderName()}</p>
-      <h3>{props.review.summary}</h3>
+      <h3><b>{props.review.summary}</b></h3>
       <p>{props.review.body}</p>
       {props.review.response && <div className='ratingResponse'>
         <span><b>Response:</b></span>
