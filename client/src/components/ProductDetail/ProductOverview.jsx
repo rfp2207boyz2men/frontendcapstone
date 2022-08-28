@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useId } from 'react';
 import { TiTick } from 'react-icons/ti';
 
 function ProductOverview  ({ selectedProduct }) {
@@ -11,10 +11,15 @@ function ProductOverview  ({ selectedProduct }) {
       </div>
       <div className='prodview-line'></div>
       <div>
-        <p><TiTick />GMO</p>
-        <p><TiTick />Made with 100% Generic Salt</p>
-        <p><TiTick />Can cause itches</p>
-        <p><TiTick />Or not</p>
+        {selectedProduct.features.map((item) => {
+          let id = Math.random();
+          return (
+            <div key={id}>
+              <p><TiTick/>{item.feature}</p>
+              <p><TiTick/>{item.value}</p>
+            </div>
+          )
+        })}
       </div>
     </div>
   )

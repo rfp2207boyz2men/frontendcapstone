@@ -14,6 +14,15 @@
   background-color: #94B49F;
 }
 
+.pv-img {
+  cursor: -moz-zoom-in;
+  cursor: -webkit-zoom-in;
+  cursor: zoom-in;
+  width: 500px;
+  height: 500px;
+  object-fit: cover;
+}
+
 .g-container {
   display: flex;
   align-items: center;
@@ -22,6 +31,7 @@
 }
 
 .g-entry {
+  cursor: pointer;
   background-color: #fff;
   width: 50px;
   margin: 20px;
@@ -29,9 +39,8 @@
   transition: all .5s ease;
 }
 
-.g-entry:hover {
-  cursor: pointer;
-  border-bottom: 5px solid #666;
+.g-border {
+  border-bottom: solid 5px #850E35;
 }
 
 .pv-container {

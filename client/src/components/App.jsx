@@ -169,7 +169,6 @@ class App extends React.Component {
           </div>
           <div>
             <Overview selectedProduct={this.state.selectedProduct}
-            styles={this.state.styles}
             localName={this.state.localName}
             handleLocalClick={this.handleLocalClick}
             handleLocalSave={this.handleLocalSave}
