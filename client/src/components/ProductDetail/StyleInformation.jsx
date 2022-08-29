@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import { OrbitSpinner } from 'react-epic-spinners';
 import { TiStarFullOutline, TiStarHalfOutline, TiStarOutline } from 'react-icons/ti';
 
-function ProductInformation ({selectedProduct, handleLocalClick, localName, localId, styles, handleLocalSave}) {
+function ProductInformation ({p1, currentProduct, handleLocalClick, localName, localId, styles, handleLocalSave}) {
+  const [loading, setLoading] = useState(true);
   const [currentStyle, setCurrentStyle] = useState();
   const [currentSkus, setCurrentSkus] = useState([]);
 
+
+  useEffect(() => {
+    if(p1.length > 0) {
+      setLoading(false);
+    }
+  }, [p1])
 
   useEffect(() => {
     let style = styles.filter((item => {
@@ -15,7 +23,9 @@ function ProductInformation ({selectedProduct, handleLocalClick, localName, loca
 
 
     return (
-      <div className='info-container'>
+      <div>
+         {!loading ?
+        <div className='info-container'>
         <div>
           <TiStarFullOutline className='star' />
           <TiStarFullOutline className='star' />
@@ -24,9 +34,9 @@ function ProductInformation ({selectedProduct, handleLocalClick, localName, loca
           <TiStarOutline className='star' />
           <a href=''>Read all reviews</a>
         </div>
-        <h4>{selectedProduct.category}</h4>
-        <h2>{selectedProduct.name}</h2>
-        <p>${selectedProduct.default_price}</p>
+        <h4>{currentProduct.category}</h4>
+        <h2>{currentProduct.name}</h2>
+        <p>${currentProduct.default_price}</p>
         <div>
       <div className='style-title'>
         <h4> STYLE > </h4>
@@ -63,7 +73,7 @@ function ProductInformation ({selectedProduct, handleLocalClick, localName, loca
       </select>
 
       <select>
-        <option value="0">1:</option>
+        <option value="0">1</option>
         {currentStyle ?
             Object.values(currentStyle.skus).map((item => {
               let id = Math.random();
@@ -79,6 +89,13 @@ function ProductInformation ({selectedProduct, handleLocalClick, localName, loca
     </div>
 
       </div>
+          :
+          <OrbitSpinner color="teal" />
+          }
+      </div>
+
+
+
     )
 
 }

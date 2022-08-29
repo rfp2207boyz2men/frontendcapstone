@@ -1,13 +1,12 @@
-import React, { useState, useEffect, useId } from 'react';
+import React, { useState, useEffect, useRef, useId } from 'react';
 import { TiArrowSortedDown, TiArrowSortedUp, TiArrowLeftThick, TiArrowRightThick, TiArrowMaximise } from 'react-icons/ti';
 import './overview.css';
 import { OrbitSpinner } from 'react-epic-spinners';
 import Parse from '../../parse';
 
 function imageGallery ({
-    products,
+    p1,
     selectedProduct,
-    loading,
     styles,
     currentPhoto,
     currentStyles,
@@ -19,28 +18,37 @@ function imageGallery ({
     arrowDown,
     arrowUp,
   }) {
+    const [loading, setLoading] = useState(true);
+    const productEl = useRef(null);
+
+    useEffect(() => {
+      if(p1.length > 0) {
+        setLoading(false);
+      }
+    }, [p1])
 
     return (
       <div>
-
+        {!loading ?
         <div className='image-container'>
           <div className='g-container'>
           {arrowUp && <TiArrowSortedUp onClick={handleUpClick} className='arrow' />}
           {
-            // products.map(item => {
-            //   let id = Math.random();
-            //   return (
-            //     <img onClick={handleThumbClick} id={item[0].url} key={id} src={pic.thumbnail_url} className='g-entry g-border'></img>
-            //   )
-            // })
+            p1.map(item => {
+              let id = Math.random();
+              if (currentPhoto === item.photos[0].url) {
+                if (item.photos[0].url === null) {
+                  return;
+                }
+                return  <img onClick={e => handleThumbClick(e, item)} id={item.photos[0].url} key={id} src={item.photos[0].thumbnail_url} className='g-entry g-border'></img>
+              } else {
+                if (item.photos[0].url === null) {
+                  return;
+                }
+                return  <img onClick={e => handleThumbClick(e, item)} id={item.photos[0].url} key={id} src={item.photos[0].thumbnail_url} className='g-entry'></img>
+              }
+            })
 
-            currentStyles.map(pic => {
-            let id = Math.random();
-            if (currentPhoto === pic.url) {
-              return  <img onClick={handleThumbClick} id={pic.url} key={id} src={pic.thumbnail_url} className='g-entry g-border'></img>
-            } else {
-              return  <img onClick={handleThumbClick} id={pic.url} key={id} src={pic.thumbnail_url} className='g-entry'></img>
-            }})
             }
 
           {arrowDown && <TiArrowSortedDown onClick={handleDownClick} className='arrow' />}
@@ -54,8 +62,9 @@ function imageGallery ({
           <TiArrowMaximise className='expand' />
           </div>
         </div>
-
-
+          :
+          <OrbitSpinner color="teal" />
+        }
       </div>
     )
 

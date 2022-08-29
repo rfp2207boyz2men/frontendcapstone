@@ -1,17 +1,29 @@
-import React, { useId } from 'react';
+import React, { useState, useEffect, useId } from 'react';
+import { OrbitSpinner } from 'react-epic-spinners';
 import { TiTick } from 'react-icons/ti';
 
-function ProductOverview  ({ selectedProduct }) {
+function ProductOverview  ({ p1, currentProduct }) {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if(p1.length > 0) {
+      setLoading(false);
+    }
+  }, [p1])
 
   return (
-    <div className='prodview-container'>
-      <div className='prodview-text'>
-        <h2>{selectedProduct.slogan}</h2>
-        <p>{selectedProduct.description}</p>
+    <div>
+      {!loading ?
+      <div className='prodview-container'>
+
+       <div className='prodview-text'>
+        <h2>{currentProduct.slogan}</h2>
+        <p>{currentProduct.description}</p>
       </div>
+
       <div className='prodview-line'></div>
       <div>
-        {selectedProduct.features.map((item) => {
+        {currentProduct.features.map((item) => {
           let id = Math.random();
           return (
             <div key={id}>
@@ -21,6 +33,11 @@ function ProductOverview  ({ selectedProduct }) {
           )
         })}
       </div>
+
+      </div>
+      :
+      <OrbitSpinner color="teal" />
+      }
     </div>
   )
 }
