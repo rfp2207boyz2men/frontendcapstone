@@ -5,6 +5,7 @@ import _ from 'underscore';
 const Characteristics = (props) => {
 
   let renderSection = (characteristics) => {
+    //Render out the final div that combines all the characteristics
     let characteristicsFormat = [];
     for (let characteristic in characteristics) {
       let value = characteristics[characteristic].value;
@@ -33,6 +34,7 @@ const Characteristics = (props) => {
   };
 
   let renderAggregate = (label, count, value, barLabels) => {
+    //Render out the div for a specific characteristic
     return (
       <div className = 'reviewCharacteristicSection'>
         {renderLabel(label)}
@@ -48,6 +50,7 @@ const Characteristics = (props) => {
   };
 
   let renderBars = (count) => {
+    //Render 3 or 5 bars depending on the characteristic
     let bars = [];
     let width = (300 / count) - 2;
     let style = { width: `${width}px` };
@@ -58,6 +61,7 @@ const Characteristics = (props) => {
   };
 
   let renderBarLabels = (belowLabels) => {
+    //Render the labels below the charactistic breakdown bars depending on the characteristic
     return (
       <div className='reviewCharacteristicBarLabels'>
         {belowLabels.map((label) => <p key={label}>{label}</p>)}

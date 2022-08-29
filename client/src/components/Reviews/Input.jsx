@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { SiIfixit } from 'react-icons/si';
+import { TiStarFullOutline, TiStarHalfOutline, TiStarOutline } from 'react-icons/ti';
 
 const Input = (props) => {
   const [textInputs, setTextInputs] = useState({
@@ -11,6 +12,10 @@ const Input = (props) => {
   const [recommendation, setRecommendation] = useState(undefined);
   const [characteristics, setCharacteristics] = useState({});
   const [photos, setPhotos] = useState([]);
+
+  useEffect(() => {
+    console.log(props.characteristics)
+  })
 
   const handlePhotoInput = () => {
 
@@ -32,20 +37,90 @@ const Input = (props) => {
   };
 
   const renderRecommendations = () => {
+    return(
+      <div className='reviewOverlayRecommendations'>
+        <input type='radio' name='yesRecommend'></input>
+        <input type='radio' name='yesRecommend'></input>
+      </div>
+    )
+  };
+
+  const renderCharacteristics = (id) => {
+    let characteristicButtons = [];
+    for (let characteristic in props.characteristics) {
+      for (let i = 1; i <= 5; i++) {
+        characteristicButtons.push(<input type='radio' name={id} value={i} keyonChange={handleCharacteristicClick}></input>)
+      }
+    }
+    return characteristicButtons.map((characteristic, index) => characteristic);
+  };
+
+  const renderCharacteristicsDescriptor = (characteristic) => {
+    switch(characteristic) {
+      case 'Size':
+        return ['A size too small', 'A size too wide'];
+      case 'Width':
+        return ['Too narrow', 'Too wide'];
+      case 'Comfort':
+        return ['Uncomfortable', 'Perfect'];
+      case 'Quality':
+        return ['Poor', 'Perfect'];
+      case 'Length':
+        return ['Runs short', 'Runs long'];
+      default:
+        return ['Runs tight', 'Runs long'];
+    }
+  };
+
+  const renderCharacteristicsSection = (characteristic, id) => {
+    // console.log(typeof characteristic);
+    // console.log(typeof id);
+    return (
+      <div className='reviewInputCharacteristicSection'>
+        <h4>{characteristic}</h4>
+        <div>
+          {renderCharacteristics(id)}
+        </div>
+        <div>
+          {renderCharacteristicsDescriptor(characteristic, id).map((descriptor) => <p key={descriptor+id}>{descriptor}</p>)}
+        </div>
+      </div>
+    )
+  };
+
+  const renderAggregate = () => {
+    let characteristicDiv = [];
+    for (let characteristic in props.characteristics) {
+      characteristicDiv.push(renderCharacteristicsSection(characteristic, props.characteristics[characteristic].id));
+    }
+    return characteristicDiv.map((characteristic, index) => characteristic);
+  };
+
+  const handleCharacteristicClick = (e) => {
 
   };
 
-  const renderCharacteristics = () => {
+  // const renderStars = (e) => {
+  //   // for (let)
+  // }
 
-  };
+  const test = (e) => {
+    // console.log(props.characteristics);
+    // console.log(e);
+    // console.log(e.target);
+    console.log('value: ', e.target.value);
+    console.log('name: ', e.target.name);
+  }
 
   return (
     <form className='reviewInput'>
+      {/* <input type='radio' name='testy' value='2' onChange={test}></input>
+      <input type='radio' name='testy' value='4' onChange={test}></input> */}
       <h3>Write Your Review</h3>
       <h4>About The {props.productName}</h4>
       <div onClick={props.handleOverlay}><SiIfixit /></div>
-      {/* {renderRecommendations()} */}
-      {/* {renderCharacteristics()} */}
+      {renderRecommendations()}
+      {renderAggregate()}
       <textarea name='summary' placeholder='Example: Best purchase ever!' maxLength='60' onChange={handleOnChange}></textarea>
       <textarea name='body' placeholder='Why did you like the product or not?' maxLength='1000' onChange={handleOnChange}></textarea>
       {textInputs.body.length < 50
