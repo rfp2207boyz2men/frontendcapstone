@@ -17,8 +17,6 @@ class OutfitCard extends React.Component {
       mouseStarHover: false
     };
 
-    this.mouseHoverStar = this.mouseHoverStar.bind(this);
-    this.mouseExitStar = this.mouseExitStar.bind(this);
     this.handleClickRemove = this.handleClickRemove.bind(this);
   }
 
