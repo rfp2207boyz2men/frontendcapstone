@@ -180,7 +180,7 @@ class App extends React.Component {
         {this.state.loading
         ?<div>
           <div className="header">
-            <div><h1>Odin <FaBeer /></h1></div>
+            <div><h1>Odin <GiTriquetra /></h1></div>
             <div><input></input></div>
           </div>
           <div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import Parse from '../../parse.js';
 import axios from 'axios';
 import AnswerList from './AnswerList.jsx';
+import './QandA.css';
 
 class RelevantQ extends React.Component {
   constructor(props) {

@@ -62,17 +62,16 @@ class QandA extends React.Component {
         <h2 className='qanda-heading'>QUESTIONS AND ANSWERS</h2>
           {this.state.questions.length &&
           <div className='question-body'>
-
-            <form>
+            <div className= 'qanda-search'>
               <input
-                className= 'qanda-search'
+                className='qanda-search-input'
                 type='search'
                 placeholder='Have a question? Search for answers...'
                 name='questionQuery'
                 onChange={this.handleChange}
               />
-              <BiSearch />
-            </form>
+              <button className='qanda-search-icon'><BiSearch /></button>
+            </div>
             <div className='question-list'>
               {questionList}
             </div>

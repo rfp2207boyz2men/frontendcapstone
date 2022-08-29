@@ -6,11 +6,48 @@
   display: flex;
   flex-direction: column;
   padding: 20px 10px;
-  width: auto;
+  width: 1600px;
   height: auto;
   border: 2px solid black;
 }
 
-.qanda-search {
+.qanda-heading {
   display: flex;
+  height: 20px
+}
+
+.qanda-search {
+  display: inline-flex;
+  width: 1400px;
+  height: 50px;
+  justify-content: center;
+}
+
+.qanda-search-input {
+  display: inline-flex;
+  border: 1px solid grey;
+  border-right: none;
+  width: 1400px;
+  height: 50px;
+}
+
+.qanda-search-icon {
+  display: inline-flex;
+  border: 1px solid grey;
+  border-left: none;
+  background-color: white;
+  font-size: 50px;
+}
+
+.qanda-search-input::placeholder {
+  display: flex;
+  font-size: 30px;
+  align-items: center;
+}
+
+.question-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
