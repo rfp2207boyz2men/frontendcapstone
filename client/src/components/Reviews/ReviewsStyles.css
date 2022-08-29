@@ -184,7 +184,7 @@
 
 .reviewInput {
   position: fixed;
-  --height: 1200px;
+  --height: 1250px;
   --width: 1000px;
   top: calc(50% - (var(--height) / 2));
   left: calc(50% - (var(--width) / 2));
@@ -193,7 +193,7 @@
   width: var(--width);
   padding: 6px 18px;
   background-color: white;
-  border: 2px solid green;
+  border: 2px solid teal;
   z-index: 1;
   overflow-y: auto;
 }
@@ -208,7 +208,7 @@
   margin-bottom: 6px;
 }
 
-.reviewInput h4 {
+.reviewInput>h4 {
   margin-top: 0;
   margin-left: 15px;
 }
@@ -223,7 +223,7 @@
 
 .reviewInputExit {
   position: absolute;
-  left: 93%;
+  left: 96%;
   top: 10px;
 }
 
@@ -325,6 +325,7 @@
   flex-wrap: wrap;
   height: auto;
   margin-top: 5px;
+  /* padding-left: 5px; */
   border-bottom: 1px solid black;
   /* border: 1px solid red; */
 }
@@ -339,12 +340,9 @@
 }
 
 .reviewInputCharacteristicLabel {
-  /* height: 10px; */
-  margin-top: 5px;
-  margin-left: 15px;
-  margin-bottom: 0;
-  width: 100%;
-  background-color: red;
+  margin: 0;
+  /* width: 100%; */
+  /* background-color: red; */
 }
 
 .reviewInputCharacteristicButtons {
@@ -365,4 +363,63 @@
 
 .reviewInputCharacteristicsDescriptors p {
   margin: 5px 0;
+}
+
+/*
+  IMAGES INPUT
+*/
+
+.reviewInputPhotoSection {
+  /* box-sizing: border-box; */
+  display: flex;
+  flex-direction: row;
+  height: 110px;
+  /* max-height: 120px; */
+  width: calc(var(--width) - 100px);
+  /* padding: 5px; */
+  /* background-color: red; */
+  border: 1px solid black;
+}
+
+.reviewInputPhotoThumbnail {
+  height: 100px;
+  margin: 5px;
+  margin-right: 10px;
+  /* width: 80px; */
+}
+
+.reviewInputPhotoButton {
+  /* box-sizing: border-box; */
+  display: flex;
+  flex-direction: column;
+  /* grid-template-rows: 50% 30px; */
+  /* grid-template-columns: 50%; */
+  background-color: #cccccc;
+  height: 110px;
+  width: 80px;
+  justify-content: center;
+  align-items: center;
+  /* align-content: center; */
+}
+
+.reviewInputPhotoButton:hover {
+  background-color: teal;
+  cursor: pointer;
+}
+
+.reviewInputPhotoButtonPlus {
+  /* display: flex;
+  justify-content: center;
+  align-content: center; */
+  /* grid-row: 2; */
+  /* grid-column: 2; */
+  font-size: 40px;
+  margin: auto;
+}
+
+.reviewInputPhotoButtonText {
+  /* display: flex;
+  justify-content: center;
+  align-content: center; */
+  /* grid-row: 3; */
 }

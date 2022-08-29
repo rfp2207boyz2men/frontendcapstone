@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { SiIfixit } from 'react-icons/si';
 import { TiStarFullOutline, TiStarHalfOutline, TiStarOutline } from 'react-icons/ti';
+import { BsPlusCircle } from 'react-icons/bs';
 
 const Input = (props) => {
   const [textInputs, setTextInputs] = useState({
@@ -13,7 +14,9 @@ const Input = (props) => {
   const [recommendation, setRecommendation] = useState(undefined);
   const [characteristics, setCharacteristics] = useState({});
   const [photos, setPhotos] = useState([]);
+  const hiddenFileInput = useRef(null);
   const [loading, setLoading] = useState(false);
+
 
   // useEffect(() => {
   //   console.log(props.characteristics)
@@ -45,9 +48,9 @@ const Input = (props) => {
 
   const renderStar = (value) => {
     if (rating - value >= 0) {
-      return <div key={value}><TiStarFullOutline className='ratingInputStar' size={20} onClick={()=>{handleStarClick(value)}}/></div>;
+      return <div key={value}><TiStarFullOutline className='ratingInputStar star' size={20} onClick={()=>{handleStarClick(value)}}/></div>;
     } else {
-      return <div key={value}><TiStarOutline className='ratingInputStar' size={20} onClick={()=>{handleStarClick(value)}}/></div>;
+      return <div key={value}><TiStarOutline className='ratingInputStar star' size={20} onClick={()=>{handleStarClick(value)}}/></div>;
     }
   };
 
@@ -143,8 +146,35 @@ const Input = (props) => {
     setCharacteristics((prevCharacteristics) => ({...prevCharacteristics, [e.target.name]:e.target.value}));
   };
 
-  const handlePhotoInput = () => {
+  const renderPhotos = () => {
+    //render photo gallery up to 5 images (button will disappear after 5 images)
+    //Upload button onClick refers to a button that clicks useRef that is referred to by the file input
+    //  This allows making a button that's stylized instead of the default file input button
+    return(
+      <div className='reviewInputPhotoSection'>
+        {photos.map((photo) => <img className='reviewInputPhotoThumbnail' src={photo}/>)}
+        {photos.length < 5 &&
+          <div className='reviewInputPhotoButton' onClick={handlePhotoClick}>
+            <BsPlusCircle className='reviewInputPhotoButtonPlus'/>
+            <p className='reviewInputPhotoButtonText'>Upload</p>
+          </div>}
+        <input type='file' style={{display:'none'}} ref={hiddenFileInput} onChange={handlePhotoInput}></input>
+      </div>
+    )
+  };
 
+  const handlePhotoClick = () => {
+    // console.log('clicked!');
+    hiddenFileInput.current.click();
+  }
+
+  const handlePhotoInput = (e) => {
+    console.log(e.target.files);
+    console.log(URL.createObjectURL(e.target.files[0]))
+    let newPhotos = photos.slice();
+    newPhotos.push(URL.createObjectURL(e.target.files[0]))
+    console.log(newPhotos);
+    setPhotos(newPhotos);
   };
 
   const handleSubmit = () => {
@@ -161,7 +191,7 @@ const Input = (props) => {
 
   return (
     <form className='reviewInput'>
-      <div className='reviewInputExit' onClick={props.handleOverlay}><SiIfixit size={30}/></div>
+      <SiIfixit className='reviewInputExit' size={30} onClick={props.handleOverlay}/>
       <h2>Write Your Review</h2>
       <h4>About The <u>{props.productName}</u></h4>
       <h3>Overall rating<span style={{color:'red'}}>*</span></h3>
@@ -177,6 +207,8 @@ const Input = (props) => {
       {textInputs.body.length < 50
       ?<p>Minimum required characters left: [{50 - textInputs.body.length}]</p>
       :<p>Minimum reached</p>}
+      <h3>Upload your photos</h3>
+      {renderPhotos()}
       {/* <input type='file'></input> */}
       <h3>What is your nickname<span style={{color:'red'}}>*</span></h3>
       <input type='text' className='reviewTextInput' name='nickname' placeholder='Example: jackson11!' maxLength='60' onChange={handleOnChange}></input>
