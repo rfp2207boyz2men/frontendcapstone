@@ -20,6 +20,7 @@ class Reviews extends React.Component {
   }
 
   componentDidMount() {
+    console.log(this.props)
     let state = {};
     let ratings = Object.values(this.props.metaData.ratings);
     let recommendations = this.props.metaData.recommended;
@@ -50,17 +51,20 @@ class Reviews extends React.Component {
         {this.state.loading
         ?<div className='reviewMain'>
           <SideBar
-            renderStars = {this.props.renderStars}
-            ratings = {this.props.metaData.ratings}
-            averageRating = {this.props.averageRating}
-            ratingPercentages = {this.state.ratingPercentages}
-            averageRecommended = {this.state.averageRecommended}
-            characteristics = {this.state.characteristics}
+            renderStars={this.props.renderStars}
+            ratings={this.props.metaData.ratings}
+            averageRating={this.props.averageRating}
+            ratingPercentages={this.state.ratingPercentages}
+            averageRecommended={this.state.averageRecommended}
+            characteristics={this.state.characteristics}
           />
           <List
-            selectedProduct = {this.props.selectedProduct}
-            renderStars = {this.props.renderStars}
-            totalReviews = {this.props.totalReviews}
+            selectedProduct={this.props.selectedProduct}
+            renderStars={this.props.renderStars}
+            totalReviews={this.props.totalReviews}
+            characteristics={this.state.characteristics}
+            productName={this.props.productName}
+            productId={this.props.productId}
           />
         </div>
         :<OrbitSpinner color='green' />}

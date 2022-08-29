@@ -47,7 +47,8 @@ class App extends React.Component {
     Parse.getAll(`products/`)
     .then((products) => {
       let defaultIndex = Math.floor(Math.random() * products.data.length);
-      return this.updateSelectedProduct(products.data[defaultIndex].id);
+      // return this.updateSelectedProduct(products.data[defaultIndex].id);
+      return this.updateSelectedProduct(40344);
     })
 
     this.retrieveStorage();
@@ -95,13 +96,13 @@ class App extends React.Component {
         state.metaData = meta.data;
         state.averageRating = this.getAverageRating(meta.data.ratings)
         state.totalReviews = this.getTotalReviews(meta.data.recommended)
-        return state.loading = true;
+        state.loading = true;
+        return this.setState(state);
       })
       .then(() => {
         //Consider refactoring these two functions to only have to update state once (preferably with the this.setState already here)
         //this.retrieveStorage();
         this.retrieveStyles();
-        return this.setState(state);
       })
       .catch((err) => console.log(err));
   }
@@ -166,11 +167,11 @@ class App extends React.Component {
     let stars = [];
     for (let i = 0; i < 5; i++) {
       if (ratingCopy >= 0 && ratingCopy < 0.33 || ratingCopy < 0) {
-        stars.push(<TiStarOutline key = {i}/>);
+        stars.push(<TiStarOutline className='star' key = {i}/>);
       } else if (ratingCopy >= 0.33 && ratingCopy <= 0.67) {
-        stars.push(<TiStarHalfOutline key = {i}/>);
+        stars.push(<TiStarHalfOutline className='star' key = {i}/>);
       } else {
-        stars.push(<TiStarFullOutline key = {i}/>);
+        stars.push(<TiStarFullOutline className='star' key = {i}/>);
       }
       ratingCopy--;
     }
@@ -249,12 +250,14 @@ class App extends React.Component {
                 /> */}
             </div>
             <div>
-              {/* <Reviews
-                selectedProduct={this.state.selectedProduct}
-                totalReviews = {this.state.totalReviews}
-                averageRating = {this.state.averageRating}
-                metaData = {this.state.metaData}
-                renderStars={this.renderStars.bind(this)}/> */}
+              <Reviews
+                totalReviews={this.state.totalReviews}
+                averageRating={this.state.averageRating}
+                metaData={this.state.metaData}
+                renderStars={this.renderStars.bind(this)}
+                productName={this.state.selectedProduct.name}
+                productId={this.state.selectedProduct.id}
+              />
             </div>
             </div>
           </div>
