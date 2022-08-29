@@ -51,6 +51,11 @@
   margin-bottom: 20px;
 }
 
+.question-list::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
 .question-body {
   display: flex;
   width: 1600px;

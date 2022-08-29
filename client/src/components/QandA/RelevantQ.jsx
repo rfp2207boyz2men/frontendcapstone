@@ -33,7 +33,6 @@ class RelevantQ extends React.Component {
         this.setState({
           answers: results.results
         })
-        console.log(this.state.answers)
       })
   }
 
