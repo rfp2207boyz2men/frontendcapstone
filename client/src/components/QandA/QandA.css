@@ -7,7 +7,6 @@
   flex-direction: column;
   padding: 20px 10px;
   width: 1600px;
-  height: auto;
   border: 2px solid black;
 }
 
@@ -18,16 +17,15 @@
 
 .qanda-search {
   display: inline-flex;
-  width: 1400px;
+  width: 1600px;
   height: 50px;
-  justify-content: center;
 }
 
 .qanda-search-input {
   display: inline-flex;
   border: 1px solid grey;
   border-right: none;
-  width: 1400px;
+  width: 1600px;
   height: 50px;
 }
 
@@ -48,6 +46,64 @@
 .question-list {
   display: flex;
   flex-direction: column;
+  width: 1600px;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.question-body {
+  display: flex;
+  width: 1600px;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.question-set {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid grey;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.question-line {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.answer-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.answer-line {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.no-answer {
+  justify-content: center;
+}
+
+/*
+  BUTTONS
+*/
+.helpful {
+  background-color: transparent;
+  border: none;
+}
+
+.add-answer {
+  background-color: transparent;
+  border:none;
+}
+
+.report {
+  background-color: transparent;
+  border: none;
 }

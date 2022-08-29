@@ -60,6 +60,7 @@ class Reviews extends React.Component {
           <List
             selectedProduct = {this.props.selectedProduct}
             renderStars = {this.props.renderStars}
+            totalReviews = {this.props.totalReviews}
           />
         </div>
         :<OrbitSpinner color='green' />}

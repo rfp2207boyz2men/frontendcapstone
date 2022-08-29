@@ -8,13 +8,12 @@ class List extends React.Component {
     super(props);
     this.state = {
       reviews: [],
-      showAmount: 2,
+      showAmount: 0,
       initialized: false
     };
   }
 
   componentDidMount() {
-    console.log(this.state);
     this.getReviews()
   }
 
@@ -23,11 +22,12 @@ class List extends React.Component {
   };
 
   getReviews = () => {
-    let params = `?product_id=${this.props.selectedProduct.id}&count=${this.state.showAmount}`;
+    let params = `?product_id=${this.props.selectedProduct.id}&count=${this.state.showAmount + 2}`;
     Parse.getAll(`reviews/`, params)
     .then((reviews) => {
       return this.setState({
         reviews: reviews.data.results,
+        showAmount: this.state.showAmount + 2,
         initialized: true
       })
     })
@@ -48,9 +48,9 @@ class List extends React.Component {
           ))}
         </div>
         <div className='reviewExpandButtonSection'>
-          {this.state.reviews.length
-          && <button className='reviewExpandButton'>MORE REVIEWS</button>}
-          <button  className='reviewExpandButton'>ADD A REVIEW +</button>
+          {this.props.totalReviews - this.state.reviews.length > 0
+          && <button className='reviewExpandButton' onClick={this.getReviews}>MORE REVIEWS</button>}
+          <button className='reviewExpandButton'>ADD A REVIEW +</button>
         </div></div>
         :<OrbitSpinner color='green'/>}
       </div>

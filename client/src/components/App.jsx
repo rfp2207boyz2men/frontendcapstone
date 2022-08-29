@@ -4,19 +4,22 @@ import { FaBeer } from 'react-icons/fa';
 import Parse from '../parse.js';
 import axios from 'axios';
 import Related from './RelatedAndComp/Related.jsx';
+import Outfits from './RelatedAndComp/Outfits.jsx';
 import Overview from './ProductDetail/Overview.jsx';
 import Reviews from './Reviews/Reviews.jsx';
 import QandA from './QandA/QandA.jsx';
 import { TiStarFullOutline, TiStarHalfOutline, TiStarOutline } from 'react-icons/ti';
 import { GiTriquetra } from 'react-icons/gi'
 import { OrbitSpinner } from 'react-epic-spinners';
-import { BsSearch } from 'react-icons/bs'
+import { BsSearch, BsBag } from 'react-icons/bs'
+import { GoSearch } from 'react-icons/go';
+
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: [],
+      // products: [],
       outfits: [],
       styles: [],
       localName: 'No style selected',
@@ -28,46 +31,29 @@ class App extends React.Component {
       cart: [],
       qanda: [],
       interactions: [],
-      selectedProduct: '',
+      selectedProduct: {},
       loading: false
     };
 
     this.handleLocalClick = this.handleLocalClick.bind(this);
     this.handleLocalSave = this.handleLocalSave.bind(this);
+    this.handleOutfitAdds = this.handleOutfitAdds.bind(this);
+    this.handleOutfitRemoval = this.handleOutfitRemoval.bind(this);
   }
 
   componentDidMount() {
     //Default to a random product
-    let state = {};
-
     Parse.getAll(`products/`)
     .then((products) => {
       let defaultIndex = Math.floor(Math.random() * products.data.length);
-      state.products = products.data;
-      state.selectedProduct = products.data[defaultIndex];
-      state.loading = true;
-      return Parse.getAll(`reviews/meta/`, `?product_id=${state.selectedProduct.id}`);
+      return this.updateSelectedProduct(products.data[defaultIndex].id);
     })
-    .then((meta) => {
-      state.metaData = meta.data;
-      state.averageRating = this.getAverageRating(meta.data.ratings)
-      state.totalReviews = this.getTotalRating(meta.data.recommended)
-      return this.setState(state);
-    })
-    .then(() => {
-      this.retrieveStorage();
-      this.retrieveStyles();
-    })
-    .catch((err) => console.log(err));
 
+    this.retrieveStorage();
   }
-  //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/productsundefined
-  //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews:40348?count=10
 
-
-    //If desired, can set default to the first product (which may be hardcoded)
-    // this.updateSelectedProduct(40344);
   getAverageRating = (ratings) => {
+    //Get average rating through gpa style math
     let ratingValues = Object.values(ratings);
     let totalRatings = ratingValues.reduce((prev, cur) => prev + parseInt(cur), 0);
     let ratingStrengths = ratingValues.map((rating, index) => rating * (index + 1));
@@ -75,32 +61,38 @@ class App extends React.Component {
     return averageRatingTotal.toFixed(1);
   };
 
-  getTotalRating = (recommended) => {
+  getTotalReviews = (recommended) => {
+    //Get total amount of reviews by adding yes + no recommendations
     let recommendValues = Object.values(recommended);
     let totalRecommended = recommendValues.reduce((prev, cur) => prev + parseInt(cur), 0);
     return totalRecommended;
   };
 
   unloadComponents = (product_id) => {
-    this.setState({ loading: false }, () => this.SelectedProduct(product_id))
+    this.setState({ loading: false }, () => this.updateSelectedProduct(product_id))
   };
-
+  // IF YOU WANT TO UPDATE SELECTED PRODUCT, USE ^ unloadComponents ^
+  // DO NOT CALL updateSelectedProduct DIRECTLY
+  //   IT WON'T REFRESH THE WIDGITS
   updateSelectedProduct = (product_id) => {
     let state = {};
     let params = `?product_id=${product_id}`;
 
-    Parse.getAll(`products/`)
-      .then((products) => {
-        let defaultIndex = Math.floor(Math.random() * products.data.length);
-        state.products = products.data;
-        state.selectedProduct = products.data[defaultIndex];
-        state.loading = true;
+    Parse.getAll(`products/`, product_id)
+      .then((product) => {
+        state.selectedProduct = product.data;
         return Parse.getAll(`reviews/meta/`, params);
       })
       .then((meta) => {
         state.metaData = meta.data;
         state.averageRating = this.getAverageRating(meta.data.ratings)
-        state.totalRating = this.getTotalRating(meta.data.recommended)
+        state.totalReviews = this.getTotalReviews(meta.data.recommended)
+        return state.loading = true;
+      })
+      .then(() => {
+        //Consider refactoring these two functions to only have to update state once (preferably with the this.setState already here)
+        //this.retrieveStorage();
+        this.retrieveStyles();
         return this.setState(state);
       })
       .catch((err) => console.log(err));
@@ -118,12 +110,15 @@ class App extends React.Component {
   }
 
   retrieveStorage() {
-    const storage = { ...localStorage };
+    const storage = localStorage
+    let storedOutfits = []
     for (let key in storage) {
-      this.setState({
-        outfits: [...this.state.outfits, JSON.parse(storage[key])]
-      })
+      if (key.startsWith('o')) {
+        storedOutfits.push(JSON.parse(storage.getItem(key)))
+      }
     }
+
+    this.setState({outfits: storedOutfits})
   }
 
   handleLocalClick(e) {
@@ -149,13 +144,13 @@ class App extends React.Component {
    }
 
   // Not tested yet, why are event not firing??
-   removeStorage (e) {
+  removeStorage (e) {
     localStorage.removeItem(e.target.id);
-    this.setState(outfits =>
-      this.state.outfits.filter(outfit => {
-        return outfit.style_id !== e.target.id;
-      }),
-    );
+    // this.setState(outfits =>
+    //   this.state.outfits.filter(outfit => {
+    //     return outfit.style_id !== e.target.id;
+    //   }),
+    // );
   };
 
   renderStars = (rating) => {
@@ -174,48 +169,90 @@ class App extends React.Component {
     return stars;
   };
 
+  handleOutfitAdds(outfitData) {
+    if (this.state.outfits.filter(outfit => outfit.id === outfitData.id).length === 0) {
+      this.setState({outfits: [...this.state.outfits, outfitData]})
+      if (!localStorage.getItem('o' + JSON.stringify(outfitData.id))) {
+        let outfitObj = JSON.stringify(outfitData)
+        localStorage.setItem('o' + JSON.stringify(outfitData.id), outfitObj)
+      } else {
+        localStorage.removeItem('o' + JSON.stringify(outfitData.id));
+        let outfitObj = JSON.stringify(outfitData)
+        localStorage.setItem('o' + JSON.stringify(outfitData.id), outfitObj)
+      }
+
+    }
+  }
+
+  handleOutfitRemoval(outfit) {
+      localStorage.removeItem('o' + JSON.stringify(outfit.id));
+      let updatedList = [...this.state.outfits]
+      updatedList.splice(this.state.outfits.map(outfit => outfit.id).indexOf(outfit.id), 1)
+      this.setState({outfits: updatedList})
+  }
+
   render() {
     return (
       <div>
         {this.state.loading
-        ?<div>
-          <div className="header">
-            <div><h1>Odin <GiTriquetra /></h1></div>
-            <div><input></input></div>
-          </div>
-          <div>
-            <Overview selectedProduct={this.state.selectedProduct}
-            styles={this.state.styles}
-            localName={this.state.localName}
-            handleLocalClick={this.handleLocalClick}
-            handleLocalSave={this.handleLocalSave}
-            />
-          </div>
-          <div>
-            <div className = 'relatedSection'>
-              <Related selectedProduct={this.state.selectedProduct}/>
+         ? <div>
+         <div className="header">
+         <div className="logoheader">
+           <div className="logotext">
+             <h1>Odin</h1>
+           </div>
+           <div className="logo"><GiTriquetra /></div>
+         </div>
+         <div className="toprightHeader">
+           <div className="searchbar"><input className="search" placeholder="Search"></input><GoSearch  className="searchIcon"/></div>
+           <div className="shoppingBag"><BsBag /></div>
+         </div>
+       </div>
+            <div className="main">
+              <div>
+                <Overview
+                  selectedProduct={this.state.selectedProduct}
+                  styles={this.state.styles}
+                  localName={this.state.localName}
+                  handleLocalClick={this.handleLocalClick}
+                  handleLocalSave={this.handleLocalSave}/>
+              </div>
+              <div className='relatedSection'>
+                <Related
+                  selectedProduct={this.state.selectedProduct}
+                  addToOutfit={this.handleOutfitAdds}
+                  selectStyle={this.unloadComponents}
+                  />
+              </div>
+            <div>
+              <Outfits
+                outfits={this.state.outfits}
+                current={this.state.selectedProduct}
+                outfitAdd={this.handleOutfitAdds}
+                outfitRemove={this.handleOutfitRemoval}
+                />
+            </div>
+            <div className="questionsSection">
+              <QandA
+                  selectedProduct={this.state.selectedProduct}
+                />
+            </div>
+            <div>
+              <Reviews
+                selectedProduct={this.state.selectedProduct}
+                totalReviews = {this.state.totalReviews}
+                averageRating = {this.state.averageRating}
+                metaData = {this.state.metaData}
+                renderStars={this.renderStars.bind(this)}/>
+            </div>
             </div>
           </div>
-          <div>
-            <QandA
-                selectedProduct={this.state.selectedProduct}
-              />
-          </div>
-          <div>
-            <Reviews
-              selectedProduct={this.state.selectedProduct}
-              totalReviews = {this.state.totalReviews}
-              averageRating = {this.state.averageRating}
-              metaData = {this.state.metaData}
-              renderStars={this.renderStars.bind(this)}
-            />
-          </div>
-        </div>
-        :<OrbitSpinner color='green' />
-        }
+          :<div className="spinner"><OrbitSpinner color='teal'/></div>
+          }
       </div>
     )
   }
 }
+
 
 export default App;

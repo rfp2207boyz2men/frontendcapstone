@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import Parse from '../../parse.js';
 import axios from 'axios';
 import moment from 'moment';
+import './QandA.css';
 
 class Answer extends React.Component {
   constructor(props) {
@@ -17,12 +18,10 @@ class Answer extends React.Component {
 
     return (
       <div className='answer'>
-        <div>
-          <span>
-            <strong>A: </strong> {this.props.answer.body}
-          </span>
+        <div className='answer-line'>
+            <strong>A: {this.props.answer.body}</strong>
           <small className='user-info'>
-            by {username === 'Seller' ? <b>username</b> : username}, {date} | Helpful? <button><u> Yes </u></button> ({this.props.answer.helpfulness}) | <button><u> Report </u></button>
+            by {username === 'Seller' ? <b>username</b> : username}, {date} | Helpful? <button className='helpful'><u> Yes </u></button> ({this.props.answer.helpfulness}) | <button className='report'><u> Report </u></button>
           </small>
         </div>
       </div>

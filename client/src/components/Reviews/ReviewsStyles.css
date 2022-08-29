@@ -126,6 +126,7 @@
   width: 300px;
   margin-left: 60px;
   justify-content: space-between;
+  /* text-align: center; */
   height: 30px;
   /* font-size: 30px; */
 }

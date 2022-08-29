@@ -75,9 +75,14 @@ class QandA extends React.Component {
             <div className='question-list'>
               {questionList}
             </div>
-            <button onClick={this.handleShowMore}>{this.state.showMore ? 'Show Less' : 'More Answered Questions'}</button>
           </div>}
-          <button> Add a Question + </button>
+          <div>
+            {this.state.questions.length ?
+            <div>
+              <button onClick={this.handleShowMore}>{this.state.showMore ? 'Show Less' : 'More Answered Questions'}</button>
+              <button> Add a Question + </button></div> :
+              <button> Add a Question + </button>}
+          </div>
       </div>
     );
   }

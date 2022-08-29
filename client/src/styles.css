@@ -3,17 +3,29 @@
 */
 
 body {
-  width: 1400px;
+  width: 1200px;
   font-family: 'Noto Sans', sans-serif;
   font-size: small;
   margin: auto;
+  /* border-left: 1px dotted red;
+  border-right: 1px dotted red; */
+}
+
+.main {
+  width: 1200px;
+  /* border: 1px dotted blue; */
+  display: flex;
+  flex-direction: column;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 100px;
+  width: 1200px
 }
 
 .spinner {
@@ -31,42 +43,70 @@ body {
   padding: 20px;
 }
 
+.toprightHeader {
+  width: 600px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 50px;
+}
+
 .logo {
   margin-top: 10px;
-  font-size: 50px;
+  font-size: 60px;
   color: teal;
 }
 
 .logotext {
-  font-size: 20px;
+  font-size: 25px;
 }
 
 .search {
-  width: 800px;
-  border-radius: 10px;
+  width: 500px;
   margin-top: 5px;
   height: 30px;
-  margin-right: 50px;
   border-style: none;
-  background-color:whitesmoke;
+  padding-top: 5px;
+  outline:none;
+}
+
+.searchbar {
+  border-bottom: 1px solid black;
+  padding: 1px;
+}
+
+.searchIcon {
+  font-size: 20px;
+}
+
+.shoppingBag {
+  margin-top: 15px;
+  font-size: 25px;
   padding: 5px;
+}
+
+.star {
+  color: teal;
+  font-size: 16px;
 }
 
 /*
   Related Items
 */
 
-.relatedSection {
-  height: 350px;
-  display: flex;
-  justify-content: space-around;
+.relatedSection, .outfitsSection {
+  height: 500px;
+  width: auto;
 }
 
 .related {
-  height: 350px;
+  height: 400px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+}
+
+.sectionTitle {
+  font-weight: lighter;
 }
 
 /*
@@ -76,20 +116,25 @@ body {
 .productCard {
   border: 1px solid black;
   width: 255px;
-  height: 350px;
+  height: 400px;
   margin-left: 10px;
   margin-right: 10px;
 }
 
 .productCardImg {
   width: 255px;
-  height: 255px;
+  height: 300px;
   position: relative;
+}
+
+.productCardImg :hover {
+  cursor: pointer;
+  opacity: .90;
 }
 
 .productImages {
   width: 255px;
-  height: 255px;
+  height: 300px;
 }
 
 .productCardDesc {
@@ -100,6 +145,7 @@ body {
 }
 
 .productCardRating {
+  margin-top: 5px;
   padding-left: 10px;
   padding-top: 10px;
   width: 255px;
@@ -113,6 +159,10 @@ body {
   color:teal;
 }
 
+.starCard :hover {
+  opacity: 100%;
+}
+
 .cardCat, .cardName, .cardPrice {
   padding: 1px;
 }
@@ -120,4 +170,138 @@ body {
 .cardPrice {
   font-size: small;
   font-weight: lighter;
+  display: flex;
+  justify-content: flex-start;
+  width: 255px;
 }
+
+.salePrice {
+  color: red;
+}
+
+.defaultPrice {
+  text-decoration: line-through;
+  color: black;
+}
+
+/*
+  Questions Section
+*/
+
+.questionsSection {
+  width: 1200px;
+  height: 600px;
+  margin-top: 100px;
+}
+
+/*
+  Outfits
+*/
+
+.plusCardArea {
+  background-color: #cccccc;
+  color: white;
+  height: 300px;
+  width: 255px;
+  position: relative;
+}
+
+.plusCardArea:hover {
+  background-color: teal;
+  color: white;
+  height: 300px;
+  width: 255px;
+  cursor: pointer;
+  /* position: relative; */
+}
+
+.plusSymbol {
+  position: absolute;
+  top: 42%;
+  left: 42%;
+  font-size: 50px;
+}
+
+
+.plusSymbolText {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+}
+
+.outfits {
+  height: 400px;
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+/*
+  MODAL
+*/
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width:100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .15);
+  z-index: 2;
+}
+
+.modal-main {
+  position:fixed;
+  background: white;
+  width: 770px;
+  height: auto;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  border: 1px solid black;
+}
+
+.modalTable {
+  width: 750px;
+  height: 300px;
+  padding: 10px;
+  padding-bottom: 30px;
+}
+
+.modalData {
+  width: 250px;
+  height: 10px;
+  text-align: center;
+  padding: 3px;
+}
+
+.tableHead {
+  width: 750px;
+  text-align: center;
+}
+
+.display-block {
+  display: block;
+}
+
+.display-none {
+  display: none;
+}
+
+/*
+  CAROUSEL
+*/
+
+.carousel {
+  position: relative; /*leave this value alone*/
+  overflow: auto;
+  width: 1200px;
+  height: 500px; /*Height should enough to fit largest content's height*/
+  -webkit-box-sizing: border-box; /* set box model so container width and height value includes any padding/border defined */
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background-image: linear-gradient(to right, rgba(255,0,0,0), rgba(255,255,255,1));
+  }

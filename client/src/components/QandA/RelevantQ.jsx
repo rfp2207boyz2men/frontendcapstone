@@ -48,19 +48,17 @@ class RelevantQ extends React.Component {
         </div>)
     } else {
       answerList = (
-        <div>
+        <div className ='no-answer'>
           <strong>Help the Odin Community by providing an answer!</strong>
         </div>
       )
     }
 
     return(
-      <div className='question'>
-        <div>
-          <span>
-            <strong>Q: {question}</strong>
-            Helpful? <button><u> Yes </u></button> ({this.props.question.question_helpfulness}) | <button><u> Add Answer </u></button>
-          </span>
+      <div className='question-set'>
+        <div className='question-line'>
+          <strong className='question'>Q: {question}</strong>
+          <span className = 'question-interaction'>Helpful? <button className='helpful'><u> Yes </u></button> ({this.props.question.question_helpfulness}) | <button className='add-answer'><u> Add Answer </u></button></span>
         </div>
         {answerList}
       </div>
