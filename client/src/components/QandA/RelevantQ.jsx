@@ -9,8 +9,20 @@ class RelevantQ extends React.Component {
     super(props);
     this.state = {
       count: 2,
-      answers: []
+      answers: [],
+      helpful: false
     };
+    this.questionIsHelpful = this.questionIsHelpful.bind(this);
+  }
+
+  questionIsHelpful() {
+    this.setState({
+      helpful: true
+    })
+    let questionId = this.props.questions.question_id;
+    let params = `?question_id=${questionId}`;
+
+    Parse.update(`qa/questions/${questionId}/helpful`, params)
   }
 
   componentDidMount() {
@@ -39,6 +51,8 @@ class RelevantQ extends React.Component {
   render() {
     let question = this.props.question.question_body;
     let answerList;
+    let isHelpful = this.state.helpful;
+    let helpful;
 
     if(this.state.answers.length > 0) {
       answerList = (
@@ -53,11 +67,25 @@ class RelevantQ extends React.Component {
       )
     }
 
+    if(isHelpful) {
+      helpful = <u> Yes </u>
+    } else {
+      helpful = <button
+        className='helpful'
+        onClick={this.questionIsHelpful}>
+        <u> Yes </u>
+      </button>
+    }
+
     return(
       <div className='question-set'>
         <div className='question-line'>
           <strong className='question'>Q: {question}</strong>
-          <span className = 'question-interaction'>Helpful? <button className='helpful'><u> Yes </u></button> ({this.props.question.question_helpfulness}) | <button className='add-answer'><u> Add Answer </u></button></span>
+          <span className = 'question-interaction'> Helpful?
+            {helpful}
+            ({this.props.question.question_helpfulness}) |
+            <button className='add-answer'><u> Add Answer </u></button>
+          </span>
         </div>
         {answerList}
       </div>
