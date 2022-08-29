@@ -94,16 +94,15 @@ body {
   Related Items
 */
 
-.relatedSection {
+.relatedSection, .outfitsSection {
   height: 500px;
-  width: 1000px;
+  width: auto;
 }
 
 .related {
   height: 400px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
 }
 
 .sectionTitle {
@@ -126,6 +125,11 @@ body {
   width: 255px;
   height: 300px;
   position: relative;
+}
+
+.productCardImg :hover {
+  cursor: pointer;
+  opacity: .90;
 }
 
 .productImages {
@@ -155,6 +159,10 @@ body {
   color:teal;
 }
 
+.starCard :hover {
+  opacity: 100%;
+}
+
 .cardCat, .cardName, .cardPrice {
   padding: 1px;
 }
@@ -162,6 +170,18 @@ body {
 .cardPrice {
   font-size: small;
   font-weight: lighter;
+  display: flex;
+  justify-content: flex-start;
+  width: 255px;
+}
+
+.salePrice {
+  color: red;
+}
+
+.defaultPrice {
+  text-decoration: line-through;
+  color: black;
 }
 
 /*
@@ -191,7 +211,8 @@ body {
   color: white;
   height: 300px;
   width: 255px;
-  position: relative;
+  cursor: pointer;
+  /* position: relative; */
 }
 
 .plusSymbol {
@@ -201,6 +222,7 @@ body {
   font-size: 50px;
 }
 
+
 .plusSymbolText {
   display: flex;
   text-align: center;
@@ -208,3 +230,78 @@ body {
   justify-content: center;
   height: 100px;
 }
+
+.outfits {
+  height: 400px;
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+/*
+  MODAL
+*/
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width:100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .15);
+  z-index: 2;
+}
+
+.modal-main {
+  position:fixed;
+  background: white;
+  width: 770px;
+  height: auto;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  border: 1px solid black;
+}
+
+.modalTable {
+  width: 750px;
+  height: 300px;
+  padding: 10px;
+  padding-bottom: 30px;
+}
+
+.modalData {
+  width: 250px;
+  height: 10px;
+  text-align: center;
+  padding: 3px;
+}
+
+.tableHead {
+  width: 750px;
+  text-align: center;
+}
+
+.display-block {
+  display: block;
+}
+
+.display-none {
+  display: none;
+}
+
+/*
+  CAROUSEL
+*/
+
+.carousel {
+  position: relative; /*leave this value alone*/
+  overflow: auto;
+  width: 1200px;
+  height: 500px; /*Height should enough to fit largest content's height*/
+  -webkit-box-sizing: border-box; /* set box model so container width and height value includes any padding/border defined */
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background-image: linear-gradient(to right, rgba(255,0,0,0), rgba(255,255,255,1));
+  }

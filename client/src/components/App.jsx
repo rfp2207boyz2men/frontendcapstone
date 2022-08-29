@@ -38,6 +38,7 @@ class App extends React.Component {
     this.handleLocalClick = this.handleLocalClick.bind(this);
     this.handleLocalSave = this.handleLocalSave.bind(this);
     this.handleOutfitAdds = this.handleOutfitAdds.bind(this);
+    this.handleOutfitRemoval = this.handleOutfitRemoval.bind(this);
   }
 
   componentDidMount() {
@@ -47,6 +48,8 @@ class App extends React.Component {
       let defaultIndex = Math.floor(Math.random() * products.data.length);
       return this.updateSelectedProduct(products.data[defaultIndex].id);
     })
+
+    this.retrieveStorage();
   }
 
   getAverageRating = (ratings) => {
@@ -88,7 +91,7 @@ class App extends React.Component {
       })
       .then(() => {
         //Consider refactoring these two functions to only have to update state once (preferably with the this.setState already here)
-        this.retrieveStorage();
+        //this.retrieveStorage();
         this.retrieveStyles();
         return this.setState(state);
       })
@@ -107,12 +110,15 @@ class App extends React.Component {
   }
 
   retrieveStorage() {
-    const storage = { ...localStorage };
+    const storage = localStorage
+    let storedOutfits = []
     for (let key in storage) {
-      this.setState({
-        outfits: [...this.state.outfits, JSON.parse(storage[key])]
-      })
+      if (key.startsWith('o')) {
+        storedOutfits.push(JSON.parse(storage.getItem(key)))
+      }
     }
+
+    this.setState({outfits: storedOutfits})
   }
 
   handleLocalClick(e) {
@@ -140,11 +146,11 @@ class App extends React.Component {
   // Not tested yet, why are event not firing??
    removeStorage (e) {
     localStorage.removeItem(e.target.id);
-    this.setState(outfits =>
-      this.state.outfits.filter(outfit => {
-        return outfit.style_id !== e.target.id;
-      }),
-    );
+    // this.setState(outfits =>
+    //   this.state.outfits.filter(outfit => {
+    //     return outfit.style_id !== e.target.id;
+    //   }),
+    // );
   };
 
   renderStars = (rating) => {
@@ -164,8 +170,25 @@ class App extends React.Component {
   };
 
   handleOutfitAdds(outfitData) {
-    this.setState({outfits: [...this.state.outfits, outfitData]})
-    console.log(this.state.outfits)
+    if (this.state.outfits.filter(outfit => outfit.id === outfitData.id).length === 0) {
+      this.setState({outfits: [...this.state.outfits, outfitData]})
+      if (!localStorage.getItem('o' + JSON.stringify(outfitData.id))) {
+        let outfitObj = JSON.stringify(outfitData)
+        localStorage.setItem('o' + JSON.stringify(outfitData.id), outfitObj)
+      } else {
+        localStorage.removeItem('o' + JSON.stringify(outfitData.id));
+        let outfitObj = JSON.stringify(outfitData)
+        localStorage.setItem('o' + JSON.stringify(outfitData.id), outfitObj)
+      }
+
+    }
+}
+
+  handleOutfitRemoval(outfit) {
+      localStorage.removeItem('o' + JSON.stringify(outfit.id));
+      let updatedList = [...this.state.outfits]
+      updatedList.splice(this.state.outfits.map(outfit => outfit.id).indexOf(outfit.id), 1)
+      this.setState({outfits: updatedList})
   }
 
   render() {
@@ -187,17 +210,27 @@ class App extends React.Component {
        </div>
             <div className="main">
               <div>
-                <Overview selectedProduct={this.state.selectedProduct}
+                <Overview
+                  selectedProduct={this.state.selectedProduct}
                   styles={this.state.styles}
                   localName={this.state.localName}
                   handleLocalClick={this.handleLocalClick}
                   handleLocalSave={this.handleLocalSave}/>
               </div>
               <div className='relatedSection'>
-                <Related selectedProduct={this.state.selectedProduct}/>
+                <Related
+                  selectedProduct={this.state.selectedProduct}
+                  addToOutfit={this.handleOutfitAdds}
+                  selectStyle={this.unloadComponents}
+                  />
               </div>
             <div>
-              <Outfits outfits={this.state.outfits} current={this.state.selectedProduct} outfitAdd={this.handleOutfitAdds}/>
+              <Outfits
+                outfits={this.state.outfits}
+                current={this.state.selectedProduct}
+                outfitAdd={this.handleOutfitAdds}
+                outfitRemove={this.handleOutfitRemoval}
+                />
             </div>
             <div className="questionsSection">
               <QandA

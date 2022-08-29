@@ -5,22 +5,32 @@ import Parse from '../../parse.js';
 import { OrbitSpinner } from 'react-epic-spinners';
 import { TiStarFullOutline, TiStarOutline } from 'react-icons/ti';
 import Carousel from 'react-bootstrap/Carousel';
-
+import { AiOutlineCloseCircle } from 'react-icons/ai'
 
 class OutfitCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      product_info: {},
+      product_styles: [],
       productCardLoad: false,
       mouseStarHover: false
     };
 
     this.mouseHoverStar = this.mouseHoverStar.bind(this);
-    this.mouseExitStar = this.mouseExitStar.bind(this)
+    this.mouseExitStar = this.mouseExitStar.bind(this);
+    this.handleClickRemove = this.handleClickRemove.bind(this);
   }
 
   componentDidMount() {
-
+    Parse.getAll('products', `/${this.props.product_id}/`)
+    .then((productInfo) => {
+      this.setState({product_info: productInfo.data})
+    })
+  Parse.getAll('products', `/${this.props.product_id}/styles`)
+    .then((productStyles) => {
+      this.setState({product_styles: productStyles.data.results, productCardLoad: true})
+    })
   }
 
   mouseHoverStar() {
@@ -31,6 +41,10 @@ class OutfitCard extends React.Component {
     this.setState({mouseStarHover: false})
   }
 
+  handleClickRemove(){
+    this.props.remove(this.state.product_info);
+  }
+
   render() {
     return (
       <div>
@@ -38,8 +52,10 @@ class OutfitCard extends React.Component {
        ?
         <div className = 'productCard'>
         <div className = 'productCardImg'>
-          <img className = 'productImages' src={ this.props.products.product_styles[0].photos[0].thumbnail_url || `https://via.placeholder.com/150`}/>
-          <div className = "starCard" onMouseEnter={this.mouseHoverStar} onMouseLeave={this.mouseExitStar}>{this.state.mouseStarHover ? <TiStarFullOutline/> : <TiStarOutline />}</div>
+          <img className = 'productImages' src={ this.state.product_styles[0].photos[0].thumbnail_url || `https://via.placeholder.com/150`}/>
+          <div className = "starCard" onClick={this.handleClickRemove}>
+            <AiOutlineCloseCircle color='crimson'/>
+          </div>
         </div>
         <div>
           <div className = 'productCardDesc'>
@@ -64,3 +80,5 @@ class OutfitCard extends React.Component {
 }
 
 export default OutfitCard;
+
+//onClick={this.props.remove(this.state.product_info)}
