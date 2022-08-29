@@ -16,19 +16,30 @@ const Parse = {
     return axios.get(`${url}${endpoint}${params}`, authorization)
     // .then((data) => {console.log(data)})
     // .catch((err) => console.log('error'))
-  }
+  },
 
   // getOne: () => {
 
   // },
 
-  // create: (data) => {
+  create: (endpoint, params = '', data) => {
+    return axios.post(`${url}${endpoint}${params}`, data, authorization)
+  },
 
-  // },
+  update: (endpoint, params = '', data = {}) => {
+    //Reviews:
+    //  endpoint: reviews/
+    //  params: :review_id/helpful  ||  :review_id/report
+    //Questions/answers:
+    //  endpoint: qa/
+    //  params: questions/:question_id/report
+    //          answers/:answer_id/helpful
+    //          answers/:answer_id/report
+    //Both shouldn't need data, but it's there anyways just in case
+    //TODO: Figure out how to make sure a user can only perform an action on a particular item once
 
-  // update: () => {
-
-  // }
+    return axios.put(`${url}${endpoint}${params}`, data, authorization)
+  }
 
 }
 
