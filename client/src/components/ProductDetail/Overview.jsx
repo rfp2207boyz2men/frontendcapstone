@@ -6,8 +6,16 @@ import { OverviewProvider } from './OverviewContext.js';
 import ImageGallery from './ImageGallery.jsx';
 import StyleInformation from './StyleInformation.jsx';
 import ProductOverview from './ProductOverview.jsx';
+import { select } from 'underscore';
 
-function Overview ({ selectedProduct, handleLocalClick, handleLocalSave, localName }) {
+function Overview ({
+  selectedProduct,
+  handleLocalClick,
+  handleLocalSave,
+  localName,
+  localId
+}) {
+  const [products, setProducts] = useState([]);
   const [styles, setStyles] = useState([]);
   const [productId, setProductId] = useState(0);
   const [currentPhoto, setCurrentPhoto] = useState('');
@@ -17,13 +25,56 @@ function Overview ({ selectedProduct, handleLocalClick, handleLocalSave, localNa
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let set = [];
+
+    Parse.getAll(`products/`, '')
+      .then((productData) => {
+        productData.data.map((item => {
+          set.push({
+            id: item.id,
+            name: item.name,
+            slogan: item.slogan,
+            description: item.description,
+            category: item.category,
+            default_price: item.default_price,
+          })
+        }))
+      })
+      .then(() => {
+        for (let i = 0; i < set.length; i++) {
+          Parse.getAll(`products/`, set[i].id)
+          .then((productInfo) => {
+            set[i]['features'] = productInfo.data.features;
+          })
+        }
+      })
+      .then(() => {
+        for (let i = 0; i < set.length; i++) {
+          let params = `${set[i].id}/styles`;
+          Parse.getAll(`products/`, params)
+          .then((stylesInfo) => {
+            for (let x = 0; x < stylesInfo.data.results.length; x++) {
+              set[i]['style_id'] = stylesInfo.data.results[x].style_id;
+              set[i]['original_price'] = stylesInfo.data.results[x].original_price;
+              set[i]['photos'] = stylesInfo.data.results[x].photos;
+              set[i]['skus'] = stylesInfo.data.results[x].skus;
+            }
+          })
+        }
+      })
+      setProducts(set);
+
     let params = `${selectedProduct.id}/styles`;
     Parse.getAll(`products/`, params)
+
     .then((stylesData) => {
       if (stylesData.data.results[0].photos[0].url === null) {
-        alert('had to request twice');
-        params = `${selectedProduct.id++}/styles`;
-
+        if (selectedProduct.id === 40346) {
+          selectedProduct.id++;
+        } else {
+          selectedProduct.id--;
+        }
+        params = `${selectedProduct.id}/styles`;
         Parse.getAll(`products/`, params)
         .then((stylesData2) => {
           setStyles(stylesData2.data.results);
@@ -75,6 +126,10 @@ function Overview ({ selectedProduct, handleLocalClick, handleLocalSave, localNa
     setCurrentStyles(styles[0].photos.slice(0,5));
   }
 
+  const handleProductClick = (e) => {
+    e.preventDefault();
+  }
+
 
   return (
     <OverviewProvider>
@@ -82,13 +137,14 @@ function Overview ({ selectedProduct, handleLocalClick, handleLocalSave, localNa
       <div>
         <div className='main-container'>
           <ImageGallery
-          loading={loading}
+          products={products}
           styles={styles}
           currentPhoto={currentPhoto}
           currentStyles={currentStyles}
           arrowDown={arrowDown}
           arrowUp={arrowUp}
           selectedProduct={selectedProduct}
+          handleProductClick={handleProductClick}
           handleThumbClick={handleThumbClick}
           handleLeftClick={handleLeftClick}
           handleRightClick={handleRightClick}
@@ -96,14 +152,17 @@ function Overview ({ selectedProduct, handleLocalClick, handleLocalSave, localNa
           handleUpClick={handleUpClick}
           />
           <StyleInformation
+          products={products}
           styles={styles}
           selectedProduct={selectedProduct}
           localName={localName}
+          localId={localId}
           handleLocalClick={handleLocalClick}
           handleLocalSave={handleLocalSave}/>
         </div>
         <div>
           <ProductOverview
+          products={products}
           selectedProduct={selectedProduct}
           />
         </div>

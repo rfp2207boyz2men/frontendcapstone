@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { TiStarFullOutline, TiStarHalfOutline, TiStarOutline } from 'react-icons/ti';
 
-function ProductInformation ({selectedProduct, handleLocalClick, localName, styles, handleLocalSave}) {
+function ProductInformation ({selectedProduct, handleLocalClick, localName, localId, styles, handleLocalSave}) {
+  const [currentStyle, setCurrentStyle] = useState();
+  const [currentSkus, setCurrentSkus] = useState([]);
+
+
+  useEffect(() => {
+    let style = styles.filter((item => {
+      return item.style_id === localId;
+    }));
+    setCurrentStyle(style[0]);
+  }, [localId])
+
 
     return (
       <div className='info-container'>
@@ -22,43 +33,45 @@ function ProductInformation ({selectedProduct, handleLocalClick, localName, styl
         <h4>{localName}</h4>
       </div>
       <div className='style-container'>
-        {/* style selector */}
 
-        {styles[0].photos.map(pic => {
-          let idR = Math.random();
-          return <img key={idR}  name={name} onClick={handleLocalClick} className='style-entry'></img>
+        {styles.map(style => {
+          let id = Math.random();
+          return (
+            <img key={id}
+            id={style.style_id}
+            name={style.name}
+            onClick={handleLocalClick}
+            src={style.photos[0].thumbnail_url} className='style-entry'></img>
+          )
         })}
-
-      {/* <img id={id} name={name} onClick={handleClick} src={url} className='style-entry'></img> */}
-
-
-        {/* {styles.map(style => {
-          return <Style handleClick={handleLocalClick} key={style.style_id} obj={style}
-           id={style.style_id}
-           name={style.name}
-           url={style.photos[0].thumbnail_url}
-           className='style-entry'/>
-        })} */}
-
 
       </div>
     </div>
 
     <div className='add-container'>
+
       <select>
-        <option value="0">Select SIZE:</option>
-        <option value="1">Audi</option>
-        <option value="2">BMW</option>
-        <option value="3">Citroen</option>
-        <option value="4">Ford</option>
+        <option value="0">SELECT SIZE</option>
+        {currentStyle ?
+            Object.values(currentStyle.skus).map((item => {
+              let id = Math.random();
+              return <option key={id}>{item.size}</option>
+            }))
+        :
+            <div></div>
+        }
       </select>
 
       <select>
-        <option value="0">QUANTITY: 42</option>
-        <option value="1">Audi</option>
-        <option value="2">BMW</option>
-        <option value="3">Citroen</option>
-        <option value="4">Ford</option>
+        <option value="0">1:</option>
+        {currentStyle ?
+            Object.values(currentStyle.skus).map((item => {
+              let id = Math.random();
+              return <option key={id}>{item.quantity}</option>
+            }))
+        :
+            <div></div>
+        }
       </select>
 
       <button>ADD TO CART</button>

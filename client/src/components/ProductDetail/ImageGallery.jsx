@@ -5,6 +5,7 @@ import { OrbitSpinner } from 'react-epic-spinners';
 import Parse from '../../parse';
 
 function imageGallery ({
+    products,
     selectedProduct,
     loading,
     styles,
@@ -21,7 +22,7 @@ function imageGallery ({
 
     return (
       <div>
-        {!loading ?
+
         <div className='image-container'>
           <div className='g-container'>
           {arrowUp && <TiArrowSortedUp onClick={handleUpClick} className='arrow' />}
@@ -44,12 +45,8 @@ function imageGallery ({
           <TiArrowRightThick onClick={handleRightClick} className='arrow' />
           <TiArrowMaximise className='expand' />
           </div>
-
         </div>
 
-        :
-        <OrbitSpinner color="teal" />
-      }
 
       </div>
     )
