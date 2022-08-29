@@ -26,6 +26,7 @@ class ProductCard extends React.Component {
   }
 
   componentDidMount() {
+    // Requests product info and product styles to use on the cards - card requires info from both
     Parse.getAll('products', `/${this.props.product_id}/`)
       .then((productInfo) => {
         this.setState({product_info: productInfo.data})
@@ -40,19 +41,24 @@ class ProductCard extends React.Component {
       })
   }
 
+  // hovering effect for comparison module
   mouseHoverStar() {
     this.setState({mouseStarHover: true})
   }
 
+  // hovering effect for comparison module
   mouseExitStar(){
     this.setState({mouseStarHover: false})
   }
 
+  // comparison module show/hide
   showModal(event){
+    // stops overlapping clickable areas
     event.stopPropagation();
     this.setState({ showCompare: true });
   };
 
+  // comparison module show/hide
   hideModal(){
     this.setState({ showCompare: false });
   };

@@ -19,15 +19,16 @@ class Related extends React.Component {
   }
 
   componentDidMount() {
+    // Requests the related_ids from API based on selected product within App
     Parse.getAll('products', `/${this.props.selectedProduct.id}/related`)
       .then((relatedProducts) => {
+        // cleans the data for any dupes
         let cleanedData = [];
         relatedProducts.data.forEach(id => {
           if (!cleanedData.includes(id)) {
             cleanedData.push(id)
           }
         })
-        console.log('CLEANED',cleanedData)
         this.setState({related_ids: cleanedData})
       })
   }
@@ -40,10 +41,9 @@ class Related extends React.Component {
           <div className = 'related'>
             {this.state.related_ids.map(ids => {
               return <ProductCard
-                key = {ids}
-                product_id = {ids}
+                key={ids}
+                product_id={ids}
                 addOutfit={this.props.addToOutfit}
-                compare={this.MydModalWithGrid}
                 select={this.props.selectStyle}
                 current={this.props.selectedProduct}/>
             })}

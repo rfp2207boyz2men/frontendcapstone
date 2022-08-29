@@ -23,22 +23,15 @@ class OutfitCard extends React.Component {
   }
 
   componentDidMount() {
+    // Requests the data for product info and product styles for outfit product cards
     Parse.getAll('products', `/${this.props.product_id}/`)
     .then((productInfo) => {
       this.setState({product_info: productInfo.data})
     })
-  Parse.getAll('products', `/${this.props.product_id}/styles`)
+    Parse.getAll('products', `/${this.props.product_id}/styles`)
     .then((productStyles) => {
       this.setState({product_styles: productStyles.data.results, productCardLoad: true})
     })
-  }
-
-  mouseHoverStar() {
-    this.setState({mouseStarHover: true})
-  }
-
-  mouseExitStar(){
-    this.setState({mouseStarHover: false})
   }
 
   handleClickRemove(){
