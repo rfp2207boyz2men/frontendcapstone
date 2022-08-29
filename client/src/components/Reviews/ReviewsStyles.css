@@ -184,14 +184,185 @@
 
 .reviewInput {
   position: fixed;
-  --height: 800px;
-  --width: 600px;
+  --height: 1200px;
+  --width: 1000px;
   top: calc(50% - (var(--height) / 2));
   left: calc(50% - (var(--width) / 2));
   margin: auto;
   height: var(--height);
   width: var(--width);
+  padding: 6px 18px;
   background-color: white;
   border: 2px solid green;
   z-index: 1;
+  overflow-y: auto;
+}
+
+.reviewInput h2 {
+  margin-top: 6px;
+  margin-bottom: 4px;
+}
+
+.reviewInput h3 {
+  margin-top: 20px;
+  margin-bottom: 6px;
+}
+
+.reviewInput h4 {
+  margin-top: 0;
+  margin-left: 15px;
+}
+
+.reviewInput p {
+  margin-top: 0;
+}
+
+.reviewInput span {
+  margin-left: 3px;
+}
+
+.reviewInputExit {
+  position: absolute;
+  left: 93%;
+  top: 10px;
+}
+
+.reviewInput textarea {
+  width: calc(var(--width) - 100px);
+  height: 135px;
+}
+
+.reviewInput textarea:first-of-type {
+  width: 550px;
+  height: 15px;
+}
+
+.reviewTextInput {
+  width: 550px;
+}
+
+.reviewInputExit:hover {
+  cursor: pointer;
+  color: red;
+}
+
+.reviewSubmit {
+  height: 40px;
+  width: 120px;
+}
+
+/*
+  STAR INPUT
+*/
+
+.reviewInputStarSection {
+  display: flex;
+  flex-direction: row;
+  width: 300px;
+  padding: 1px 5px;
+}
+
+.reviewInputStarSection p {
+  margin: 0;
+  margin-left: 10px;
+}
+
+.ratingInputStar {
+  margin-right: 7px;
+}
+
+.ratingInputStar:first-child {
+  margin-left: 2px;
+}
+
+.ratingInputStar:hover {
+  cursor: pointer;
+}
+
+/*
+  RECOMMENDATION INPUT
+*/
+
+.reviewInputRecommendations {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: auto;
+  padding: 1px 5px;
+  /* background-color: red; */
+}
+
+/* .reviewInputRecommendations h3 {
+  width: 100%;
+  margin: 0;
+} */
+
+.reviewInputRecommendations input {
+  margin-right: 6px;
+}
+
+.reviewInputRecommendations p {
+  margin: 0;
+  /* margin-top: 14px; */
+  margin-right: 40px;
+}
+
+/*
+  CHARACTERISTIC INPUT
+*/
+
+.reviewInputCharacteristicsAggregate {
+  /* border: 1px solid black;
+  border-left: 0;
+  border-right: 0; */
+  padding: 1px 5px;
+  width: 550px;
+}
+
+.reviewInputCharacteristicSection {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: auto;
+  margin-top: 5px;
+  border-bottom: 1px solid black;
+  /* border: 1px solid red; */
+}
+
+.reviewInputCharacteristicSection:first-child {
+  margin-top: 0;
+}
+
+.reviewInputCharacteristicSection:last-child {
+  /* border-bottom: 0; */
+  /* border: 1px solid red; */
+}
+
+.reviewInputCharacteristicLabel {
+  /* height: 10px; */
+  margin-top: 5px;
+  margin-left: 15px;
+  margin-bottom: 0;
+  width: 100%;
+  background-color: red;
+}
+
+.reviewInputCharacteristicButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  /* border: 1px solid blue; */
+}
+
+.reviewInputCharacteristicsDescriptors {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  /* border: 2px solid green; */
+}
+
+.reviewInputCharacteristicsDescriptors p {
+  margin: 5px 0;
 }

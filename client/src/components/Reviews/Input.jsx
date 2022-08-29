@@ -9,48 +9,89 @@ const Input = (props) => {
     nickname: '',
     email: ''
   });
+  const [rating, setRating] = useState(0);
   const [recommendation, setRecommendation] = useState(undefined);
   const [characteristics, setCharacteristics] = useState({});
   const [photos, setPhotos] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    console.log(props.characteristics)
-  })
-
-  const handlePhotoInput = () => {
-
-  };
+  // useEffect(() => {
+  //   console.log(props.characteristics)
+  // })
 
   const handleOnChange = (e) => {
     //prevState when used in a setState returns the state before invoking the setState
     //Spread operator on an object works such that ({...object}) returns the object
     //  ({...object, key: value}) assigns the object's key to that value
     //  Therefore, assigning [e.target.name] will override the prevState's object key:value pair
-    setTextInputs((prevState) => {
-      return ({...prevState, [e.target.name]: e.target.value})
+    setTextInputs((prevTextInputs) => {
+      return ({...prevTextInputs, [e.target.name]: e.target.value})
     });
     // console.log(textInputs);
   };
 
-  const handleSubmit = () => {
+  const renderStars = () => {
+    let stars = [];
+    for (let i = 1; i <= 5; i++) {
+      stars.push(renderStar(i))
+    }
+    return (
+      <div className='reviewInputStarSection'>
+        {stars.map((star) => star)}
+        <p>{renderStarIndicator()}</p>
+      </div>
+    )
+  };
 
+  const renderStar = (value) => {
+    if (rating - value >= 0) {
+      return <div key={value}><TiStarFullOutline className='ratingInputStar' size={20} onClick={()=>{handleStarClick(value)}}/></div>;
+    } else {
+      return <div key={value}><TiStarOutline className='ratingInputStar' size={20} onClick={()=>{handleStarClick(value)}}/></div>;
+    }
+  };
+
+  const renderStarIndicator = () => {
+    switch(rating) {
+      case 1:
+        return 'Poor';
+        break;
+      case 2:
+        return 'Fair';
+        break;
+      case 3:
+        return 'Average';
+        break;
+      case 4:
+        return 'Good';
+        break;
+      case 5:
+        return 'Great';
+        break;
+      default:
+        return;
+    }
+  };
+
+  const handleStarClick = (value) => {
+    setRating(value);
   };
 
   const renderRecommendations = () => {
     return(
-      <div className='reviewOverlayRecommendations'>
-        <input type='radio' name='yesRecommend'></input>
-        <input type='radio' name='yesRecommend'></input>
+      <div className='reviewInputRecommendations'>
+        <input type='radio' name='recommendation' value='true'></input>
+        <p>Yes</p>
+        <input type='radio' name='recommendation' value='false'></input>
+        <p>No</p>
       </div>
     )
   };
 
   const renderCharacteristics = (id) => {
     let characteristicButtons = [];
-    for (let characteristic in props.characteristics) {
-      for (let i = 1; i <= 5; i++) {
-        characteristicButtons.push(<input type='radio' name={id} value={i} keyonChange={handleCharacteristicClick}></input>)
-      }
+    for (let i = 1; i <= 5; i++) {
+      characteristicButtons.push(<input type='radio' name={id} value={i} key={id+i} onChange={handleCharacteristicClick}></input>)
     }
     return characteristicButtons.map((characteristic, index) => characteristic);
   };
@@ -73,36 +114,42 @@ const Input = (props) => {
   };
 
   const renderCharacteristicsSection = (characteristic, id) => {
-    // console.log(typeof characteristic);
-    // console.log(typeof id);
     return (
-      <div className='reviewInputCharacteristicSection'>
-        <h4>{characteristic}</h4>
-        <div>
+      <div className='reviewInputCharacteristicSection' key={characteristic}>
+        <h4 className='reviewInputCharacteristicLabel'>{characteristic}</h4>
+        <div className='reviewInputCharacteristicButtons'>
           {renderCharacteristics(id)}
         </div>
-        <div>
+        <div className='reviewInputCharacteristicsDescriptors'>
           {renderCharacteristicsDescriptor(characteristic, id).map((descriptor) => <p key={descriptor+id}>{descriptor}</p>)}
         </div>
       </div>
     )
   };
 
-  const renderAggregate = () => {
-    let characteristicDiv = [];
+  const renderCharacteristicsAggregate = () => {
+    let characteristicAggregate = [];
     for (let characteristic in props.characteristics) {
-      characteristicDiv.push(renderCharacteristicsSection(characteristic, props.characteristics[characteristic].id));
+      characteristicAggregate.push(renderCharacteristicsSection(characteristic, props.characteristics[characteristic].id));
     }
-    return characteristicDiv.map((characteristic, index) => characteristic);
+    return (
+      <div className='reviewInputCharacteristicsAggregate'>
+        {characteristicAggregate.map((characteristic, index) => characteristic)}
+      </div>
+      );
   };
 
   const handleCharacteristicClick = (e) => {
+    setCharacteristics((prevCharacteristics) => ({...prevCharacteristics, [e.target.name]:e.target.value}));
+  };
+
+  const handlePhotoInput = () => {
 
   };
 
-  // const renderStars = (e) => {
-  //   // for (let)
-  // }
+  const handleSubmit = () => {
+
+  };
 
   const test = (e) => {
     // console.log(props.characteristics);
@@ -114,24 +161,30 @@ const Input = (props) => {
 
   return (
     <form className='reviewInput'>
-      {/* <input type='radio' name='testy' value='2' onChange={test}></input>
-      <input type='radio' name='testy' value='4' onChange={test}></input> */}
-      <h3>Write Your Review</h3>
-      <h4>About The {props.productName}</h4>
-      <div onClick={props.handleOverlay}><SiIfixit /></div>
+      <div className='reviewInputExit' onClick={props.handleOverlay}><SiIfixit size={30}/></div>
+      <h2>Write Your Review</h2>
+      <h4>About The <u>{props.productName}</u></h4>
+      <h3>Overall rating<span style={{color:'red'}}>*</span></h3>
+      {renderStars()}
+      <h3>Do you recommend this product?<span style={{color:'red'}}>*</span></h3>
       {renderRecommendations()}
-      {renderAggregate()}
+      <h3>Characteristics<span style={{color:'red'}}>*</span></h3>
+      {renderCharacteristicsAggregate()}
+      <h3>Review summary</h3>
       <textarea name='summary' placeholder='Example: Best purchase ever!' maxLength='60' onChange={handleOnChange}></textarea>
+      <h3>Review body<span style={{color:'red'}}>*</span></h3>
       <textarea name='body' placeholder='Why did you like the product or not?' maxLength='1000' onChange={handleOnChange}></textarea>
       {textInputs.body.length < 50
       ?<p>Minimum required characters left: [{50 - textInputs.body.length}]</p>
       :<p>Minimum reached</p>}
-      <input type='file'></input>
-      <input type='text' name='nickname' placeholder='Example: jackson11!' maxLength='60' onChange={handleOnChange}></input>
+      {/* <input type='file'></input> */}
+      <h3>What is your nickname<span style={{color:'red'}}>*</span></h3>
+      <input type='text' className='reviewTextInput' name='nickname' placeholder='Example: jackson11!' maxLength='60' onChange={handleOnChange}></input>
       <p>For privacy reasons, do not use your full name or email address</p>
-      <input type='text' name='email' placeholder='Example: jackson11@email.com' maxLength='60' onChange={handleOnChange}></input>
+      <h3>Your email<span style={{color:'red'}}>*</span></h3>
+      <input type='text' className='reviewTextInput' name='email' placeholder='Example: jackson11@email.com' maxLength='60' onChange={handleOnChange}></input>
       <p>For authentication reasons, you will not be emailed</p>
-      <button type='submit'>Submit Form</button>
+      <button className='reviewSubmit' type='submit'>Submit review</button>
     </form>
   );
 };
