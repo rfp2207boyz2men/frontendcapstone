@@ -37,6 +37,8 @@ class Related extends React.Component {
     return (
       <div>
       <div className='sectionTitle'><h2>RELATED PRODUCTS</h2></div>
+      <div className='overlay'>
+      <div className="whitebox"></div>
       <div className="carousel">
           <div className = 'related'>
             {this.state.related_ids.map(ids => {
@@ -45,8 +47,10 @@ class Related extends React.Component {
                 product_id={ids}
                 addOutfit={this.props.addToOutfit}
                 select={this.props.selectStyle}
-                current={this.props.selectedProduct}/>
+                current={this.props.selectedProduct}
+                avgStars={this.props.avgRating}/>
             })}
+        </div>
         </div>
         </div>
       </div>

@@ -39,6 +39,7 @@ class App extends React.Component {
     this.handleLocalSave = this.handleLocalSave.bind(this);
     this.handleOutfitAdds = this.handleOutfitAdds.bind(this);
     this.handleOutfitRemoval = this.handleOutfitRemoval.bind(this);
+    this.getAverageRating = this.getAverageRating.bind(this);
   }
 
   componentDidMount() {
@@ -60,6 +61,13 @@ class App extends React.Component {
     let averageRatingTotal = (ratingStrengths.reduce((prev, cur) => prev + cur, 0)) / totalRatings;
     return averageRatingTotal.toFixed(1);
   };
+
+  // put in array of products reviews (*.data.results)
+  getAverage(reviewsArray) {
+    let ratings = reviewsArray.map(review => review.rating);
+    let starRating = (ratings.reduce((total, rating) => total += rating, 0)/(ratings.length));
+    return starRating
+  }
 
   getTotalReviews = (recommended) => {
     //Get total amount of reviews by adding yes + no recommendations
@@ -222,6 +230,7 @@ class App extends React.Component {
                   selectedProduct={this.state.selectedProduct}
                   addToOutfit={this.handleOutfitAdds}
                   selectStyle={this.unloadComponents}
+                  avgRating={this.getAverageRating}
                   />
               </div>
             <div>
@@ -230,20 +239,22 @@ class App extends React.Component {
                 current={this.state.selectedProduct}
                 outfitAdd={this.handleOutfitAdds}
                 outfitRemove={this.handleOutfitRemoval}
+                avgRating={this.getAverageRating}
+                styleId={this.state.localId}
                 />
             </div>
             <div className="questionsSection">
-              <QandA
+              {/* <QandA
                   selectedProduct={this.state.selectedProduct}
-                />
+                /> */}
             </div>
             <div>
-              <Reviews
+              {/* <Reviews
                 selectedProduct={this.state.selectedProduct}
                 totalReviews = {this.state.totalReviews}
                 averageRating = {this.state.averageRating}
                 metaData = {this.state.metaData}
-                renderStars={this.renderStars.bind(this)}/>
+                renderStars={this.renderStars.bind(this)}/> */}
             </div>
             </div>
           </div>

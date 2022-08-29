@@ -6,6 +6,7 @@ import { OrbitSpinner } from 'react-epic-spinners';
 import { TiStarFullOutline, TiStarOutline } from 'react-icons/ti';
 import Carousel from 'react-bootstrap/Carousel';
 import Modal from './Compare.jsx';
+import StarRatings from 'react-star-ratings';
 
 class ProductCard extends React.Component {
   constructor(props) {
@@ -13,6 +14,8 @@ class ProductCard extends React.Component {
     this.state = {
       product_info: {},
       product_styles: [],
+      product_reviews: [],
+      stars: 0,
       productCardLoad: false,
       mouseStarHover: false,
       showCompare: false
@@ -23,6 +26,7 @@ class ProductCard extends React.Component {
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
     this.handleImageClick = this.handleImageClick.bind(this)
+    this.getAverage = this.getAverage.bind(this);
   }
 
   componentDidMount() {
@@ -30,15 +34,25 @@ class ProductCard extends React.Component {
     Parse.getAll('products', `/${this.props.product_id}/`)
       .then((productInfo) => {
         this.setState({product_info: productInfo.data})
-        console.log(productInfo.data)
       })
       .then((data) => {
         Parse.getAll('products', `/${this.props.product_id}/styles`)
         .then((productStyles) => {
-          this.setState({product_styles: productStyles.data.results, productCardLoad: true})
-          console.log(productStyles.data.results)
+          this.setState({product_styles: productStyles.data.results})
+        })
+        .then((data) => {
+          Parse.getAll('reviews', `?product_id=${this.props.product_id}`)
+            .then((data) => {
+              this.setState({product_reviews: data.data, productCardLoad: true, stars: this.getAverage(data.data.results)})
+            })
         })
       })
+  }
+
+  getAverage(reviewsArray) {
+    let ratings = reviewsArray.map(review => review.rating);
+    let starRating = (ratings.reduce((total, rating) => total += rating, 0)/(ratings.length));
+    return starRating
   }
 
   // hovering effect for comparison module
@@ -83,14 +97,16 @@ class ProductCard extends React.Component {
           <div className = 'productCardDesc'>
           <div className = 'cardCat'>{this.state.product_info.category ? this.state.product_info.category.toUpperCase() : this.state.product_info.category}</div>
           <div className = 'cardName'><strong>{this.state.product_info.name}</strong></div>
-          <div className = 'cardPrice'>{this.state.product_styles[this.state.product_styles.length-1].sale_price ? <div className="salePrice"> ${this.state.product_styles[this.state.product_styles.length - 1].sale_price} <div className="defaultPrice">{this.state.product_styles[this.state.product_styles.length-1].original_price}</div></div> : this.state.product_styles[this.state.product_styles.length - 1].original_price}</div>
+          <div className = 'cardPrice'>{this.state.product_styles[this.state.product_styles.length-1].sale_price ? <div className="salePrice"> ${this.state.product_styles[this.state.product_styles.length - 1].sale_price} <div className="defaultPrice">${this.state.product_styles[this.state.product_styles.length-1].original_price}</div></div> : <div>${this.state.product_styles[this.state.product_styles.length - 1].original_price}</div>}</div>
           </div>
-          <div className = 'productCardRating'>
-          <TiStarFullOutline className='star'/>
-          <TiStarFullOutline className='star'/>
-          <TiStarFullOutline className='star'/>
-          <TiStarFullOutline className='star'/>
-          <TiStarFullOutline className='star'/>
+          <div className='productCardRating'>
+          <StarRatings
+            rating={this.state.stars}
+            starRatedColor="teal"
+            numberOfStars={5}
+            starDimension='18px'
+            starSpacing='3px'
+            name='rating'/>
           </div>
         </div>
       </div>

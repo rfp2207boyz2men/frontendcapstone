@@ -100,9 +100,19 @@ body {
 }
 
 .related {
-  height: 400px;
-  display: flex;
-  flex-direction: row;
+  height: 410px;
+  width: 1200px;
+  display: grid;
+  overflow: hidden;
+  grid: auto / auto-flow max-content;
+  z-index: 1;
+}
+
+.overlay .related{
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 65%, rgba(255,255,255,0.7) 85%, rgba(200,255,255,1) 100%);
+  grid-row-start: 1;
+  grid-column-start: 1;
+  z-index: 1;
 }
 
 .sectionTitle {
@@ -151,7 +161,7 @@ body {
   width: 255px;
 }
 
-.starCard {
+.starCard, .actionCard {
   position: absolute;
   top: 8px;
   right: 16px;
@@ -296,12 +306,33 @@ body {
 */
 
 .carousel {
-  position: relative; /*leave this value alone*/
-  overflow: auto;
-  width: 1200px;
-  height: 500px; /*Height should enough to fit largest content's height*/
-  -webkit-box-sizing: border-box; /* set box model so container width and height value includes any padding/border defined */
+  position: relative;
+  overflow: hidden;
+  width: 1400px;
+  height: 450px;
+  -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  background-image: linear-gradient(to right, rgba(255,0,0,0), rgba(255,255,255,1));
   }
+
+/*
+  STARS
+*/
+
+.single-star-outline {
+  height: 36px;
+  width: 31px;
+}
+
+.single-star-fill {
+  position: relative;
+  display: inline-block;
+  height: 36px;
+  background-color: #333333;
+}
+
+.single-star-container {
+  height: 36px;
+  width: 31px;
+  display: inline-block;
+}
