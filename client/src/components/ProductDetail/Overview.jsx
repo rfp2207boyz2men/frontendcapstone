@@ -18,6 +18,7 @@ function Overview ({
   const [products, setProducts] = useState([]);
   const [styles, setStyles] = useState([]);
   const [productId, setProductId] = useState(0);
+  const [currentProduct, setCurrentProduct] = useState();
   const [currentPhoto, setCurrentPhoto] = useState('');
   const [currentStyles, setCurrentStyles] = useState([]);
   const [arrowDown, setArrowDown] = useState(true);
@@ -63,6 +64,8 @@ function Overview ({
         }
       })
       setProducts(set);
+      setCurrentProduct(products[0]);
+
 
     let params = `${selectedProduct.id}/styles`;
     Parse.getAll(`products/`, params)
@@ -130,7 +133,6 @@ function Overview ({
     e.preventDefault();
   }
 
-// test
   return (
     <OverviewProvider>
          {!loading ?
