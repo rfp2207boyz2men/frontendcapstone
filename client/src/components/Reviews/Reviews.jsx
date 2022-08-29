@@ -63,6 +63,7 @@ class Reviews extends React.Component {
             totalReviews={this.props.totalReviews}
             characteristics={this.state.characteristics}
             productName={this.props.productName}
+            productId={this.props.productId}
           />
         </div>
         :<OrbitSpinner color='green' />}

@@ -46,7 +46,8 @@ class App extends React.Component {
     Parse.getAll(`products/`)
     .then((products) => {
       let defaultIndex = Math.floor(Math.random() * products.data.length);
-      return this.updateSelectedProduct(products.data[defaultIndex].id);
+      // return this.updateSelectedProduct(products.data[defaultIndex].id);
+      return this.updateSelectedProduct(40344);
     })
 
     this.retrieveStorage();
@@ -245,6 +246,7 @@ class App extends React.Component {
                 metaData={this.state.metaData}
                 renderStars={this.renderStars.bind(this)}
                 productName={this.state.selectedProduct.name}
+                productId={this.state.selectedProduct.id}
               />
             </div>
             </div>

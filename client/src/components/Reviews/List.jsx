@@ -2,19 +2,19 @@ import React, { useState, useEffect, useContext } from 'react';
 import Tile from './Tile.jsx';
 import Parse from '../../parse.js';
 import { OrbitSpinner } from 'react-epic-spinners';
-import Overlay from './Overlay.jsx';
+import InputOverlay from './InputOverlay.jsx';
 
 const List = (props) => {
   const [reviews, setReviews] = useState([]);
   const [reviewsSlice, setReviewsSlice] = useState([]);
   const [showAmount, setShowAmount] = useState(2);
-  const [sort, setSort] = useState('relevant');
+  const [sort, setSort] = useState('newest');
   const [initialized, setInitialized] = useState(false);
   const [overlay, setOverlay] = useState(false);
 
   useEffect(() => {
-    getSortedReviews('relevant');
-  }, initialized)
+    getSortedReviews();
+  }, initialized);
 
   //FORK-IN-THE-ROAD MOMENT
   //  Upon changing sort...
@@ -22,15 +22,15 @@ const List = (props) => {
   //    Do I keep the amount shown, but readjust how many are shown?
   //  Currently going with the former...
 
-  let getSortedReviews = (sort) => {
-    let params = `?product_id=${props.selectedProduct.id}&count=${props.totalReviews}&sort=${sort}`;
-    Parse.getAll(`reviews/`, params)
+  let getSortedReviews = (sorter) => {
+    let params = `?product_id=${props.selectedProduct.id}&count=${props.totalReviews}&sort=${sorter ? sorter : sort}`;
+    return Parse.getAll(`reviews/`, params)
     .then((reviews) => {
       setReviews(reviews.data.results);
       setReviewsSlice(reviews.data.results.slice(0, showAmount));
       setInitialized(true)
-    })
-  }
+    });
+  };
 
   let handleShowMore = () => {
     setReviewsSlice(reviews.slice(0, showAmount + 2));
@@ -38,17 +38,18 @@ const List = (props) => {
   };
 
   let handleOverlay = () => {
-    console.log('overlay trigger')
     setOverlay(!overlay);
-  }
+  };
 
   return (
     <div className='reviewsMainBar'>
       {overlay &&
-        <Overlay
+        <InputOverlay
           characteristics={props.characteristics}
           handleOverlay={handleOverlay}
           productName={props.productName}
+          productId={props.productId}
+          getReviews={getSortedReviews}
         />}
       {initialized
       ?<div>
@@ -60,6 +61,7 @@ const List = (props) => {
               key={index}
               index={index}
               renderStars={props.renderStars}
+              getReviews={getSortedReviews}
             />
           ))}
         </div>

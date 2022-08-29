@@ -32,6 +32,12 @@
   overflow-y: auto;
 }
 
+.reviewList::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  /* background: transparent; */
+}
+
 /*******************
   SIDE BAR
 ********************/
@@ -141,12 +147,49 @@
 .reviewTile {
   /* background-color: red; */
   /* height: 200px; */
-  border-bottom: 1px solid gray;
+  border-bottom: 3px solid gray;
+  padding: 4px 10px;
 }
 
-.ratingResponse {
+.reviewUserInfo {
+  display: flex;
+  flex-direction: row;
+}
+
+.reviewBodySection {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.reviewPhotoThumbnailSection {
+  /* height: 150px; */
+  /* background-color: pink; */
+}
+
+.reviewPhotoThumbnail {
+  height: 100px;
+  margin-right: 10px;
+}
+
+.reviewResponse {
   background-color: rgba(180, 179, 179, 0.938);
   width: 80%;
+}
+
+.reviewInteractions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.reviewHelpful {
+  display: flex;
+  flex-direction: row;
+}
+
+.reviewHelpful p{
+  margin-right: 5px;
 }
 
 .reviewExpandButtonSection {
@@ -228,14 +271,15 @@
 }
 
 .reviewInput textarea {
-  width: calc(var(--width) - 100px);
+  width: calc(var(--width) - 105px);
   height: 135px;
+  resize: none;
 }
 
-.reviewInput textarea:first-of-type {
-  width: 550px;
+/* .reviewInput textarea:first-of-type {
+  width: 545px;
   height: 15px;
-}
+} */
 
 .reviewTextInput {
   width: 550px;
@@ -247,8 +291,13 @@
 }
 
 .reviewSubmit {
-  height: 40px;
-  width: 120px;
+  height: 60px;
+  width: 150px;
+  margin-top: 40px;
+}
+
+.reviewSubmitEnable {
+  cursor: pointer;
 }
 
 /*
@@ -269,14 +318,11 @@
 
 .ratingInputStar {
   margin-right: 7px;
+  cursor: pointer;
 }
 
 .ratingInputStar:first-child {
   margin-left: 2px;
-}
-
-.ratingInputStar:hover {
-  cursor: pointer;
 }
 
 /*
@@ -299,6 +345,7 @@
 
 .reviewInputRecommendations input {
   margin-right: 6px;
+  cursor: pointer;
 }
 
 .reviewInputRecommendations p {
@@ -341,6 +388,7 @@
 
 .reviewInputCharacteristicLabel {
   margin: 0;
+  margin-bottom: 3px;
   /* width: 100%; */
   /* background-color: red; */
 }
@@ -351,6 +399,10 @@
   justify-content: space-between;
   width: 100%;
   /* border: 1px solid blue; */
+}
+
+.reviewInputCharacteristicButtons input {
+  cursor: pointer;
 }
 
 .reviewInputCharacteristicsDescriptors {

@@ -1,19 +1,20 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Input from './Input.jsx';
 
-const Overlay = (props) => {
-
+const InputOverlay = (props) => {
 
   return (
-    <div className='reviewOverlay'>
+    <div className='reviewInputOverlay'>
       <Input
         characteristics={props.characteristics}
         handleOverlay={props.handleOverlay}
         productName={props.productName}
+        productId={props.productId}
+        getReviews={props.getReviews}
       />
       <div className='reviewOverlayBackground' onClick={props.handleOverlay}></div>
     </div>
   )
 };
 
-export default Overlay;
+export default InputOverlay;
