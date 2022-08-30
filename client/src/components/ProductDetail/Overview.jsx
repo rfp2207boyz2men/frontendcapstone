@@ -13,7 +13,10 @@ function Overview ({
   handleLocalClick,
   handleLocalSave,
   localName,
-  localId
+  localId,
+  renderStars,
+  getAverageRating,
+  getTotalReviews,
 }) {
   const [p1, setP1] = useState([]);
   const [count, setCount] = useState(1);
@@ -40,6 +43,7 @@ function Overview ({
     let set = [];
     const request =  await Parse.getAll(`products/`, `?page=${pageN}`);
 
+    // get products based on page number
     request.data.map((item => {
       set.push({
         id: item.id,
@@ -51,14 +55,25 @@ function Overview ({
       })
     }))
 
+    // get product features data for each product
     for (let i = 0; i < set.length; i++) {
         const requestFeatures = await Parse.getAll(`products/`, set[i].id);
         set[i]['slogan'] = requestFeatures.data.slogan;
         set[i]['features'] = requestFeatures.data.features;
     }
 
-    let list = [];
+    // get avg ratings and reviews for each product
+    for (let i = 0; i < set.length; i++) {
+      let params = `?product_id=${set[i].id}`;
+      const requestMeta = await Parse.getAll(`reviews/meta/`, params);
+      set[i]['averageRating'] = getAverageRating(requestMeta.data.ratings);
+      set[i]['totalReviews'] = getTotalReviews(requestMeta.data.recommended);
 
+  }
+
+
+    let list = [];
+    // get styles for each product
     for (let i = 0; i < set.length; i++) {
       let params = `${set[i].id}/styles`;
       const requestStyles = await Parse.getAll(`products/`, params);
@@ -149,6 +164,7 @@ function Overview ({
     setExpand(prevExpand => !prevExpand);
   }
 
+
   return (
     <OverviewProvider>
          {!loading ?
@@ -201,6 +217,7 @@ function Overview ({
             styleThumbUrl={styleThumbUrl}
             localName={localName}
             localId={localId}
+            renderStars={renderStars}
             handleStyleClick={handleStyleClick}
             handleLocalClick={handleLocalClick}
             handleLocalSave={handleLocalSave}/>

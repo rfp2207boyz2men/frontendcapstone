@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import Parse from '../../parse';
 import { OrbitSpinner } from 'react-epic-spinners';
 import { TiStarFullOutline, TiStarHalfOutline, TiStarOutline } from 'react-icons/ti';
 
@@ -6,6 +7,7 @@ function ProductInformation ({
   p1,
   currentProduct,
   currentStyle,
+  renderStars,
   handleStyleClick,
   handleLocalClick,
   localName,
@@ -22,6 +24,17 @@ function ProductInformation ({
     }
   }, [p1])
 
+  let renderAvgStars = () => {
+    return renderStars(currentProduct.averageRating).map((star => star))
+  };
+
+  // pending to use api to add to card
+  async function addToCart(skusId) {
+    let params;
+    let data;
+    const request =  await Parse.create(`cart/`, params, skusId);
+  }
+
 
   const relatedLink = (e) => {
     e.preventDefault();
@@ -33,12 +46,8 @@ function ProductInformation ({
          {!loading ?
         <div className='info-container'>
         <div>
-          <TiStarFullOutline className='star' />
-          <TiStarFullOutline className='star' />
-          <TiStarFullOutline className='star' />
-          <TiStarHalfOutline className='star' />
-          <TiStarOutline className='star' />
-          <a href='' onClick={relatedLink}>Read all reviews</a>
+        {renderAvgStars()}
+          <a href='' className='reviews' onClick={relatedLink}>Read all {currentProduct.totalReviews} reviews</a>
         </div>
 
         <h4>{currentProduct.category}</h4>

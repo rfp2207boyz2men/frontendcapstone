@@ -218,12 +218,14 @@ class App extends React.Component {
               <div>
                 <Overview
                   selectedProduct={this.state.selectedProduct}
-                  styles={this.state.styles}
                   localName={this.state.localName}
+                  renderStars={this.renderStars.bind(this)}
+                  getAverageRating={this.getAverageRating.bind(this)}
+                  getTotalReviews={this.getTotalReviews.bind(this)}
                   handleLocalClick={this.handleLocalClick}
                   handleLocalSave={this.handleLocalSave}/>
               </div>
-              <div className='relatedSection'>
+              <div id='related' className='relatedSection'>
                 <Related
                   selectedProduct={this.state.selectedProduct}
                   addToOutfit={this.handleOutfitAdds}

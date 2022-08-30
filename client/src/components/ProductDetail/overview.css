@@ -96,6 +96,10 @@
   margin: 0 2px;
 }
 
+.reviews {
+  margin-left: 10px;
+}
+
 .style-title {
   display: inline-flex;
 }
