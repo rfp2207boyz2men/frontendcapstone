@@ -144,6 +144,11 @@
   REVIEW LIST
 ***********************/
 
+.reviewListHeader {
+  display: flex;
+  flex-direction: row;
+}
+
 .reviewTile {
   /* background-color: red; */
   /* height: 200px; */
@@ -157,6 +162,7 @@
 }
 
 .reviewBodySection {
+  overflow-wrap: break-word;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
 }

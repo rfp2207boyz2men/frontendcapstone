@@ -26,6 +26,11 @@ const Parse = {
     return axios.post(`${url}${endpoint}${params}`, data, authorization)
   },
 
+  //This is for submitting photos
+  upload: (url, data) => {
+    return axios.post(url, data)
+  },
+
   update: (endpoint, params = '', data = {}) => {
     //Reviews:
     //  endpoint: reviews/

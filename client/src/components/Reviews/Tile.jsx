@@ -4,7 +4,7 @@ import Parse from '../../parse.js';
 import { GrCheckmark } from 'react-icons/gr';
 
 const Tile = (props) => {
-  useEffect(() => console.log(props.review))
+  // useEffect(() => console.log(props.review))
 
   let renderName = () => {
     let name = props.review.reviewer_name;
