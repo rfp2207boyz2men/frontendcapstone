@@ -69,17 +69,30 @@
   border: 1px solid gray;
 }
 
-.reviewBarSection {
+.reviewBarSectionOff,
+.reviewBarSectionOn {
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   width: inherit;
   border: 1px solid rgb(65, 65, 65);
 }
 
-.reviewBarSection:hover {
+.reviewBarSectionOn {
+  background-color: rgba(0, 128, 128, 0.274);
+  /* border: 5px solid teal; */
+}
+
+.reviewBarSectionOff:hover {
   cursor: pointer;
-  background-color: rgb(216, 207, 207);
-  transition: 0.3s;
+  /* background-color: teal; */
+  /* transition: 0.3s; */
+}
+
+.reviewBarSectionOn:hover {
+  cursor: pointer;
+  /* background-color: transparent; */
+  /* transition: 0.3s; */
 }
 
 .reviewBarLabel {
@@ -144,6 +157,11 @@
   REVIEW LIST
 ***********************/
 
+.reviewListHeader {
+  display: flex;
+  flex-direction: row;
+}
+
 .reviewTile {
   /* background-color: red; */
   /* height: 200px; */
@@ -157,6 +175,7 @@
 }
 
 .reviewBodySection {
+  overflow-wrap: break-word;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
 }
@@ -199,6 +218,30 @@
 .reviewExpandButton {
   height: 60px;
   margin-right: 10px;
+}
+
+/**********************
+  PHOTO OVERLAY
+***********************/
+
+.reviewPhotoExpand {
+  position: fixed;
+  max-height: 90vh;
+  max-width: 90vw;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+  background-color: white;
+  border: 2px solid teal;
+  z-index: 1;
+  overflow-y: auto;
+}
+
+.reviewPhotoExit {
+  position: absolute;
+  left: 10px;
+  top: 10px;
 }
 
 /**********************

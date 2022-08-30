@@ -15,6 +15,7 @@ const Input = (props) => {
   const [recommendation, setRecommendation] = useState(undefined);
   const [characteristics, setCharacteristics] = useState({});
   const [photos, setPhotos] = useState([]);
+  const [photosData, setPhotosData] = useState([]);
   const hiddenFileInput = useRef(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -185,12 +186,12 @@ const Input = (props) => {
   }
 
   const handlePhotoInput = (e) => {
-    console.log(e.target.files);
-    console.log(URL.createObjectURL(e.target.files[0]))
     let newPhotos = photos.slice();
     newPhotos.push(URL.createObjectURL(e.target.files[0]))
-    console.log(newPhotos);
     setPhotos(newPhotos);
+    let newPhotosData = photosData.slice();
+    newPhotosData.push(e.target.files[0]);
+    setPhotosData(newPhotosData);
   };
 
   const handleSubmit = () => {
@@ -215,8 +216,8 @@ const Input = (props) => {
       // photos: photos,
       characteristics: characteristics
     };
-    console.log(typeof recommendation);
-    console.log(params);
+    // console.log(typeof recommendation);
+    // console.log(params);
 
     Parse.create('reviews', undefined, params)
     .then((response) => {
@@ -228,6 +229,14 @@ const Input = (props) => {
       console.log(err)
       setLoading(false);
     })
+  };
+
+  const validateInfo = () => {
+    //What to validate:
+    //  Any blank fields
+    //  Body < 50 characters
+    //  Email not in correct email format
+    //  Images invalid/fail to upload
   };
 
   return (

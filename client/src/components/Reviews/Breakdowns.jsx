@@ -5,12 +5,14 @@ const Breakdowns = (props) => {
   let renderBars = () => {
     //Renders a bar for each star rating
     let ratingBars = [];
-    for (let i = 0; i < 5; i++) {
+    let style;
+    for (let i = 1; i <= 5; i++) {
+      // style = {backgroundColor: props.clickedStar[i] ? 'teal' : 'transparent'};
       ratingBars.push(
-        <div className='reviewBarSection' key={i}>
-          <p className='reviewBarLabel'><u>{i+1} stars</u></p>
-          <div style={renderBarSize(i)} className='reviewBar'></div>
-          <p>({props.ratings[i+1]})</p>
+        <div className={props.clickedStar[i] ? 'reviewBarSectionOn' : 'reviewBarSectionOff'} key={i} onClick={()=>props.handleClick(i)}>
+          <p className='reviewBarLabel'><u>{i} stars</u></p>
+          <div style={renderBarSize(i-1)} className='reviewBar'></div>
+          <p>({props.ratings[i]})</p>
         </div>
       )
     }
