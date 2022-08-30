@@ -4,13 +4,16 @@ import { FaBeer } from 'react-icons/fa';
 import Parse from '../parse.js';
 import axios from 'axios';
 import Related from './RelatedAndComp/Related.jsx';
+import Outfits from './RelatedAndComp/Outfits.jsx';
 import Overview from './ProductDetail/Overview.jsx';
 import Reviews from './Reviews/Reviews.jsx';
 import { TiStarFullOutline, TiStarHalfOutline, TiStarOutline } from 'react-icons/ti';
 import { GiTriquetra } from 'react-icons/gi'
 import { OrbitSpinner } from 'react-epic-spinners';
-import { BsSearch } from 'react-icons/bs'
+import { BsSearch, BsBag } from 'react-icons/bs'
 import QandA from './QandA/QandA.jsx';
+import { GoSearch } from 'react-icons/go';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -35,6 +38,8 @@ class App extends React.Component {
 
     this.handleLocalClick = this.handleLocalClick.bind(this);
     this.handleLocalSave = this.handleLocalSave.bind(this);
+    this.handleOutfitAdds = this.handleOutfitAdds.bind(this);
+    this.handleOutfitRemoval = this.handleOutfitRemoval.bind(this);
   }
 
   componentDidMount() {
@@ -42,8 +47,11 @@ class App extends React.Component {
     Parse.getAll(`products/`)
     .then((products) => {
       let defaultIndex = Math.floor(Math.random() * products.data.length);
-      return this.updateSelectedProduct(products.data[defaultIndex].id);
+      // return this.updateSelectedProduct(products.data[defaultIndex].id);
+      return this.updateSelectedProduct(40344);
     })
+
+    this.retrieveStorage();
   }
 
   getAverageRating = (ratings) => {
@@ -81,13 +89,13 @@ class App extends React.Component {
         state.metaData = meta.data;
         state.averageRating = this.getAverageRating(meta.data.ratings)
         state.totalReviews = this.getTotalReviews(meta.data.recommended)
-        return state.loading = true;
+        state.loading = true;
+        return this.setState(state);
       })
       .then(() => {
         //Consider refactoring these two functions to only have to update state once (preferably with the this.setState already here)
-        this.retrieveStorage();
+        //this.retrieveStorage();
         this.retrieveStyles();
-        return this.setState(state);
       })
       .catch((err) => console.log(err));
   }
@@ -104,12 +112,15 @@ class App extends React.Component {
   }
 
   retrieveStorage() {
-    const storage = { ...localStorage };
+    const storage = localStorage
+    let storedOutfits = []
     for (let key in storage) {
-      this.setState({
-        outfits: [...this.state.outfits, JSON.parse(storage[key])]
-      })
+      if (key.startsWith('o')) {
+        storedOutfits.push(JSON.parse(storage.getItem(key)))
+      }
     }
+
+    this.setState({outfits: storedOutfits})
   }
 
   handleLocalClick(e) {
@@ -136,67 +147,123 @@ class App extends React.Component {
       }
    }
 
+
    getStyleObj(id) {
     return this.state.styles.filter((style => {
       return style.style_id === id;
     }));
   }
 
+  // Not tested yet, why are event not firing??
+   removeStorage (e) {
+    localStorage.removeItem(e.target.id);
+    // this.setState(outfits =>
+    //   this.state.outfits.filter(outfit => {
+    //     return outfit.style_id !== e.target.id;
+    //   }),
+    // );
+  };
+
+
   renderStars = (rating) => {
     let ratingCopy = rating;
     let stars = [];
     for (let i = 0; i < 5; i++) {
       if (ratingCopy >= 0 && ratingCopy < 0.33 || ratingCopy < 0) {
-        stars.push(<TiStarOutline key = {i}/>);
+        stars.push(<TiStarOutline className='star' key = {i}/>);
       } else if (ratingCopy >= 0.33 && ratingCopy <= 0.67) {
-        stars.push(<TiStarHalfOutline key = {i}/>);
+        stars.push(<TiStarHalfOutline className='star' key = {i}/>);
       } else {
-        stars.push(<TiStarFullOutline key = {i}/>);
+        stars.push(<TiStarFullOutline className='star' key = {i}/>);
       }
       ratingCopy--;
     }
     return stars;
   };
 
+  handleOutfitAdds(outfitData) {
+    if (this.state.outfits.filter(outfit => outfit.id === outfitData.id).length === 0) {
+      this.setState({outfits: [...this.state.outfits, outfitData]})
+      if (!localStorage.getItem('o' + JSON.stringify(outfitData.id))) {
+        let outfitObj = JSON.stringify(outfitData)
+        localStorage.setItem('o' + JSON.stringify(outfitData.id), outfitObj)
+      } else {
+        localStorage.removeItem('o' + JSON.stringify(outfitData.id));
+        let outfitObj = JSON.stringify(outfitData)
+        localStorage.setItem('o' + JSON.stringify(outfitData.id), outfitObj)
+      }
+
+    }
+}
+
+  handleOutfitRemoval(outfit) {
+      localStorage.removeItem('o' + JSON.stringify(outfit.id));
+      let updatedList = [...this.state.outfits]
+      updatedList.splice(this.state.outfits.map(outfit => outfit.id).indexOf(outfit.id), 1)
+      this.setState({outfits: updatedList})
+  }
+
   render() {
     return (
       <div>
         {this.state.loading
-        ?<div>
-          <div className="header">
-            <div><h1>Odin <GiTriquetra /></h1></div>
-            <div><input></input></div>
-          </div>
-          <div>
-            <Overview selectedProduct={this.state.selectedProduct}
-            styles={this.state.styles}
-            localName={this.state.localName}
-            handleLocalClick={this.handleLocalClick}
-            handleLocalSave={this.handleLocalSave}
-            />
-          </div>
-          <div>
-            <div className = 'relatedSection'>
-              <Related selectedProduct={this.state.selectedProduct}/>
+         ? <div>
+         <div className="header">
+         <div className="logoheader">
+           <div className="logotext">
+             <h1>Odin</h1>
+           </div>
+           <div className="logo"><GiTriquetra /></div>
+         </div>
+         <div className="toprightHeader">
+           <div className="searchbar"><input className="search" placeholder="Search"></input><GoSearch  className="searchIcon"/></div>
+           <div className="shoppingBag"><BsBag /></div>
+         </div>
+       </div>
+            <div className="main">
+              <div>
+                <Overview
+                  selectedProduct={this.state.selectedProduct}
+                  styles={this.state.styles}
+                  localName={this.state.localName}
+                  handleLocalClick={this.handleLocalClick}
+                  handleLocalSave={this.handleLocalSave}/>
+              </div>
+              <div className='relatedSection'>
+                <Related
+                  selectedProduct={this.state.selectedProduct}
+                  addToOutfit={this.handleOutfitAdds}
+                  selectStyle={this.unloadComponents}
+                  />
+              </div>
+            <div>
+              <Outfits
+                outfits={this.state.outfits}
+                current={this.state.selectedProduct}
+                outfitAdd={this.handleOutfitAdds}
+                outfitRemove={this.handleOutfitRemoval}
+                />
+            </div>
+            <div className="questionsSection">
+              <QandA
+                  selectedProduct={this.state.selectedProduct}
+                />
+            </div>
+            <div>
+              <Reviews
+                selectedProduct={this.state.selectedProduct}
+                totalReviews={this.state.totalReviews}
+                averageRating={this.state.averageRating}
+                metaData={this.state.metaData}
+                renderStars={this.renderStars.bind(this)}
+                productName={this.state.selectedProduct.name}
+                productId={this.state.selectedProduct.id}
+              />
+            </div>
             </div>
           </div>
-          <div>
-            <QandA
-                selectedProduct={this.state.selectedProduct}
-              />
-          </div>
-          <div>
-            <Reviews
-              selectedProduct={this.state.selectedProduct}
-              totalReviews = {this.state.totalReviews}
-              averageRating = {this.state.averageRating}
-              metaData = {this.state.metaData}
-              renderStars={this.renderStars.bind(this)}
-            />
-          </div>
-        </div>
-        :<OrbitSpinner color='green' />
-        }
+          :<div className="spinner"><OrbitSpinner color='teal'/></div>
+          }
       </div>
     )
   }
