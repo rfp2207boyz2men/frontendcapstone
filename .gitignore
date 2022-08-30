@@ -1,5 +1,7 @@
 node_modules
 config.js
 Archived.jsx
+Archives
 ./client/src/components/QandA/QuestionList.jsx
 ./client/src/components/QandA/QandAHook.jsx
+
