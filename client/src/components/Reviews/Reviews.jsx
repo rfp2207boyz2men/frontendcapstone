@@ -19,7 +19,8 @@ const Reviews = (props) => {
   const [searchStars, setSearchStars] = useState({1:false, 2:false, 3:false, 4:false, 5:false});
   const [starFilter, setStarFilter] = useState(false);
   const [showAmount, setShowAmount] = useState(2);
-  const [sort, setSort] = useState('newest');
+  const [sort, setSort] = useState('relevant');
+  //MAKE SURE TO SET THIS DEFAULT TO 'relevant' UPON DELIVERING
 
   useEffect(() => {
     //This only gets the initial averages
@@ -47,6 +48,7 @@ const Reviews = (props) => {
   //  Currently going with the latter...
 
   let getSortedReviews = (sorter) => {
+    // console.log('sort: ', sorter)
     let params = `?product_id=${props.productId}&count=${props.totalReviews}&sort=${sorter ? sorter : sort}`;
     return Parse.getAll(`reviews/`, params)
     .then((reviews) => {
@@ -89,7 +91,7 @@ const Reviews = (props) => {
     return false;
   }
 
-  let handleOnChange = (e) => {
+  let handleOnQueryChange = (e) => {
     if (e.target.value.length >= 3) {
       setSearchQuery(e.target.value);
     } else {
@@ -101,11 +103,20 @@ const Reviews = (props) => {
     setSearchStars((prevStars) => ({...prevStars, [value]: !searchStars[value]}));
   };
 
+  let handleOnSortChange = (e) => {
+    setSort(e.target.value);
+  };
+
   useEffect(() => {
     let filteredReviews = filterReviews(reviews);
     setFilteredReviews(filteredReviews);
     setSlicedReviews(filteredReviews.slice(0, showAmount));
   }, [searchStars, searchQuery])
+
+  useEffect(() => {
+    getSortedReviews();
+  }, [sort])
+
 
   let handleShowMore = () => {
     setSlicedReviews(filteredReviews.slice(0, showAmount + 2));
@@ -139,7 +150,8 @@ const Reviews = (props) => {
           slicedReviews={slicedReviews}
           sort={sort}
           getReviews={getSortedReviews}
-          onChange={handleOnChange}
+          onQueryChange={handleOnQueryChange}
+          onSortChange={handleOnSortChange}
         />
       </div>
       :<OrbitSpinner color='green' />}

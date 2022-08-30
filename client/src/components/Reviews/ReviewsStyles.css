@@ -71,6 +71,7 @@
 
 .reviewBarSectionOff,
 .reviewBarSectionOn {
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   width: inherit;
@@ -78,7 +79,8 @@
 }
 
 .reviewBarSectionOn {
-  background-color: teal;
+  background-color: rgba(0, 128, 128, 0.274);
+  /* border: 5px solid teal; */
 }
 
 .reviewBarSectionOff:hover {

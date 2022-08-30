@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Tile from './Tile.jsx';
-import Parse from '../../parse.js';
 import Search from './Search.jsx';
+import Sort from './Sort.jsx';
 import { OrbitSpinner } from 'react-epic-spinners';
 import InputOverlay from './InputOverlay.jsx';
 
@@ -24,10 +24,13 @@ const List = (props) => {
           getReviews={props.getReviews}
         />}
       <div className='reviewListHeader'>
-        <h3>There are {props.reviews.length} unreported reviews. Currently showing {props.slicedReviews.length} reviews. Sorting by {props.sort}.</h3>
-        < Search
-          onChange={props.onChange}
-        />
+        <h3>
+          There are {props.reviews.length} unreported reviews.
+          Currently showing {props.slicedReviews.length} reviews.
+          Sorting by <span>{props.sort}.</span>
+        </h3>
+        Sort by:<Sort onChange={props.onSortChange} />
+        <Search onChange={props.onQueryChange} />
       </div>
       <div className='reviewList'>
         {props.slicedReviews.map((review, index) => (
