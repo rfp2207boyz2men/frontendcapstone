@@ -84,26 +84,20 @@ function ProductInformation ({
 
       <select>
         <option value="0">SELECT SIZE</option>
-        { currentStyle ?
+        { currentStyle &&
           Object.values(currentStyle.skus).map((item => {
             let id = Math.random();
             return <option key={id}>{item.size}</option>
-          }))
-        :
-          <div></div>
-        }
+          }))}
       </select>
 
       <select>
         <option value="0">1</option>
-        {currentStyle ?
+        {currentStyle &&
             Object.values(currentStyle.skus).map((item => {
               let id = Math.random();
               return <option key={id}>{item.quantity}</option>
-            }))
-        :
-            <div></div>
-        }
+            }))}
       </select>
 
       <button onClick={handleLocalSave}>ADD TO CART</button>
