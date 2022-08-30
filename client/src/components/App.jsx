@@ -154,14 +154,8 @@ class App extends React.Component {
     }));
   }
 
-  // Not tested yet, why are event not firing??
    removeStorage (e) {
     localStorage.removeItem(e.target.id);
-    // this.setState(outfits =>
-    //   this.state.outfits.filter(outfit => {
-    //     return outfit.style_id !== e.target.id;
-    //   }),
-    // );
   };
 
 

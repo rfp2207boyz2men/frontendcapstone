@@ -1,21 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect, useId } from 'react';
+import { OrbitSpinner } from 'react-epic-spinners';
+import { FaFacebookSquare, FaTwitter, FaPinterest } from 'react-icons/fa';
 import { TiTick } from 'react-icons/ti';
 
-function ProductOverview  ({ selectedProduct }) {
+function ProductOverview  ({ p1, currentProduct }) {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if(p1.length > 0) {
+      setLoading(false);
+    }
+  }, [p1])
 
   return (
-    <div className='prodview-container'>
-      <div className='prodview-text'>
-        <h2>{selectedProduct.slogan}</h2>
-        <p>{selectedProduct.description}</p>
+    <div>
+      {!loading ?
+      <div className='prodview-container'>
+
+       <div className='prodview-text'>
+        <h2>{currentProduct.slogan}</h2>
+        <p>{currentProduct.description}</p>
+        <div className='social'>
+        <a href="https://www.facebook.com" target='_blank'><FaFacebookSquare /></a>
+        <a href="https://www.twitter.com" target='_blank'><FaTwitter /></a>
+        <a href="https://www.pinterest.com" target='_blank'><FaPinterest /></a>
+        </div>
       </div>
+
       <div className='prodview-line'></div>
       <div>
-        <p><TiTick />GMO</p>
-        <p><TiTick />Made with 100% Generic Salt</p>
-        <p><TiTick />Can cause itches</p>
-        <p><TiTick />Or not</p>
+        {currentProduct.features.map((item) => {
+          let id = Math.random();
+          return (
+            <div key={id}>
+              <p><TiTick/>{item.feature}</p>
+              <p><TiTick/>{item.value}</p>
+            </div>
+          )
+        })}
       </div>
+
+      </div>
+      :
+      <OrbitSpinner color="teal" />
+      }
     </div>
   )
 }
