@@ -12,7 +12,6 @@ const List = (props) => {
     setOverlay(!overlay);
   };
 
-
   return (
     <div className='reviewsMainBar'>
       {overlay &&
