@@ -1,11 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { OrbitSpinner } from 'react-epic-spinners';
 import { TiStarFullOutline, TiStarHalfOutline, TiStarOutline } from 'react-icons/ti';
 
-function ProductInformation ({p1, currentProduct, handleLocalClick, localName, localId, styles, handleLocalSave}) {
+function ProductInformation ({
+  p1,
+  currentProduct,
+  currentStyle,
+  handleStyleClick,
+  handleLocalClick,
+  localName,
+  localId,
+  handleLocalSave,
+  styleThumbUrl,
+}) {
   const [loading, setLoading] = useState(true);
-  const [currentStyle, setCurrentStyle] = useState();
-  const [currentSkus, setCurrentSkus] = useState([]);
 
 
   useEffect(() => {
@@ -14,13 +22,11 @@ function ProductInformation ({p1, currentProduct, handleLocalClick, localName, l
     }
   }, [p1])
 
-  useEffect(() => {
-    let style = styles.filter((item => {
-      return item.style_id === localId;
-    }));
-    setCurrentStyle(style[0]);
-  }, [localId])
 
+  const relatedLink = (e) => {
+    e.preventDefault();
+    window.location.replace("/#related");
+  }
 
     return (
       <div>
@@ -32,11 +38,13 @@ function ProductInformation ({p1, currentProduct, handleLocalClick, localName, l
           <TiStarFullOutline className='star' />
           <TiStarHalfOutline className='star' />
           <TiStarOutline className='star' />
-          <a href=''>Read all reviews</a>
+          <a href='' onClick={relatedLink}>Read all reviews</a>
         </div>
+
         <h4>{currentProduct.category}</h4>
-        <h2>{currentProduct.name}</h2>
-        <p>${currentProduct.default_price}</p>
+        {currentStyle ? <h2>{currentStyle.name}</h2> : <h2>{currentProduct.name}</h2>}
+        {currentStyle ? <h2>${currentStyle.original_price}</h2> : <h2>${currentProduct.default_price}</h2>}
+
         <div>
       <div className='style-title'>
         <h4> STYLE > </h4>
@@ -44,14 +52,19 @@ function ProductInformation ({p1, currentProduct, handleLocalClick, localName, l
       </div>
       <div className='style-container'>
 
-        {styles.map(style => {
+        {
+          currentProduct.styles.map(item => {
           let id = Math.random();
           return (
             <img key={id}
-            id={style.style_id}
-            name={style.name}
-            onClick={handleLocalClick}
-            src={style.photos[0].thumbnail_url} className='style-entry'></img>
+            id={item.style_id}
+            name={item.name}
+            ref={styleThumbUrl}
+            onClick={(e, url, prod) => {
+              handleLocalClick(e);
+              handleStyleClick(e, item.photos[0].url, item);
+            }}
+            src={item.photos[0].thumbnail_url} className='style-entry'></img>
           )
         })}
 
@@ -62,13 +75,13 @@ function ProductInformation ({p1, currentProduct, handleLocalClick, localName, l
 
       <select>
         <option value="0">SELECT SIZE</option>
-        {currentStyle ?
-            Object.values(currentStyle.skus).map((item => {
-              let id = Math.random();
-              return <option key={id}>{item.size}</option>
-            }))
+        { currentStyle ?
+          Object.values(currentStyle.skus).map((item => {
+            let id = Math.random();
+            return <option key={id}>{item.size}</option>
+          }))
         :
-            <div></div>
+          <div></div>
         }
       </select>
 
@@ -84,7 +97,7 @@ function ProductInformation ({p1, currentProduct, handleLocalClick, localName, l
         }
       </select>
 
-      <button>ADD TO CART</button>
+      <button onClick={handleLocalSave}>ADD TO CART</button>
       <button onClick={handleLocalSave}><TiStarFullOutline /></button>
     </div>
 

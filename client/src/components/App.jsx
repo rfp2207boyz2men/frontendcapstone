@@ -176,7 +176,7 @@ class App extends React.Component {
             />
           </div>
           <div>
-            <div className = 'relatedSection'>
+            <div id='related' className = 'relatedSection'>
               <Related selectedProduct={this.state.selectedProduct}/>
             </div>
           </div>
