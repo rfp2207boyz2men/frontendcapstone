@@ -8,31 +8,6 @@ import InputOverlay from './InputOverlay.jsx';
 const List = (props) => {
   const [overlay, setOverlay] = useState(false);
 
-  useEffect(() => {
-    getSortedReviews();
-  }, []);
-
-  // FORK-IN-THE-ROAD MOMENT
-  //  Upon changing sort...
-  //    Do I reset the reviewsSlice to only show 2 reviews?
-  //    Do I keep the amount shown, but readjust how many are shown?
-  //  Currently going with the former...
-
-  let getSortedReviews = (sorter) => {
-    let params = `?product_id=${props.productId}&count=${props.totalReviews}&sort=${sorter ? sorter : sort}`;
-    return Parse.getAll(`reviews/`, params)
-    .then((reviews) => {
-      setReviews(reviews.data.results);
-      setReviewsSlice(reviews.data.results.slice(0, showAmount));
-      setInitialized(true)
-    });
-  };
-
-  let handleShowMore = () => {
-    setReviewsSlice(reviews.slice(0, showAmount + 2));
-    setShowAmount(showAmount + 2);
-  };
-
   let handleOverlay = () => {
     setOverlay(!overlay);
   };
