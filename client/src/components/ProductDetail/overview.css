@@ -163,8 +163,7 @@
   color: #94B49F;
 }
 
-.social > a {
-  text-decoration: none;
+.social > button {
   color: #94B49F;
   margin: 10px 25px;
 }
