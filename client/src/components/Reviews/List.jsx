@@ -10,7 +10,7 @@ const List = (props) => {
 
   useEffect(() => {
     getSortedReviews();
-  }, [initialized]);
+  }, []);
 
   // FORK-IN-THE-ROAD MOMENT
   //  Upon changing sort...

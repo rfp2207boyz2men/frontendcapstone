@@ -254,14 +254,14 @@ class App extends React.Component {
                 />
             </div>
             <div>
-              {/* <Reviews
+              <Reviews
                 totalReviews={this.state.totalReviews}
                 averageRating={this.state.averageRating}
                 metaData={this.state.metaData}
                 renderStars={this.renderStars.bind(this)}
                 productName={this.state.selectedProduct.name}
                 productId={this.state.selectedProduct.id}
-              /> */}
+              />
             </div>
             </div>
           </div>
