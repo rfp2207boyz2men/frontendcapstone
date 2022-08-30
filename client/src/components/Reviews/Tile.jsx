@@ -23,16 +23,14 @@ const Tile = (props) => {
 
   let parseBody = (type) => {
     //render body (or response) to allow paragraphs
-
-    // let bodyChunks = [];
-    // let parsedBody = props.review.body.replaceAll('\n\n', '\n');
-    // bodyChunks = parsedBody.split('\n');
     let parsedBody = props.review[type].replaceAll('\n\n', '\n');
     parsedBody = parsedBody.split('\n');
     return parsedBody.map((body, index) => <p key={body + props.review.review_id + index}>{body}</p>)
   };
 
   let renderHelpful = () => {
+    // render message whether user voted review as helpful or not
+    //  will render based on current session
     let localStorageCopy = JSON.parse(localStorage.getItem('helpfulReviews'));
     if (localStorageCopy[props.review.review_id] === true) {
       return(
@@ -51,23 +49,15 @@ const Tile = (props) => {
         </div>
       )
     }
-
   };
 
   let handleHelpful = (value) => {
+    //save review_id to localStorage so it saves helpful vote on page refresh
+    //setLocalClick used to change a state to re-render tile
     let review_id = props.review.review_id;
-    //TODO: Invoke Parse.update to update helpfulness in API
-
-    //ISSUE: The helpful indicator applies to the index of the tile rather than the specific tile itself
-    //  Somehow save status to review_id instead?
-    if (!localStorage.getItem('helpfulReviews')) {
-      localStorage.setItem('helpfulReviews', JSON.stringify({}))
-    }
 
     let localStorageCopy = JSON.parse(localStorage.getItem('helpfulReviews'));
     localStorageCopy = ({...localStorageCopy, [props.review.review_id]: value})
-    // console.log(localStorageCopy);
-
     localStorage.setItem('helpfulReviews', JSON.stringify(localStorageCopy));
     setLocalClick(true);
   };
@@ -82,6 +72,9 @@ const Tile = (props) => {
   };
 
   let reportReview = () => {
+    //update API to report review
+    //  then get new set of reviews
+    //  can refactor to just splice the filteredReviews instead of doing an API call?
     Parse.update(`reviews/`, `${props.review.review_id}/report`)
     .then(() => props.getReviews())
     .catch((err) => console.log(err));
