@@ -4,79 +4,65 @@ import axios from 'axios';
 import moment from 'moment';
 import './QandA.css';
 
-class Answer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      helpful: false,
-      reported: false
-    };
-    this.answerIsHelpful = this.answerIsHelpful.bind(this);
-    this.answerIsReported = this.answerIsReported.bind(this);
+const Answer = (props) => {
+  const [helpful, setHelpful] = useState(false);
+  const [reported, setReported] = useState(false);
+
+  let answerId = props.answer.answer_id;
+  let params = `?answer_id=${answerId}`;
+  let username = props.answer.answerer_name
+  let date = moment(props.answer.date).format('MMM DD[,] YYYY');
+  let helpfulBtn;
+  let reportBtn;
+
+  let answerIsHelpful = () => {
+    setHelpful(true);
+
+    Parse.update(`qa/answers/${answerId}/helpful`, params);
   }
 
-  answerIsHelpful() {
-    this.setState({
-      helpful: true
-    })
-    let answerId = this.props.answer.answer_id;
-    let params = `?answer_id=${answerId}`;
+  let answerIsReported = () => {
+    setReported(true);
 
-    Parse.update(`qa/answers/${answerId}/helpful`, params)
+    Parse.update(`qa/answers/${answerId}/report`, params);
   }
 
-  answerIsReported() {
-    this.setState({
-      reported: true
-    })
-    let answerId = this.props.answer.answer_id;
-    let params = `?answer_id=${answerId}`;
-
-    Parse.update(`qa/answers/${answerId}/report`, params)
-  }
-
-  render() {
-    let date = moment(this.props.answer.date).format('MMM DD[,] YYYY')
-    let username = this.props.answer.answerer_name;
-    let isHelpful = this.state.helpful;
-    let helpful;
-    let isReported = this.state.reported;
-    let report;
-
-    if(isHelpful) {
-      helpful = <u> Yes </u>
-    } else {
-      helpful = <button
+  if (helpful) {
+    helpfulBtn = <u> Yes </u>
+  } else {
+    helpfulBtn =
+      <button
         className='helpful'
-        onClick={this.answerIsHelpful}>
-        <u> Yes </u>
+        onClick={answerIsHelpful}>
+          <u> Yes </u>
       </button>
-    }
+  }
 
-    if(isReported) {
-      report = <u> Reported </u>
-    } else {
-      report = <button
+  if (reported) {
+    reportBtn = <u> Reported </u>
+  } else {
+    reportBtn =
+      <button
         className='report'
-        onClick={this.answerIsReported}>
+        onClick={answerIsReported}>
         <u> Report </u>
       </button>
-    }
-
-    return (
-      <div className='answer'>
-        <div className='answer-line'>
-          <strong>A: {this.props.answer.body}</strong>
-          <small className='user-info'>
-            by {username === 'Seller' ? <b>username</b> : username}, {date} | Helpful?
-            {helpful}
-            ({this.props.answer.helpfulness}) |
-            {report}
-          </small>
-        </div>
-      </div>
-    )
   }
+
+  return (
+    <div className='answer'>
+      <div className='answer-line'>
+        <strong> A: {props.answer.body}</strong>
+        <small className='user-info'>
+          by {username === 'Seller'
+          ? <b>username</b>
+          : username} , {date} | Helpful?
+          {helpfulBtn} ({props.answer.helpfulness}) |
+          {reportBtn}
+        </small>
+      </div>
+    </div>
+  )
 }
 
 export default Answer;
