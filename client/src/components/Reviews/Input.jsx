@@ -216,8 +216,8 @@ const Input = (props) => {
       // photos: photos,
       characteristics: characteristics
     };
-    console.log(typeof recommendation);
-    console.log(params);
+    // console.log(typeof recommendation);
+    // console.log(params);
 
     Parse.create('reviews', undefined, params)
     .then((response) => {

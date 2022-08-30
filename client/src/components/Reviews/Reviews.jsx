@@ -8,14 +8,18 @@ import { OrbitSpinner } from 'react-epic-spinners';
 
 
 const Reviews = (props) => {
-  const [ratings, setRatings] = useState([]);
-  const [totalReviews, setTotalReviews] = useState(0);
-  const [averageRating, setAverageRating] = useState(0);
   const [ratingPercentages, setRatingPercentages] = useState([]);
   const [averageRecommended, setAverageRecommended] = useState(0);
-  const [characteristics, setCharacteristics] = useState({});
-  const [loading, setLoading] = useState(false);
   const [initialized, setInitialized] = useState(false);
+
+  const [reviews, setReviews] = useState([]);
+  const [filteredReviews, setFilteredReviews] = useState([]);
+  const [slicedReviews, setSlicedReviews] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchStars, setSearchStars] = useState({1:true, 2:true, 3:true, 4:true, 5:true});
+  // const [starFilter, setStarFilter] = useState(false);
+  const [showAmount, setShowAmount] = useState(2);
+  const [sort, setSort] = useState('newest');
 
   useEffect(() => {
     let ratings = Object.values(props.metaData.ratings);
@@ -26,17 +30,63 @@ const Reviews = (props) => {
     let totalRecommendations = parseInt(recommendations.false) + parseInt(recommendations.true);
     let averageRecommended = ((parseInt(recommendations.true) / totalRecommendations) * 100);
 
-    setRatings(ratings);
     setRatingPercentages(ratingPercentages);
     setAverageRecommended(averageRecommended.toFixed(0));
-    setCharacteristics(props.metaData.characteristics);
-    setLoading(true);
-    setInitialized(true);
+
+
+    getSortedReviews();
   }, [initialized]);
+
+  //FORK-IN-THE-ROAD MOMENT
+  //  Upon changing sort...
+  //    Do I reset the reviewsSlice to only show 2 reviews?
+  //    Do I keep the amount shown, but readjust how many are shown?
+  //  Currently going with the latter...
+
+  let getSortedReviews = (sorter) => {
+    let params = `?product_id=${props.productId}&count=${props.totalReviews}&sort=${sorter ? sorter : sort}`;
+    return Parse.getAll(`reviews/`, params)
+    .then((reviews) => {
+      // console.log(reviews.data.results);
+      //let reviews = reviews.data.results
+      setReviews(reviews.data.results);
+      let filteredReviews = filterReviews(reviews.data.results);
+      setFilteredReviews(filteredReviews);
+      setSlicedReviews(filteredReviews.slice(0, showAmount));
+      setInitialized(true)
+    });
+  };
+
+  let filterReviews = (reviews) => {
+    //TODO: Set up highlighting (split text?)
+    let filteredReviews = [];
+    for (let review of reviews) {
+      if (review.body.includes(searchQuery)) {
+        if (searchStars[review.rating]) {
+          filteredReviews.push(review);
+        }
+      }
+    }
+    return filteredReviews;
+  };
+
+  let handleOnChange = (e) => {
+    console.log(e.target.value);
+    if (e.target.value.length >= 3) {
+      setSearchQuery(e.target.value);
+    } else {
+      setSearchQuery(e.target.value);
+    }
+  };
+
+  let handleShowMore = () => {
+    setSlicedReviews(reviews.slice(0, showAmount + 2));
+    setShowAmount(showAmount + 2);
+  };
 
   return(
     <div>
-      {loading
+      {initialized
       ?<div className='reviewMain'>
         <SideBar
           renderStars={props.renderStars}
@@ -44,15 +94,22 @@ const Reviews = (props) => {
           averageRating={props.averageRating}
           ratingPercentages={ratingPercentages}
           averageRecommended={averageRecommended}
-          characteristics={characteristics}
+          characteristics={props.metaData.characteristics}
+          clickedStar={searchStars}
         />
         <List
           // selectedProduct={props.selectedProduct}
+          reviews={reviews}
           renderStars={props.renderStars}
           totalReviews={props.totalReviews}
-          characteristics={characteristics}
+          characteristics={props.metaData.characteristics}
           productName={props.productName}
           productId={props.productId}
+          handleShowMore={handleShowMore}
+          filteredReviews={filteredReviews}
+          slicedReviews={slicedReviews}
+          sort={sort}
+          getReviews={getSortedReviews}
         />
       </div>
       :<OrbitSpinner color='green' />}
