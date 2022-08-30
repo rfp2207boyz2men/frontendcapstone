@@ -13,7 +13,6 @@ const List = (props) => {
   const [overlay, setOverlay] = useState(false);
 
   useEffect(() => {
-    console.log(props.reviews)
     getSortedReviews();
   }, [initialized]);
 

@@ -5,14 +5,13 @@ import { OrbitSpinner } from 'react-epic-spinners';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import StarRatings from 'react-star-ratings';
 
-const OutfitCard = ({product_id, remove, styleId}) => {
+const OutfitCard = ({ product_id, removeApp, styleId, removeOutfit }) => {
   const [productInfo, setProductInfo] = useState();
   const [productStyles, setProductStyles] = useState();
   const [stars, setStars] = useState(0);
   const [productLoad, setProductLoad] = useState(false);
   const [starHover, setStarHover] = useState(false);
   const [styleIndex, setStyleIndex] = useState(0);
-
 
   // On load, get all data to be used on cards and render
   useEffect(() => {
@@ -23,7 +22,6 @@ const OutfitCard = ({product_id, remove, styleId}) => {
     .then((data) => {
       Parse.getAll('products', `/${product_id}/styles`)
       .then((stylesData) => {
-        console.log('stylesData', stylesData.data.results)
         setProductStyles(stylesData.data.results)
       })
       .then((data) => {
@@ -43,7 +41,8 @@ const OutfitCard = ({product_id, remove, styleId}) => {
 
   // Remove outfit from outfits event handler, calls from App
   const handleClickRemove = () => {
-    remove(productInfo);
+    removeApp(productInfo.id);
+    removeOutfit(productInfo.id);
   }
 
   // Function which takes in array of reviews for product, parses into a rating
@@ -78,6 +77,8 @@ const OutfitCard = ({product_id, remove, styleId}) => {
                 <div className = 'cardPrice'>${productInfo.default_price}</div>
               </div>
               <div className = 'productCardRating'>
+                {
+                stars > 0 ?
                 <StarRatings
                   rating={stars}
                   starRatedColor="teal"
@@ -85,6 +86,8 @@ const OutfitCard = ({product_id, remove, styleId}) => {
                   starDimension='18px'
                   starSpacing='3px'
                   name='rating'/>
+                  : null
+                }
               </div>
             </div>
           </div>

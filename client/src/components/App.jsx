@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import ReactDOM from 'react-dom';
-import { FaBeer } from 'react-icons/fa';
 import Parse from '../parse.js';
 import axios from 'axios';
 import Related from './RelatedAndComp/Related.jsx';
@@ -47,8 +46,7 @@ class App extends React.Component {
     Parse.getAll(`products/`)
     .then((products) => {
       let defaultIndex = Math.floor(Math.random() * products.data.length);
-      // return this.updateSelectedProduct(products.data[defaultIndex].id);
-      return this.updateSelectedProduct(40344);
+      return this.updateSelectedProduct(products.data[defaultIndex].id);
     })
 
     this.retrieveStorage();
@@ -184,20 +182,15 @@ class App extends React.Component {
       if (!localStorage.getItem('o' + JSON.stringify(outfitData.id))) {
         let outfitObj = JSON.stringify(outfitData)
         localStorage.setItem('o' + JSON.stringify(outfitData.id), outfitObj)
-      } else {
-        localStorage.removeItem('o' + JSON.stringify(outfitData.id));
-        let outfitObj = JSON.stringify(outfitData)
-        localStorage.setItem('o' + JSON.stringify(outfitData.id), outfitObj)
       }
-
     }
-}
+  }
 
-  handleOutfitRemoval(outfit) {
-      localStorage.removeItem('o' + JSON.stringify(outfit.id));
-      let updatedList = [...this.state.outfits]
-      updatedList.splice(this.state.outfits.map(outfit => outfit.id).indexOf(outfit.id), 1)
-      this.setState({outfits: updatedList})
+  handleOutfitRemoval(outfitId) {
+    localStorage.removeItem('o' + JSON.stringify(outfitId));
+    let updatedList = [...this.state.outfits]
+    updatedList.splice(updatedList.map(outfit => outfit.id).indexOf(outfitId), 1)
+    this.setState({outfits: [...updatedList]})
   }
 
   render() {
@@ -250,14 +243,14 @@ class App extends React.Component {
                 /> */}
             </div>
             <div>
-              <Reviews
+              {/* <Reviews
                 totalReviews={this.state.totalReviews}
                 averageRating={this.state.averageRating}
                 metaData={this.state.metaData}
                 renderStars={this.renderStars.bind(this)}
                 productName={this.state.selectedProduct.name}
                 productId={this.state.selectedProduct.id}
-              />
+              /> */}
             </div>
             </div>
           </div>
