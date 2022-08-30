@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { BiSearch } from 'react-icons/bi';
 import Parse from '../../parse.js';
 import axios from 'axios';
+import QandASearch from './QandASearch.jsx';
 import RelevantQ from './RelevantQ.jsx'
 import './QandA.css';
 
@@ -10,17 +11,29 @@ class QandA extends React.Component {
     super(props);
     this.state = {
       questions: [],
+      filtered: [],
       count: 2,
-      questionQuery: '',
       showMore: false
     };
-    this.handleChange = this.handleChange.bind(this);
+    this.searchQuestion = this.searchQuestion.bind(this);
     this.handleShowMore = this.handleShowMore.bind(this);
   }
 
-  handleChange(event) {
+  searchQuestion(query) {
+    if (query === '') {
+      this.setState({
+        filtered: this.state.questions
+      })
+    }
+
+    let queriedQuestions = this.state.questions.filter(
+      question =>
+        question.question_body
+          .toLowercase()
+          .includes(query.toLowerCase()));
+
     this.setState({
-      questionQuery: event.target.value
+      filtered: queriedQuestions
     });
   }
 
@@ -41,7 +54,8 @@ class QandA extends React.Component {
       })
       .then((results) => {
         this.setState({
-          questions: results
+          questions: results,
+          filtered: results
         })
       })
   }
@@ -51,10 +65,10 @@ class QandA extends React.Component {
     let questionList;
 
     if(this.state.showMore) {
-      questionList = this.state.questions.map(question =>
+      questionList = this.state.filtered.map(question =>
         <RelevantQ key={question.question_id} question={question} />)
     } else {
-      questionList = this.state.questions.slice(0, this.state.count).map(question =>
+      questionList = this.state.filtered.slice(0, this.state.count).map(question =>
         <RelevantQ key={question.question_id} question={question} />
       )
     }
@@ -62,18 +76,9 @@ class QandA extends React.Component {
     return(
       <div className='qanda'>
         <h2 className='qanda-heading'>QUESTIONS AND ANSWERS</h2>
-        {this.state.questions.length ?
+        {this.state.filtered.length ?
         <div className='question-body'>
-          <div className='qanda-search'>
-            <input
-              className='qanda-search-input'
-              type='search'
-              placeholder='Have a question? Search for answers...'
-              name='questionQuery'
-              onChange={this.handleChange}
-            />
-            <button className='qanda-search-icon'><BiSearch/></button>
-          </div>
+          <QandASearch searchQuestion={this.searchQuestion} />
           <div className='question-list'>
             {questionList}
           </div>
