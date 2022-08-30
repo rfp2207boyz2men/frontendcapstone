@@ -7,11 +7,11 @@ import Related from './RelatedAndComp/Related.jsx';
 import Outfits from './RelatedAndComp/Outfits.jsx';
 import Overview from './ProductDetail/Overview.jsx';
 import Reviews from './Reviews/Reviews.jsx';
+import QandA from './QandA/QandA.jsx';
 import { TiStarFullOutline, TiStarHalfOutline, TiStarOutline } from 'react-icons/ti';
 import { GiTriquetra } from 'react-icons/gi'
 import { OrbitSpinner } from 'react-epic-spinners';
 import { BsSearch, BsBag } from 'react-icons/bs'
-import QandA from './QandA/QandA.jsx';
 import { GoSearch } from 'react-icons/go';
 
 
@@ -145,7 +145,7 @@ class App extends React.Component {
    }
 
   // Not tested yet, why are event not firing??
-   removeStorage (e) {
+  removeStorage (e) {
     localStorage.removeItem(e.target.id);
     // this.setState(outfits =>
     //   this.state.outfits.filter(outfit => {
@@ -183,7 +183,7 @@ class App extends React.Component {
       }
 
     }
-}
+  }
 
   handleOutfitRemoval(outfit) {
       localStorage.removeItem('o' + JSON.stringify(outfit.id));
@@ -257,5 +257,6 @@ class App extends React.Component {
     )
   }
 }
+
 
 export default App;
