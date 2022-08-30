@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  scroll-behavior: smooth
 }
 
 /* ----------------- Image Gallery ----------------- */
@@ -15,6 +16,40 @@
   ;
 }
 
+.pv-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: ease-in 0.5s ease;
+  margin: 10px;
+}
+
+.pv-container-active {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  transition: ease-out 0.5s ease;
+}
+
+.pv-img {
+  cursor: -moz-zoom-in;
+  cursor: -webkit-zoom-in;
+  cursor: zoom-in;
+  width: 500px;
+  height: 500px;
+  object-fit: cover;
+}
+
+.pv-active {
+  cursor: -moz-zoom-out;
+  cursor: -webkit-zoom-out;
+  align-self: flex-end;
+  width: 700px;
+  height: 500px;
+  cursor: zoom-out;
+  object-fit: contain;
+}
+
 .g-container {
   display: flex;
   align-items: center;
@@ -23,6 +58,7 @@
 }
 
 .g-entry {
+  cursor: pointer;
   background-color: #fff;
   width: 50px;
   margin: 20px;
@@ -30,17 +66,11 @@
   transition: all .5s ease;
 }
 
-.g-entry:hover {
-  cursor: pointer;
-  border-bottom: 5px solid #666;
+.g-border {
+  border-bottom: solid 5px #850E35;
 }
 
-.pv-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 10px;
-}
+
 
 .arrow {
   color: #fff;
@@ -55,15 +85,20 @@
   align-self: flex-start;
 }
 
-/* ----------------- Style Information ----------------- */
+/* ----------------- Style Section ----------------- */
 
 .info-container {
   margin: 0 30px;
   width: 250px;
+  scroll-behavior: smooth;
 }
 
 .star {
   margin: 0 2px;
+}
+
+.reviews {
+  margin-left: 10px;
 }
 
 .style-title {
@@ -87,8 +122,6 @@
   align-items: center;
   flex-wrap: wrap;
 }
-
-/* ----------------- Add To Cart ----------------- */
 
 .add-container {
   margin: 30px 0;
@@ -119,4 +152,19 @@
   border-radius: 7px;
   height: 150px;
   width: 4px;
+}
+
+.social {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  cursor: pointer;
+  font-size: 24px;
+  color: #94B49F;
+}
+
+.social > button {
+  color: #94B49F;
+  margin: 10px 25px;
 }

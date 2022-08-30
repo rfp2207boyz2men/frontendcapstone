@@ -2,6 +2,10 @@
   MAIN
 */
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   width: 1200px;
   font-family: 'Noto Sans', sans-serif;

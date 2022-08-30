@@ -23,6 +23,7 @@ class App extends React.Component {
       styles: [],
       localName: 'No style selected',
       localId: 0,
+      selectedStyle: [],
       reviewsData: [],
       metaData: {},
       averageRating: 0,
@@ -130,18 +131,20 @@ class App extends React.Component {
 
   handleLocalClick(e) {
     e.preventDefault();
+
     this.setState({
       localName: e.target.name,
       localId: parseInt(e.target.id),
     })
+
   }
+
 
 
   handleLocalSave(e) {
     e.preventDefault();
-      let styleObj = this.state.styles.filter((style => {
-        return style.style_id === this.state.localId;
-      }));
+
+    let styleObj = this.getStyleObj(this.state.localId);
 
       if (!localStorage.getItem(this.state.localName)) {
         const jsonObj = JSON.stringify(styleObj);
@@ -150,15 +153,21 @@ class App extends React.Component {
       }
    }
 
+
+
+   getStyleObj(id) {
+    return this.state.styles.filter((style => {
+      return style.style_id === id;
+    }));
+  }
+
+
+
   // Not tested yet, why are event not firing??
   removeStorage (e) {
     localStorage.removeItem(e.target.id);
-    // this.setState(outfits =>
-    //   this.state.outfits.filter(outfit => {
-    //     return outfit.style_id !== e.target.id;
-    //   }),
-    // );
   };
+
 
   renderStars = (rating) => {
     let ratingCopy = rating;
@@ -214,12 +223,14 @@ class App extends React.Component {
               <div>
                 <Overview
                   selectedProduct={this.state.selectedProduct}
-                  styles={this.state.styles}
                   localName={this.state.localName}
+                  renderStars={this.renderStars.bind(this)}
+                  getAverageRating={this.getAverageRating.bind(this)}
+                  getTotalReviews={this.getTotalReviews.bind(this)}
                   handleLocalClick={this.handleLocalClick}
                   handleLocalSave={this.handleLocalSave}/>
               </div>
-              <div className='relatedSection'>
+              <div id='related' className='relatedSection'>
                 <Related
                   selectedProduct={this.state.selectedProduct}
                   addToOutfit={this.handleOutfitAdds}
