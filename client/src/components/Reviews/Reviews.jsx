@@ -16,12 +16,14 @@ const Reviews = (props) => {
   const [filteredReviews, setFilteredReviews] = useState([]);
   const [slicedReviews, setSlicedReviews] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchStars, setSearchStars] = useState({1:true, 2:true, 3:true, 4:true, 5:true});
-  // const [starFilter, setStarFilter] = useState(false);
+  const [searchStars, setSearchStars] = useState({1:false, 2:false, 3:false, 4:false, 5:false});
+  const [starFilter, setStarFilter] = useState(false);
   const [showAmount, setShowAmount] = useState(2);
   const [sort, setSort] = useState('newest');
 
   useEffect(() => {
+    //This only gets the initial averages
+    //  Should I update after adding a review?
     let ratings = Object.values(props.metaData.ratings);
     let recommendations = props.metaData.recommended;
 
@@ -36,6 +38,7 @@ const Reviews = (props) => {
 
     getSortedReviews();
   }, [initialized]);
+
 
   //FORK-IN-THE-ROAD MOMENT
   //  Upon changing sort...
@@ -60,27 +63,52 @@ const Reviews = (props) => {
   let filterReviews = (reviews) => {
     //TODO: Set up highlighting (split text?)
     let filteredReviews = [];
+    let starFilter = enableFilter();
+    console.log(starFilter);
+
     for (let review of reviews) {
       if (review.body.includes(searchQuery)) {
-        if (searchStars[review.rating]) {
+        if (!starFilter) {
           filteredReviews.push(review);
+        } else {
+          if (searchStars[review.rating]) {
+            filteredReviews.push(review);
+          }
         }
       }
     }
     return filteredReviews;
   };
 
+  let enableFilter = () => {
+    for (let star in searchStars) {
+      if (searchStars[star]) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   let handleOnChange = (e) => {
-    console.log(e.target.value);
     if (e.target.value.length >= 3) {
       setSearchQuery(e.target.value);
     } else {
-      setSearchQuery(e.target.value);
+      setSearchQuery('');
     }
   };
 
+  let handleStarClick = (value) => {
+    setSearchStars((prevStars) => ({...prevStars, [value]: !searchStars[value]}));
+  };
+
+  useEffect(() => {
+    let filteredReviews = filterReviews(reviews);
+    setFilteredReviews(filteredReviews);
+    setSlicedReviews(filteredReviews.slice(0, showAmount));
+  }, [searchStars, searchQuery])
+
   let handleShowMore = () => {
-    setSlicedReviews(reviews.slice(0, showAmount + 2));
+    setSlicedReviews(filteredReviews.slice(0, showAmount + 2));
     setShowAmount(showAmount + 2);
   };
 
@@ -96,6 +124,7 @@ const Reviews = (props) => {
           averageRecommended={averageRecommended}
           characteristics={props.metaData.characteristics}
           clickedStar={searchStars}
+          handleClick={handleStarClick}
         />
         <List
           // selectedProduct={props.selectedProduct}
@@ -110,6 +139,7 @@ const Reviews = (props) => {
           slicedReviews={slicedReviews}
           sort={sort}
           getReviews={getSortedReviews}
+          onChange={handleOnChange}
         />
       </div>
       :<OrbitSpinner color='green' />}

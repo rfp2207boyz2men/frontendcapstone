@@ -36,7 +36,7 @@ const Characteristics = (props) => {
   let renderAggregate = (label, count, value, barLabels) => {
     //Render out the div for a specific characteristic
     return (
-      <div className = 'reviewCharacteristicSection'>
+      <div className='reviewCharacteristicSection' key={label}>
         {renderLabel(label)}
         <div className='reviewCharacteristicBarSection'>{renderBars(count)}</div>
         {renderArrow(value)}

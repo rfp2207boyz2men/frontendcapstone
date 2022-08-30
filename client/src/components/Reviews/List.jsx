@@ -25,7 +25,9 @@ const List = (props) => {
         />}
       <div className='reviewListHeader'>
         <h3>There are {props.reviews.length} unreported reviews. Currently showing {props.slicedReviews.length} reviews. Sorting by {props.sort}.</h3>
-        < Search />
+        < Search
+          onChange={props.onChange}
+        />
       </div>
       <div className='reviewList'>
         {props.slicedReviews.map((review, index) => (

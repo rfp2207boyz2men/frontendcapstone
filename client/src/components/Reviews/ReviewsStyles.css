@@ -69,17 +69,28 @@
   border: 1px solid gray;
 }
 
-.reviewBarSection {
+.reviewBarSectionOff,
+.reviewBarSectionOn {
   display: flex;
   flex-direction: row;
   width: inherit;
   border: 1px solid rgb(65, 65, 65);
 }
 
-.reviewBarSection:hover {
+.reviewBarSectionOn {
+  background-color: teal;
+}
+
+.reviewBarSectionOff:hover {
   cursor: pointer;
-  background-color: rgb(216, 207, 207);
-  transition: 0.3s;
+  /* background-color: teal; */
+  /* transition: 0.3s; */
+}
+
+.reviewBarSectionOn:hover {
+  cursor: pointer;
+  /* background-color: transparent; */
+  /* transition: 0.3s; */
 }
 
 .reviewBarLabel {

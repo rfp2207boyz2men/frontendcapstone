@@ -15,11 +15,13 @@ const SideBar = (props) => {
         <p>{props.averageRecommended}% of reviews recommend this product</p>
       </div>
       <Breakdowns
-        ratings = {props.ratings}
-        ratingPercentages = {props.ratingPercentages}
+        ratings={props.ratings}
+        ratingPercentages={props.ratingPercentages}
+        clickedStar={props.clickedStar}
+        handleClick={props.handleClick}
       />
       <Characteristics
-        characteristics = {props.characteristics}
+        characteristics={props.characteristics}
       />
     </div>
   );
