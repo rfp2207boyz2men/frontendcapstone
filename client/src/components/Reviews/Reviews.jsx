@@ -23,6 +23,9 @@ const Reviews = (props) => {
   //MAKE SURE TO SET THIS DEFAULT TO 'relevant' UPON DELIVERING
 
   useEffect(() => {
+    if (!localStorage.getItem('helpfulReviews')) {
+      localStorage.setItem('helpfulReviews', JSON.stringify({}))
+    }
     //This only gets the initial averages
     //  Should I update after adding a review?
     let ratings = Object.values(props.metaData.ratings);
@@ -43,9 +46,8 @@ const Reviews = (props) => {
 
   //FORK-IN-THE-ROAD MOMENT
   //  Upon changing sort...
-  //    Do I reset the reviewsSlice to only show 2 reviews?
-  //    Do I keep the amount shown, but readjust how many are shown?
-  //  Currently going with the latter...
+  //  Reset reviewSlice to two?
+  //  Do I keep the same?
 
   let getSortedReviews = (sorter) => {
     // console.log('sort: ', sorter)
@@ -116,6 +118,9 @@ const Reviews = (props) => {
     getSortedReviews();
   }, [sort])
 
+  let handleReport = () => {
+
+  };
 
   let handleShowMore = () => {
     setSlicedReviews(filteredReviews.slice(0, showAmount + 2));
