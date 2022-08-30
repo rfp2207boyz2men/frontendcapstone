@@ -238,9 +238,9 @@ class App extends React.Component {
                 />
             </div>
             <div className="questionsSection">
-              {/* <QandA
+              <QandA
                   selectedProduct={this.state.selectedProduct}
-                /> */}
+                />
             </div>
             <div>
               {/* <Reviews
