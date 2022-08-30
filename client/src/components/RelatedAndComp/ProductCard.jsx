@@ -1,104 +1,122 @@
 import React, { useState, useEffect, useContext } from 'react';
 import ReactDOM from 'react-dom';
-import { FaBeer } from 'react-icons/fa';
 import Parse from '../../parse.js';
 import { OrbitSpinner } from 'react-epic-spinners';
 import { TiStarFullOutline, TiStarOutline } from 'react-icons/ti';
-import Carousel from 'react-bootstrap/Carousel';
 import Modal from './Compare.jsx';
+import StarRatings from 'react-star-ratings';
 
-class ProductCard extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      product_info: {},
-      product_styles: [],
-      productCardLoad: false,
-      mouseStarHover: false,
-      showCompare: false
-    };
+const ProductCard = ({ product_id, addOutfit, select, current, avgStars }) => {
+  const [productInfo, setProductInfo] = useState({});
+  const [productStyles, setProductStyles] = useState([]);
+  const [stars, setStars] = useState(0);
+  const [productLoad, setProductLoad] = useState(false);
+  const [starHover, setStarHover] = useState(false);
+  const [showCompare, setShowCompare] = useState(false);
 
-    this.mouseHoverStar = this.mouseHoverStar.bind(this);
-    this.mouseExitStar = this.mouseExitStar.bind(this);
-    this.showModal = this.showModal.bind(this);
-    this.hideModal = this.hideModal.bind(this);
-    this.handleImageClick = this.handleImageClick.bind(this)
-  }
-
-  componentDidMount() {
-    // Requests product info and product styles to use on the cards - card requires info from both
-    Parse.getAll('products', `/${this.props.product_id}/`)
+  useEffect(() => {
+    Parse.getAll('products', `/${product_id}/`)
       .then((productInfo) => {
-        this.setState({product_info: productInfo.data})
-        console.log(productInfo.data)
+        setProductInfo(productInfo.data)
       })
       .then((data) => {
-        Parse.getAll('products', `/${this.props.product_id}/styles`)
+        Parse.getAll('products', `/${product_id}/styles`)
         .then((productStyles) => {
-          this.setState({product_styles: productStyles.data.results, productCardLoad: true})
-          console.log(productStyles.data.results)
+          setProductStyles(productStyles.data.results)
         })
+        .then((data) => {
+          Parse.getAll('reviews', `?product_id=${product_id}`)
+            .then((reviewsData) => {
+              setStars(getAverage(reviewsData.data.results))
+            })
+            .then((data) => {
+              setProductLoad(true);
+            })
+            .catch((err) => console.log(err));
+        })
+        .catch((err) => console.log(err))
       })
+      .catch((err) => console.log(err))
+  }, [])
+
+  const getAverage = (reviewsArray) => {
+    let ratings = reviewsArray.map(review => review.rating);
+    let starRating = (ratings.reduce((total, rating) => total += rating, 0)/(ratings.length));
+    return starRating
   }
 
   // hovering effect for comparison module
-  mouseHoverStar() {
-    this.setState({mouseStarHover: true})
+  const mouseHoverStar = () => {
+    setStarHover(true);
   }
 
   // hovering effect for comparison module
-  mouseExitStar(){
-    this.setState({mouseStarHover: false})
+  const mouseExitStar = () => {
+    setStarHover(false);
   }
 
   // comparison module show/hide
-  showModal(event){
+  const showModal = (event) => {
     // stops overlapping clickable areas
     event.stopPropagation();
-    this.setState({ showCompare: true });
+    setShowCompare(true)
   };
 
   // comparison module show/hide
-  hideModal(){
-    this.setState({ showCompare: false });
+  const hideModal = () => {
+    setShowCompare(false)
   };
 
-  handleImageClick(event) {
+  const handleImageClick = (event) => {
+    event.preventDefault();
     event.stopPropagation();
-    this.props.select(this.state.product_info.id)
+    select(productInfo.id)
   }
 
-  render() {
-    return (
-      <div>
-        {this.state.showCompare ? <Modal show={this.state.showCompare} handleClose={this.hideModal} clicked={this.state.product_info} current={this.props.current}></Modal> : null}
-      {this.state.productCardLoad
-       ?
-        <div className = 'productCard'>
-        <div className = 'productCardImg' onClick={(event) =>{this.handleImageClick(event)}}>
-          <img className = 'productImages' src={ this.state.product_styles[0].photos[0].thumbnail_url || `https://via.placeholder.com/150`}/>
-          <div className = "starCard" onMouseEnter={this.mouseHoverStar} onMouseLeave={this.mouseExitStar} onClick={(event) => {this.showModal(event)}}>{this.state.mouseStarHover ? <TiStarFullOutline/> : <TiStarOutline />}</div>
-        </div>
-        <div>
-          <div className = 'productCardDesc'>
-          <div className = 'cardCat'>{this.state.product_info.category ? this.state.product_info.category.toUpperCase() : this.state.product_info.category}</div>
-          <div className = 'cardName'><strong>{this.state.product_info.name}</strong></div>
-          <div className = 'cardPrice'>{this.state.product_styles[this.state.product_styles.length-1].sale_price ? <div className="salePrice"> ${this.state.product_styles[this.state.product_styles.length - 1].sale_price} <div className="defaultPrice">{this.state.product_styles[this.state.product_styles.length-1].original_price}</div></div> : this.state.product_styles[this.state.product_styles.length - 1].original_price}</div>
+  return (
+    <div>
+      {/*Comparison Modal Condtionally Rendered Upon Click*/}
+      {showCompare ? <Modal show={showCompare} handleClose={hideModal} clicked={productInfo} current={current}></Modal> : null}
+      {/*Related Section Condtionally Rendered Upon Initialization*/}
+      {productLoad ?
+        <div className='productCard'>
+          <div className='productCardImg' onClick={(event) =>{handleImageClick(event)}}>
+            <img className='productImages' src={productStyles[0].photos[0].thumbnail_url || `https://via.placeholder.com/150`}/>
+            <div className='starCard' onMouseEnter={mouseHoverStar} onMouseLeave={mouseExitStar} onClick={(event) => {showModal(event)}}>
+              { /* Show interaction with action button to show comparison modal */
+                starHover ? <TiStarFullOutline/> : <TiStarOutline />
+              }
+            </div>
           </div>
-          <div className = 'productCardRating'>
-          <TiStarFullOutline className='star'/>
-          <TiStarFullOutline className='star'/>
-          <TiStarFullOutline className='star'/>
-          <TiStarFullOutline className='star'/>
-          <TiStarFullOutline className='star'/>
+          <div>
+            <div className='productCardDesc'>
+              <div className='cardCat'>{productInfo.category ? productInfo.category.toUpperCase() : productInfo.category}</div>
+              <div className='cardName'><strong>{productInfo.name}</strong></div>
+              <div className='cardPrice'>
+                { /* Card Pricing Conditional - if sale price exists, render it, else render original price */
+                  productStyles[productStyles.length-1].sale_price ?
+                  <div className='salePrice'>
+                    ${productStyles[productStyles.length-1].sale_price} <div className='defaultPrice'>${productStyles[productStyles.length-1].original_price}</div>
+                  </div>
+                  : <div>${productStyles[productStyles.length - 1].original_price}</div>
+                }
+              </div>
+            </div>
+          <div className='productCardRating'>
+          <StarRatings
+            rating={stars}
+            starRatedColor='teal'
+            numberOfStars={5}
+            starDimension='18px'
+            starSpacing='3px'
+            name='rating'/>
           </div>
         </div>
       </div>
-      : <OrbitSpinner color="teal" />
+      : <div className="cardLoader"><OrbitSpinner color='teal' className='cardSpinner'/></div>
       }
     </div>
-    )
-  }
+  )
 }
 
 export default ProductCard;
