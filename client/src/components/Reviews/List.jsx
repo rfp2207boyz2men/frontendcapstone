@@ -33,7 +33,7 @@ const List = (props) => {
         <Search onChange={props.onQueryChange} />
       </div>
       <div className='reviewList'>
-        {/* {props.slicedReviews.map((review, index) => (
+        {props.slicedReviews.map((review, index) => (
           <Tile
             review={review}
             key={index}
@@ -41,7 +41,7 @@ const List = (props) => {
             renderStars={props.renderStars}
             getReviews={props.getReviews}
           />
-        ))} */}
+        ))}
       </div>
       <div className='reviewExpandButtonSection'>
         {props.filteredReviews.length - props.slicedReviews.length > 0
