@@ -29,6 +29,7 @@
     "react-dom": "^18.2.0",
     "react-epic-spinners": "^0.5.0",
     "react-icons": "^4.4.0",
+    "react-share": "^4.4.0",
     "styled-components": "^5.3.5",
     "underscore": "^1.13.4"
   },
@@ -45,5 +46,6 @@
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.10.0"
-  }
+  },
+  "keywords": []
 }
