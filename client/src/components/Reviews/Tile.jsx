@@ -1,14 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react';
 import moment from 'moment';
 import Parse from '../../parse.js';
+import PhotoOverlay from './PhotoOverlay.jsx';
 import { GrCheckmark } from 'react-icons/gr';
 
 const Tile = (props) => {
-  // useEffect(() => console.log(props.review))
+  const [localClick, setLocalClick] = useState(false);
+  const [clickedHelpful, setClickedHelpful] = useState(false);
+  const [overlay, setOverlay] = useState(false);
+  const [clickedPhoto, setClickedPhoto] = useState('');
 
   let renderName = () => {
     let name = props.review.reviewer_name;
-    // let date = props.review.date;
     let date = moment(props.review.date).format('MMM DD[,] YYYY');
     name = `${name}, ${date}`;
     return name;
@@ -29,21 +32,54 @@ const Tile = (props) => {
     return parsedBody.map((body, index) => <p key={body + props.review.review_id + index}>{body}</p>)
   };
 
-  // return (
-  //   <div className='reviewTile'>
-  //     <div className='ratingStars'>{renderStars()}</div>
-  //     <p>{renderName()}</p>
-  //     <h3><b>{props.review.summary}</b></h3>
-  //     <p>{props.review.body}</p>
-  //     {props.review.response && <div className='reviewResponse'>
-  //       <span><b>Response:</b></span>
-  //       <p>{props.review.body}</p>
-  //     </div>}
-  //     {props.review.recommend && <p><GrCheckmark/> I recommend this product</p>}
-  //     <p>Helpful? <span><u>Yes</u></span> ({props.review.helpfulness}) | <span><u>Report</u></span></p>
-  //     {props.review.photos.map((photo, index) => <img src={photo.url} className='reviewPhotoThumbnail' key={index}/>)}
-  //   </div>
-  // )
+  let renderHelpful = () => {
+    let localStorageCopy = JSON.parse(localStorage.getItem('helpfulReviews'));
+    if (localStorageCopy[props.review.review_id] === true) {
+      return(
+        <p>You set this review as: Helpful</p>
+      )
+    } else if (localStorageCopy[props.review.review_id] === false) {
+      return(
+        <p>You set this review as: Not helpful</p>
+      )
+    } else {
+      return(
+        <div className='reviewHelpful'>
+          <p>Helpful?</p>
+          <p onClick={()=>handleHelpful(true)}><u>Yes</u></p>
+          <p onClick={()=>handleHelpful(false)}><u>No</u></p>
+        </div>
+      )
+    }
+
+  };
+
+  let handleHelpful = (value) => {
+    let review_id = props.review.review_id;
+    //TODO: Invoke Parse.update to update helpfulness in API
+
+    //ISSUE: The helpful indicator applies to the index of the tile rather than the specific tile itself
+    //  Somehow save status to review_id instead?
+    if (!localStorage.getItem('helpfulReviews')) {
+      localStorage.setItem('helpfulReviews', JSON.stringify({}))
+    }
+
+    let localStorageCopy = JSON.parse(localStorage.getItem('helpfulReviews'));
+    localStorageCopy = ({...localStorageCopy, [props.review.review_id]: value})
+    // console.log(localStorageCopy);
+
+    localStorage.setItem('helpfulReviews', JSON.stringify(localStorageCopy));
+    setLocalClick(true);
+  };
+
+  let handlePhotoClick = (e) => {
+    setClickedPhoto(e.target.src);
+    setOverlay(true)
+  };
+
+  let handleOverlay = () => {
+    setOverlay(false);
+  };
 
   let reportReview = () => {
     Parse.update(`reviews/`, `${props.review.review_id}/report`)
@@ -63,7 +99,7 @@ const Tile = (props) => {
         {parseBody('body')}
         {props.review.photos.length >= 1 &&
         <div className='reviewPhotoThumbnailSection'>
-          {props.review.photos.map((photo, index) => <img src={photo.url} className='reviewPhotoThumbnail' key={index}/>)}
+          {props.review.photos.map((photo, index) => <img src={photo.url} className='reviewPhotoThumbnail' onClick={handlePhotoClick} key={index}/>)}
         </div>}
         {props.review.response &&
         <div className='reviewResponse'>
@@ -72,13 +108,10 @@ const Tile = (props) => {
         </div>}
       </div>
       <div className='reviewInteractions'>
-        <div className='reviewHelpful'>
-          <p>Helpful?</p>
-          <p><u>Yes</u></p>
-          <p><u>No</u></p>
-        </div>
+        {renderHelpful()}
         <p className='reviewReport' onClick={reportReview}><u>Report</u></p>
       </div>
+      {overlay && <PhotoOverlay clickedPhoto={clickedPhoto} onClick={handleOverlay} />}
     </div>
   )
 }

@@ -66,7 +66,6 @@ const Reviews = (props) => {
     //TODO: Set up highlighting (split text?)
     let filteredReviews = [];
     let starFilter = enableFilter();
-    console.log(starFilter);
 
     for (let review of reviews) {
       if (review.body.includes(searchQuery)) {

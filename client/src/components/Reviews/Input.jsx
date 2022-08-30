@@ -231,6 +231,14 @@ const Input = (props) => {
     })
   };
 
+  const validateInfo = () => {
+    //What to validate:
+    //  Any blank fields
+    //  Body < 50 characters
+    //  Email not in correct email format
+    //  Images invalid/fail to upload
+  };
+
   return (
     <form className='reviewInput' onSubmit={handleSubmit}>
       <SiIfixit className='reviewInputExit' size={30} onClick={props.handleOverlay}/>
