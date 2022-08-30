@@ -84,7 +84,7 @@
   align-self: flex-start;
 }
 
-/* ----------------- Style Information ----------------- */
+/* ----------------- Style Section ----------------- */
 
 .info-container {
   margin: 0 30px;
@@ -118,8 +118,6 @@
   flex-wrap: wrap;
 }
 
-/* ----------------- Add To Cart ----------------- */
-
 .add-container {
   margin: 30px 0;
 }
@@ -149,4 +147,20 @@
   border-radius: 7px;
   height: 150px;
   width: 4px;
+}
+
+.social {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  cursor: pointer;
+  font-size: 24px;
+  color: #94B49F;
+}
+
+.social > a {
+  text-decoration: none;
+  color: #94B49F;
+  margin: 10px 25px;
 }

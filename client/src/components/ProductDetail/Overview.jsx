@@ -73,8 +73,7 @@ function Overview ({
   let prodList = [];
 
   for(let i = 0; i < set.length; i++) {
-
-    if (set[i].styles[0].photos[0].thumbnail_url !== null) {
+    if (set[i].styles.length > 0 && set[i].styles[0].photos[0].thumbnail_url !== null) {
       prodList.push({
         url: set[i].styles[0].photos[0].url,
         thumbnail_url: set[i].styles[0].photos[0].thumbnail_url
@@ -83,10 +82,13 @@ function Overview ({
 
   }
 
-  console.log('request \t', set);
   setP1(set);
   setCurrentProduct(set[0]);
-  setCurrentPhoto(set[0].styles[0].photos[0].url);
+  if (set[0].styles.length > 0) {
+    setCurrentPhoto(set[0].styles[0].photos[0].url);
+  } else {
+    setCurrentPhoto(set[1].styles[0].photos[0].url);
+  }
   setProductList(prodList);
   setLoading(false);
 }
@@ -113,8 +115,8 @@ function Overview ({
       }
     }
   }
+
   useEffect(() => {
-   console.log('count is rn:', count);
    fetchData(count);
   }, [count])
 

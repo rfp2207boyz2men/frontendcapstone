@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useId } from 'react';
 import { OrbitSpinner } from 'react-epic-spinners';
+import { FaFacebookSquare, FaTwitter, FaPinterest } from 'react-icons/fa';
 import { TiTick } from 'react-icons/ti';
 
 function ProductOverview  ({ p1, currentProduct }) {
@@ -19,6 +20,11 @@ function ProductOverview  ({ p1, currentProduct }) {
        <div className='prodview-text'>
         <h2>{currentProduct.slogan}</h2>
         <p>{currentProduct.description}</p>
+        <div className='social'>
+        <a href="https://www.facebook.com" target='_blank'><FaFacebookSquare /></a>
+        <a href="https://www.twitter.com" target='_blank'><FaTwitter /></a>
+        <a href="https://www.pinterest.com" target='_blank'><FaPinterest /></a>
+        </div>
       </div>
 
       <div className='prodview-line'></div>

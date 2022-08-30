@@ -40,16 +40,18 @@ function imageGallery ({
             p1.map(prod => {
               let id = Math.random();
 
-              if (currentPhoto === prod.styles[0].photos[0].url || JSON.stringify(prod).includes(currentPhoto)) {
-                if (prod.styles[0].photos[0].url === null) {
-                  return;
+              if (prod.styles.length > 0) {
+                if (currentPhoto === prod.styles[0].photos[0].url || JSON.stringify(prod).includes(currentPhoto)) {
+                  if (prod.styles[0].photos[0].url === null) {
+                    return;
+                  }
+                  return  <img onClick={e => handleThumbClick(e, prod)} id={prod.styles[0].photos[0].url} key={id} src={prod.styles[0].photos[0].thumbnail_url} className='g-entry g-border'></img>
+                } else {
+                  if (prod.styles[0].photos[0].url === null) {
+                    return;
+                  }
+                  return  <img onClick={e => handleThumbClick(e, prod)} id={prod.styles[0].photos[0].url} key={id} src={prod.styles[0].photos[0].thumbnail_url} className='g-entry'></img>
                 }
-                return  <img onClick={e => handleThumbClick(e, prod)} id={prod.styles[0].photos[0].url} key={id} src={prod.styles[0].photos[0].thumbnail_url} className='g-entry g-border'></img>
-              } else {
-                if (prod.styles[0].photos[0].url === null) {
-                  return;
-                }
-                return  <img onClick={e => handleThumbClick(e, prod)} id={prod.styles[0].photos[0].url} key={id} src={prod.styles[0].photos[0].thumbnail_url} className='g-entry'></img>
               }
 
             })
