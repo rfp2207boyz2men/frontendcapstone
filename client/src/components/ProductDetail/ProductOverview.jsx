@@ -8,19 +8,25 @@ function ProductOverview  ({ p1, currentProduct }) {
   const [loading, setLoading] = useState(true);
   const [shareQuote, setShareQuote] = useState(`Check this Awesome item! ${currentProduct.name}, $${currentProduct.default_price}`);
   const [shareHashtag, setShareHashtag] = useState([`Awesome:${currentProduct.category}`, `Reviews:${currentProduct.totalReviews}`]);
-  const [shareUrl, setShareUrl] = useState(currentProduct.styles[0].photos[0].url);
+  const [shareUrl, setShareUrl] = useState();
+
+
+  useEffect(() => {
+    setShareQuote(`Check this Awesome item! ${currentProduct.name}, only for.. $${currentProduct.default_price}`);
+    setShareHashtag(`${currentProduct.category}`);
+
+    if (currentProduct.styles.length > 0) {
+      setShareUrl(currentProduct.styles[0].photos[0].url);
+    } else {
+      setShareUrl('no photo');
+    }
+  }, [currentProduct])
 
   useEffect(() => {
     if(p1.length > 0) {
       setLoading(false);
     }
   }, [p1])
-
-  useEffect(() => {
-    setShareQuote(`Check this Awesome item! ${currentProduct.name}, only for.. $${currentProduct.default_price}`);
-    setShareHashtag(`${currentProduct.category}`);
-    setShareUrl(currentProduct.styles[0].photos[0].url);
-  }, [currentProduct])
 
   return (
     <div>
