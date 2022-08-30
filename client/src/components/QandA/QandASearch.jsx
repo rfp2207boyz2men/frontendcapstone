@@ -14,10 +14,16 @@ class QandASearch extends React.Component {
   }
 
   queryUpdate(event) {
-    if (event.target.value.length > 2) {
+    if (event.target.value.length >= 2) {
       this.setState({
         searchQuery: event.target.value
       })
+    } else if (event.keyCode === 8) {
+      if (this.state.searchQuery.length <= 2) {
+        this.setState({
+          searchQuery: ''
+        });
+      }
     }
     this.props.searchQuestion(this.state.searchQuery);
   }
@@ -32,6 +38,7 @@ class QandASearch extends React.Component {
           placeholder='Have a question? Search for answers...'
           name='questionQuery'
           onChange={this.queryUpdate}
+          onKeyDown={this.queryUpdate}
         />
         <button className='qanda-search-icon'><BiSearch/></button>
       </div>

@@ -20,7 +20,7 @@ class QandA extends React.Component {
   }
 
   searchQuestion(query) {
-    if (query === '') {
+    if (query === '' || query === 'undefined') {
       this.setState({
         filtered: this.state.questions
       })
@@ -28,13 +28,17 @@ class QandA extends React.Component {
 
     let queriedQuestions = this.state.questions.filter(
       question =>
-        question.question_body
-          .toLowercase()
-          .includes(query.toLowerCase()));
+        question.question_body.toLowerCase().includes(query.toLowerCase()));
 
-    this.setState({
-      filtered: queriedQuestions
-    });
+    if (queriedQuestions.length === 0) {
+      this.setState({
+        filtered: this.state.questions
+      })
+    } else {
+      this.setState({
+        filtered: queriedQuestions
+      });
+    }
   }
 
   handleShowMore() {
@@ -44,8 +48,8 @@ class QandA extends React.Component {
   }
 
   componentDidMount() {
-    //this.props.selectedProduct.id - after = in params
-    console.log(this.props.selectedProduct);
+    // let productId = this.props.selectedProduct.id;
+    // let params = `?product_id=${productId}`;
     let params = `?product_id=40347`; //40347
     Parse.getAll(`qa/questions`, params)
       .then((questions) => {
@@ -57,6 +61,7 @@ class QandA extends React.Component {
           questions: results,
           filtered: results
         })
+        console.log(this.state.questions);
       })
   }
 
@@ -83,8 +88,15 @@ class QandA extends React.Component {
             {questionList}
           </div>
           <div>
-            <button onClick={this.handleShowMore}>{this.state.showMore ? 'Show Less' : 'More Answered Questions'}</button>
-            <button> Add a Question + </button>
+            <button
+              className= 'show-more-or-less'
+              onClick={this.handleShowMore}>
+              {this.state.showMore ? 'Show Less' : 'More Answered Questions'}
+            </button>
+            <button
+              className='show-more-or-less'>
+              Add a Question +
+            </button>
           </div>
         </div> :
         <div className='question-body'>
