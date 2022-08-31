@@ -8,13 +8,17 @@ import {
   TiArrowMinimise,
 } from "react-icons/ti";
 import "./overview.css";
+import '../Reviews/ReviewsStyles.css';
 import { OrbitSpinner } from "react-epic-spinners";
 import Parse from "../../parse";
+import PhotoOverlay from "../Reviews/PhotoOverlay.jsx";
 
 function imageGallery({
   product,
+  stylesList,
   expand,
   currentPhoto,
+  currentStyle,
   arrowDown,
   arrowUp,
   handleThumbClick,
@@ -26,12 +30,26 @@ function imageGallery({
   handleSelectedProduct,
 }) {
   const [loading, setLoading] = useState(true);
+  const [overlay, setOverlay] = useState(false);
+  const [clickedPhoto, setClickedPhoto] = useState('');
 
   useEffect(() => {
     if (product) {
       setLoading(false);
     }
   }, [product]);
+
+  let handlePhotoClick = (e) => {
+    setClickedPhoto(currentPhoto);
+    setOverlay(true);
+  };
+
+
+  let handleOverlay = () => {
+    setOverlay(false);
+  };
+
+
 
   return (
     <div>
@@ -42,10 +60,8 @@ function imageGallery({
               <TiArrowSortedUp onClick={handleUpClick} className="arrow" />
             )}
 
-            {product.styles.map((style) => {
+            {stylesList.map((style) => {
               let id = Math.random();
-
-              console.log("style, ", style);
 
               if (currentPhoto === style.photos[0].url || JSON.stringify(style).includes(currentPhoto)) {
                 if (style.photos[0].url === null) {
@@ -66,21 +82,14 @@ function imageGallery({
             )}
           </div>
 
-          {expand ? (
-            <div className="pv-container-active">
-              {/* <TiArrowLeftThick onClick={handleLeftClick} className='arrow' />
-            <img className='pv-active' onClick={handleExpandedView} src={currentPhoto || `https://via.placeholder.com/500`} alt={selectedProduct.name}></img>
+          <div className="pv-container">
+            <TiArrowLeftThick onClick={handleLeftClick} className='arrow' />
+            {overlay && <PhotoOverlay clickedPhoto={clickedPhoto} onClick={handleOverlay} />}
+            <img className='pv-img' onClick={handlePhotoClick} src={currentPhoto || `https://via.placeholder.com/500`} alt={product.name}></img>
             <TiArrowRightThick onClick={handleRightClick} className='arrow' />
-            <TiArrowMinimise onClick={handleExpandedView} className='expand' /> */}
-            </div>
-          ) : (
-            <div className="pv-container">
-              <TiArrowLeftThick onClick={handleLeftClick} className='arrow' />
-              <img className='pv-img' onClick={handleExpandedView} src={currentPhoto || `https://via.placeholder.com/500`} alt={product.name}></img>
-              <TiArrowRightThick onClick={handleRightClick} className='arrow' />
-              <TiArrowMaximise onClick={handleExpandedView} className='expand' />
-            </div>
-          )}
+            <TiArrowMaximise onClick={handlePhotoClick} className='expand' />
+          </div>
+
         </div>
       ) : (
         <OrbitSpinner color="teal" />

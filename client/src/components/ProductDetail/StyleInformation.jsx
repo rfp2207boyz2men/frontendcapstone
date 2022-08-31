@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Parse from '../../parse';
 import { OrbitSpinner } from 'react-epic-spinners';
 import { TiStarFullOutline, TiStarHalfOutline, TiStarOutline } from 'react-icons/ti';
 
 function ProductInformation({
   product,
+  currentStyle,
   renderStars,
   handleStyleClick,
   handleLocalClick,
@@ -48,31 +49,30 @@ function ProductInformation({
           </div>
 
           <h4>{product.category}</h4>
-          {/* {currentStyle ? <h2>{currentStyle.name}</h2> : <h2>{product.name}</h2>}
-        {currentStyle ? <h2>${currentStyle.original_price}</h2> : <h2>${product.default_price}</h2>} */}
+          {currentStyle ? <h2>{currentStyle.name}</h2> : <h2>{product.name}</h2>}
+          {currentStyle ? <h2>${currentStyle.original_price}</h2> : <h2>${product.default_price}</h2>}
 
           <div>
             <div className='style-title'>
               <h4> STYLE > </h4>
-              <h4>{localName}</h4>
+              <h4>{currentStyle.name}</h4>
             </div>
             <div className='style-container'>
 
-              {/* {
-          currentProduct.styles.map(item => {
-          let id = Math.random();
-          return (
-            <img key={id}
-            id={item.style_id}
-            name={item.name}
-            ref={styleThumbUrl}
-            onClick={(e, url, prod) => {
-              handleLocalClick(e);
-              handleStyleClick(e, item.photos[0].url, item);
-            }}
-            src={item.photos[0].thumbnail_url} className='style-entry'></img>
-          )
-        })} */}
+              {
+                currentStyle.photos.map(item => {
+                  let id = Math.random();
+                  return (
+                    <img key={id}
+                      id={currentStyle.style_id}
+                      name={currentStyle.name}
+                      onClick={(e, url, prod) => {
+                        handleLocalClick(e);
+                        handleStyleClick(e, item.url, currentStyle);
+                      }}
+                      src={item.thumbnail_url} className='style-entry'></img>
+                  )
+                })}
 
             </div>
           </div>
@@ -81,20 +81,20 @@ function ProductInformation({
 
             <select>
               <option value="0">SELECT SIZE</option>
-              {/* {currentStyle &&
+              {currentStyle &&
                 Object.values(currentStyle.skus).map((item => {
                   let id = Math.random();
                   return <option key={id}>{item.size}</option>
-                }))} */}
+                }))}
             </select>
 
             <select>
               <option value="0">1</option>
-              {/* {currentStyle &&
+              {currentStyle &&
                 Object.values(currentStyle.skus).map((item => {
                   let id = Math.random();
                   return <option key={id}>{item.quantity}</option>
-                }))} */}
+                }))}
             </select>
 
             <button onClick={handleLocalSave}>ADD TO CART</button>

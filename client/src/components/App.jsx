@@ -119,8 +119,8 @@ const App = () => {
 
   const handleLocalClick = (e) => {
     e.preventDefault();
-    setLocalName(e.target.name)
-    setLocalId(e.target.id)
+    setLocalName(e.target.name);
+    setLocalId(e.target.id);
   }
 
 
