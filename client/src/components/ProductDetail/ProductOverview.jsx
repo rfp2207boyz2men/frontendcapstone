@@ -1,64 +1,62 @@
 import React, { useState, useEffect, useId } from 'react';
 import { OrbitSpinner } from 'react-epic-spinners';
+import { FcCheckmark } from 'react-icons/fc';
 import { FaFacebook, FaTwitter, FaPinterest } from 'react-icons/fa';
 import { FacebookShareButton, TwitterShareButton, PinterestShareButton } from 'react-share';
 import { TiTick } from 'react-icons/ti';
 
-function ProductOverview  ({ p1, currentProduct }) {
+function ProductOverview({ product, currentPhoto, currentStyle }) {
   const [loading, setLoading] = useState(true);
-  const [shareQuote, setShareQuote] = useState(`Check this Awesome item! ${currentProduct.name}, $${currentProduct.default_price}`);
-  const [shareHashtag, setShareHashtag] = useState([`Awesome:${currentProduct.category}`, `Reviews:${currentProduct.totalReviews}`]);
-  const [shareUrl, setShareUrl] = useState(currentProduct.styles[0].photos[0].url);
+  const [shareQuote, setShareQuote] = useState();
+  const [shareHashtag, setShareHashtag] = useState();
+  const [shareUrl, setShareUrl] = useState();
 
   useEffect(() => {
-    if(p1.length > 0) {
+    if (currentStyle) {
+      setShareQuote(`Check this Awesome item! ${currentStyle.name}, $${currentStyle.default_price}`);
+      setShareHashtag([`Awesome:${currentStyle.category}`, `Reviews:${currentStyle.totalReviews}`]);
       setLoading(false);
     }
-  }, [p1])
+  }, [currentStyle])
 
   useEffect(() => {
-    setShareQuote(`Check this Awesome item! ${currentProduct.name}, only for.. $${currentProduct.default_price}`);
-    setShareHashtag(`${currentProduct.category}`);
-    setShareUrl(currentProduct.styles[0].photos[0].url);
-  }, [currentProduct])
+    setShareUrl(currentPhoto);
+  }, [currentPhoto]);
 
   return (
     <div>
       {!loading ?
-      <div className='prodview-container'>
-
-       <div className='prodview-text'>
-        <h2>{currentProduct.slogan}</h2>
-        <p>{currentProduct.description}</p>
-        <div className='social'>
-          <FacebookShareButton url={shareUrl} quote={shareQuote} hashtag={`#${shareHashtag}`}>
-            <FaFacebook />
-          </FacebookShareButton>
-          <TwitterShareButton url={shareUrl} title={shareQuote}  hashtag={`${shareHashtag}`}>
-            <FaTwitter />
-          </TwitterShareButton>
-          <PinterestShareButton  url={shareUrl} media={shareUrl} description={shareQuote} >
-            <FaPinterest />
-          </PinterestShareButton>
-        </div>
-      </div>
-
-      <div className='prodview-line'></div>
-      <div>
-        {currentProduct.features.map((item) => {
-          let id = Math.random();
-          return (
-            <div key={id}>
-              <p><TiTick/>{item.feature}</p>
-              <p><TiTick/>{item.value}</p>
+        <div className='prodview-container'>
+          <div className='prodview-text'>
+            <h2>{product.slogan}</h2>
+            <p>{product.description}</p>
+            <div className='social'>
+              <FacebookShareButton url={shareUrl} quote={shareQuote} hashtag={`#${shareHashtag}`}>
+                <FaFacebook />
+              </FacebookShareButton>
+              <TwitterShareButton url={shareUrl} title={shareQuote} hashtag={`${shareHashtag}`}>
+                <FaTwitter />
+              </TwitterShareButton>
+              <PinterestShareButton url={shareUrl} media={shareUrl} description={shareQuote} >
+                <FaPinterest />
+              </PinterestShareButton>
             </div>
-          )
-        })}
-      </div>
-
-      </div>
-      :
-      <OrbitSpinner color="teal" />
+          </div>
+          <div className='prodview-line'></div>
+          <div>
+            {product.features.map(item => {
+              let id = Math.random();
+              return (
+                <div key={id}>
+                  <p><FcCheckmark />{item.feature}</p>
+                  <p><FcCheckmark />{item.value}</p>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+        :
+        <OrbitSpinner color="teal" />
       }
     </div>
   )
