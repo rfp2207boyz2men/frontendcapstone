@@ -32,7 +32,7 @@ function imageGallery({
   const [loading, setLoading] = useState(true);
   const [overlay, setOverlay] = useState(false);
   const [clickedPhoto, setClickedPhoto] = useState('');
-
+  //tesst
   useEffect(() => {
     if (product) {
       setLoading(false);
