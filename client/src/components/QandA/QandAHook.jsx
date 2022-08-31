@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { BiSearch } from 'react-icons/bi';
 import Parse from '../../parse.js';
 import axios from 'axios';
-import QandASearch from './QandASearch.jsx';
-import RelevantQ from './RelevantQ.jsx'
+import QuestionList from './QuestionList.jsx';
 import './QandA.css';
 
 const QandA = (props) => {

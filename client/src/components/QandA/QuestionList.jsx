@@ -15,22 +15,19 @@ const QuestionList = (props) => {
   let filteredQuestions;
   let questionList;
   let showMoreBtn;
+  let questionBody;
 
   let searchQuestion = (query) => {
-    if (query === '' || query === 'undefined') {
-      setFiltered(questions);
-    }
-
-    filteredQuestions = questions.filter(question =>
-      question.question_body.toLowerCase().includes(query.toLowerCase()));
-
-    if (filteredQuestions.length === 0) {
+    if (query.length <= 2) {
       setFiltered(questions);
       setFilteredCount(questions.length);
     } else {
-      setFiltered(filteredQuestions);
-      setFilteredCount(filteredQuestions.length);
+      filteredQuestions = questions.filter(question =>
+        question.question_body.toLowerCase().includes(query.toLowerCase()));
     }
+
+    setFiltered(filteredQuestions);
+    setFilteredCount(filteredQuestions.length);
   }
 
   let handleShowMore = () => {
@@ -43,34 +40,50 @@ const QuestionList = (props) => {
 
   if (count < filteredCount) {
     questionList = filtered.slice(0, count).map(question =>
-      <RelevantQ question={question}/>)
+      <Question question={question}/>)
+
     showMoreBtn =
       <button
-        className='show-more-button'
+        className='question-list-button'
         onClick={handleShowMore}>
         More Answered Questions
       </button>
   } else {
     questionList = filtered.map(question =>
-      <RelevantQ question={question}/>)
+      <Question question={question}/>)
+
     showMoreBtn =
       <button
-        className='show-more-button'
+        className='question-list-button'
         onClick={handleShowLess}>
         Show Less
       </button>
   }
 
-  if ()
+  if (filteredCount) {
+    questionBody =
+      <div className='question-body'>
+        <QandASearch searchQuestion={searchQuestion}/>
+        <div className='question-list'>
+          {questionList}
+        </div>
+        {/* if this don't work cause of div issues... toss next to questionList above*/}
+        {showMoreBtn}
+        <button className='question-list-button'>
+          Add a Question +
+        </button>
+      </div>
+  } else {
+    questionBody =
+      <div className='question-body'>
+        <button className='question-list-button'>
+          Add a Question +
+        </button>
+      </div>
+  }
 
   return (
-    <div className='question-body'>
-      <QandASearch searchQuestion={searchQuestion}/>
-      <div className='question-list'>
-        {questionList}
-      </div>
-      {showMoreBtn}
-    </div>
+    {questionBody}
   )
 }
 

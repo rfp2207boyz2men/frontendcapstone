@@ -1,75 +1,100 @@
 import React, { useState, useEffect, useContext } from 'react';
 import ReactDOM from 'react-dom';
-import { FaBeer } from 'react-icons/fa';
 import Parse from '../../parse.js';
 import { OrbitSpinner } from 'react-epic-spinners';
-import { TiStarFullOutline, TiStarOutline } from 'react-icons/ti';
-import Carousel from 'react-bootstrap/Carousel';
-import { AiOutlineCloseCircle } from 'react-icons/ai'
+import { AiOutlineCloseCircle } from 'react-icons/ai';
+import StarRatings from 'react-star-ratings';
 
-class OutfitCard extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      product_info: {},
-      product_styles: [],
-      productCardLoad: false,
-      mouseStarHover: false
-    };
+const OutfitCard = ({ product_id, removeApp, styleId, removeOutfit }) => {
+  const [productInfo, setProductInfo] = useState();
+  const [productStyles, setProductStyles] = useState();
+  const [stars, setStars] = useState(0);
+  const [productLoad, setProductLoad] = useState(false);
+  const [starHover, setStarHover] = useState(false);
+  const [styleIndex, setStyleIndex] = useState(0);
 
-    this.handleClickRemove = this.handleClickRemove.bind(this);
-  }
-
-  componentDidMount() {
-    // Requests the data for product info and product styles for outfit product cards
-    Parse.getAll('products', `/${this.props.product_id}/`)
-    .then((productInfo) => {
-      this.setState({product_info: productInfo.data})
+  // On load, get all data to be used on cards and render
+  useEffect(() => {
+    Parse.getAll('products', `/${product_id}/`)
+    .then((productData) => {
+      setProductInfo(productData.data)
     })
-    Parse.getAll('products', `/${this.props.product_id}/styles`)
-    .then((productStyles) => {
-      this.setState({product_styles: productStyles.data.results, productCardLoad: true})
+    .then((data) => {
+      Parse.getAll('products', `/${product_id}/styles`)
+      .then((stylesData) => {
+        setProductStyles(stylesData.data.results)
+      })
+      .then((data) => {
+        Parse.getAll('reviews', `?product_id=${product_id}`)
+        .then((reviewsData) => {
+          setStars(getAverage(reviewsData.data.results))
+        })
+        .then((data) => {
+          setProductLoad(true);
+        })
+        .catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err))
     })
+    .catch((err) => console.log(err))
+  }, []);
+
+  // Remove outfit from outfits event handler, calls from App
+  const handleClickRemove = () => {
+    removeApp(productInfo.id);
+    removeOutfit(productInfo.id);
   }
 
-  handleClickRemove(){
-    this.props.remove(this.state.product_info);
+  // Function which takes in array of reviews for product, parses into a rating
+  const getAverage = (reviewsArray) => {
+    let ratings = reviewsArray.map(review => review.rating);
+    let starRating = (ratings.reduce((total, rating) => total += rating, 0)/(ratings.length));
+    return starRating
   }
 
-  render() {
-    return (
-      <div>
-      {this.state.productCardLoad
-       ?
-        <div className = 'productCard'>
-        <div className = 'productCardImg'>
-          <img className = 'productImages' src={ this.state.product_styles[0].photos[0].thumbnail_url || `https://via.placeholder.com/150`}/>
-          <div className = "starCard" onClick={this.handleClickRemove}>
-            <AiOutlineCloseCircle color='crimson'/>
+  // Function to find index of selected style for photos
+  const findIndex = (id) => {
+    let index = productStyles.map(style => style.style_id).indexOf(id);
+    if (index >= 0) {
+      return index;
+    }
+    return 0;
+  }
+
+  return (
+    <div>
+      {
+        productLoad ?
+          <div className = 'productCard'>
+            <div className = 'productCardImg'>
+              <img className = 'productImages' src={productStyles[findIndex(styleId)].photos[0].thumbnail_url || `https://via.placeholder.com/150`}/>
+              <div className = "actionCard" onClick={handleClickRemove}><AiOutlineCloseCircle color='crimson'/></div>
+            </div>
+            <div>
+              <div className = 'productCardDesc'>
+                <div className = 'cardCat'>{productInfo.category}</div>
+                <div className = 'cardName'><strong>{productInfo.name}</strong></div>
+                <div className = 'cardPrice'>${productInfo.default_price}</div>
+              </div>
+              <div className = 'productCardRating'>
+                {
+                stars > 0 ?
+                <StarRatings
+                  rating={stars}
+                  starRatedColor="teal"
+                  numberOfStars={5}
+                  starDimension='18px'
+                  starSpacing='3px'
+                  name='rating'/>
+                  : null
+                }
+              </div>
+            </div>
           </div>
-        </div>
-        <div>
-          <div className = 'productCardDesc'>
-          <div className = 'cardCat'>{this.state.product_info.category}</div>
-          <div className = 'cardName'><strong>{this.state.product_info.name}</strong></div>
-          <div className = 'cardPrice'>{this.state.product_info.default_price}</div>
-          </div>
-          <div className = 'productCardRating'>
-          <TiStarFullOutline className='star'/>
-          <TiStarFullOutline className='star'/>
-          <TiStarFullOutline className='star'/>
-          <TiStarFullOutline className='star'/>
-          <TiStarFullOutline className='star'/>
-          </div>
-        </div>
-      </div>
-      : null
+        : null
       }
     </div>
-    )
-  }
+  )
 }
 
 export default OutfitCard;
-
-//onClick={this.props.remove(this.state.product_info)}

@@ -104,13 +104,19 @@ body {
 }
 
 .related {
-  height: 400px;
-  display: flex;
-  flex-direction: row;
+  height: 450px;
+  width: 1200px;
+  display: grid;
+  position: relative;
+  overflow: hidden;
+  grid: auto / auto-flow max-content;
+  z-index: 1;
+  padding-left: 25px;
 }
 
 .sectionTitle {
   font-weight: lighter;
+  padding-left: 25px;
 }
 
 /*
@@ -123,6 +129,8 @@ body {
   height: 400px;
   margin-left: 10px;
   margin-right: 10px;
+  transition: opacity 0.5s;
+  opacity: 1;
 }
 
 .productCardImg {
@@ -155,7 +163,7 @@ body {
   width: 255px;
 }
 
-.starCard {
+.starCard, .actionCard {
   position: absolute;
   top: 8px;
   right: 16px;
@@ -186,6 +194,18 @@ body {
 .defaultPrice {
   text-decoration: line-through;
   color: black;
+}
+
+.cardLoader {
+  width: 255px;
+  height: 400px;
+  position: relative;
+}
+
+.cardSpinner {
+  position: absolute;
+  top: 40%;
+  left: 45%;
 }
 
 /*
@@ -236,11 +256,11 @@ body {
 }
 
 .outfits {
-  height: 400px;
-  width: auto;
+  height: 450px;
+  width: 1200px;
   display: flex;
-  flex-direction: row;
   justify-content: flex-start;
+  padding-left: 25px;
 }
 
 /*
@@ -300,12 +320,48 @@ body {
 */
 
 .carousel {
-  position: relative; /*leave this value alone*/
-  overflow: auto;
-  width: 1200px;
-  height: 500px; /*Height should enough to fit largest content's height*/
-  -webkit-box-sizing: border-box; /* set box model so container width and height value includes any padding/border defined */
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  background-image: linear-gradient(to right, rgba(255,0,0,0), rgba(255,255,255,1));
-  }
+  overflow: hidden;
+  position: relative;
+}
+
+.rightArrow {
+  position: absolute;
+  top:170px;
+  left:1125px;
+  font-size: 30px;
+  z-index: 14;
+}
+
+.rightArrow:hover, .leftArrow:hover {
+  cursor: pointer;
+}
+
+.leftArrow {
+  position: absolute;
+  top: 170px;
+  left: 0px;
+  font-size: 30px;
+  z-index: 14;
+}
+
+/*
+  STARS
+*/
+
+.single-star-outline {
+  height: 36px;
+  width: 31px;
+}
+
+.single-star-fill {
+  position: relative;
+  display: inline-block;
+  height: 36px;
+  background-color: #333333;
+}
+
+.single-star-container {
+  height: 36px;
+  width: 31px;
+  display: inline-block;
+}

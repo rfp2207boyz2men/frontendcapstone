@@ -181,6 +181,7 @@ class Reviews extends React.Component {
   }
 
   componentDidMount() {
+    console.log(this.props)
     let state = {};
     let ratings = Object.values(this.props.metaData.ratings);
     let recommendations = this.props.metaData.recommended;

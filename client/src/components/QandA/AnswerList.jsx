@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import Parse from '../../parse.js';
-import axios from 'axios';
+
 import Answer from './Answer.jsx';
 
 const AnswerList = (props) => {
