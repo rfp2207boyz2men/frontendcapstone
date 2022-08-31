@@ -22,6 +22,7 @@ const ProductCard = ({ product_id, addOutfit, select, current, avgStars }) => {
       .then((data) => {
         Parse.getAll('products', `/${product_id}/styles`)
         .then((productStyles) => {
+          console.log(productStyles.data.results)
           setProductStyles(productStyles.data.results)
         })
         .then((data) => {
@@ -68,7 +69,6 @@ const ProductCard = ({ product_id, addOutfit, select, current, avgStars }) => {
   };
 
   const handleImageClick = (event) => {
-    event.preventDefault();
     event.stopPropagation();
     select(productInfo.id)
   }

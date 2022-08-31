@@ -48,9 +48,9 @@ class QandA extends React.Component {
   }
 
   componentDidMount() {
-    // let productId = this.props.selectedProduct.id;
-    // let params = `?product_id=${productId}`;
-    let params = `?product_id=40347`; //40347
+    let productId = this.props.selectedProduct.id;
+    let params = `?product_id=${productId}`;
+    // let params = `?product_id=40347`; //40347
     Parse.getAll(`qa/questions`, params)
       .then((questions) => {
         let results = questions.data.results;

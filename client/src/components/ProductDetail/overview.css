@@ -12,8 +12,14 @@
   align-items: center;
   justify-content: center;
   flex-direction: row;
-  background-color: #94B49F;
+  background-color: white;
   ;
+}
+
+.overviewFeature {
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .pv-container {
@@ -67,19 +73,19 @@
 }
 
 .g-border {
-  border-bottom: solid 5px #850E35;
+  border-bottom: solid 5px teal;
 }
 
 
 
 .arrow {
-  color: #fff;
+  color: black;
   cursor: pointer;
   font-size: 20px;
 }
 
 .expand {
-  color: #fff;
+  color: black;
   cursor: pointer;
   font-size: 30px;
   align-self: flex-start;
@@ -113,7 +119,7 @@
   height: 50px;
   width: 50px;
   margin: 5px;
-  background-color: #94B49F;
+  background-color: teal;
 }
 
 .style-container {
@@ -130,6 +136,15 @@
 .add-container > button {
   padding: 10px 10px;
   margin: 5px 7px;
+  background-color: teal;
+  color: white;
+  border-style: none;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.add-container :hover {
+  cursor: pointer;
 }
 
 
@@ -161,7 +176,7 @@
   flex-direction: row;
   cursor: pointer;
   font-size: 24px;
-  color: #94B49F;
+  color: teal;
 }
 
 .social > button {

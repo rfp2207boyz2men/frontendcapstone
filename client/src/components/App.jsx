@@ -24,7 +24,6 @@ const App = () => {
   const [averageRating, setAverageRating] = useState(0);
   const [totalReviews, setTotalReviews] = useState(0);
   const [cart, setCart] = useState([]);
-  const [qanda, setQandA] = useState([]);
   const [interactions, setInteractions] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState({});
   const [loading, setLoading] = useState(false);
@@ -62,17 +61,15 @@ const App = () => {
   };
 
   const unloadComponents = (product_id) => {
-    setLoading(true);
+    setLoading(false);
     updateSelectedProduct(product_id);
   };
   // IF YOU WANT TO UPDATE SELECTED PRODUCT, USE ^ unloadComponents ^
   // DO NOT CALL updateSelectedProduct DIRECTLY
   //   IT WON'T REFRESH THE WIDGITS
   const updateSelectedProduct = (product_id) => {
-    let state = {};
     let params = `?product_id=${product_id}`;
-
-    Parse.getAll(`products/`, product_id)
+    Parse.getAll(`products/`, `${product_id}`)
       .then((product) => {
         setSelectedProduct(product.data);
         return Parse.getAll(`reviews/meta/`, params);
@@ -170,9 +167,9 @@ const App = () => {
   }
 
   const handleOutfitRemoval = (outfitData) => {
-    localStorage.removeItem('o' + JSON.stringify(outfitData.id));
+    localStorage.removeItem('o' + JSON.stringify(outfitData));
     let updatedList = [...outfits]
-    updatedList.splice(updatedList.map(outfit => outfit.id).indexOf(outfitData.id), 1)
+    updatedList.splice(updatedList.map(outfit => outfit.id).indexOf(outfitData), 1)
     setOutfits([...updatedList])
   }
 

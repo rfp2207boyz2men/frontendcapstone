@@ -3,6 +3,8 @@ import { OrbitSpinner } from 'react-epic-spinners';
 import { FaFacebook, FaTwitter, FaPinterest } from 'react-icons/fa';
 import { FacebookShareButton, TwitterShareButton, PinterestShareButton } from 'react-share';
 import { TiTick } from 'react-icons/ti';
+import { FcCheckmark } from 'react-icons/fc';
+
 
 function ProductOverview  ({ p1, currentProduct }) {
   const [loading, setLoading] = useState(true);
@@ -49,8 +51,9 @@ function ProductOverview  ({ p1, currentProduct }) {
           let id = Math.random();
           return (
             <div key={id}>
-              <p><TiTick/>{item.feature}</p>
-              <p><TiTick/>{item.value}</p>
+              <div className="overviewFeature">
+              <p>{item.feature}: {item.value} <FcCheckmark/></p>
+              </div>
             </div>
           )
         })}
