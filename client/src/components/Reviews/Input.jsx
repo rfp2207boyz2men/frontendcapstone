@@ -202,6 +202,9 @@ const Input = (props) => {
   const submitForm = () => {
     event.preventDefault();
 
+    validateInfo();
+    return;
+
     let hardCodeImageUrl = `https://images.unsplash.com/photo-1501088430049-71c79fa3283e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80`;
     let hardcodedPhotos = [hardCodeImageUrl, hardCodeImageUrl, hardCodeImageUrl];
     let params = {
@@ -237,6 +240,35 @@ const Input = (props) => {
     //  Body < 50 characters
     //  Email not in correct email format
     //  Images invalid/fail to upload
+    let errors = [];
+    if (rating === 0) {
+      errors.push('');
+    }
+    if (recommendation === undefined) {
+      errors.push('');
+    }
+    for (let characteristic in props.characteristics) {
+      let id = props.characteristics[characteristic].id;
+      if (!characteristics[id]) {
+        errors.push('');
+      }
+    }
+    if (textInputs.body.length < 50) {
+      errors.push('');
+    }
+    if (textInputs.nickname.length === 0) {
+      errors.push('');
+    }
+    if (validateEmail(textInputs.email)) {
+      errors.push('');
+    }
+  };
+
+  const validateEmail = (email) => {
+    // /\S+@\S+\.\S+/                               simple regEx
+    // /^[^\s@]+@[^\s@]+\.[^\s@]+$/                 should prevent matching multiple @ signs
+    let re = /\S+@\S+\.\S+/;
+    return re.test(email);
   };
 
   return (

@@ -31,19 +31,22 @@ const List = (props) => {
         Sort by:<Sort onChange={props.onSortChange} />
         <Search onChange={props.onQueryChange} />
       </div>
-      <div className='reviewList'>
+      {props.reviews.length > 0
+      ?<div className='reviewList'>
         {props.slicedReviews.map((review, index) => (
           <Tile
             review={review}
-            key={index}
+            key={props.slicedReviews[index].reviews_id}
             index={index}
             renderStars={props.renderStars}
             getReviews={props.getReviews}
           />
         ))}
       </div>
+      :<h3>Help the Odin community by providing an answer!</h3>
+      }
       <div className='reviewExpandButtonSection'>
-        {props.filteredReviews.length - props.slicedReviews.length > 0
+        {((props.filteredReviews.length - props.slicedReviews.length > 0) && props.reviews.length > 0)
         && <button className='reviewExpandButton' onClick={props.handleShowMore}>MORE REVIEWS</button>}
         <button className='reviewExpandButton' onClick={handleOverlay}>ADD A REVIEW +</button>
       </div>

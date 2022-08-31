@@ -49,9 +49,9 @@ const Reviews = (props) => {
   //  Reset reviewSlice to two?
   //  Do I keep the same?
 
-  let getSortedReviews = (sorter) => {
+  let getSortedReviews = () => {
     // console.log('sort: ', sorter)
-    let params = `?product_id=${props.productId}&count=${props.totalReviews}&sort=${sorter ? sorter : sort}`;
+    let params = `?product_id=${props.productId}&count=${props.totalReviews}&sort=${sort}`;
     return Parse.getAll(`reviews/`, params)
     .then((reviews) => {
       // console.log(reviews.data.results);
@@ -70,7 +70,7 @@ const Reviews = (props) => {
     let starFilter = enableFilter();
 
     for (let review of reviews) {
-      if (review.body.includes(searchQuery)) {
+      if (review.body.toLowerCase().includes(searchQuery.toLowerCase())) {
         if (!starFilter) {
           filteredReviews.push(review);
         } else {
@@ -164,76 +164,3 @@ const Reviews = (props) => {
 };
 
 export default Reviews;
-
-/*
-
-class Reviews extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ratings: [],
-      totalReviews: 0,
-      averageRating: 0,
-      ratingPercentages: [],
-      averageRecommended: 0,
-      loading: false,
-    };
-  }
-
-  componentDidMount() {
-    let state = {};
-    let ratings = Object.values(this.props.metaData.ratings);
-    let recommendations = this.props.metaData.recommended;
-
-    let ratingPercentages = ratings.map((rating) => (rating / this.props.totalReviews) * 100);
-
-    let totalRecommendations = parseInt(recommendations.false) + parseInt(recommendations.true);
-    let averageRecommended = ((parseInt(recommendations.true) / totalRecommendations) * 100);
-
-    state.ratings = ratings;
-    state.ratingPercentages = ratingPercentages;
-    state.averageRecommended = averageRecommended.toFixed(0);
-    state.characteristics = this.props.metaData.characteristics;
-
-    //total reviews
-    state.loading = true;
-
-    this.setState(state);
-  };
-
-
-
-
-  render() {
-
-    return(
-      <div>
-        {this.state.loading
-        ?<div className='reviewMain'>
-          <SideBar
-            renderStars={this.props.renderStars}
-            ratings={this.props.metaData.ratings}
-            averageRating={this.props.averageRating}
-            ratingPercentages={this.state.ratingPercentages}
-            averageRecommended={this.state.averageRecommended}
-            characteristics={this.state.characteristics}
-          />
-          <List
-            // selectedProduct={this.props.selectedProduct}
-            renderStars={this.props.renderStars}
-            totalReviews={this.props.totalReviews}
-            characteristics={this.state.characteristics}
-            productName={this.props.productName}
-            productId={this.props.productId}
-          />
-        </div>
-        :<OrbitSpinner color='green' />}
-      </div>
-    )
-  }
-
-};
-
-export default Reviews;
-
-*/

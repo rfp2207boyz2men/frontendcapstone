@@ -34,11 +34,11 @@ const Tile = (props) => {
     let localStorageCopy = JSON.parse(localStorage.getItem('helpfulReviews'));
     if (localStorageCopy[props.review.review_id] === true) {
       return(
-        <p>You set this review as: Helpful</p>
+        <p>You set this review as: Helpful ({props.review.helpfulness + (localClick ? 1 : 0)})</p>
       )
     } else if (localStorageCopy[props.review.review_id] === false) {
       return(
-        <p>You set this review as: Not helpful</p>
+        <p>You set this review as: Not helpful ({props.review.helpfulness})</p>
       )
     } else {
       return(
@@ -46,6 +46,7 @@ const Tile = (props) => {
           <p>Helpful?</p>
           <p onClick={()=>handleHelpful(true)}><u>Yes</u></p>
           <p onClick={()=>handleHelpful(false)}><u>No</u></p>
+          <p>({props.review.helpfulness})</p>
         </div>
       )
     }
@@ -54,6 +55,12 @@ const Tile = (props) => {
   let handleHelpful = (value) => {
     //save review_id to localStorage so it saves helpful vote on page refresh
     //setLocalClick used to change a state to re-render tile
+    if (value) {
+      Parse.update(`reviews/`, `${props.review.review_id}/helpful`)
+      .then(() => console.log('helpful submit'))
+      .catch((err) => console.log(err));
+    }
+
     let review_id = props.review.review_id;
 
     let localStorageCopy = JSON.parse(localStorage.getItem('helpfulReviews'));
@@ -110,16 +117,3 @@ const Tile = (props) => {
 }
 
 export default Tile;
-
-/*
-body: "i love it sometimes sometimes i do not they are okay"
-date: "2022-07-22T00:00:00.000Z"
-helpfulness: 2
-photos: []
-rating: 3
-recommend: true
-response: null
-review_id: 1275918
-reviewer_name: "averagerater"
-summary: "They are average"
-*/

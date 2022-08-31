@@ -90,7 +90,7 @@ function ProductInformation ({
             return <option key={id}>{item.size}</option>
           }))
         :
-          <div></div>
+          null
         }
       </select>
 
@@ -102,7 +102,7 @@ function ProductInformation ({
               return <option key={id}>{item.quantity}</option>
             }))
         :
-            <div></div>
+            null
         }
       </select>
 
