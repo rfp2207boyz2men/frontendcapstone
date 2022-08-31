@@ -70,8 +70,16 @@ function Overview({
     for (let i = 0; i < product.styles.length; i++) {
       if (product.styles[i].photos[0].url === currentPhoto) {
         if (i > 0) {
-          setCurrentStyle(product.styles[i - 1]);
-          setCurrentPhoto(product.styles[i - 1].photos[0].url);
+          if (i === 5) {
+            setArrowDown(true);
+            setArrowUp(false);
+            setStylesList(product.styles.slice(0, 5));
+            setCurrentStyle(product.styles[i - 1]);
+            setCurrentPhoto(product.styles[i - 1].photos[0].url);
+          } else {
+            setCurrentStyle(product.styles[i - 1]);
+            setCurrentPhoto(product.styles[i - 1].photos[0].url);
+          }
         }
       }
     }
@@ -80,8 +88,16 @@ function Overview({
     for (let i = 0; i < product.styles.length; i++) {
       if (product.styles[i].photos[0].url === currentPhoto) {
         if ((i + 1) !== product.styles.length) {
-          setCurrentStyle(product.styles[i + 1]);
-          setCurrentPhoto(product.styles[i + 1].photos[0].url);
+          if (i === 4) {
+            setArrowDown(false);
+            setArrowUp(true);
+            setStylesList(product.styles.slice(5, 10));
+            setCurrentStyle(product.styles[i + 1]);
+            setCurrentPhoto(product.styles[i + 1].photos[0].url);
+          } else {
+            setCurrentStyle(product.styles[i + 1]);
+            setCurrentPhoto(product.styles[i + 1].photos[0].url);
+          }
         }
       }
     }
