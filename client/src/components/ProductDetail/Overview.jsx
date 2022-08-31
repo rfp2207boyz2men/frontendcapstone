@@ -9,7 +9,7 @@ import ProductOverview from './ProductOverview.jsx';
 import { select } from 'underscore';
 import { FcCheckmark } from 'react-icons/fc';
 
-function Overview ({
+function Overview({
   selectedProduct,
   handleLocalClick,
   handleLocalSave,
@@ -18,136 +18,108 @@ function Overview ({
   renderStars,
   getAverageRating,
   getTotalReviews,
+  handleSelectedProduct,
 }) {
-  const [p1, setP1] = useState([]);
+  const [product, setProduct] = useState();
   const [count, setCount] = useState(1);
-  const [pTemp, setPTemp] = useState([]);
-  const [styles, setStyles] = useState([]);
-  const [productId, setProductId] = useState(0);
-  const [productList, setProductList] = useState([]);
-  const [currentProduct, setCurrentProduct] = useState();
+  const [stylesList, setStylesList] = useState([]);
   const [currentPhoto, setCurrentPhoto] = useState('');
   const [currentStyle, setCurrentStyle] = useState();
-  const [arrowDown, setArrowDown] = useState(true);
+  const [arrowDown, setArrowDown] = useState(false);
   const [arrowUp, setArrowUp] = useState(false);
   const [expand, setExpand] = useState(false);
   const [loading, setLoading] = useState(true);
-  const styleThumbUrl = useRef();
 
 
   useEffect(() => {
-    fetchData(count);
+    fetchData(selectedProduct);
   }, [])
 
-  async function fetchData(pageN) {
+  async function fetchData(productId) {
     setLoading(true);
-    let set = [];
-    const request =  await Parse.getAll(`products/`, `?page=${pageN}`);
 
-    // get products based on page number
-    request.data.map((item => {
-      set.push({
-        id: item.id,
-        name: item.name,
-        slogan: item.slogan,
-        description: item.description,
-        category: item.category,
-        default_price: item.default_price,
-      })
-    }))
+    let set = selectedProduct;
 
-    // get product features data for each product
-    for (let i = 0; i < set.length; i++) {
-        const requestFeatures = await Parse.getAll(`products/`, set[i].id);
-        set[i]['slogan'] = requestFeatures.data.slogan;
-        set[i]['features'] = requestFeatures.data.features;
+    let params = `${selectedProduct.id}/styles`;
+    const requestStyles = await Parse.getAll(`products/`, params);
+    set.styles = requestStyles.data.results;
+
+    params = `?product_id=${selectedProduct.id}`;
+    const requestMeta = await Parse.getAll(`reviews/meta/`, params);
+    set.averageRating = getAverageRating(requestMeta.data.ratings);
+    set.totalReviews = getTotalReviews(requestMeta.data.recommended);
+
+    if (set.styles[0].photos[0].url !== null) {
+      setCurrentPhoto(set.styles[0].photos[0].url);
+      setCurrentStyle(set.styles[0]);
+    } else {
+      setCurrentStyle(set.styles[1]);
+      setCurrentPhoto(set.styles[1].photos[0].url);
     }
-
-    // get avg ratings and reviews for each product
-    for (let i = 0; i < set.length; i++) {
-      let params = `?product_id=${set[i].id}`;
-      const requestMeta = await Parse.getAll(`reviews/meta/`, params);
-      set[i]['averageRating'] = getAverageRating(requestMeta.data.ratings);
-      set[i]['totalReviews'] = getTotalReviews(requestMeta.data.recommended);
-
-  }
-
-
-    let list = [];
-    // get styles for each product
-    for (let i = 0; i < set.length; i++) {
-      let params = `${set[i].id}/styles`;
-      const requestStyles = await Parse.getAll(`products/`, params);
-      let style = requestStyles.data.results;
-      list.push(style);
-  }
-
-  for (let i = 0; i < set.length; i++) {
-    set[i]['styles'] = list[i];
-  }
-
-  let prodList = [];
-
-  for(let i = 0; i < set.length; i++) {
-    if (set[i].styles.length > 0 && set[i].styles[0].photos[0].thumbnail_url !== null) {
-      prodList.push({
-        url: set[i].styles[0].photos[0].url,
-        thumbnail_url: set[i].styles[0].photos[0].thumbnail_url
-      });
+    setProduct(set);
+    setStylesList(requestStyles.data.results.slice(0, 5));
+    if (requestStyles.data.results.length > 4) {
+      setArrowDown(true);
     }
-
   }
-
-  setP1(set);
-  setCurrentProduct(set[0]);
-  if (set[0].styles.length > 0) {
-    setCurrentPhoto(set[0].styles[0].photos[0].url);
-  } else {
-    setCurrentPhoto(set[1].styles[0].photos[0].url);
-  }
-  setProductList(prodList);
-  setLoading(false);
-}
 
   const handleThumbClick = (e, item) => {
     setCurrentPhoto(e.target.id);
-    setCurrentProduct(item);
+    setCurrentStyle(item);
   }
-  const handleLeftClick = (e) => {
-    for (let i = 0; i < productList.length; i++) {
-      if (productList[i].url === currentPhoto) {
+  const handleLeftClick = (e, item) => {
+    for (let i = 0; i < product.styles.length; i++) {
+      if (product.styles[i].photos[0].url === currentPhoto) {
         if (i > 0) {
-          setCurrentPhoto(productList[i-1].url);
+          if (i === 5) {
+            setArrowDown(true);
+            setArrowUp(false);
+            setStylesList(product.styles.slice(0, 5));
+            setCurrentStyle(product.styles[i - 1]);
+            setCurrentPhoto(product.styles[i - 1].photos[0].url);
+          } else {
+            setCurrentStyle(product.styles[i - 1]);
+            setCurrentPhoto(product.styles[i - 1].photos[0].url);
+          }
         }
       }
     }
   }
-  const handleRightClick = (e) => {
-    for (let i = 0; i < productList.length; i++) {
-      if (productList[i].url === currentPhoto) {
-        if (i < (productList.length - 1)) {
-          setCurrentPhoto(productList[i+1].url);
+  const handleRightClick = (e, item) => {
+    for (let i = 0; i < product.styles.length; i++) {
+      if (product.styles[i].photos[0].url === currentPhoto) {
+        if ((i + 1) !== product.styles.length) {
+          if (i === 4) {
+            setArrowDown(false);
+            setArrowUp(true);
+            setStylesList(product.styles.slice(5, 10));
+            setCurrentStyle(product.styles[i + 1]);
+            setCurrentPhoto(product.styles[i + 1].photos[0].url);
+          } else {
+            setCurrentStyle(product.styles[i + 1]);
+            setCurrentPhoto(product.styles[i + 1].photos[0].url);
+          }
         }
       }
     }
   }
 
-  useEffect(() => {
-   fetchData(count);
-  }, [count])
+  // useEffect(() => {
+  //  fetchData(count);
+  // }, [count])
 
   const handleDownClick = (e) => {
     setArrowUp(true);
-    setCount(count + 1);
+    setArrowDown(false);
+    setStylesList(product.styles.slice(5, 10));
+    setCurrentPhoto(product.styles[5].photos[0].url);
   }
 
   const handleUpClick = (e) => {
-    if (count === 2) {
-      setArrowUp(false);
-      setCount(count - 1);
-    } else {
-      setCount(count - 1);
-    }
+    setArrowUp(false);
+    setArrowDown(true);
+    setStylesList(product.styles.slice(0, 5));
+    setCurrentPhoto(product.styles[0].photos[0].url);
   }
 
   const handleStyleClick = (e, url, prod) => {
@@ -167,78 +139,38 @@ function Overview ({
 
 
   return (
-    <OverviewProvider>
-         {!loading ?
-      <div>
-
-        <div className='main-container'>
-
-          {expand ?
-
-            <div className='main-container'>
-              <ImageGallery
-              p1={p1}
-              expand={expand}
-              currentPhoto={currentPhoto}
-              currentStyle={currentStyle}
-              arrowDown={arrowDown}
-              arrowUp={arrowUp}
-              selectedProduct={selectedProduct}
-              handleProductClick={handleProductClick}
-              handleThumbClick={handleThumbClick}
-              handleLeftClick={handleLeftClick}
-              handleRightClick={handleRightClick}
-              handleDownClick={handleDownClick}
-              handleUpClick={handleUpClick}
-              handleExpandedView={handleExpandedView}
-              />
-            </div>
-          :
-          <div className='main-container'>
-            <ImageGallery
-            p1={p1}
-            expand={expand}
-            currentPhoto={currentPhoto}
-            currentStyle={currentStyle}
-            arrowDown={arrowDown}
-            arrowUp={arrowUp}
-            selectedProduct={selectedProduct}
-            handleProductClick={handleProductClick}
-            handleThumbClick={handleThumbClick}
-            handleLeftClick={handleLeftClick}
-            handleRightClick={handleRightClick}
-            handleDownClick={handleDownClick}
-            handleUpClick={handleUpClick}
-            handleExpandedView={handleExpandedView}
-          />
-            <StyleInformation
-            p1={p1}
-            currentProduct={currentProduct}
-            currentStyle={currentStyle}
-            styleThumbUrl={styleThumbUrl}
-            localName={localName}
-            localId={localId}
-            renderStars={renderStars}
-            handleStyleClick={handleStyleClick}
-            handleLocalClick={handleLocalClick}
-            handleLocalSave={handleLocalSave}/>
-          </div>
-
-          }
-
-        </div>
-        <div>
-          <ProductOverview
-          p1={p1}
-          currentProduct={currentProduct}
-          />
-        </div>
+    <React.Fragment>
+      <div className='main-container'>
+        <ImageGallery
+          product={product}
+          stylesList={stylesList}
+          expand={expand}
+          currentPhoto={currentPhoto}
+          currentStyle={currentStyle}
+          arrowDown={arrowDown}
+          arrowUp={arrowUp}
+          handleThumbClick={handleThumbClick}
+          handleLeftClick={handleLeftClick}
+          handleRightClick={handleRightClick}
+          handleDownClick={handleDownClick}
+          handleUpClick={handleUpClick}
+          handleExpandedView={handleExpandedView}
+          handleSelectedProduct={handleSelectedProduct}
+        />
+        <StyleInformation
+          product={product}
+          currentStyle={currentStyle}
+          localName={localName}
+          localId={localId}
+          renderStars={renderStars}
+          handleStyleClick={handleStyleClick}
+          handleLocalClick={handleLocalClick}
+          handleLocalSave={handleLocalSave}
+        />
       </div>
-         :
-         <OrbitSpinner color="teal" />
-       }
-    </OverviewProvider>
-    )
+      <ProductOverview product={product} currentPhoto={currentPhoto} currentStyle={currentStyle} />
+    </React.Fragment>
+  )
 
 }
 
