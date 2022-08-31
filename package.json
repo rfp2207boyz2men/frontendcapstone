@@ -31,6 +31,7 @@
     "react-epic-spinners": "^0.5.0",
     "react-icons": "^4.4.0",
     "react-share": "^4.4.0",
+    "react-star-ratings": "^2.3.0",
     "styled-components": "^5.3.5",
     "underscore": "^1.13.4"
   },

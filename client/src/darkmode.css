@@ -2,10 +2,6 @@
   MAIN
 */
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   width: 1200px;
   font-family: 'Noto Sans', sans-serif;
@@ -58,7 +54,7 @@ body {
 .logo {
   margin-top: 10px;
   font-size: 60px;
-  color: teal;
+  color:burlywood;
 }
 
 .logotext {
@@ -215,7 +211,7 @@ body {
 .questionsSection {
   width: 1200px;
   height: 400px;
-  margin-top: 20px;
+  margin-top: 100px;
 }
 
 /*
