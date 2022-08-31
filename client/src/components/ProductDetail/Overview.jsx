@@ -8,7 +8,7 @@ import StyleInformation from './StyleInformation.jsx';
 import ProductOverview from './ProductOverview.jsx';
 import { select } from 'underscore';
 
-function Overview ({
+function Overview({
   selectedProduct,
   handleLocalClick,
   handleLocalSave,
@@ -17,8 +17,9 @@ function Overview ({
   renderStars,
   getAverageRating,
   getTotalReviews,
+  handleSelectedProduct,
 }) {
-  const [p1, setP1] = useState([]);
+  const [product, setProduct] = useState();
   const [count, setCount] = useState(1);
   const [pTemp, setPTemp] = useState([]);
   const [styles, setStyles] = useState([]);
@@ -31,109 +32,139 @@ function Overview ({
   const [arrowUp, setArrowUp] = useState(false);
   const [expand, setExpand] = useState(false);
   const [loading, setLoading] = useState(true);
-  const styleThumbUrl = useRef();
 
 
   useEffect(() => {
-    fetchData(count);
+    fetchData(selectedProduct);
   }, [])
 
-  async function fetchData(pageN) {
-    setLoading(true);
-    let set = [];
-    const request =  await Parse.getAll(`products/`, `?page=${pageN}`);
+  async function fetchData(productId) {
 
-    // get products based on page number
-    request.data.map((item => {
-      set.push({
-        id: item.id,
-        name: item.name,
-        slogan: item.slogan,
-        description: item.description,
-        category: item.category,
-        default_price: item.default_price,
-      })
-    }))
+    setLoading(true);
+
+    let set = selectedProduct;
+
+    let params = `${selectedProduct.id}/styles`;
+    const requestStyles = await Parse.getAll(`products/`, params);
+    set.styles = requestStyles.data.results
+
+
+    params = `?product_id=${selectedProduct.id}`;
+    const requestMeta = await Parse.getAll(`reviews/meta/`, params);
+    set.averageRating = getAverageRating(requestMeta.data.ratings);
+    set.totalReviews = getTotalReviews(requestMeta.data.recommended);
+
+
+    console.log('what we got so far??', set);
 
     // get product features data for each product
-    for (let i = 0; i < set.length; i++) {
-        const requestFeatures = await Parse.getAll(`products/`, set[i].id);
-        set[i]['slogan'] = requestFeatures.data.slogan;
-        set[i]['features'] = requestFeatures.data.features;
+
+    // for (let i = 0; i < set.length; i++) {
+    //   const requestFeatures = await Parse.getAll(`products/`, set[i].id);
+    //   set[i]['slogan'] = requestFeatures.data.slogan;
+    //   set[i]['features'] = requestFeatures.data.features;
+    // }
+
+    if (set.styles[0].photos[0].url !== null) {
+      setCurrentPhoto(set.styles[0].photos[0].url);
+    } else {
+      setCurrentPhoto(set.styles[1].photos[0].url);
     }
+    setProduct(set);
+
 
     // get avg ratings and reviews for each product
-    for (let i = 0; i < set.length; i++) {
-      let params = `?product_id=${set[i].id}`;
-      const requestMeta = await Parse.getAll(`reviews/meta/`, params);
-      set[i]['averageRating'] = getAverageRating(requestMeta.data.ratings);
-      set[i]['totalReviews'] = getTotalReviews(requestMeta.data.recommended);
 
-  }
+    //  for (let i = 0; i < set.length; i++) {
+    //    let params = `?product_id=${set[i].id}`;
+    //    const requestMeta = await Parse.getAll(`reviews/meta/`, params);
+    //    set[i]['averageRating'] = getAverageRating(requestMeta.data.ratings);
+    //    set[i]['totalReviews'] = getTotalReviews(requestMeta.data.recommended);
+
+    //   }
 
 
     let list = [];
     // get styles for each product
-    for (let i = 0; i < set.length; i++) {
-      let params = `${set[i].id}/styles`;
-      const requestStyles = await Parse.getAll(`products/`, params);
-      let style = requestStyles.data.results;
-      list.push(style);
+    // for (let i = 0; i < set.length; i++) {
+    //   let params = `${set[i].id}/styles`;
+    //   const requestStyles = await Parse.getAll(`products/`, params);
+    //   let style = requestStyles.data.results;
+    //   list.push(style);
+    // }
+
+    // for (let i = 0; i < set.length; i++) {
+    //   set[i]['styles'] = list[i];
+    // }
+
+    // let prodList = [];
+
+    // for(let i = 0; i < set.length; i++) {
+    //   if (set[i].styles.length > 0 && set[i].styles[0].photos[0].thumbnail_url !== null) {
+    //     prodList.push({
+    //       url: set[i].styles[0].photos[0].url,
+    //       thumbnail_url: set[i].styles[0].photos[0].thumbnail_url
+    //     });
+    //   }
+    // }
+
+    // get products based on page number
+
+
+
+    // request.data.map((item => {
+    //   set.push({
+    //     id: item.id,
+    //     name: item.name,
+    //     slogan: item.slogan,
+    //     description: item.description,
+    //     category: item.category,
+    //     default_price: item.default_price,
+    //   })
+    // }))
+
+
+
+
+
+    // setProduct(set);
+    // setCurrentProduct(set[0]);
+    // if (set[0].styles.length > 0) {
+    //   setCurrentPhoto(set[0].styles[0].photos[0].url);
+    // } else {
+    //   setCurrentPhoto(set[1].styles[0].photos[0].url);
+    // }
+    // setProductList(prodList);
+    // setLoading(false);
   }
-
-  for (let i = 0; i < set.length; i++) {
-    set[i]['styles'] = list[i];
-  }
-
-  let prodList = [];
-
-  for(let i = 0; i < set.length; i++) {
-    if (set[i].styles.length > 0 && set[i].styles[0].photos[0].thumbnail_url !== null) {
-      prodList.push({
-        url: set[i].styles[0].photos[0].url,
-        thumbnail_url: set[i].styles[0].photos[0].thumbnail_url
-      });
-    }
-
-  }
-
-  setP1(set);
-  setCurrentProduct(set[0]);
-  if (set[0].styles.length > 0) {
-    setCurrentPhoto(set[0].styles[0].photos[0].url);
-  } else {
-    setCurrentPhoto(set[1].styles[0].photos[0].url);
-  }
-  setProductList(prodList);
-  setLoading(false);
-}
 
   const handleThumbClick = (e, item) => {
     setCurrentPhoto(e.target.id);
-    setCurrentProduct(item);
+    //handleSelectedProduct(item.id);
+    //setCurrentProduct(item);
   }
   const handleLeftClick = (e) => {
-    for (let i = 0; i < productList.length; i++) {
-      if (productList[i].url === currentPhoto) {
+    for (let i = 0; i < product.styles.length; i++) {
+      if (product.styles[i].photos[0].url === currentPhoto) {
         if (i > 0) {
-          setCurrentPhoto(productList[i-1].url);
+          setCurrentPhoto(product.styles[i - 1].photos[0].url);
         }
       }
     }
   }
   const handleRightClick = (e) => {
-    for (let i = 0; i < productList.length; i++) {
-      if (productList[i].url === currentPhoto) {
-        if (i < (productList.length - 1)) {
-          setCurrentPhoto(productList[i+1].url);
+    for (let i = 0; i < product.styles.length; i++) {
+      if (product.styles[i].photos[0].url === currentPhoto) {
+        if (i < (product.styles.length - 1)) {
+          setCurrentPhoto(product.styles[i + 1].photos[0].url);
         }
       }
     }
   }
 
-  useEffect(() => {
-   fetchData(count);
-  }, [count])
+  // useEffect(() => {
+  //  fetchData(count);
+  // }, [count])
 
   const handleDownClick = (e) => {
     setArrowUp(true);
@@ -167,77 +198,32 @@ function Overview ({
 
   return (
     <OverviewProvider>
-         {!loading ?
-      <div>
-
-        <div className='main-container'>
-
-          {expand ?
-
-            <div className='main-container'>
-              <ImageGallery
-              p1={p1}
-              expand={expand}
-              currentPhoto={currentPhoto}
-              currentStyle={currentStyle}
-              arrowDown={arrowDown}
-              arrowUp={arrowUp}
-              selectedProduct={selectedProduct}
-              handleProductClick={handleProductClick}
-              handleThumbClick={handleThumbClick}
-              handleLeftClick={handleLeftClick}
-              handleRightClick={handleRightClick}
-              handleDownClick={handleDownClick}
-              handleUpClick={handleUpClick}
-              handleExpandedView={handleExpandedView}
-              />
-            </div>
-          :
-          <div className='main-container'>
-            <ImageGallery
-            p1={p1}
-            expand={expand}
-            currentPhoto={currentPhoto}
-            currentStyle={currentStyle}
-            arrowDown={arrowDown}
-            arrowUp={arrowUp}
-            selectedProduct={selectedProduct}
-            handleProductClick={handleProductClick}
-            handleThumbClick={handleThumbClick}
-            handleLeftClick={handleLeftClick}
-            handleRightClick={handleRightClick}
-            handleDownClick={handleDownClick}
-            handleUpClick={handleUpClick}
-            handleExpandedView={handleExpandedView}
-          />
-            <StyleInformation
-            p1={p1}
-            currentProduct={currentProduct}
-            currentStyle={currentStyle}
-            styleThumbUrl={styleThumbUrl}
-            localName={localName}
-            localId={localId}
-            renderStars={renderStars}
-            handleStyleClick={handleStyleClick}
-            handleLocalClick={handleLocalClick}
-            handleLocalSave={handleLocalSave}/>
-          </div>
-
-          }
-
-        </div>
-        <div>
-          <ProductOverview
-          p1={p1}
-          currentProduct={currentProduct}
-          />
-        </div>
-      </div>
-         :
-         <OrbitSpinner color="teal" />
-       }
+      <ImageGallery
+        product={product}
+        expand={expand}
+        currentPhoto={currentPhoto}
+        arrowDown={arrowDown}
+        arrowUp={arrowUp}
+        handleThumbClick={handleThumbClick}
+        handleLeftClick={handleLeftClick}
+        handleRightClick={handleRightClick}
+        handleDownClick={handleDownClick}
+        handleUpClick={handleUpClick}
+        handleExpandedView={handleExpandedView}
+        handleSelectedProduct={handleSelectedProduct}
+      />
+      <StyleInformation
+        product={product}
+        localName={localName}
+        localId={localId}
+        renderStars={renderStars}
+        handleStyleClick={handleStyleClick}
+        handleLocalClick={handleLocalClick}
+        handleLocalSave={handleLocalSave}
+      />
+      <ProductOverview product={product} />
     </OverviewProvider>
-    )
+  )
 
 }
 
