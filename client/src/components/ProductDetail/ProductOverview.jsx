@@ -15,13 +15,21 @@ function ProductOverview({ product, currentPhoto, currentStyle }) {
     if (currentStyle) {
       setShareQuote(`Check this Awesome item! ${currentStyle.name}, $${currentStyle.default_price}`);
       setShareHashtag([`Awesome:${currentStyle.category}`, `Reviews:${currentStyle.totalReviews}`]);
-      setLoading(false);
+      // set loading was moved to product useEffect
     }
   }, [currentStyle])
 
   useEffect(() => {
     setShareUrl(currentPhoto);
   }, [currentPhoto]);
+
+  // add this useEffect
+  useEffect(() => {
+    if (product) {
+      setLoading(false);
+    }
+  }, [product]);
+
 
   return (
     <div>
@@ -47,9 +55,8 @@ function ProductOverview({ product, currentPhoto, currentStyle }) {
             {product.features.map(item => {
               let id = Math.random();
               return (
-                <div key={id}>
-                  <p><FcCheckmark />{item.feature}</p>
-                  <p><FcCheckmark />{item.value}</p>
+                <div className='feature' key={id}>
+                  {item.value ? <p><FcCheckmark className='check' />{item.feature} and {item.value}</p> : <p><FcCheckmark className='check' />{item.feature}</p>}
                 </div>
               )
             })}

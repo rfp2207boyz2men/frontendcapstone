@@ -14,6 +14,9 @@ function ProductInformation({
   handleLocalSave,
 }) {
   const [loading, setLoading] = useState(true);
+  const [qty, setQty] = useState();
+  const [sizeSelected, setSizeSelected] = useState(false);
+  const [skusId, setSkusId] = useState();
 
 
   useEffect(() => {
@@ -26,11 +29,63 @@ function ProductInformation({
     return renderStars(product.averageRating).map((star => star))
   };
 
+
+  let findDuplicates = [];
+
+  const handleSize = (e) => {
+    let keys = [];
+    const index = e.target.selectedIndex;
+    const el = e.target.childNodes[index]
+    const option = el.getAttribute('id');
+
+    for (let key in currentStyle.skus) {
+      keys.push(key);
+    }
+
+    for (let i = 0; i < keys.length; i++) {
+      if (currentStyle.skus[keys[i]].size === option) {
+        setSkusId(parseInt(keys[i]));
+      }
+    }
+
+    setQty(parseInt(e.target.value));
+  }
+
+  const renderQty = (qty) => {
+    let result = [];
+
+    if (qty > 15) {
+      for (let i = 2; i <= 15; i++) {
+        let idR = Math.random();
+        result.push(<option value={qty} key={idR}>{i}</option>);
+      }
+    } else {
+      for (let i = 2; i <= qty; i++) {
+        let idR = Math.random();
+        result.push(<option value={qty} key={idR}>{i}</option>);
+      }
+    }
+    return result;
+  }
+
+  const handleQty = (e) => {
+    console.log('rdy to post??');
+    setSizeSelected(true);
+  }
+
+
   // pending to use api to add to card
   async function addToCart(skusId) {
-    let params;
-    let data;
-    const request = await Parse.create(`cart/`, params, skusId);
+    let params = skusId;
+    const request = await Parse.create('cart', undefined, params);
+    console.log(request.data);
+  }
+
+  const handleAddToCart = (e) => {
+    e.preventDefault();
+    if (sizeSelected) {
+      addToCart(skusId);
+    }
   }
 
 
@@ -49,8 +104,14 @@ function ProductInformation({
           </div>
 
           <h4>{product.category}</h4>
-          {currentStyle ? <h2>{currentStyle.name}</h2> : <h2>{product.name}</h2>}
-          {currentStyle ? <h2>${currentStyle.original_price}</h2> : <h2>${product.default_price}</h2>}
+          <h2>{product.name}</h2>
+          {currentStyle.sale_price !== null ?
+            <div>
+              <h2 style={{ textDecoration: 'line-through', fontSize: '14px' }}>${currentStyle.original_price}</h2>
+              <h2 style={{ color: '#FF0000' }}>${currentStyle.sale_price}</h2>
+            </div>
+
+            : <h2>${product.default_price}</h2>}
 
           <div>
             <div className='style-title'>
@@ -60,18 +121,24 @@ function ProductInformation({
             <div className='style-container'>
 
               {
-                currentStyle.photos.map(item => {
+                product.styles.map(item => {
                   let id = Math.random();
-                  return (
-                    <img key={id}
-                      id={currentStyle.style_id}
-                      name={currentStyle.name}
-                      onClick={(e, url, prod) => {
-                        handleLocalClick(e);
-                        handleStyleClick(e, item.url, currentStyle);
-                      }}
-                      src={item.thumbnail_url} className='style-entry'></img>
-                  )
+                  if (findDuplicates.includes(item.photos[0].thumbnail_url)) {
+                    return;
+                  } else {
+                    findDuplicates.push(item.photos[0].thumbnail_url);
+                    return (
+                      <img key={id}
+                        id={item.style_id}
+                        name={item.name}
+                        onClick={(e, url, prod) => {
+                          handleLocalClick(e);
+                          handleStyleClick(e, item.url, item);
+                        }}
+                        src={item.photos[0].thumbnail_url} className='style-entry'></img>
+                    )
+                  }
+
                 })}
 
             </div>
@@ -79,25 +146,21 @@ function ProductInformation({
 
           <div className='add-container'>
 
-            <select>
-              <option value="0">SELECT SIZE</option>
+            <select value={qty} onChange={handleSize}>
+              <option value="0">Select Size</option>
               {currentStyle &&
                 Object.values(currentStyle.skus).map((item => {
-                  let id = Math.random();
-                  return <option key={id}>{item.size}</option>
+                  let idR = Math.random();
+                  return <option id={item.size} value={item.quantity} key={idR}>{item.size}</option>
                 }))}
             </select>
 
-            <select>
-              <option value="0">1</option>
-              {currentStyle &&
-                Object.values(currentStyle.skus).map((item => {
-                  let id = Math.random();
-                  return <option key={id}>{item.quantity}</option>
-                }))}
+            <select onChange={handleQty}>
+              {qty ? <option value="1">1</option> : <option value="-">-</option>}
+              {qty && renderQty(qty)}
             </select>
 
-            <button onClick={handleLocalSave}>ADD TO CART</button>
+            <button onClick={(e) => { handleLocalSave(e); handleAddToCart(e); }}>ADD TO CART</button>
             <button onClick={handleLocalSave}><TiStarFullOutline /></button>
           </div>
 

@@ -7,6 +7,14 @@
 
 /* ----------------- Image Gallery ----------------- */
 
+img{
+  -khtml-user-select: none;
+  -o-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 .image-container {
   display: flex;
   align-items: center;
@@ -139,7 +147,20 @@
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  margin: 40px 400px;
+  margin: 40px 200px;
+}
+
+.feature {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.feature > p {
+  font-size: 14px;
+}
+
+.check {
+  margin-right: 5px;
 }
 
 .prodview-text {

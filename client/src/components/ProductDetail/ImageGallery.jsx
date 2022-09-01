@@ -49,8 +49,6 @@ function imageGallery({
     setOverlay(false);
   };
 
-  // test 2??
-
   return (
     <div>
       {!loading ? (
@@ -63,16 +61,16 @@ function imageGallery({
             {stylesList.map((style) => {
               let id = Math.random();
 
-              if (currentPhoto === style.photos[0].url || JSON.stringify(style).includes(currentPhoto)) {
-                if (style.photos[0].url === null) {
+              if (currentPhoto === style.url) {
+                if (style.url === null) {
                   return;
                 }
-                return <img onClick={e => handleThumbClick(e, style)} id={style.photos[0].url} key={id} src={style.photos[0].thumbnail_url} className='g-entry g-border'></img>
+                return <img onClick={e => handleThumbClick(e, style)} id={style.url} key={id} src={style.thumbnail_url} className='g-entry g-border'></img>
               } else {
-                if (style.photos[0].url === null) {
+                if (style.url === null) {
                   return;
                 }
-                return <img onClick={e => handleThumbClick(e, style)} id={style.photos[0].url} key={id} src={style.photos[0].thumbnail_url} className='g-entry'></img>
+                return <img onClick={e => handleThumbClick(e, style)} id={style.url} key={id} src={style.thumbnail_url} className='g-entry'></img>
               }
 
             })}
