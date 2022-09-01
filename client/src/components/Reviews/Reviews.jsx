@@ -14,6 +14,7 @@ const Reviews = (props) => {
 
   const [reviews, setReviews] = useState([]);
   const [totalReviews, setTotalReviews] = useState(0);
+  const [averageRating, setAverageRating] = useState(0);
   const [filteredReviews, setFilteredReviews] = useState([]);
   const [slicedReviews, setSlicedReviews] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -21,7 +22,6 @@ const Reviews = (props) => {
   const [starFilter, setStarFilter] = useState(false);
   const [showAmount, setShowAmount] = useState(2);
   const [sort, setSort] = useState('relevant');
-  //MAKE SURE TO SET THIS DEFAULT TO 'relevant' UPON DELIVERING
 
   useEffect(() => {
     if (!localStorage.getItem('helpfulReviews')) {
@@ -40,23 +40,15 @@ const Reviews = (props) => {
     setRatingPercentages(ratingPercentages);
     setAverageRecommended(averageRecommended.toFixed(0));
 
-
     getSortedReviews();
   }, [initialized]);
 
-
-  //FORK-IN-THE-ROAD MOMENT
-  //  Upon changing sort...
-  //  Reset reviewSlice to two?
-  //  Do I keep the same?
-
-  let getSortedReviews = () => {
-    // console.log('sort: ', sorter)
+  const getSortedReviews = () => {
+    //Get reviews based on total reviews then the sort
     let params = `?product_id=${props.productId}&count=${props.totalReviews}&sort=${sort}`;
     return Parse.getAll(`reviews/`, params)
     .then((reviews) => {
-      // console.log(reviews.data.results);
-      //let reviews = reviews.data.results
+      // setTotalReviews(props.totalReviews);
       setReviews(reviews.data.results);
       let filteredReviews = filterReviews(reviews.data.results);
       setFilteredReviews(filteredReviews);
@@ -65,7 +57,7 @@ const Reviews = (props) => {
     });
   };
 
-  let filterReviews = (reviews) => {
+  const filterReviews = (reviews) => {
     //TODO: Set up highlighting (split text?)
     let filteredReviews = [];
     let starFilter = enableFilter();
@@ -86,7 +78,7 @@ const Reviews = (props) => {
     return filteredReviews;
   };
 
-  let enableFilter = () => {
+  const enableFilter = () => {
     //Determine if no stars are clicked (renders as though all 5 are clicked)
     for (let star in searchStars) {
       if (searchStars[star]) {
@@ -96,11 +88,25 @@ const Reviews = (props) => {
     return false;
   }
 
-  let highlightText = () => {
+  const highlightText = () => {
     //Split review body to fit in spans that can highlight text
   };
 
-  let handleOnQueryChange = (e) => {
+  // const handleAddReview = () => {
+  //   //Add review to the breakdowns/characteristics/total reviews
+  //   let params = `?product_id=${props.productId}&count=${totalReviews + 1}&sort=${sort}`;
+  //   return Parse.getAll(`reviews/`, params)
+  //   .then((reviews) => {
+  //     setReviews(totalReviews + 1);
+  //     let filteredReviews = filterReviews(reviews.data.results);
+  //     setFilteredReviews(filteredReviews);
+  //     setSlicedReviews(filteredReviews.slice(0, showAmount));
+  //     setInitialized(true)
+  //   });
+
+  // };
+
+  const handleOnQueryChange = (e) => {
     if (e.target.value.length >= 3) {
       setSearchQuery(e.target.value);
     } else {
@@ -108,11 +114,11 @@ const Reviews = (props) => {
     }
   };
 
-  let handleStarClick = (value) => {
+  const handleStarClick = (value) => {
     setSearchStars((prevStars) => ({...prevStars, [value]: !searchStars[value]}));
   };
 
-  let handleOnSortChange = (e) => {
+  const handleOnSortChange = (e) => {
     setSort(e.target.value);
   };
 
@@ -128,7 +134,7 @@ const Reviews = (props) => {
     getSortedReviews();
   }, [sort])
 
-  let handleReport = (index) => {
+  const handleReport = (index) => {
     //Immediately render out reported review instead of doing a GET request
     let filteredReviewsCopy = filteredReviews.slice();
     filteredReviewsCopy.splice(index, 1);
@@ -136,7 +142,7 @@ const Reviews = (props) => {
     setSlicedReviews(filteredReviewsCopy.slice(0, showAmount));
   };
 
-  let handleShowMore = () => {
+  const handleShowMore = () => {
     //Increased sliceReviews length by 2 reviews
     setSlicedReviews(filteredReviews.slice(0, showAmount + 2));
     setShowAmount(showAmount + 2);

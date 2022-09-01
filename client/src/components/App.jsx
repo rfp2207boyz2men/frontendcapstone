@@ -228,6 +228,7 @@ const App = () => {
               <Reviews
                 totalReviews={totalReviews}
                 averageRating={averageRating}
+                getAverageRating={getAverageRating}
                 metaData={metaData}
                 renderStars={renderStars}
                 productName={selectedProduct.name}

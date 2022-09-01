@@ -11,28 +11,19 @@ const Tile = (props) => {
   const [showMore, setShowMore] = useState(false);
   const [clickedPhoto, setClickedPhoto] = useState('');
 
-  let renderName = () => {
+  const renderName = () => {
     let name = props.review.reviewer_name;
     let date = moment(props.review.date).format('MMM DD[,] YYYY');
     name = `${name}, ${date}`;
     return name;
   };
 
-  let renderStars = () => {
+  const renderStars = () => {
     return props.renderStars(props.review.rating).map((star => star))
   };
 
-  // let parseShortBody = () => {
-  // //render body up to 250 characters, then a link that shows rest of body
-  //   let shortBody = props.review.body.replaceAll('\n\n', '\n');
-  //   shortBody = `${shortBody.slice(0, 248)}...`;
-  //   shortBody = shortBody.split(`\n`);
-  //   return shortBody.map((body, index) => <p key={body + props.review.review_id + index}>{shortBody}</p>);
-  // };
-
-  let parseBody = () => {
+  const parseBody = () => {
     //render body (or response) to allow paragraphs
-
     let parsedBody = props.review.body.replaceAll('\n\n', '\n');
     if (parsedBody.length > 250 && !showMore) {
       parsedBody = `${parsedBody.slice(0, 251)}...`;
@@ -42,23 +33,19 @@ const Tile = (props) => {
       parsedBody = parsedBody.split('\n');
       return parsedBody.map((body, index) => <p key={body + props.review.review_id + index}>{body}</p>);
     }
-
-    // let parsedBody = props.review[type].replaceAll('\n\n', '\n');
-    // parsedBody = parsedBody.split('\n');
-    // return parsedBody.map((body, index) => <p key={body + props.review.review_id + index}>{body}</p>)
   };
 
-  let parseResponse = () => {
+  const parseResponse = () => {
     let parsedResponse = props.review.response.replaceAll('\n\n', '\n');
     parsedResponse = parsedResponse.split('\n');
     return parsedResponse.map((response, index) => <p key={response + props.review.review_id + index}>{response}</p>);
   }
 
-  let handleShowMore = () => {
+  const handleShowMore = () => {
     setShowMore(true);
   }
 
-  let renderHelpful = () => {
+  const renderHelpful = () => {
     // render message whether user voted review as helpful or not
     //  will render based on current session
     let localStorageCopy = JSON.parse(localStorage.getItem('helpfulReviews'));
@@ -82,7 +69,7 @@ const Tile = (props) => {
     }
   };
 
-  let handleHelpful = (value) => {
+  const handleHelpful = (value) => {
     //save review_id to localStorage so it saves helpful vote on page refresh
     //setLocalClick used to change a state to re-render tile
     if (value) {
@@ -99,16 +86,16 @@ const Tile = (props) => {
     setLocalClick(true);
   };
 
-  let handlePhotoClick = (e) => {
+  const handlePhotoClick = (e) => {
     setClickedPhoto(e.target.src);
     setOverlay(true)
   };
 
-  let handleOverlay = () => {
+  const handleOverlay = () => {
     setOverlay(false);
   };
 
-  let reportReview = () => {
+  const reportReview = () => {
     //update API to report review
     //  then get new set of reviews
     Parse.update(`reviews/`, `${props.review.review_id}/report`)
