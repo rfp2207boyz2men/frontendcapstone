@@ -40,6 +40,7 @@ const List = (props) => {
             index={index}
             renderStars={props.renderStars}
             getReviews={props.getReviews}
+            handleReport={props.handleReport}
           />
         ))}
       </div>

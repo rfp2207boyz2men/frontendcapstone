@@ -13,6 +13,7 @@ const Reviews = (props) => {
   const [initialized, setInitialized] = useState(false);
 
   const [reviews, setReviews] = useState([]);
+  const [totalReviews, setTotalReviews] = useState(0);
   const [filteredReviews, setFilteredReviews] = useState([]);
   const [slicedReviews, setSlicedReviews] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -70,11 +71,13 @@ const Reviews = (props) => {
     let starFilter = enableFilter();
 
     for (let review of reviews) {
-      if (review.body.toLowerCase().includes(searchQuery.toLowerCase())) {
-        if (!starFilter) {
+      if (!starFilter) {
+        if (review.body.toLowerCase().includes(searchQuery.toLowerCase())) {
           filteredReviews.push(review);
-        } else {
-          if (searchStars[review.rating]) {
+        }
+      } else {
+        if (searchStars[review.rating]) {
+          if (review.body.toLowerCase().includes(searchQuery.toLowerCase())) {
             filteredReviews.push(review);
           }
         }
@@ -84,6 +87,7 @@ const Reviews = (props) => {
   };
 
   let enableFilter = () => {
+    //Determine if no stars are clicked (renders as though all 5 are clicked)
     for (let star in searchStars) {
       if (searchStars[star]) {
         return true;
@@ -91,6 +95,10 @@ const Reviews = (props) => {
     }
     return false;
   }
+
+  let highlightText = () => {
+    //Split review body to fit in spans that can highlight text
+  };
 
   let handleOnQueryChange = (e) => {
     if (e.target.value.length >= 3) {
@@ -109,20 +117,27 @@ const Reviews = (props) => {
   };
 
   useEffect(() => {
+    //If either stars or query change, filter reviews
     let filteredReviews = filterReviews(reviews);
     setFilteredReviews(filteredReviews);
     setSlicedReviews(filteredReviews.slice(0, showAmount));
   }, [searchStars, searchQuery])
 
   useEffect(() => {
+    //If the sort has changed, do another GET request with that sort parameter
     getSortedReviews();
   }, [sort])
 
-  let handleReport = () => {
-
+  let handleReport = (index) => {
+    //Immediately render out reported review instead of doing a GET request
+    let filteredReviewsCopy = filteredReviews.slice();
+    filteredReviewsCopy.splice(index, 1);
+    setFilteredReviews(filteredReviewsCopy);
+    setSlicedReviews(filteredReviewsCopy.slice(0, showAmount));
   };
 
   let handleShowMore = () => {
+    //Increased sliceReviews length by 2 reviews
     setSlicedReviews(filteredReviews.slice(0, showAmount + 2));
     setShowAmount(showAmount + 2);
   };
@@ -155,6 +170,7 @@ const Reviews = (props) => {
           slicedReviews={slicedReviews}
           sort={sort}
           getReviews={getSortedReviews}
+          handleReport={handleReport}
           onQueryChange={handleOnQueryChange}
           onSortChange={handleOnSortChange}
         />

@@ -8,6 +8,7 @@ const Tile = (props) => {
   const [localClick, setLocalClick] = useState(false);
   const [clickedHelpful, setClickedHelpful] = useState(false);
   const [overlay, setOverlay] = useState(false);
+  const [showMore, setShowMore] = useState(false);
   const [clickedPhoto, setClickedPhoto] = useState('');
 
   let renderName = () => {
@@ -21,12 +22,41 @@ const Tile = (props) => {
     return props.renderStars(props.review.rating).map((star => star))
   };
 
-  let parseBody = (type) => {
+  // let parseShortBody = () => {
+  // //render body up to 250 characters, then a link that shows rest of body
+  //   let shortBody = props.review.body.replaceAll('\n\n', '\n');
+  //   shortBody = `${shortBody.slice(0, 248)}...`;
+  //   shortBody = shortBody.split(`\n`);
+  //   return shortBody.map((body, index) => <p key={body + props.review.review_id + index}>{shortBody}</p>);
+  // };
+
+  let parseBody = () => {
     //render body (or response) to allow paragraphs
-    let parsedBody = props.review[type].replaceAll('\n\n', '\n');
-    parsedBody = parsedBody.split('\n');
-    return parsedBody.map((body, index) => <p key={body + props.review.review_id + index}>{body}</p>)
+
+    let parsedBody = props.review.body.replaceAll('\n\n', '\n');
+    if (parsedBody.length > 250 && !showMore) {
+      parsedBody = `${parsedBody.slice(0, 251)}...`;
+      parsedBody = parsedBody.split('\n');
+      return parsedBody.map((body, index) => <p key={body + props.review.review_id + index}>{body}</p>);
+    } else {
+      parsedBody = parsedBody.split('\n');
+      return parsedBody.map((body, index) => <p key={body + props.review.review_id + index}>{body}</p>);
+    }
+
+    // let parsedBody = props.review[type].replaceAll('\n\n', '\n');
+    // parsedBody = parsedBody.split('\n');
+    // return parsedBody.map((body, index) => <p key={body + props.review.review_id + index}>{body}</p>)
   };
+
+  let parseResponse = () => {
+    let parsedResponse = props.review.response.replaceAll('\n\n', '\n');
+    parsedResponse = parsedResponse.split('\n');
+    return parsedResponse.map((response, index) => <p key={response + props.review.review_id + index}>{response}</p>);
+  }
+
+  let handleShowMore = () => {
+    setShowMore(true);
+  }
 
   let renderHelpful = () => {
     // render message whether user voted review as helpful or not
@@ -81,9 +111,8 @@ const Tile = (props) => {
   let reportReview = () => {
     //update API to report review
     //  then get new set of reviews
-    //  can refactor to just splice the filteredReviews instead of doing an API call?
     Parse.update(`reviews/`, `${props.review.review_id}/report`)
-    .then(() => props.getReviews())
+    .then(() => props.handleReport(props.index))
     .catch((err) => console.log(err));
   };
 
@@ -96,7 +125,8 @@ const Tile = (props) => {
       <div className='ratingStars'>{renderStars()}</div>
       <h3><b>{props.review.summary}</b></h3>
       <div className='reviewBodySection'>
-        {parseBody('body')}
+        {parseBody()}
+        {(props.review.body.length > 250 && !showMore) && <p onClick={handleShowMore}>Show more...</p>}
         {props.review.photos.length >= 1 &&
         <div className='reviewPhotoThumbnailSection'>
           {props.review.photos.map((photo, index) => <img src={photo.url} className='reviewPhotoThumbnail' onClick={handlePhotoClick} key={index}/>)}
@@ -104,7 +134,7 @@ const Tile = (props) => {
         {props.review.response &&
         <div className='reviewResponse'>
           <span><b>Response:</b></span>
-          <p>{parseBody('response')}</p>
+          <p>{parseResponse()}</p>
         </div>}
       </div>
       <div className='reviewInteractions'>

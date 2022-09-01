@@ -22,7 +22,6 @@ const Input = (props) => {
   const [photosData, setPhotosData] = useState([]);
   const hiddenFileInput = useRef(null);
   const [errorMessages, setErrorMessages] = useState([]);
-  const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleOnChange = (e) => {
@@ -36,7 +35,7 @@ const Input = (props) => {
   };
 
   const renderStars = () => {
-    //render 5 stars and a clicked star description into a div
+    //Render 5 stars and a clicked star description into a div
     let stars = [];
     for (let i = 1; i <= 5; i++) {
       stars.push(renderStar(i))
@@ -50,8 +49,8 @@ const Input = (props) => {
   };
 
   const renderStar = (value) => {
-    //render a full or empty star based on the clicked star
-    //each star has a corresponding value
+    //Render a full or empty star based on the clicked star
+    //Each star has a corresponding value
     if (rating - value >= 0) {
       return <div key={value}><TiStarFullOutline className='ratingInputStar star' size={20} onClick={()=>{handleStarClick(value)}}/></div>;
     } else {
@@ -60,7 +59,7 @@ const Input = (props) => {
   };
 
   const renderStarIndicator = () => {
-    //conditionally render an indicator for the clicked star
+    //Conditionally render an indicator for the clicked star
     switch(rating) {
       case 1:
         return 'Poor';
@@ -87,7 +86,7 @@ const Input = (props) => {
   };
 
   const renderRecommendations = () => {
-    //render 2 buttons to recommend/not recommend the product
+    //Render 2 buttons to recommend/not recommend the product
     return(
       <div className='reviewInputRecommendations'>
         <input type='radio' name='recommendation' value='true' onChange={handleRecommendationClick}></input>
@@ -99,7 +98,7 @@ const Input = (props) => {
   };
 
   const handleRecommendationClick = (e) => {
-    //convert recommendation from string to boolean
+    //Convert recommendation from string to boolean
     if (e.target.value === 'true') {
       setRecommendation(true);
     } else {
@@ -108,7 +107,7 @@ const Input = (props) => {
   };
 
   const renderCharacteristics = (id) => {
-    //render 5 buttons for characteristics with a corresponding value
+    //Render 5 buttons for characteristics with a corresponding value
     let characteristicButtons = [];
     for (let i = 1; i <= 5; i++) {
       characteristicButtons.push(<input type='radio' name={id} value={i} key={id+i} onChange={handleCharacteristicClick}></input>)
@@ -117,7 +116,7 @@ const Input = (props) => {
   };
 
   const renderCharacteristicsDescriptor = (characteristic) => {
-    //render characteristic descriptions based on the characteristic
+    //Render characteristic descriptions based on the characteristic
     switch(characteristic) {
       case 'Size':
         return ['A size too small', 'A size too wide'];
@@ -135,7 +134,7 @@ const Input = (props) => {
   };
 
   const renderCharacteristicsSection = (characteristic, id) => {
-    //render a characteristic section with a label, 5 buttons, and corresponding descriptions
+    //Render a characteristic section with a label, 5 buttons, and corresponding descriptions
     return (
       <div className='reviewInputCharacteristicSection' key={characteristic}>
         <h4 className='reviewInputCharacteristicLabel'>{characteristic}</h4>
@@ -150,7 +149,7 @@ const Input = (props) => {
   };
 
   const renderCharacteristicsAggregate = () => {
-    //render all characteristic sections into one div
+    //Render all characteristic sections into one div
     let characteristicAggregate = [];
     for (let characteristic in props.characteristics) {
       characteristicAggregate.push(renderCharacteristicsSection(characteristic, props.characteristics[characteristic].id));
@@ -163,13 +162,13 @@ const Input = (props) => {
   };
 
   const handleCharacteristicClick = (e) => {
-    //set the characteristic state as {characteristic_id : value}
-    //  convert value to an integer
+    //Set the characteristic state as {characteristic_id : value}
+    //  Convert value to an integer
     setCharacteristics((prevCharacteristics) => ({...prevCharacteristics, [e.target.name]: parseInt(e.target.value)}));
   };
 
   const renderPhotos = () => {
-    //render photo gallery up to 5 images (button will disappear after 5 images)
+    //Render photo gallery up to 5 images (button will disappear after 5 images)
     //Upload button onClick refers to a button that clicks useRef that is referred to by the file input
     //  This allows making a button that's stylized instead of the default file input button
     return(
@@ -186,7 +185,7 @@ const Input = (props) => {
   };
 
   const handlePhotoClick = () => {
-    //click the hidden input file button by invoking this function
+    //Click the hidden input file button by invoking this function
     hiddenFileInput.current.click();
   }
 
@@ -254,18 +253,18 @@ const Input = (props) => {
 
   const uploadPhoto = (photo) => {
     //Uploads photo to Cloudinary
+    //Make sure to set CLOUDINARY_USER and CLOUDINARY_UPLOAD_PRESET in config.js
     let url = `https://api.cloudinary.com/v1_1/${CONFIG.CLOUDINARY_USER}/image/upload`;
     let upload_preset = CONFIG.CLOUDINARY_UPLOAD_PRESET;
 
     let formData = new FormData();
     formData.append('file', photo);
     formData.append('upload_preset', upload_preset);
-
     return Parse.upload(url, formData);
   };
 
   const submitForm = (photos) => {
-
+    //Submit all form data
     let params = {
       product_id: props.productId,
       rating: rating,
@@ -277,11 +276,11 @@ const Input = (props) => {
       photos: photos,
       characteristics: characteristics
     };
-
     return Parse.create('reviews', undefined, params)
   };
 
   const validateInfo = () => {
+    //Validate each input field and produce a corresponding error message
     let errors = [];
     if (rating === 0) {
       errors.push('Rating');
