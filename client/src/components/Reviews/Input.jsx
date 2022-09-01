@@ -1,8 +1,12 @@
+// require("dotenv").config();
+import CONFIG from '../../../../config.js';
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import Parse from '../../parse.js';
 import { SiIfixit } from 'react-icons/si';
 import { TiStarFullOutline, TiStarHalfOutline, TiStarOutline } from 'react-icons/ti';
 import { BsPlusCircle } from 'react-icons/bs';
+// import {AdvancedImage} from '@cloudinary/react';
+// import {Cloudinary} from "@cloudinary/url-gen";
 
 const Input = (props) => {
   const [textInputs, setTextInputs] = useState({
@@ -17,6 +21,7 @@ const Input = (props) => {
   const [photos, setPhotos] = useState([]);
   const [photosData, setPhotosData] = useState([]);
   const hiddenFileInput = useRef(null);
+  const [errorMessages, setErrorMessages] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -186,6 +191,8 @@ const Input = (props) => {
   }
 
   const handlePhotoInput = (e) => {
+    //Push photo as readable photo to the thumbnail array
+    //Push photo as file to the photoData array for submission eventually
     let newPhotos = photos.slice();
     newPhotos.push(URL.createObjectURL(e.target.files[0]))
     setPhotos(newPhotos);
@@ -195,18 +202,70 @@ const Input = (props) => {
   };
 
   const handleSubmit = () => {
+    //First: Validate input field
+    //  If fail: create respective error messages
+    //Second: Upload photos
+    //  If fail: create message indicated failed upload
+    //Third: Submit form
+    //  If fail: create message indicating failed submit
+    event.preventDefault();
     setLoading(true);
-    submitForm();
+
+    let errors = validateInfo();
+    if (errors.length > 0) {
+      setErrorMessages(errors);
+      setLoading(false);
+      return;
+    }
+
+    uploadAllPhotos()
+    .then((photos) => submitForm(photos))
+    .then((response) => {
+      console.log('success!');
+      props.handleOverlay();
+      props.getReviews();
+    })
+    .catch((err) => {
+      console.log(err);
+      setErrorMessages(['Could not submit form']);
+      setLoading(false);
+    })
   }
 
-  const submitForm = () => {
-    event.preventDefault();
+  const uploadAllPhotos = () => {
+    //Upload all photos at the same time and get their urls into an array
+    return Promise.all(photosData.map((photo) => uploadPhoto(photo)))
+    .then((response) => {
+      console.log('promise.all checkpoint')
+      let photos = [];
+      for (let photo of response) {
+        photos.push(photo.data.secure_url);
+      }
+      return photos;
+    })
+    .catch((err) => {
+      console.log(err);
+      setPhotos([]);
+      setPhotosData([]);
+      setErrorMessages(['Photos could not be submitted or photos were invalid']);
+      setLoading(false);
+    });
+  };
 
-    validateInfo();
-    return;
+  const uploadPhoto = (photo) => {
+    //Uploads photo to Cloudinary
+    let url = `https://api.cloudinary.com/v1_1/${CONFIG.CLOUDINARY_USER}/image/upload`;
+    let upload_preset = CONFIG.CLOUDINARY_UPLOAD_PRESET;
 
-    let hardCodeImageUrl = `https://images.unsplash.com/photo-1501088430049-71c79fa3283e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80`;
-    let hardcodedPhotos = [hardCodeImageUrl, hardCodeImageUrl, hardCodeImageUrl];
+    let formData = new FormData();
+    formData.append('file', photo);
+    formData.append('upload_preset', upload_preset);
+
+    return Parse.upload(url, formData);
+  };
+
+  const submitForm = (photos) => {
+
     let params = {
       product_id: props.productId,
       rating: rating,
@@ -215,56 +274,42 @@ const Input = (props) => {
       recommend: recommendation,
       name: textInputs.nickname,
       email: textInputs.email,
-      photos: hardcodedPhotos,
-      // photos: photos,
+      photos: photos,
       characteristics: characteristics
     };
-    // console.log(typeof recommendation);
-    // console.log(params);
 
-    Parse.create('reviews', undefined, params)
-    .then((response) => {
-      // console.log(response);
-      props.handleOverlay();
-      props.getReviews();
-    })
-    .catch((err) => {
-      console.log(err)
-      setLoading(false);
-    })
+    return Parse.create('reviews', undefined, params)
   };
 
   const validateInfo = () => {
-    //What to validate:
-    //  Any blank fields
-    //  Body < 50 characters
-    //  Email not in correct email format
-    //  Images invalid/fail to upload
     let errors = [];
     if (rating === 0) {
-      errors.push('');
+      errors.push('Rating');
     }
     if (recommendation === undefined) {
-      errors.push('');
+      errors.push('Recommendation');
     }
     for (let characteristic in props.characteristics) {
       let id = props.characteristics[characteristic].id;
       if (!characteristics[id]) {
-        errors.push('');
+        errors.push(characteristic);
       }
     }
     if (textInputs.body.length < 50) {
-      errors.push('');
+      errors.push(textInputs.body.length === 0 ? 'Body' : 'Invalid body length');
     }
     if (textInputs.nickname.length === 0) {
-      errors.push('');
+      errors.push('Nickname');
     }
-    if (validateEmail(textInputs.email)) {
-      errors.push('');
+    if (!validateEmail(textInputs.email)) {
+      errors.push(textInputs.email.length === 0 ? 'Email' : 'Invalid email');
     }
+
+    return errors;
   };
 
   const validateEmail = (email) => {
+    //Validate email to make sure it has a vague semblance of an email format
     // /\S+@\S+\.\S+/                               simple regEx
     // /^[^\s@]+@[^\s@]+\.[^\s@]+$/                 should prevent matching multiple @ signs
     let re = /\S+@\S+\.\S+/;
@@ -300,6 +345,11 @@ const Input = (props) => {
       {loading
       ? <button className='reviewSubmit' disabled>Submitting...</button>
       : <button className='reviewSubmit reviewSubmitEnable' type='submit'>Submit review</button>}
+      {errorMessages.length >= 1 &&
+      <div className='reviewInputErrors'>
+        <p>You must enter the following:</p>
+        {errorMessages.map((message, index) => <p key={index}>{message}</p>)}
+      </div>}
     </form>
   );
 };

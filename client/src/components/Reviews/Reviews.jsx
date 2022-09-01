@@ -134,6 +134,7 @@ const Reviews = (props) => {
         <SideBar
           renderStars={props.renderStars}
           ratings={props.metaData.ratings}
+          totalReviews={props.totalReviews}
           averageRating={props.averageRating}
           ratingPercentages={ratingPercentages}
           averageRecommended={averageRecommended}
