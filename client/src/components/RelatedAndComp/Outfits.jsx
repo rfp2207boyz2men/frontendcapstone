@@ -6,7 +6,7 @@ import { OrbitSpinner } from 'react-epic-spinners';
 import { BsPlusCircle } from 'react-icons/bs';
 import { RiArrowRightSLine, RiArrowLeftSLine } from 'react-icons/ri'
 
-const Outfits = ({ outfits, current, outfitAdd, outfitRemove, avgRating, styleId }) => {
+const Outfits = ({ outfits, current, outfitAdd, outfitRemove, avgRating, styleId, starRender }) => {
   const [outfitHover, setOutfitHover] = useState(false);
   const [carousel, setCarousel] = useState([]);
   const [left, setLeft] = useState([]);
@@ -78,7 +78,8 @@ const Outfits = ({ outfits, current, outfitAdd, outfitRemove, avgRating, styleId
                         product_id={outfit.id}
                         removeApp={outfitRemove}
                         removeOutfit={handleOutfitRemove}
-                        styleId={styleId}/>
+                        styleId={styleId}
+                        starRender={starRender}/>
             }) : null
           }
         </div>
