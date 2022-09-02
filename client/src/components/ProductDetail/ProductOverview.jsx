@@ -23,6 +23,13 @@ function ProductOverview({ product, currentPhoto, currentStyle }) {
     setShareUrl(currentPhoto);
   }, [currentPhoto]);
 
+
+  useEffect(() => {
+    if (product) {
+      setLoading(false)
+    }
+  }, [product]);
+
   return (
     <div>
       {!loading ?
@@ -64,3 +71,4 @@ function ProductOverview({ product, currentPhoto, currentStyle }) {
 
 
 export default ProductOverview;
+

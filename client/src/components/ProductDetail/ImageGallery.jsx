@@ -7,8 +7,6 @@ import {
   TiArrowMaximise,
   TiArrowMinimise,
 } from "react-icons/ti";
-import "./overview.css";
-import '../Reviews/ReviewsStyles.css';
 import { OrbitSpinner } from "react-epic-spinners";
 import Parse from "../../parse";
 import PhotoOverlay from "../Reviews/PhotoOverlay.jsx";

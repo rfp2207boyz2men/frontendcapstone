@@ -3,7 +3,6 @@ import Parse from '../../parse.js';
 import List from './List.jsx';
 import Tile from './Tile.jsx';
 import SideBar from './SideBar.jsx';
-import './ReviewsStyles.css';
 import { OrbitSpinner } from 'react-epic-spinners';
 
 const Reviews = (props) => {
