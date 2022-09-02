@@ -139,7 +139,7 @@ a:visited {
 */
 
 .productCard {
-  border: 1px solid black;
+  border: 1px solid gray;
   width: 255px;
   height: 400px;
   margin-left: 10px;
@@ -153,6 +153,7 @@ a:visited {
   width: 255px;
   height: 300px;
   position: relative;
+  border-bottom: 1px solid gray;
 }
 
 .productCardImg :hover {
@@ -263,6 +264,7 @@ a:visited {
   border: 1px solid white;;
   width: 1298px;
   height: 50px;
+  margin-top: 5px;
 }
 
 .qanda-search-input {
@@ -356,12 +358,13 @@ a:visited {
 */
 .show-more-or-less {
   margin-top: 10px;
-  height: 50px;
+  height: 30px;
   width: 180px;
   margin-right: 10px;
   border-radius: 5px;
   background-color: burlywood;
   color: black;
+  border-style: none;
 }
 
 .helpful {
@@ -398,6 +401,7 @@ a:visited {
   height: 300px;
   width: 255px;
   position: relative;
+  border-bottom: 1px solid gray;
 }
 
 .plusCardArea:hover {
@@ -426,7 +430,7 @@ a:visited {
 }
 
 .outfits {
-  height: 450px;
+  height: 445px;
   width: 1200px;
   display: grid;
   position: relative;
@@ -586,6 +590,7 @@ a:visited {
   width: 500px;
   height: 500px;
   object-fit: cover;
+  border: 1px solid burlywood;
 }
 
 .pv-active {
@@ -605,6 +610,10 @@ a:visited {
   flex-direction: column;
 }
 
+.g-container img {
+  border: 1px solid burlywood;
+}
+
 .g-entry {
   cursor: pointer;
   background-color: #fff;
@@ -617,8 +626,6 @@ a:visited {
 .g-border {
   border-bottom: solid 5px burlywood;
 }
-
-
 
 .arrow {
   color: white;
@@ -670,6 +677,10 @@ a:visited {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+}
+
+.style-container img {
+  border: 1px solid burlywood;
 }
 
 .add-container {
@@ -758,7 +769,7 @@ a:visited {
 
 .reviewList {
   height: auto;
-  width: 850px;
+  width: 900px;
   /* border: 2px solid black; */
   overflow-y: auto;
 }
@@ -829,7 +840,8 @@ a:visited {
 
 .reviewBarLabel {
   width: 50px;
-  margin-right: 5px;
+  padding:5px;
+  text-align: center;
 }
 
 .reviewBar {
@@ -894,6 +906,14 @@ a:visited {
 .reviewListHeader {
   display: flex;
   flex-direction: row;
+  width: 900px;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 50px;
+}
+
+.reviewListHeader h3 {
+  font-size: 14px;
 }
 
 .reviewTile {
@@ -919,6 +939,10 @@ a:visited {
   /* background-color: pink; */
 }
 
+.reviewPhotoThumbnailSection img:hover{
+  cursor: pointer;
+}
+
 .reviewPhotoThumbnail {
   height: 100px;
   margin-right: 10px;
@@ -941,8 +965,16 @@ a:visited {
   flex-direction: row;
 }
 
-.reviewHelpful p{
+.reviewHelpful p {
   margin-right: 5px;
+}
+
+.reviewHelpful p u:hover {
+  cursor: pointer;
+}
+
+.reviewReport u:hover {
+  cursor: pointer;
 }
 
 .reviewExpandButtonSection {
@@ -1264,5 +1296,4 @@ button:hover {
   height: 30px;
   background-color: burlywood;
   border-style: none;
-
 }
