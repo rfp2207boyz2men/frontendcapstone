@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import ReactDOM from 'react-dom';
 import Parse from '../parse.js';
 import axios from 'axios';
 import Related from './RelatedAndComp/Related.jsx';
@@ -12,6 +11,7 @@ import { OrbitSpinner } from 'react-epic-spinners';
 import { BsSearch, BsBag } from 'react-icons/bs'
 import QandA from './QandA/QandA.jsx';
 import { GoSearch } from 'react-icons/go';
+import { AppContext } from './AppContext.js';
 
 
 const App = () => {
@@ -36,7 +36,27 @@ const App = () => {
         updateSelectedProduct(products.data[defaultIndex].id);
       })
     retrieveStorage();
+    getCart();
   }, []);
+
+
+  // pending push info to array, save in localStorage?
+  // window.onclick = e => {
+  //   //console.log(e.target); // element clicked
+  //   // use viewport instead of pageY
+
+  //   // if (e.pageY < 850) {
+  //   //   console.log('you are on the overview module');
+  //   // } else if (e.pageY < 1820) {
+  //   //   console.log('you are on the related products module');
+  //   // } else if (e.pageY < 2327) {
+  //   //   console.log('you are on the questions and answers module');
+  //   // } else {
+  //   //   console.log('you are on the reviews module');
+  //   // }
+
+  //   //console.log('time pending to format:', Date.now());
+  // }
 
   const getAverageRating = (ratings) => {
     //Get average rating through gpa style math
@@ -175,8 +195,22 @@ const App = () => {
     setOutfits([...updatedList])
   }
 
+  async function getCart() {
+    const request = await Parse.getAll('cart', undefined);
+    setCart(request.data);
+  }
+
   return (
-    <div>
+    <AppContext.Provider value={{
+      selectedProduct,
+      localName,
+      handleSelectedProduct,
+      handleLocalClick,
+      handleLocalSave,
+      getAverageRating,
+      getTotalReviews,
+      renderStars,
+    }}>
       {loading ?
         <div>
           <div className="header">
@@ -186,20 +220,13 @@ const App = () => {
             </div>
             <div className="toprightHeader">
               <div className="searchbar"><input className="search" placeholder="Search"></input><GoSearch className="searchIcon" /></div>
-              <div className="shoppingBag"><BsBag /></div>
+              <div className="shoppingBag"><BsBag /></div>{cart && <div className='cart'>{cart.length}</div>}
             </div>
           </div>
           <div className="main">
             <div>
               <Overview
-                selectedProduct={selectedProduct}
-                localName={localName}
-                handleSelectedProduct={handleSelectedProduct}
-                handleLocalClick={handleLocalClick}
-                handleLocalSave={handleLocalSave}
-                getAverageRating={getAverageRating}
-                getTotalReviews={getTotalReviews}
-                renderStars={renderStars} />
+              />
             </div>
             <div className='relatedSection'>
               <Related
@@ -238,7 +265,7 @@ const App = () => {
         </div>
         : <div className="spinner"><OrbitSpinner color='teal' /></div>
       }
-    </div>
+    </AppContext.Provider>
   )
 }
 

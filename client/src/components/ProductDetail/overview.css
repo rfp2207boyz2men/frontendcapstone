@@ -81,7 +81,7 @@ img{
 
 
 .arrow {
-  color: #fff;
+  color: #256D85;
   cursor: pointer;
   font-size: 20px;
 }
@@ -91,6 +91,24 @@ img{
   cursor: pointer;
   font-size: 30px;
   align-self: flex-start;
+}
+
+.example-enter {
+  opacity: 0.01;
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.example-leave {
+  opacity: 1;
+}
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
 }
 
 /* ----------------- Style Section ----------------- */
@@ -185,7 +203,7 @@ img{
   color: #94B49F;
 }
 
-.social > button {
+.social-btn {
   color: #94B49F;
   margin: 10px 25px;
 }

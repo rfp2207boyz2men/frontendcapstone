@@ -9,11 +9,41 @@ import {
 } from "react-icons/ti";
 import "./overview.css";
 import '../Reviews/ReviewsStyles.css';
+import styled, { css, keyframes } from 'styled-components';
+import ReactCSSTransitionGroup from 'react-transition-group';
 import { OrbitSpinner } from "react-epic-spinners";
 import Parse from "../../parse";
 import PhotoOverlay from "../Reviews/PhotoOverlay.jsx";
 
-function imageGallery({
+/* --------------------  styled components  --------------------*/
+
+const fadeIn = keyframes`
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+`
+
+
+const ImageContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  animation: ${fadeIn} 1s;
+`
+
+const PvImg = styled.img`
+  cursor: -moz-zoom-in;
+  cursor: -webkit-zoom-in;
+  cursor: zoom-in;
+  width: 500px;
+  height: 500px;
+  object-fit: cover;
+  animation: ${fadeIn} 1s;
+`
+
+/* --------------------  ImageGallery components  --------------------*/
+
+function ImageGallery({
   product,
   stylesList,
   expand,
@@ -52,7 +82,7 @@ function imageGallery({
   return (
     <div>
       {!loading ? (
-        <div className="image-container">
+        <ImageContainer>
           <div className="g-container">
             {arrowUp && (
               <TiArrowSortedUp onClick={handleUpClick} className="arrow" />
@@ -83,12 +113,12 @@ function imageGallery({
           <div className="pv-container">
             <TiArrowLeftThick onClick={handleLeftClick} className='arrow' />
             {overlay && <PhotoOverlay clickedPhoto={clickedPhoto} onClick={handleOverlay} />}
-            <img className='pv-img' onClick={handlePhotoClick} src={currentPhoto || `https://via.placeholder.com/500`} alt={product.name}></img>
+            <PvImg className='pv-img' onClick={handlePhotoClick} src={currentPhoto || `https://via.placeholder.com/500`} alt={product.name}></PvImg>
             <TiArrowRightThick onClick={handleRightClick} className='arrow' />
             <TiArrowMaximise onClick={handlePhotoClick} className='expand' />
           </div>
 
-        </div>
+        </ImageContainer>
       ) : (
         <OrbitSpinner color="teal" />
       )}
@@ -96,4 +126,4 @@ function imageGallery({
   );
 }
 
-export default imageGallery;
+export default ImageGallery;

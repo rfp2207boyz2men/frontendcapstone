@@ -1,26 +1,28 @@
 import axios from 'axios';
-import React, { useState, createContext, useContext, useEffect, useRef } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import Parse from '../../parse.js';
 import { OrbitSpinner } from 'react-epic-spinners';
-import { OverviewProvider } from './OverviewContext.js';
+import { AppContext } from '../AppContext.js';
 import ImageGallery from './ImageGallery.jsx';
 import StyleInformation from './StyleInformation.jsx';
 import ProductOverview from './ProductOverview.jsx';
 import { select } from 'underscore';
 
-function Overview({
-  selectedProduct,
-  handleLocalClick,
-  handleLocalSave,
-  localName,
-  localId,
-  renderStars,
-  getAverageRating,
-  getTotalReviews,
-  handleSelectedProduct,
-}) {
+function Overview() {
+
+  const { selectedProduct,
+    handleLocalClick,
+    handleSelectedProduct,
+    handleLocalSave,
+    localName,
+    localId,
+    renderStars,
+    getTotalReviews,
+    getAverageRating } = useContext(AppContext);
+
+
+
   const [product, setProduct] = useState();
-  const [count, setCount] = useState(1);
   const [stylesList, setStylesList] = useState([]);
   const [currentPhoto, setCurrentPhoto] = useState('');
   const [currentStyle, setCurrentStyle] = useState();
@@ -32,6 +34,7 @@ function Overview({
 
   useEffect(() => {
     fetchData(selectedProduct);
+    getCart();
   }, [])
 
   async function fetchData(productId) {
@@ -63,6 +66,9 @@ function Overview({
     }
   }
 
+  async function getCart() {
+    const request = await Parse.getAll('cart', undefined);
+  }
 
 
   /* --------------------  style selection events  --------------------*/
