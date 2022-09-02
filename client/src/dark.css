@@ -1261,6 +1261,8 @@ button:hover {
 
 .reviewExpandButton {
   border-radius: 5px;
+  height: 30px;
   background-color: burlywood;
+  border-style: none;
 
 }

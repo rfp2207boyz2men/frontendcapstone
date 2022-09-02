@@ -98,13 +98,6 @@ const App = () => {
   //   })
   // }
 
-  window.onclick = (e) => {
-    console.log(e.target)
-    console.log(e)
-    let target = (e.target.outerHTML)
-    console.log(target)
-  }
-
   const handleSelectedProduct = (id) => {
     //unloadComponents(id);
   }
