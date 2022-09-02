@@ -105,7 +105,7 @@ const ProductCard = ({ product_id, addOutfit, select, current, avgStars }) => {
           <div className='productCardRating'>
           <StarRatings
             rating={stars}
-            starRatedColor='teal'
+            starRatedColor='burlywood'
             numberOfStars={5}
             starDimension='18px'
             starSpacing='3px'
@@ -113,7 +113,7 @@ const ProductCard = ({ product_id, addOutfit, select, current, avgStars }) => {
           </div>
         </div>
       </div>
-      : <div className="cardLoader"><OrbitSpinner color='teal' className='cardSpinner'/></div>
+      : <div className="cardLoader"><OrbitSpinner color='burlywood' className='cardSpinner'/></div>
       }
     </div>
   )

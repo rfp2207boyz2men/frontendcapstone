@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { BiSearch } from 'react-icons/bi';
 import Parse from '../../parse.js';
 import axios from 'axios';
-import './QandA.css';
+//import './QandA.css';
 
 class QandASearch extends React.Component {
   constructor(props) {

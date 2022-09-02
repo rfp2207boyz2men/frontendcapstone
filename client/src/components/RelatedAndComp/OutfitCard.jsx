@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import ReactDOM from 'react-dom';
 import Parse from '../../parse.js';
 import { OrbitSpinner } from 'react-epic-spinners';
-import { AiOutlineCloseCircle } from 'react-icons/ai';
+import { AiFillCloseCircle } from 'react-icons/ai';
 import StarRatings from 'react-star-ratings';
 
 const OutfitCard = ({ product_id, removeApp, styleId, removeOutfit }) => {
@@ -68,7 +68,7 @@ const OutfitCard = ({ product_id, removeApp, styleId, removeOutfit }) => {
           <div className = 'productCard'>
             <div className = 'productCardImg'>
               <img className = 'productImages' src={productStyles[findIndex(styleId)].photos[0].thumbnail_url || `https://via.placeholder.com/150`}/>
-              <div className = "actionCard" onClick={handleClickRemove}><AiOutlineCloseCircle color='crimson'/></div>
+              <div className = "actionCard" onClick={handleClickRemove}><AiFillCloseCircle color='crimson'/></div>
             </div>
             <div>
               <div className = 'productCardDesc'>
@@ -81,7 +81,7 @@ const OutfitCard = ({ product_id, removeApp, styleId, removeOutfit }) => {
                 stars > 0 ?
                 <StarRatings
                   rating={stars}
-                  starRatedColor="teal"
+                  starRatedColor="burlywood"
                   numberOfStars={5}
                   starDimension='18px'
                   starSpacing='3px'

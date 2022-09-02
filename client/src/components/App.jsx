@@ -98,6 +98,13 @@ const App = () => {
   //   })
   // }
 
+  window.onclick = (e) => {
+    console.log(e.target)
+    console.log(e)
+    let target = (e.target.outerHTML)
+    console.log(target)
+  }
+
   const handleSelectedProduct = (id) => {
     //unloadComponents(id);
   }
@@ -176,6 +183,13 @@ const App = () => {
     <div>
       {loading ?
         <div>
+          {/* <div className="toggleTheme">
+            <div>Dark Mode:</div>
+            <label className="switch">
+              <input type="checkbox"></input>
+              <span className="slider round"></span>
+            </label>
+          </div> */}
           <div className="header">
             <div className="logoheader">
               <div className="logotext"><h1>Odin</h1></div>
@@ -206,7 +220,7 @@ const App = () => {
                 avgRating={getAverageRating}
               />
             </div>
-            <div>
+            <div className='outfitsSection'>
               <Outfits
                 outfits={outfits}
                 current={selectedProduct}

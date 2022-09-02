@@ -4,7 +4,7 @@ import Parse from '../../parse.js';
 import axios from 'axios';
 import QandASearch from './QandASearch.jsx';
 import RelevantQ from './RelevantQ.jsx'
-import './QandA.css';
+//import './QandA.css';
 
 class QandA extends React.Component {
   constructor(props) {
