@@ -2,10 +2,9 @@ import React, { useState, useEffect, useContext } from 'react';
 import ReactDOM from 'react-dom';
 import Parse from '../../parse.js';
 import { OrbitSpinner } from 'react-epic-spinners';
-import { AiOutlineCloseCircle } from 'react-icons/ai';
-import StarRatings from 'react-star-ratings';
+import { AiFillCloseCircle } from 'react-icons/ai';
 
-const OutfitCard = ({ product_id, removeApp, styleId, removeOutfit }) => {
+const OutfitCard = ({ product_id, removeApp, styleId, removeOutfit, starRender }) => {
   const [productInfo, setProductInfo] = useState();
   const [productStyles, setProductStyles] = useState();
   const [stars, setStars] = useState(0);
@@ -52,6 +51,10 @@ const OutfitCard = ({ product_id, removeApp, styleId, removeOutfit }) => {
     return starRating
   }
 
+  let renderAvgStars = () => {
+    return starRender(stars).map((star => star))
+  };
+
   // Function to find index of selected style for photos
   const findIndex = (id) => {
     let index = productStyles.map(style => style.style_id).indexOf(id);
@@ -68,7 +71,7 @@ const OutfitCard = ({ product_id, removeApp, styleId, removeOutfit }) => {
           <div className = 'productCard'>
             <div className = 'productCardImg'>
               <img className = 'productImages' src={productStyles[findIndex(styleId)].photos[0].thumbnail_url || `https://via.placeholder.com/150`}/>
-              <div className = "actionCard" onClick={handleClickRemove}><AiOutlineCloseCircle color='crimson'/></div>
+              <div className = "actionCard" onClick={handleClickRemove}><AiFillCloseCircle color='crimson'/></div>
             </div>
             <div>
               <div className = 'productCardDesc'>
@@ -77,17 +80,7 @@ const OutfitCard = ({ product_id, removeApp, styleId, removeOutfit }) => {
                 <div className = 'cardPrice'>${productInfo.default_price}</div>
               </div>
               <div className = 'productCardRating'>
-                {
-                stars > 0 ?
-                <StarRatings
-                  rating={stars}
-                  starRatedColor="teal"
-                  numberOfStars={5}
-                  starDimension='18px'
-                  starSpacing='3px'
-                  name='rating'/>
-                  : null
-                }
+                {stars ? renderAvgStars() : null}
               </div>
             </div>
           </div>

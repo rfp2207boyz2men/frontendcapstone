@@ -90,13 +90,13 @@ function ProductOverview({ product, currentPhoto, currentStyle }) {
     setShareUrl(currentPhoto);
   }, [currentPhoto]);
 
+
   // add this useEffect
   useEffect(() => {
     if (product) {
       setLoading(false);
     }
   }, [product]);
-
 
   return (
     <div>
@@ -138,3 +138,4 @@ function ProductOverview({ product, currentPhoto, currentStyle }) {
 
 
 export default ProductOverview;
+

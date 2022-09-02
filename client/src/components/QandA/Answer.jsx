@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import Parse from '../../parse.js';
 import axios from 'axios';
 import moment from 'moment';
-import './QandA.css';
+//import './QandA.css';
 
 const Answer = (props) => {
   const [helpful, setHelpful] = useState(false);
