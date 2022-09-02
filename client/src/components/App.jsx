@@ -211,7 +211,7 @@ const App = () => {
                 addToOutfit={handleOutfitAdds}
                 selectStyle={unloadComponents}
                 avgRating={getAverageRating}
-              />
+                starRender={renderStars}/>
             </div>
             <div className='outfitsSection'>
               <Outfits
@@ -221,7 +221,7 @@ const App = () => {
                 outfitRemove={handleOutfitRemoval}
                 avgRating={getAverageRating}
                 styleId={localId}
-              />
+                starRender={renderStars}/>
             </div>
             <div className="questionsSection">
               <QandA

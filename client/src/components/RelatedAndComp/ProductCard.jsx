@@ -4,9 +4,8 @@ import Parse from '../../parse.js';
 import { OrbitSpinner } from 'react-epic-spinners';
 import { TiStarFullOutline, TiStarOutline } from 'react-icons/ti';
 import Modal from './Compare.jsx';
-import StarRatings from 'react-star-ratings';
 
-const ProductCard = ({ product_id, addOutfit, select, current, avgStars }) => {
+const ProductCard = ({ product_id, addOutfit, select, current, avgStars, starRender }) => {
   const [productInfo, setProductInfo] = useState({});
   const [productStyles, setProductStyles] = useState([]);
   const [stars, setStars] = useState(0);
@@ -40,11 +39,16 @@ const ProductCard = ({ product_id, addOutfit, select, current, avgStars }) => {
       .catch((err) => console.log(err))
   }, [])
 
+  // Function which takes in array of reviews for product, parses into a rating
   const getAverage = (reviewsArray) => {
     let ratings = reviewsArray.map(review => review.rating);
     let starRating = (ratings.reduce((total, rating) => total += rating, 0)/(ratings.length));
     return starRating
   }
+
+  let renderAvgStars = () => {
+    return starRender(stars).map((star => star))
+  };
 
   // hovering effect for comparison module
   const mouseHoverStar = () => {
@@ -103,13 +107,7 @@ const ProductCard = ({ product_id, addOutfit, select, current, avgStars }) => {
               </div>
             </div>
           <div className='productCardRating'>
-          <StarRatings
-            rating={stars}
-            starRatedColor='burlywood'
-            numberOfStars={5}
-            starDimension='18px'
-            starSpacing='3px'
-            name='rating'/>
+            {stars ? renderAvgStars() : null}
           </div>
         </div>
       </div>
