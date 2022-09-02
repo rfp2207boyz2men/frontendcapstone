@@ -6,7 +6,6 @@ import SideBar from './SideBar.jsx';
 import './ReviewsStyles.css';
 import { OrbitSpinner } from 'react-epic-spinners';
 
-
 const Reviews = (props) => {
   const [ratingPercentages, setRatingPercentages] = useState([]);
   const [averageRecommended, setAverageRecommended] = useState(0);
@@ -25,8 +24,19 @@ const Reviews = (props) => {
 
   useEffect(() => {
     if (!localStorage.getItem('helpfulReviews')) {
-      localStorage.setItem('helpfulReviews', JSON.stringify({}))
+      localStorage.setItem('helpfulReviews', JSON.stringify({}));
     }
+    if (!localStorage.getItem('searchStars')) {
+      localStorage.setItem('searchStars', JSON.stringify({1:false, 2:false, 3:false, 4:false, 5:false}));
+    }
+    if (!localStorage.getItem('sort')) {
+      localStorage.setItem('sort', 'relevant');
+    }
+
+    let searchStars = JSON.parse(localStorage.getItem('searchStars'));
+    setSearchStars(searchStars);
+    setStarFilter(enableFilter(searchStars));
+    setSort(localStorage.getItem('sort'));
     //This only gets the initial averages
     //  Should I update after adding a review?
     let ratings = Object.values(props.metaData.ratings);
@@ -60,7 +70,7 @@ const Reviews = (props) => {
   const filterReviews = (reviews) => {
     //TODO: Set up highlighting (split text?)
     let filteredReviews = [];
-    let starFilter = enableFilter();
+    let starFilter = enableFilter(searchStars);
 
     for (let review of reviews) {
       if (!starFilter) {
@@ -78,7 +88,7 @@ const Reviews = (props) => {
     return filteredReviews;
   };
 
-  const enableFilter = () => {
+  const enableFilter = (searchStars) => {
     //Determine if no stars are clicked (renders as though all 5 are clicked)
     for (let star in searchStars) {
       if (searchStars[star]) {
@@ -87,6 +97,12 @@ const Reviews = (props) => {
     }
     return false;
   }
+
+  const removeStarFilter = () => {
+    localStorage.setItem('searchStars', JSON.stringify({1:false, 2:false, 3:false, 4:false, 5:false}));
+    setSearchStars({1:false, 2:false, 3:false, 4:false, 5:false});
+    setStarFilter(false);
+  };
 
   const highlightText = () => {
     //Split review body to fit in spans that can highlight text
@@ -115,10 +131,15 @@ const Reviews = (props) => {
   };
 
   const handleStarClick = (value) => {
-    setSearchStars((prevStars) => ({...prevStars, [value]: !searchStars[value]}));
+    localStorage.setItem('searchStars', JSON.stringify({...searchStars, [value]: !searchStars[value]}));
+    let stars = ({...searchStars, [value]: !searchStars[value]})
+    // setSearchStars((prevStars) => ({...prevStars, [value]: !searchStars[value]}));
+    setSearchStars(stars);
+    setStarFilter(enableFilter(stars));
   };
 
   const handleOnSortChange = (e) => {
+    localStorage.setItem('sort', e.target.value);
     setSort(e.target.value);
   };
 
@@ -149,9 +170,9 @@ const Reviews = (props) => {
   };
 
   return(
-    <div>
+    <div onClick={props.trackClick} data-testid='mainReviewPage'>
       {initialized
-      ?<div className='reviewMain'>
+      ?<div className='reviewMain' data-testid='reviewMain'>
         <SideBar
           renderStars={props.renderStars}
           ratings={props.metaData.ratings}
@@ -160,8 +181,10 @@ const Reviews = (props) => {
           ratingPercentages={ratingPercentages}
           averageRecommended={averageRecommended}
           characteristics={props.metaData.characteristics}
-          clickedStar={searchStars}
+          clickedStars={searchStars}
           handleClick={handleStarClick}
+          starFilter={starFilter}
+          removeStarFilter={removeStarFilter}
         />
         <List
           // selectedProduct={props.selectedProduct}

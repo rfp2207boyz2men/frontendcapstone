@@ -12,9 +12,13 @@ import { OrbitSpinner } from 'react-epic-spinners';
 import { BsSearch, BsBag } from 'react-icons/bs'
 import QandA from './QandA/QandA.jsx';
 import { GoSearch } from 'react-icons/go';
+import ClickTracker from './ClickTracker.jsx';
+import Theme from './Theme.jsx';
+
 
 
 const App = () => {
+
   const [outfits, setOutfits] = useState([]);
   const [styles, setStyles] = useState([]);
   const [localName, setLocalName] = useState('No Style Selected');
@@ -28,6 +32,7 @@ const App = () => {
   const [interactions, setInteractions] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState({});
   const [loading, setLoading] = useState(false);
+  const [theme, setTheme] = useState(true);
 
   useEffect(() => {
     Parse.getAll(`products/`)
@@ -175,10 +180,18 @@ const App = () => {
     setOutfits([...updatedList])
   }
 
+  //Modify each component to include a click tracker with the respective widget name
+  const OverviewTrack = ClickTracker(Overview, 'Product Detail')
+  const RelatedTrack = ClickTracker(Related, 'Related');
+  const OutfitsTrack = ClickTracker(Outfits, 'Outfits');
+  const ReviewsTrack = ClickTracker(Reviews, 'Reviews');
+  const QandATrack = ClickTracker(QandA, 'Questions & Answers');
+
   return (
     <div>
       {loading ?
         <div>
+          {/* <Theme /> */}
           <div className="header">
             <div className="logoheader">
               <div className="logotext"><h1>Odin</h1></div>
@@ -225,7 +238,7 @@ const App = () => {
               />
             </div>
             <div>
-              <Reviews
+              <ReviewsTrack
                 totalReviews={totalReviews}
                 averageRating={averageRating}
                 getAverageRating={getAverageRating}

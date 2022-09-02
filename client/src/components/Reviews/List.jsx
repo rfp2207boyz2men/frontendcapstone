@@ -8,7 +8,7 @@ import InputOverlay from './InputOverlay.jsx';
 const List = (props) => {
   const [overlay, setOverlay] = useState(false);
 
-  let handleOverlay = () => {
+  const handleOverlay = () => {
     setOverlay(!overlay);
   };
 

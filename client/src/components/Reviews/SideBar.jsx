@@ -18,8 +18,10 @@ const SideBar = (props) => {
       <Breakdowns
         ratings={props.ratings}
         ratingPercentages={props.ratingPercentages}
-        clickedStar={props.clickedStar}
+        clickedStars={props.clickedStars}
         handleClick={props.handleClick}
+        starFilter={props.starFilter}
+        removeStarFilter={props.removeStarFilter}
       />
       <Characteristics
         characteristics={props.characteristics}
