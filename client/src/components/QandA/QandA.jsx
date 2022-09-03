@@ -2,8 +2,9 @@ import React, { useState, useEffect, useContext } from 'react';
 import { BiSearch } from 'react-icons/bi';
 import Parse from '../../parse.js';
 import axios from 'axios';
-import QandASearch from './QandASearch.jsx';
-import RelevantQ from './RelevantQ.jsx'
+// import QandASearch from './QandASearch.jsx';
+// import RelevantQ from './RelevantQ.jsx'
+import QuestionList from './QuestionList.jsx';
 import './QandA.css';
 
 class QandA extends React.Component {
@@ -48,9 +49,9 @@ class QandA extends React.Component {
   }
 
   componentDidMount() {
-    // let productId = this.props.selectedProduct.id;
-    // let params = `?product_id=${productId}`;
-    let params = `?product_id=40347`; //40347
+    let productId = this.props.selectedProduct.id;
+    let params = `?product_id=${productId}`;
+    // let params = `?product_id=40347`; //40347
     Parse.getAll(`qa/questions`, params)
       .then((questions) => {
         let results = questions.data.results;

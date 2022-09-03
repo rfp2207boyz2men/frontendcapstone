@@ -13,19 +13,25 @@ const AnswerList = (props) => {
     setCount(count + 2);
   }
 
+  let handleShowLess = () => {
+    setCount(2);
+  }
+
   if (count < answerCount) {
     answerList = answers.slice(0, count).map(answer =>
-      <Answer answer={answer}/>)
+      <Answer key={answer.answer_id} answer={answer} />)
   } else {
     answerList = answers.map(answer =>
-      <Answer answer={answer}/>)
+      <Answer key={answer.answer_id} answer={answer} />)
   }
 
   return (
     <div className='answers'>
       {answerList}
-      {count > 2 || (count < answerCount && count > 2) &&
+      {(count < answerCount && count >= 2) &&
       <button onClick={handleShowMore}>Show More Answers</button>}
+      {(count >= answerCount && answerCount > 2) &&
+      <button onClick={handleShowLess}>Show Less Answers</button>}
     </div>
   )
 }

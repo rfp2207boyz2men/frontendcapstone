@@ -126,3 +126,92 @@
   background-color: transparent;
   border: none;
 }
+
+/*
+  PORTAL OVERLAY
+*/
+
+.portal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  opacity: 30%;
+  z-index: 10;
+}
+
+/*
+  Q&A MODAL
+*/
+
+.question-modal,
+.answer-modal {
+  position: fixed;
+  width: 30%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: 'rgba(0, 0, 0, .3)';
+  padding: 25px;
+  z-index: 11;
+}
+
+.question-form,
+.answer-form {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  background-color: white;
+  padding: 10px;
+  z-index: 11;
+}
+
+/*
+  QUESTION MODAL INPUTS
+*/
+
+textarea[name='user-question'],
+textarea[name='user-answer'] {
+  width: auto;
+  height: 100px;
+}
+
+textarea[name='nickname'],
+textarea[name='email'] {
+  width: auto;
+}
+
+input[type='submit'] {
+  height: 30px;
+  width: 90px;
+}
+
+.email-small {
+  padding-bottom: 18px;
+}
+
+/*
+  QUESTION MODAL HEADINGS
+*/
+
+.question-form h4,
+.answer-form h4 {
+  margin-top: 18px;
+  margin-bottom: 18px;
+}
+
+/*
+  WEB PAGE FUNCTIONS
+*/
+

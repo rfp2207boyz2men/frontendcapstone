@@ -1,18 +1,19 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Parse from '../../parse.js';
-import axios from 'axios';
+
 import QuestionList from './QuestionList.jsx';
 import './QandA.css';
 
 const QandA = (props) => {
   const [questions, setQuestions] = useState([]);
 
-  // let productId = props.selectedProduct.id;
-  // let params =`?product_id=${productId}`
-  let params = `?product_id=40347`;
+  let productName = props.selectedProduct.name;
+  let productId = props.selectedProduct.id;
+  let params =`?product_id=${productId}&count=100`
+  // let params = `?product_id=40347`;
   let results;
 
-  useEffect(() => {
+  let getQuestions = () => {
     Parse.getAll(`qa/questions`, params)
       .then((questions) => {
         results = questions.data.results;
@@ -21,12 +22,21 @@ const QandA = (props) => {
       .then((results) => {
         setQuestions(results);
       })
+  }
+
+  useEffect(() => {
+    getQuestions();
   }, []);
 
   return (
     <div className='qanda'>
       <h2 className='qanda-heading'>QUESTIONS AND ANSWERS</h2>
-      <QuestionList questions={questions}/>
+      <QuestionList
+        questions={questions}
+        productId={productId}
+        productName={productName}
+        getQuestions={getQuestions}
+      />
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Parse from '../../parse.js';
-import axios from 'axios';
 import moment from 'moment';
+
 import './QandA.css';
 
 const Answer = (props) => {
@@ -33,19 +33,21 @@ const Answer = (props) => {
     helpfulBtn =
       <button
         className='helpful'
-        onClick={answerIsHelpful}>
+        onClick={answerIsHelpful}
+      >
           <u> Yes </u>
       </button>
   }
 
   if (isReported) {
-    reportBtn = <u> Reported </u>
+    reportBtn = <u>Reported</u>
   } else {
     reportBtn =
       <button
         className='report'
-        onClick={answerIsReported}>
-        <u> Report </u>
+        onClick={answerIsReported}
+      >
+        <u>Report</u>
       </button>
   }
 

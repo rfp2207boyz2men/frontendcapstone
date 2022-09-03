@@ -10,7 +10,7 @@ import { TiStarFullOutline, TiStarHalfOutline, TiStarOutline } from 'react-icons
 import { GiTriquetra } from 'react-icons/gi'
 import { OrbitSpinner } from 'react-epic-spinners';
 import { BsSearch, BsBag } from 'react-icons/bs'
-import QandA from './QandA/QandA.jsx';
+import QandA from './QandA/QandAHook.jsx';
 import { GoSearch } from 'react-icons/go';
 
 
@@ -35,7 +35,7 @@ const App = () => {
         let defaultIndex = Math.floor(Math.random() * products.data.length);
         updateSelectedProduct(products.data[defaultIndex].id);
       })
-      retrieveStorage();
+    retrieveStorage();
   }, []);
 
   const getAverageRating = (ratings) => {
@@ -50,7 +50,7 @@ const App = () => {
   // put in array of products reviews (*.data.results)
   const getAverage = (reviewsArray) => {
     let ratings = reviewsArray.map(review => review.rating);
-    let starRating = (ratings.reduce((total, rating) => total += rating, 0)/(ratings.length));
+    let starRating = (ratings.reduce((total, rating) => total += rating, 0) / (ratings.length));
     return starRating
   }
 
@@ -62,7 +62,7 @@ const App = () => {
   };
 
   const unloadComponents = (product_id) => {
-    setLoading(true);
+    setLoading(false);
     updateSelectedProduct(product_id);
   };
   // IF YOU WANT TO UPDATE SELECTED PRODUCT, USE ^ unloadComponents ^
@@ -72,7 +72,7 @@ const App = () => {
     let state = {};
     let params = `?product_id=${product_id}`;
 
-    Parse.getAll(`products/`, product_id)
+    Parse.getAll(`products/`, `${product_id}`)
       .then((product) => {
         setSelectedProduct(product.data);
         return Parse.getAll(`reviews/meta/`, params);
@@ -101,6 +101,10 @@ const App = () => {
   //   })
   // }
 
+  const handleSelectedProduct = (id) => {
+    //unloadComponents(id);
+  }
+
   const retrieveStorage = () => {
     const storage = localStorage
     let storedOutfits = []
@@ -115,32 +119,27 @@ const App = () => {
 
   const handleLocalClick = (e) => {
     e.preventDefault();
-    setLocalName(e.target.name)
-    setLocalId(e.target.id)
+    setLocalName(e.target.name);
+    setLocalId(e.target.id);
   }
 
 
   const handleLocalSave = (e) => {
     e.preventDefault();
-      let styleObj = styles.filter((style => {
-        return style.style_id === localId;
-      }));
+    let styleObj = styles.filter((style => {
+      return style.style_id === localId;
+    }));
 
-      if (!localStorage.getItem(localName)) {
-        const jsonObj = JSON.stringify(styleObj);
-        localStorage.setItem(localId, jsonObj);
-        console.log('item saved in localStorage');
-      }
-   }
+    if (!localStorage.getItem(localName)) {
+      const jsonObj = JSON.stringify(styleObj);
+      localStorage.setItem(localId, jsonObj);
+      console.log('item saved in localStorage');
+    }
+  }
 
   // Not tested yet, why are event not firing??
   const removeStorage = (e) => {
     localStorage.removeItem(e.target.id);
-    // this.setState(outfits =>
-    //   this.state.outfits.filter(outfit => {
-    //     return outfit.style_id !== e.target.id;
-    //   }),
-    // );
   };
 
   const renderStars = (rating) => {
@@ -148,11 +147,11 @@ const App = () => {
     let stars = [];
     for (let i = 0; i < 5; i++) {
       if (ratingCopy >= 0 && ratingCopy < 0.33 || ratingCopy < 0) {
-        stars.push(<TiStarOutline className='star' key = {i}/>);
+        stars.push(<TiStarOutline className='star' key={i} />);
       } else if (ratingCopy >= 0.33 && ratingCopy <= 0.67) {
-        stars.push(<TiStarHalfOutline className='star' key = {i}/>);
+        stars.push(<TiStarHalfOutline className='star' key={i} />);
       } else {
-        stars.push(<TiStarFullOutline className='star' key = {i}/>);
+        stars.push(<TiStarFullOutline className='star' key={i} />);
       }
       ratingCopy--;
     }
@@ -178,7 +177,7 @@ const App = () => {
 
   return (
     <div>
-      { loading ?
+      {loading ?
         <div>
           <div className="header">
             <div className="logoheader">
@@ -186,7 +185,7 @@ const App = () => {
               <div className="logo"><GiTriquetra /></div>
             </div>
             <div className="toprightHeader">
-              <div className="searchbar"><input className="search" placeholder="Search"></input><GoSearch  className="searchIcon"/></div>
+              <div className="searchbar"><input className="search" placeholder="Search"></input><GoSearch className="searchIcon" /></div>
               <div className="shoppingBag"><BsBag /></div>
             </div>
           </div>
@@ -194,13 +193,13 @@ const App = () => {
             <div>
               <Overview
                 selectedProduct={selectedProduct}
-                styles={styles}
                 localName={localName}
+                handleSelectedProduct={handleSelectedProduct}
                 handleLocalClick={handleLocalClick}
                 handleLocalSave={handleLocalSave}
                 getAverageRating={getAverageRating}
                 getTotalReviews={getTotalReviews}
-                renderStars={renderStars}/>
+                renderStars={renderStars} />
             </div>
             <div className='relatedSection'>
               <Related
@@ -208,7 +207,7 @@ const App = () => {
                 addToOutfit={handleOutfitAdds}
                 selectStyle={unloadComponents}
                 avgRating={getAverageRating}
-                />
+              />
             </div>
             <div>
               <Outfits
@@ -218,12 +217,13 @@ const App = () => {
                 outfitRemove={handleOutfitRemoval}
                 avgRating={getAverageRating}
                 styleId={localId}
-                />
+              />
             </div>
             <div className="questionsSection">
               <QandA
-                  selectedProduct={selectedProduct}
-                />
+                selectedProduct={selectedProduct}
+                productName={selectedProduct.name}
+              />
             </div>
             <div>
               <Reviews
@@ -236,8 +236,8 @@ const App = () => {
               />
             </div>
           </div>
-          </div>
-          : <div className="spinner"><OrbitSpinner color='teal'/></div>
+        </div>
+        : <div className="spinner"><OrbitSpinner color='teal' /></div>
       }
     </div>
   )
