@@ -13,7 +13,6 @@ import { BsSearch, BsBag } from 'react-icons/bs'
 import QandA from './QandA/QandA.jsx';
 import { GoSearch } from 'react-icons/go';
 import ClickTracker from './ClickTracker.jsx';
-import Theme from './Theme.jsx';
 
 
 
@@ -188,7 +187,6 @@ const App = () => {
     <div>
       {loading ?
         <div>
-          {/* <Theme /> */}
           <div className="header">
             <div className="logoheader">
               <div className="logotext"><h1>Odin</h1></div>
@@ -237,6 +235,7 @@ const App = () => {
             <div>
               <ReviewsTrack
                 totalReviews={totalReviews}
+                getTotalReviews={getTotalReviews}
                 averageRating={averageRating}
                 getAverageRating={getAverageRating}
                 metaData={metaData}

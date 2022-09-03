@@ -17,6 +17,11 @@ jobs:
       - run:
           name: "Say hello"
           command: "echo Hello, World!"
+  tests:
+    steps:
+      - run:
+        name: "Test components"
+        command: "npm run test"
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -24,3 +29,4 @@ workflows:
   say-hello-workflow:
     jobs:
       - say-hello
+      - tests

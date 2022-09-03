@@ -25,14 +25,54 @@ const Tile = (props) => {
   const parseBody = () => {
     //render body (or response) to allow paragraphs
     let parsedBody = props.review.body.replaceAll('\n\n', '\n');
+    // if (parsedBody.length > 250 && !showMore) {
+    //   parsedBody = `${parsedBody.slice(0, 251)}...`;
+    //   parsedBody = parsedBody.split('\n');
+    //   return parsedBody.map((body, index) => <p key={body + props.review.review_id + index}>{body}</p>);
+    // } else {
+    //   parsedBody = parsedBody.split('\n');
+    //   return parsedBody.map((body, index) => <p key={body + props.review.review_id + index}>{body}</p>);
+    // }
     if (parsedBody.length > 250 && !showMore) {
       parsedBody = `${parsedBody.slice(0, 251)}...`;
       parsedBody = parsedBody.split('\n');
-      return parsedBody.map((body, index) => <p key={body + props.review.review_id + index}>{body}</p>);
+      return parsedBody.map((body, index) => highlightText(body, index));
     } else {
       parsedBody = parsedBody.split('\n');
-      return parsedBody.map((body, index) => <p key={body + props.review.review_id + index}>{body}</p>);
+      return parsedBody.map((body, index) => highlightText(body, index));
     }
+  };
+
+  const highlightText = (body, index) => {
+    //If no search query, return the paragraph
+    if (props.searchQuery === '') {
+      return (<p key={body + index + props.review.review_id}>{body}</p>);
+    }
+
+    let search = new RegExp(`(${props.searchQuery})`, 'i'); //Regex to split case-insensitive, preserve query text
+    let splitText = body.split(search);
+    //If search query not found in paragraph, return paragraph
+    if (splitText.length === 1) {
+      return (<p key={body + index + props.review.review_id}>{body}</p>);
+    } else {
+      return (<p key={body + index + props.review.review_id}>{formatHighlight(splitText)}</p>);
+    }
+  };
+
+  const formatHighlight = (splitText) => {
+    let text = [];
+    let i = 0;
+
+    for (let chunk of splitText) {
+      if (chunk.toLowerCase() === props.searchQuery.toLowerCase()) {
+        text.push(<mark key={i}>{chunk}</mark>);
+        i++;
+      } else {
+        text.push(chunk);
+      }
+    }
+    // return (text.map((chunk) => chunk));
+    return text;
   };
 
   const parseResponse = () => {

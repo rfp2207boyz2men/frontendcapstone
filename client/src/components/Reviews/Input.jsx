@@ -222,7 +222,7 @@ const Input = (props) => {
     .then((response) => {
       console.log('success!');
       props.handleOverlay();
-      props.getReviews();
+      props.handleSubmit();
     })
     .catch((err) => {
       console.log(err);

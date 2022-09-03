@@ -12,6 +12,7 @@ const Reviews = (props) => {
 
   const [reviews, setReviews] = useState([]);
   const [totalReviews, setTotalReviews] = useState(0);
+  const [ratings, setRatings] = useState({});
   const [averageRating, setAverageRating] = useState(0);
   const [filteredReviews, setFilteredReviews] = useState([]);
   const [slicedReviews, setSlicedReviews] = useState([]);
@@ -33,38 +34,51 @@ const Reviews = (props) => {
     }
 
     let searchStars = JSON.parse(localStorage.getItem('searchStars'));
-    setSearchStars(searchStars);
-    setStarFilter(enableFilter(searchStars));
-    setSort(localStorage.getItem('sort'));
-    //This only gets the initial averages
-    //  Should I update after adding a review?
-    let ratings = Object.values(props.metaData.ratings);
-    let recommendations = props.metaData.recommended;
+    let ratings = props.metaData.ratings;
+    //If no star rating for the selecting product, set rating to 0
+    for (let i = 1; i <= 5; i++) {
+      if (!ratings[i]) {
+        ratings[i] = 0;
+      }
+    }
 
-    let ratingPercentages = ratings.map((rating) => (rating / props.totalReviews) * 100);
-
-    let totalRecommendations = parseInt(recommendations.false) + parseInt(recommendations.true);
-    let averageRecommended = ((parseInt(recommendations.true) / totalRecommendations) * 100);
-
-    setRatingPercentages(ratingPercentages);
-    setAverageRecommended(averageRecommended.toFixed(0));
-
-    getSortedReviews();
-  }, [initialized]);
-
-  const getSortedReviews = () => {
-    //Get reviews based on total reviews then the sort
-    let params = `?product_id=${props.productId}&count=${props.totalReviews}&sort=${sort}`;
-    return Parse.getAll(`reviews/`, params)
+    getSortedReviews(props.totalReviews)
     .then((reviews) => {
-      // setTotalReviews(props.totalReviews);
+      setSearchStars(searchStars);
+      setStarFilter(enableFilter(searchStars));
+      setSort(localStorage.getItem('sort'));
+      setRatings(props.metaData.ratings);
+      setAverageRating(props.averageRating);
+      setRatingPercentages(getRatingPercentages(props.metaData.ratings));
+      setAverageRecommended(getAverageRecommended(props.metaData.recommended));
+      setTotalReviews(props.totalReviews);
       setReviews(reviews.data.results);
       let filteredReviews = filterReviews(reviews.data.results);
       setFilteredReviews(filteredReviews);
       setSlicedReviews(filteredReviews.slice(0, showAmount));
       setInitialized(true)
-    });
+    })
+    .catch((err) => console.log(err));
+  }, [initialized]);
+
+  const getSortedReviews = (totalReviews) => {
+    //Get reviews based on total reviews then the sort
+    let params = `?product_id=${props.productId}&count=${totalReviews}&sort=${sort}`;
+    console.log('PARAMS :', params);
+    console.log('PRODUCT ID:', props.productId);
+    return Parse.getAll(`reviews/`, params)
   };
+
+  const getRatingPercentages = (ratings) => {
+    let ratingValues = Object.values(ratings);
+    return ratingValues.map((rating) => (rating / props.totalReviews) * 100);
+  };
+
+  const getAverageRecommended = (recommendations) => {
+    let totalRecommendations = parseInt(recommendations.false) + parseInt(recommendations.true);
+    return ((parseInt(recommendations.true) / totalRecommendations) * 100).toFixed(0);
+  }
+
 
   const filterReviews = (reviews) => {
     //TODO: Set up highlighting (split text?)
@@ -102,24 +116,6 @@ const Reviews = (props) => {
     setSearchStars({1:false, 2:false, 3:false, 4:false, 5:false});
     setStarFilter(false);
   };
-
-  const highlightText = () => {
-    //Split review body to fit in spans that can highlight text
-  };
-
-  // const handleAddReview = () => {
-  //   //Add review to the breakdowns/characteristics/total reviews
-  //   let params = `?product_id=${props.productId}&count=${totalReviews + 1}&sort=${sort}`;
-  //   return Parse.getAll(`reviews/`, params)
-  //   .then((reviews) => {
-  //     setReviews(totalReviews + 1);
-  //     let filteredReviews = filterReviews(reviews.data.results);
-  //     setFilteredReviews(filteredReviews);
-  //     setSlicedReviews(filteredReviews.slice(0, showAmount));
-  //     setInitialized(true)
-  //   });
-
-  // };
 
   const handleOnQueryChange = (e) => {
     if (e.target.value.length >= 3) {
@@ -168,15 +164,41 @@ const Reviews = (props) => {
     setShowAmount(showAmount + 2);
   };
 
+  const handleSubmitReview = () => {
+    let params = `?product_id=${props.productId}`;
+    let metaData;
+    Parse.getAll(`reviews/meta/`, params)
+    .then((meta) => {
+      for (let i = 0; i <= 5; i++) {
+        if (!meta.data.ratings[i]) {
+          meta.data.ratings[i] = 0;
+        }
+      }
+      metaData = meta.data;
+      return getSortedReviews(totalReviews + 1);
+    })
+    .then((reviews) => {
+      setRatings(metaData.ratings);
+      setAverageRating(props.getAverageRating(metaData.ratings));
+      setRatingPercentages(getRatingPercentages(metaData.ratings));
+      setAverageRecommended(getAverageRecommended(metaData.recommended));
+      setTotalReviews(props.getTotalReviews(metaData.recommended));
+      setReviews(reviews.data.results);
+      let filteredReviews = filterReviews(reviews.data.results);
+      setFilteredReviews(filteredReviews);
+      setSlicedReviews(filteredReviews.slice(0, showAmount));
+    })
+  };
+
   return(
     <div onClick={props.trackClick} data-testid='mainReviewPage'>
       {initialized
       ?<div className='reviewMain' data-testid='reviewMain'>
         <SideBar
           renderStars={props.renderStars}
-          ratings={props.metaData.ratings}
-          totalReviews={props.totalReviews}
-          averageRating={props.averageRating}
+          ratings={ratings}
+          totalReviews={totalReviews}
+          averageRating={averageRating}
           ratingPercentages={ratingPercentages}
           averageRecommended={averageRecommended}
           characteristics={props.metaData.characteristics}
@@ -201,6 +223,8 @@ const Reviews = (props) => {
           handleReport={handleReport}
           onQueryChange={handleOnQueryChange}
           onSortChange={handleOnSortChange}
+          handleSubmit={handleSubmitReview}
+          searchQuery={searchQuery}
         />
       </div>
       :<OrbitSpinner color='green' />}
