@@ -61,8 +61,7 @@ const Question = (props) => {
     helpfulBtn =
       <button
         className='helpful'
-        onClick={questionIsHelpful}
-      >
+        onClick={questionIsHelpful}>
         <u>Yes</u>
       </button>
   }
@@ -77,16 +76,14 @@ const Question = (props) => {
           questionId={questionId}
           question={question}
           getAnswers={getAnswers}
-          productName={props.productName}
-        />
+          productName={props.productName} />
         }
         <span className='question-interaction'> Helpful?
           {helpfulBtn} ({questionHelpfuless}) |
           <button
             className='add-answer'
-            onClick={handleModal}
-          >
-            <u> Add Answer </u>
+            onClick={handleModal}>
+            <u>Add Answer</u>
           </button>
         </span>
       </div>

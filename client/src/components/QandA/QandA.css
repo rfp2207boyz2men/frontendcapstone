@@ -106,9 +106,10 @@
 /*
   BUTTONS
 */
-.show-more-or-less {
+.question-list-button {
   height: 60px;
   width: 180px;
+  display: inline-block;
   margin-right: 10px;
 }
 

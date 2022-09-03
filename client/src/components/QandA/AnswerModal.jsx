@@ -53,16 +53,13 @@ const AnswerModal = (props) => {
     <>
       <div
         className='portal-overlay'
-        onClick={props.handleModal}
-      />
+        onClick={props.handleModal}/>
       <div
         className='answer-modal'
-        onKeyDown={handleKeyDown}
-      >
+        onKeyDown={handleKeyDown}>
         <form
           className='answer-form'
-          onSubmit={handleSubmit}
-        >
+          onSubmit={handleSubmit}>
           <h2>Submit Your Answer</h2>
           <h3>{props.productName}: {props.question}</h3>
           <h4>Answer: </h4>
@@ -71,8 +68,7 @@ const AnswerModal = (props) => {
             type='text'
             maxLength='1000'
             onChange={handleChange}
-            required
-          />
+            required/>
           <h4> Nickname: </h4>
           <textarea
             name='nickname'
@@ -80,8 +76,7 @@ const AnswerModal = (props) => {
             maxLength='60'
             placeholder='Example: jack543!'
             onChange={handleChange}
-            required
-          />
+            required/>
           <small>For privacy reasons, do not use your full name or email address</small>
           <h4> Email address: </h4>
           <textarea
@@ -90,16 +85,13 @@ const AnswerModal = (props) => {
             maxLength='60'
             placeholder='Example: jack@email.com'
             onChange={handleChange}
-            required
-          />
+            required/>
           <small className='email-small'>For authentication reasons, you will not be emailed</small>
           <input
             type='submit'
             value='Submit'
-            onSubmit={handleSubmit}
-          />
+            onSubmit={handleSubmit}/>
         </form>
-
       </div>
     </>, document.getElementById('portal')
   )

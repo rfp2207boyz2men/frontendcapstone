@@ -33,9 +33,8 @@ const Answer = (props) => {
     helpfulBtn =
       <button
         className='helpful'
-        onClick={answerIsHelpful}
-      >
-          <u> Yes </u>
+        onClick={answerIsHelpful}>
+        <u> Yes </u>
       </button>
   }
 
@@ -45,8 +44,7 @@ const Answer = (props) => {
     reportBtn =
       <button
         className='report'
-        onClick={answerIsReported}
-      >
+        onClick={answerIsReported}>
         <u>Report</u>
       </button>
   }

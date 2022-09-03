@@ -6,11 +6,11 @@ import Related from './RelatedAndComp/Related.jsx';
 import Outfits from './RelatedAndComp/Outfits.jsx';
 import Overview from './ProductDetail/Overview.jsx';
 import Reviews from './Reviews/Reviews.jsx';
+import QandA from './QandA/QandA.jsx';
 import { TiStarFullOutline, TiStarHalfOutline, TiStarOutline } from 'react-icons/ti';
 import { GiTriquetra } from 'react-icons/gi'
 import { OrbitSpinner } from 'react-epic-spinners';
 import { BsSearch, BsBag } from 'react-icons/bs'
-import QandA from './QandA/QandAHook.jsx';
 import { GoSearch } from 'react-icons/go';
 
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-import QandASearch from './QandASearchHook.jsx';
+import QandASearch from './QandASearch.jsx';
 import Question from './Question.jsx'
 import QuestionModal from './QuestionModal.jsx';
 import './QandA.css';
@@ -64,8 +64,7 @@ const QuestionList = (props) => {
           handleModal={handleModal}
           productName={props.productName}
           productId={props.productId}
-          getQuestions={props.getQuestions}
-        />
+          getQuestions={props.getQuestions} />
         }
         {questionsCount ?
         <>
@@ -77,15 +76,18 @@ const QuestionList = (props) => {
               <Question
                 key={question.question_id}
                 question={question}
-                productName={props.productName}
-              />
+                productName={props.productName} />
               )}
             </div>
             <button
               className='question-list-button'
-              onClick={handleShowMore}
-            >
+              onClick={handleShowMore}>
               More Answered Questions
+            </button>
+            <button
+              className='question-list-button'
+              onClick={handleModal}>
+              Add a Question +
             </button>
           </>:
           <>
@@ -94,28 +96,34 @@ const QuestionList = (props) => {
               <Question
                 key={question.question_id}
                 question={question}
-                productName={props.productName}
-              />
+                productName={props.productName} />
               )}
             </div>
             {filteredCount > 2 &&
-            <button
-              className='question-list-button'
-              onClick={handleShowLess}
-            >
-              Show Less
-            </button>}
+            <>
+              <button
+                className='question-list-button'
+                onClick={handleShowLess}>
+                Show Less
+              </button>
+              <button
+                className='question-list-button'
+                onClick={handleModal}>
+                Add a Question +
+              </button>
+            </>}
           </>
           }
         </> :
-        <h2>Got a Question? Press the button below!</h2>
+        <>
+          <h2>Got a Question? Press the button below!</h2>
+          <button
+            className='question-list-button'
+            onClick={handleModal}>
+            Add a Question +
+          </button>
+        </>
         }
-        <button
-          className='question-list-button'
-          onClick={handleModal}
-        >
-          Add a Question +
-        </button>
     </div>
   )
 }
