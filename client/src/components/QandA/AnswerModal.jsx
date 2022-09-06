@@ -54,11 +54,6 @@ const AnswerModal = (props) => {
   }
 
   let handlePhotoInput = (event) => {
-    if (photos.length === 5) {
-      alert('Only 5 pictures are allowed to upload')
-
-      return;
-    }
     newPhotos = [...photos]
     newPhotos.push(URL.createObjectURL(event.target.files[0]));
     console.log(event.target.files[0])
