@@ -225,8 +225,8 @@ function ProductInformation({
             <Reviews href='' onClick={relatedLink}>Read all {product.totalReviews} reviews</Reviews>
           </div>
 
-          <h4>{product.category}</h4>
-          <h2>{product.name}</h2>
+          <h4 className='style-category'>{product.category}</h4>
+          <h2 className='style-name'>{product.name}</h2>
           {currentStyle.sale_price !== null ?
             <div>
               <h2 className='price price-line'>${currentStyle.original_price}</h2>

@@ -97,7 +97,14 @@ function ImageGallery({
                 if (style.url === null) {
                   return;
                 }
-                return <img onClick={e => handleThumbClick(e, style)} id={style.url} key={id} src={style.thumbnail_url} className='g-entry g-border'></img>
+                return (
+                  <div key={id}>
+                    <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry'></img>
+                    <div className="g-line aClass"></div>
+                  </div>
+                )
+
+
               } else {
                 if (style.url === null) {
                   return;

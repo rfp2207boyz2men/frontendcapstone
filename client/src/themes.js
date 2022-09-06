@@ -76,6 +76,30 @@ export const darkTheme = {
 
 export const GlobalStyles = createGlobalStyle`
 
+.aClass {
+  animation: slideIn 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translate3d(-20rem, 0, 500rem);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 
 /*
   BOTH MODES
@@ -717,6 +741,7 @@ a:visited {
   height: 500px;
   object-fit: cover;
   border: ${(props) => props.theme.burlyBorderBlack};
+  animation: fadeIn 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
 
 .pv-active {
@@ -749,8 +774,14 @@ a:visited {
   transition: all .5s ease;
 }
 
-.g-border {
+/* .g-border {
   border-bottom: solid 5px burlywood;
+} */
+
+.g-line {
+  width: 50px;
+  height: 3px;
+  background-color: ${(props) => props.theme.tealAndBurly};
 }
 
 .arrow {
@@ -759,6 +790,7 @@ a:visited {
   font-size: 25px;
   padding: 5px;
   transition: all .5s ease;
+  animation: slideIn 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
 
 .expand {
@@ -771,7 +803,7 @@ a:visited {
 /* ----------------- Style Section ----------------- */
 
 .info-container {
-  margin: 0 30px;
+  margin: 30px 30px;
   width: 250px;
   scroll-behavior: smooth;
 }
@@ -791,8 +823,17 @@ a:visited {
 .style-text {
   font-size: 14px;
   margin-right: 5px;
-  color: ${(props) => props.theme.fontColor};;
+  color: ${(props) => props.theme.fontColor};
   font-weight: 400;
+}
+
+.style-category {
+  line-height: 14px;
+  text-decoration: underline;
+  margin-top: 20px;
+  padding: 0;
+  font-size: 15px;
+  color: ${(props) => props.theme.fontColor};
 }
 
 .price {
@@ -814,7 +855,7 @@ a:visited {
 
 .style-entry {
   cursor: pointer;
-  border-radius: 30px;
+  border-radius: 20%;
   border: solid 0.5px #333;
   object-fit: cover;
   height: 50px;
@@ -830,7 +871,7 @@ a:visited {
   flex-wrap: wrap;
 }
 
-.style-container img {
+.style-container-active {
   border: ${(props) => props.theme.burlyBorderBlack};
 }
 

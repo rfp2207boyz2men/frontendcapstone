@@ -6,9 +6,15 @@
   "scripts": {
     "dev": "webpack serve",
     "build": "webpack",
-    "test": "jest",
+    "test": "jest --coverage --coverageDirectory=output/coverage/jest",
     "test:watch": "npm run test -- --watch",
     "coverage": "jest --collect--coverage"
+  },
+  "jest": {
+    "coverageReporters": [
+      "text",
+      "cobertura"
+    ]
   },
   "repository": {
     "type": "git",
