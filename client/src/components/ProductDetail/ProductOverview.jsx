@@ -70,3 +70,4 @@ function ProductOverview({ product, currentPhoto, currentStyle }) {
 
 
 export default ProductOverview;
+

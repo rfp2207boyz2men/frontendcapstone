@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { BiSearch } from 'react-icons/bi';
 
-import './QandA.css';
-
 const QandASearch = (props) => {
   return (
     <div className='qanda-search'>

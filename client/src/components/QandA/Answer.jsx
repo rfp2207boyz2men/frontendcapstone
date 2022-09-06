@@ -2,8 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import Parse from '../../parse.js';
 import moment from 'moment';
 
-import './QandA.css';
-
 const Answer = (props) => {
   const [isHelpful, setIsHelpful] = useState(false);
   const [isReported, setIsReported] = useState(false);

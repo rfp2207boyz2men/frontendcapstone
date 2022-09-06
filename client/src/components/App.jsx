@@ -24,7 +24,6 @@ const App = () => {
   const [averageRating, setAverageRating] = useState(0);
   const [totalReviews, setTotalReviews] = useState(0);
   const [cart, setCart] = useState([]);
-  const [qanda, setQandA] = useState([]);
   const [interactions, setInteractions] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState({});
   const [loading, setLoading] = useState(false);
@@ -69,9 +68,7 @@ const App = () => {
   // DO NOT CALL updateSelectedProduct DIRECTLY
   //   IT WON'T REFRESH THE WIDGITS
   const updateSelectedProduct = (product_id) => {
-    let state = {};
     let params = `?product_id=${product_id}`;
-
     Parse.getAll(`products/`, `${product_id}`)
       .then((product) => {
         setSelectedProduct(product.data);
@@ -169,9 +166,9 @@ const App = () => {
   }
 
   const handleOutfitRemoval = (outfitData) => {
-    localStorage.removeItem('o' + JSON.stringify(outfitData.id));
+    localStorage.removeItem('o' + JSON.stringify(outfitData));
     let updatedList = [...outfits]
-    updatedList.splice(updatedList.map(outfit => outfit.id).indexOf(outfitData.id), 1)
+    updatedList.splice(updatedList.map(outfit => outfit.id).indexOf(outfitData), 1)
     setOutfits([...updatedList])
   }
 
@@ -179,6 +176,13 @@ const App = () => {
     <div>
       {loading ?
         <div>
+          {/* <div className="toggleTheme">
+            <div>Dark Mode:</div>
+            <label className="switch">
+              <input type="checkbox"></input>
+              <span className="slider round"></span>
+            </label>
+          </div> */}
           <div className="header">
             <div className="logoheader">
               <div className="logotext"><h1>Odin</h1></div>
@@ -207,9 +211,9 @@ const App = () => {
                 addToOutfit={handleOutfitAdds}
                 selectStyle={unloadComponents}
                 avgRating={getAverageRating}
-              />
+                starRender={renderStars}/>
             </div>
-            <div>
+            <div className='outfitsSection'>
               <Outfits
                 outfits={outfits}
                 current={selectedProduct}
@@ -217,7 +221,7 @@ const App = () => {
                 outfitRemove={handleOutfitRemoval}
                 avgRating={getAverageRating}
                 styleId={localId}
-              />
+                starRender={renderStars}/>
             </div>
             <div className="questionsSection">
               <QandA

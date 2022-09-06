@@ -3,7 +3,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import QandASearch from './QandASearch.jsx';
 import Question from './Question.jsx'
 import QuestionModal from './QuestionModal.jsx';
-import './QandA.css';
 
 const QuestionList = (props) => {
   const [filtered, setFiltered] = useState([]);
