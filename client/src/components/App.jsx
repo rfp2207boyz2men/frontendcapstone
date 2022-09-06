@@ -222,37 +222,33 @@ const App = () => {
         getTotalReviews,
         renderStars,
       }}>
-
-
         {loading ?
           <StyledApp>
-            {/* <div className="toggleTheme">
-            <div>Dark Mode:</div>
-            <label className="switch">
-              <input type="checkbox"></input>
-              <span className="slider round"></span>
-            </label>
-          </div> */}
             <div className="header">
-              {theme === 'light' ?
-                <div className='theme-toggler' onClick={themeToggler}>
-                  <MdLightMode />
-                  Theme
-                </div>
-                :
-                <div className='theme-toggler' onClick={themeToggler}>
-                  <MdDarkMode />
-                  Theme
-                </div>
-              }
               <div className="logoheader">
                 <div className="logotext"><h1>Odin</h1></div>
                 <div className="logo"><GiTriquetra /></div>
               </div>
               <div className="toprightHeader">
                 <div className="searchbar"><input className="search" placeholder="Search"></input><GoSearch className="searchIcon" /></div>
-                <div className="shoppingBag"><BsBag /></div>{cart && <div className='cart'>{cart.length}</div>}
+                <div className="shoppingBag"><BsBag />{cart && <div className='cart'>{cart.length}</div>}</div>
               </div>
+              {
+                theme === 'light' ?
+                <div className='theme-toggler' onClick={themeToggler}>
+                  <div className='themeswitch'>
+                    <div><MdDarkMode /></div>
+                    <div className='themetext'>Theme</div>
+                  </div>
+                </div>
+                :
+                <div className='theme-toggler' onClick={themeToggler}>
+                  <div className='themeswitch'>
+                    <div><MdLightMode /></div>
+                    <div className='themetext'>Theme</div>
+                  </div>
+                </div>
+              }
             </div>
             <div className="main">
               <div>

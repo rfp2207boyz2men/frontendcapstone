@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
 export const lightTheme = {
-  body: "#fff",
+  body: "white",
   fontColor: "black",
   mainBColor: 'white',
   headerBColor: 'white',
@@ -83,6 +83,7 @@ export const GlobalStyles = createGlobalStyle`
 
 html {
   scroll-behavior: smooth;
+  background-color: ${(props) => props.theme.htmlBackgroundColor};
 }
 
 
@@ -97,6 +98,8 @@ body {
   /* border: 1px dotted blue; */
   display: flex;
   flex-direction: column;
+  width: 1400px;
+  margin: auto;
   background-color: ${(props) => props.theme.mainBColor};
   color: ${(props) => props.theme.fontColor};
 }
@@ -105,8 +108,11 @@ body {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  padding: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   height: 100px;
+  width: 1400px;
+  margin: auto;
   background-color: ${(props) => props.theme.headerBColor};
   color: ${(props) => props.theme.fontColor};
   border-bottom: 1px solid burlywood;
@@ -114,12 +120,32 @@ body {
 
 .theme-toggler {
   cursor: pointer;
-  font-size: 20px;
-  margin-left: 20px;
+  font-size: 18px;
   transition: ease-in-out 0.5s;
+  padding: 5px;
+  position: absolute;
+  top: 5px;
+  right: 20px;
+  opacity: .75
 }
+
+.themeswitch {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  width: 70px;
+  height: 10px;
+}
+
+.themetext {
+  font-size: 14px;
+  padding-bottom: 5px;
+}
+
 .theme-toggler > svg {
   margin-right: 10px;
+  padding-top: 10px;
 }
 
 .theme-toggler:hover {
@@ -197,8 +223,10 @@ a:visited {
 
 .shoppingBag {
   margin-top: 15px;
-  font-size: 25px;
+  font-size: 30px;
   padding: 5px;
+  padding-right: 13px;
+  position: relative;
 }
 
 .cart {
@@ -211,9 +239,13 @@ a:visited {
   background-color: teal;
   color: #fff;
   text-align: center;
-  font-size: 18px;
+  font-size: 16px;
   margin: 0;
   padding: 0;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  opacity: .95;
 }
 
 .star {
@@ -235,17 +267,17 @@ a:visited {
 
 .related {
   height: 450px;
-  width: 1200px;
+  width: 1170px;
   display: grid;
   position: relative;
   overflow: hidden;
   grid: auto / auto-flow max-content;
   z-index: 1;
-  padding-left: 20px;
 }
 
 .sectionTitle {
   font-weight: lighter;
+  width: auto;
   padding-left: 30px;
   color: ${(props) => props.theme.fontColor};
 }
@@ -625,6 +657,7 @@ a:visited {
 .carousel {
   overflow: hidden;
   position: relative;
+  width: auto;
 }
 
 .rightArrow {
@@ -671,9 +704,11 @@ a:visited {
 
 .main-container {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   scroll-behavior: smooth
+  padding-top: 50px;
+  margin-top: 50px;
 }
 
 /* ----------------- Image Gallery ----------------- */
@@ -681,11 +716,10 @@ a:visited {
 
 .image-container {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   flex-direction: row;
   background-color: ${(props) => props.theme.mainBColor};
-  margin-top: 50px;
 }
 
 .overviewFeature {
@@ -699,7 +733,7 @@ a:visited {
   align-items: center;
   justify-content: center;
   transition: ease-in 0.5s ease;
-  margin: 10px;
+  margin: 0px 10px 0px 10px;
 }
 
 .pv-container-active {
@@ -731,7 +765,7 @@ a:visited {
 
 .g-container {
   display: flex;
-  align-items: center;
+  align-items: space-between;
   justify-content: center;
   flex-direction: column;
 }
@@ -744,7 +778,7 @@ a:visited {
   cursor: pointer;
   background-color: #fff;
   width: 50px;
-  margin: 20px;
+  margin-bottom: 15px;
   height: 50px;
   transition: all .5s ease;
 }
