@@ -29,6 +29,8 @@ function Overview() {
   const [currentStyle, setCurrentStyle] = useState();
   const [arrowDown, setArrowDown] = useState(false);
   const [arrowUp, setArrowUp] = useState(false);
+  const [arrowLeft, setArrowLeft] = useState(false);
+  const [arrowRight, setArrowRight] = useState(true);
   const [expand, setExpand] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -61,8 +63,8 @@ function Overview() {
       setCurrentPhoto(set.styles[1].photos[0].url);
     }
     setProduct(set);
-    setStylesList(requestStyles.data.results[0].photos.slice(0, 5));
-    if (requestStyles.data.results[0].photos.length > 4) {
+    setStylesList(requestStyles.data.results[0].photos.slice(0, 7));
+    if (requestStyles.data.results[0].photos.length > 6) {
       setArrowDown(true);
     }
   }
@@ -80,10 +82,10 @@ function Overview() {
 
   const handleStyleClick = (e, url, prod) => {
     e.preventDefault();
-    if (prod.photos.length < 6) {
+    if (prod.photos.length < 7) {
       setArrowDown(false);
     }
-    setStylesList(prod.photos.slice(0, 5));
+    setStylesList(prod.photos.slice(0, 7));
     setCurrentStyle(prod);
     setCurrentPhoto(prod.photos[0].url);
   }
@@ -92,38 +94,54 @@ function Overview() {
 
   /* --------------------  gallery arrows events  --------------------*/
   const handleThumbClick = (e, item) => {
+    let lastIndex = currentStyle.photos.length - 1;
+    currentStyle.photos[0].url === e.target.id ? setArrowLeft(false) : setArrowLeft(true);
+    currentStyle.photos[lastIndex].url === e.target.id ? setArrowRight(false) : setArrowRight(true);
     setCurrentPhoto(e.target.id);
   }
   const handleLeftClick = (e, item) => {
+    let beforeLast = currentStyle.photos.length - 1;
     for (let i = 0; i < currentStyle.photos.length; i++) {
       if (currentStyle.photos[i].url === currentPhoto) {
+        if (currentStyle.photos[1].url === currentPhoto) {
+          setArrowLeft(false);
+        }
+        if (currentStyle.photos[beforeLast].url === currentPhoto) {
+          setArrowRight(true);
+        }
         if (i > 0) {
-          if (i === 5) {
+          if (i === 7) {
             setArrowDown(true);
             setArrowUp(false);
-            setStylesList(currentStyle.photos.slice(0, 5));
-            //setCurrentStyle(product.styles[i - 1]);
+            setStylesList(currentStyle.photos.slice(0, 7));
             setCurrentPhoto(currentStyle.photos[i - 1].url);
           } else {
-            //setCurrentStyle(product.styles[i - 1]);
             setCurrentPhoto(currentStyle.photos[i - 1].url);
           }
         }
       }
     }
   }
-  const handleRightClick = (e, item) => {
+  const handleRightClick = () => {
+    let beforeLast = currentStyle.photos.length - 2;
     for (let i = 0; i < currentStyle.photos.length; i++) {
       if (currentStyle.photos[i].url === currentPhoto) {
         if ((i + 1) !== currentStyle.photos.length) {
-          if (i === 4) {
+          if (i === 0) {
+            setArrowLeft(true);
+          }
+          if (currentStyle.photos[beforeLast].url === currentPhoto) {
+            setArrowRight(false);
+          }
+          if (i === 6) {
             setArrowDown(false);
             setArrowUp(true);
-            setStylesList(currentStyle.photos.slice(5, 10));
-            //setCurrentStyle(product.styles[i + 1]);
+            setStylesList(currentStyle.photos.slice(7, 14));
             setCurrentPhoto(currentStyle.photos[i + 1].url);
+            if (i === currentStyle.photos.length - 2) {
+              setArrowRight(false);
+            }
           } else {
-            //setCurrentStyle(product.styles[i + 1]);
             setCurrentPhoto(currentStyle.photos[i + 1].url);
           }
         }
@@ -133,13 +151,17 @@ function Overview() {
   const handleDownClick = (e) => {
     setArrowUp(true);
     setArrowDown(false);
-    setStylesList(currentStyle.photos.slice(5, 10));
+    setStylesList(currentStyle.photos.slice(7, 14));
     setCurrentPhoto(currentStyle.photos[5].url);
+    let lastIndex = currentStyle.photos.length - 1;
+    currentStyle.photos[lastIndex].url === currentStyle.photos[5].url ? setArrowRight(false) : setArrowRight(true);
+    setArrowLeft(true);
   }
   const handleUpClick = (e) => {
     setArrowUp(false);
     setArrowDown(true);
-    setStylesList(currentStyle.photos.slice(0, 5));
+    setArrowRight(true);
+    setStylesList(currentStyle.photos.slice(0, 7));
     setCurrentPhoto(currentStyle.photos[0].url);
   }
   const handleExpandedView = (e) => {
@@ -162,6 +184,8 @@ function Overview() {
           currentStyle={currentStyle}
           arrowDown={arrowDown}
           arrowUp={arrowUp}
+          arrowLeft={arrowLeft}
+          arrowRight={arrowRight}
           handleThumbClick={handleThumbClick}
           handleLeftClick={handleLeftClick}
           handleRightClick={handleRightClick}

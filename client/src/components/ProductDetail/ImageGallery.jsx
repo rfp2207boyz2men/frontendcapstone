@@ -51,6 +51,8 @@ function ImageGallery({
   currentStyle,
   arrowDown,
   arrowUp,
+  arrowLeft,
+  arrowRight,
   handleThumbClick,
   handleLeftClick,
   handleRightClick,
@@ -82,7 +84,7 @@ function ImageGallery({
   return (
     <div>
       {!loading ? (
-        <ImageContainer>
+        <div className="image-container">
           <div className="g-container">
             {arrowUp && (
               <TiArrowSortedUp onClick={handleUpClick} className="arrow" />
@@ -111,14 +113,18 @@ function ImageGallery({
           </div>
 
           <div className="pv-container">
-            <TiArrowLeftThick onClick={handleLeftClick} className='arrow' />
+            {arrowLeft &&
+              <TiArrowLeftThick onClick={handleLeftClick} className='arrow' />}
+
             {overlay && <PhotoOverlay clickedPhoto={clickedPhoto} onClick={handleOverlay} />}
-            <PvImg className='pv-img' onClick={handlePhotoClick} src={currentPhoto || `https://via.placeholder.com/500`} alt={product.name}></PvImg>
-            <TiArrowRightThick onClick={handleRightClick} className='arrow' />
+            <img className='pv-img' onClick={handlePhotoClick} src={currentPhoto || `https://via.placeholder.com/500`} alt={product.name}></img>
+
+            {arrowRight && <TiArrowRightThick onClick={handleRightClick} className='arrow' />}
+
             <TiArrowMaximise onClick={handlePhotoClick} className='expand' />
           </div>
 
-        </ImageContainer>
+        </div>
       ) : (
         <OrbitSpinner color="teal" />
       )}

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import Parse from '../../parse';
+import { FaFacebook, FaTwitter, FaPinterest } from 'react-icons/fa';
+import { FacebookShareButton, TwitterShareButton, PinterestShareButton } from 'react-share';
 import { OrbitSpinner } from 'react-epic-spinners';
 import { TiStarFullOutline, TiStarHalfOutline, TiStarOutline } from 'react-icons/ti';
 
@@ -202,28 +204,28 @@ function ProductInformation({
   return (
     <div>
       {!loading ?
-        <InfoContainer>
+        <div className='info-container'>
           <div>
             {renderAvgStars()}
             <Reviews href='' onClick={relatedLink}>Read all {product.totalReviews} reviews</Reviews>
           </div>
 
-          <Category>{product.category}</Category>
-          <Title>{product.name}</Title>
+          <h4>{product.category}</h4>
+          <h2>{product.name}</h2>
           {currentStyle.sale_price !== null ?
             <div>
-              <Price primary>${currentStyle.original_price}</Price>
-              <Price secondary>${currentStyle.sale_price}</Price>
+              <h2 className='price price-line'>${currentStyle.original_price}</h2>
+              <h2 className='price price-sale'>${currentStyle.sale_price}</h2>
             </div>
 
-            : <Price>${product.default_price}</Price>}
+            : <h2 className='price'>${product.default_price}</h2>}
 
           <div>
-            <StyleTitle>
-              <StyleText primary> STYLE: </StyleText>
-              <StyleText>{product.styles[0].photos[0].thumbnail_url === null ? 'No style available' : currentStyle.name}</StyleText>
-            </StyleTitle>
-            <StyleContainer>
+            <div className='style-title'>
+              <h4 className='style-text style'> Style: </h4>
+              <h4 className='style-text'>{product.styles[0].photos[0].thumbnail_url === null ? 'No style available' : currentStyle.name}</h4>
+            </div>
+            <div className='style-container'>
 
               {
                 product.styles.map(item => {
@@ -236,43 +238,43 @@ function ProductInformation({
                       return;
                     }
                     return (
-                      <StyleEntry key={id}
+                      <img className='style-entry' key={id}
                         id={item.style_id}
                         name={item.name}
                         onClick={(e, url, prod) => {
                           handleLocalClick(e);
                           handleStyleClick(e, item.url, item);
                         }}
-                        src={item.photos[0].thumbnail_url} ></StyleEntry>
+                        src={item.photos[0].thumbnail_url} ></img>
                     )
                   }
 
                 })}
 
-            </StyleContainer>
+            </div>
           </div>
 
-          <AddContainer>
+          <div className='add-container'>
 
-            <Button as='select' value={qty} onChange={handleSize}>
-              <Button as='option' value="0">Select A Size</Button>
+            <select className='select' value={qty} onChange={handleSize}>
+              <option className='select' value="0">Select A Size</option>
               {currentStyle &&
                 Object.values(currentStyle.skus).map((item => {
                   let idR = Math.random();
-                  return <Button as='option' id={item.size} value={item.quantity} key={idR}>{item.size}</Button>
+                  return <option className='select' id={item.size} value={item.quantity} key={idR}>{item.size}</option>
                 }))}
-            </Button>
+            </select>
 
-            <Button as='select' onChange={handleQty}>
-              {qty ? <Button as='option'>1</Button> : <Button as='option' value="-">-</Button>}
+            <select className='select' onChange={handleQty}>
+              {qty ? <option className='option'>1</option> : <option className='option' value="-">-</option>}
               {qty && renderQty(qty)}
-            </Button>
+            </select>
 
-            <Button primary onClick={(e) => { handleLocalSave(e); handleAddToCart(e); }}>ADD TO CART</Button>
-            <Button onClick={handleLocalSave}><TiStarFullOutline /></Button>
-          </AddContainer>
+            <button className='add-cart' onClick={(e) => { handleLocalSave(e); handleAddToCart(e); }}>ADD TO CART</button>
+            <button className='select select-star' onClick={handleLocalSave}><TiStarFullOutline /></button>
+          </div>
 
-        </InfoContainer>
+        </div>
         :
         <OrbitSpinner color="teal" />
       }

@@ -80,8 +80,8 @@ function ProductOverview({ product, currentPhoto, currentStyle }) {
 
   useEffect(() => {
     if (currentStyle) {
-      setShareQuote(`Check this Awesome item! ${currentStyle.name}, $${currentStyle.default_price}`);
-      setShareHashtag([`Awesome:${currentStyle.category}`, `Reviews:${currentStyle.totalReviews}`]);
+      setShareQuote(`Check this Awesome item! ${product.name}, $${product.default_price}`);
+      setShareHashtag([`Awesome:${product.category}`, `Reviews:${product.totalReviews}`]);
       // set loading was moved to product useEffect
     }
   }, [currentStyle])
@@ -101,11 +101,11 @@ function ProductOverview({ product, currentPhoto, currentStyle }) {
   return (
     <div>
       {!loading ?
-        <ProdViewContainer>
-          <ProdViewText>
+        <div className='prodview-container'>
+          <div className='prodview-text'>
             <h2>{product.slogan}</h2>
             <p>{product.description}</p>
-            <Social>
+            <div className='social'>
               <FacebookShareButton className='social-btn' url={shareUrl} quote={shareQuote} hashtag={`#${shareHashtag}`}>
                 <FaFacebook />
               </FacebookShareButton>
@@ -115,20 +115,20 @@ function ProductOverview({ product, currentPhoto, currentStyle }) {
               <PinterestShareButton className='social-btn' url={shareUrl} media={shareUrl} description={shareQuote} >
                 <FaPinterest />
               </PinterestShareButton>
-            </Social>
-          </ProdViewText>
-          <ProdViewLine></ProdViewLine>
+            </div>
+          </div>
+          <div className='prodview-line'></div>
           <div>
             {product.features.map(item => {
               let id = Math.random();
               return (
-                <Feature key={id}>
+                <div className='feature' key={id}>
                   {item.value ? <p><FcCheckmark className='check' />{item.feature}: {item.value}</p> : <p><FcCheckmark className='check' />{item.feature}</p>}
-                </Feature>
+                </div>
               )
             })}
           </div>
-        </ProdViewContainer>
+        </div>
         :
         <OrbitSpinner color="teal" />
       }
