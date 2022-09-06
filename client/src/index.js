@@ -11,5 +11,5 @@ selectedTheme === 'dark' ? document.body.style.backgroundColor = '#2c2c2f' : doc
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <App />
+  <App />
 );

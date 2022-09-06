@@ -11,6 +11,7 @@ const InputOverlay = (props) => {
         productName={props.productName}
         productId={props.productId}
         getReviews={props.getReviews}
+        handleSubmit={props.handleSubmit}
       />
       <div className='reviewOverlayBackground' onClick={props.handleOverlay}></div>
     </div>

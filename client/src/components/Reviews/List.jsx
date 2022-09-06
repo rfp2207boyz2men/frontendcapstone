@@ -8,7 +8,7 @@ import InputOverlay from './InputOverlay.jsx';
 const List = (props) => {
   const [overlay, setOverlay] = useState(false);
 
-  let handleOverlay = () => {
+  const handleOverlay = () => {
     setOverlay(!overlay);
   };
 
@@ -21,6 +21,7 @@ const List = (props) => {
           productName={props.productName}
           productId={props.productId}
           getReviews={props.getReviews}
+          handleSubmit={props.handleSubmit}
         />}
       <div className='reviewListHeader'>
         <h3>
@@ -31,19 +32,28 @@ const List = (props) => {
         Sort by:<Sort onChange={props.onSortChange} />
         <Search onChange={props.onQueryChange} />
       </div>
-      <div className='reviewList'>
+      {props.reviews.length > 0
+      ?<div className='reviewList' data-testid='reviewList'>
         {props.slicedReviews.map((review, index) => (
           <Tile
             review={review}
-            key={index}
+            key={props.slicedReviews[index].review_id}
             index={index}
             renderStars={props.renderStars}
             getReviews={props.getReviews}
+            handleReport={props.handleReport}
+            searchQuery={props.searchQuery}
+            data-testid='reviewListTiles'
           />
         ))}
       </div>
+      :<h3>Help the Odin community by providing an answer!</h3>
+      }
+      {(props.reviews.length > 0 && props.slicedReviews.length === 0) &&
+      <h3>No reviews found with the current search.</h3>
+      }
       <div className='reviewExpandButtonSection'>
-        {props.filteredReviews.length - props.slicedReviews.length > 0
+        {((props.filteredReviews.length - props.slicedReviews.length > 0) && props.reviews.length > 0)
         && <button className='reviewExpandButton' onClick={props.handleShowMore}>MORE REVIEWS</button>}
         <button className='reviewExpandButton' onClick={handleOverlay}>ADD A REVIEW +</button>
       </div>

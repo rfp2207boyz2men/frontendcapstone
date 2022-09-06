@@ -974,7 +974,7 @@ a:visited {
   height: auto;
   width: 400px;
   margin-right: 30px;
-  padding: 20px 10px;
+  padding: 0 10px 20px 10px;
   border-right: 1px solid white;
   /* background-color: gray; */
   /* border: 2px solid rgb(8, 88, 8); */
@@ -1064,6 +1064,28 @@ a:visited {
   margin-right: 5px;
   /* background-color: pink; */
   /* border: 2px solid red; */
+}
+
+.ratingStarIndicator {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 80px;
+}
+
+.ratingStarIndicator u {
+  cursor: pointer;
+}
+
+
+.ratingStarIndicatorStars {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.ratingStarIndicatorStars p {
+  margin: 0;
 }
 
 /*
@@ -1212,7 +1234,7 @@ a:visited {
   transform: translate(-50%, -50%);
   padding: 10px;
   background-color: white;
-  border: 2px solid teal;
+  border: 2px solid ${(props) => props.theme.burlyAndTeal};
   z-index: 1;
   overflow-y: auto;
 }
@@ -1257,7 +1279,7 @@ a:visited {
   height: var(--height);
   width: var(--width);
   padding: 6px 18px;
-  background-color: #1c1c1e;
+  background-color: ${(props) => props.theme.mainBColor};
   border: 2px solid burlywood;
   z-index: 1;
   overflow-y:scroll;
@@ -1316,6 +1338,9 @@ a:visited {
   height: 60px;
   width: 150px;
   margin-top: 40px;
+  background-color: ${(props) => props.theme.burlyAndTeal};
+  border-radius: 5px;
+  margin-bottom: 15px;
 }
 
 .reviewSubmitEnable {
