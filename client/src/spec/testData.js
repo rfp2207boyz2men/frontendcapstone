@@ -304,3 +304,25 @@ export const cart =
       "count": 33
   },
 ]};
+
+///////////////////////////////
+
+//////////////////////////////
+
+// FUNCTIONS THAT MIGHT BE BEING PASSED DOWN
+
+export const renderStars = (rating) => {
+  let ratingCopy = rating;
+  let stars = [];
+  for (let i = 0; i < 5; i++) {
+    if (ratingCopy >= 0 && ratingCopy < 0.33 || ratingCopy < 0) {
+      stars.push(<TiStarOutline className='star' key={i} />);
+    } else if (ratingCopy >= 0.33 && ratingCopy <= 0.67) {
+      stars.push(<TiStarHalfOutline className='star' key={i} />);
+    } else {
+      stars.push(<TiStarFullOutline className='star' key={i} />);
+    }
+    ratingCopy--;
+  }
+  return stars;
+};

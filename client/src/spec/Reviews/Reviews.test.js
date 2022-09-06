@@ -1,5 +1,7 @@
 import { render, fireEvent, screen, cleanup } from "@testing-library/react";
 import React, { Component } from 'react';
+import ShallowRenderer from 'react-shallow-renderer';
+import { shallow } from 'enzyme';
 import axios from 'axios';
 
 //Make sure that the API calls within the components are mocked so that we don't spam the API
@@ -10,19 +12,26 @@ import axios from 'axios';
 
 // import App from '../../components/App.jsx';
 import Reviews from '../../components/Reviews/Reviews.jsx';
-import { reviews, meta } from '../testData.js';
+import List from '../../components/Reviews/List.jsx';
+import Breakdowns from '../../components/Reviews/Breakdowns.jsx';
+import Characteristics from '../../components/Reviews/Characteristics.jsx';
+import Search from '../../components/Reviews/Search.jsx';
+import Sort from '../../components/Reviews/Sort.jsx';
+import { reviews, meta, renderStars } from '../testData.js';
+import { reviewsArray, filteredReviews, slicedReviews } from './reviewsTestData.js';
 
 afterEach(() => {
   cleanup();
 });
 
 describe("Main Review Component", () => {
-  console.log(reviews);
+  // Ideally, this component should have its API call mocked
+  // console.log(reviews);
 
   test("Main Reviews Component should render", () => {
-    render(<Reviews metaData={meta.data}/>);
-    let mainReviewPage = screen.getByTestId('mainReviewPage');
-    expect(mainReviewPage).toBeTruthy();
+    // render(<Reviews metaData={meta.data}/>);
+    // let mainReviewPage = screen.getByTestId('mainReviewPage');
+    // expect(mainReviewPage).toBeTruthy();
   });
 
   test("Main Review Components should render after initialization", async () => {
@@ -33,22 +42,41 @@ describe("Main Review Component", () => {
     //   })
     // );
 
-    render(<Reviews metaData={meta.data}/>);
+    // render(<Reviews metaData={meta.data}/>);
 
-    let reviewMain = screen.getByTestId('reviewMain');
-    expect(reviewMain).toBeTruthy();
-    // let test = () => {
-    //   let reviewMain = screen.getByTestId('reviewMain');
-    //   expect(reviewMain).toBeTruthy();
-    // }
-    // setTimeout(test, 0);
-    //Alrighty, quite frankly, I have no idea why setTimeout at 0 works.
-    //Technically it has to wait for the axios GET in Reviews, but the setTimeout test procs after I guess?
+    // let reviewMain = screen.getByTestId('reviewMain');
+    // expect(reviewMain).toBeTruthy();
   });
 });
 
-describe("", () => {
+describe("Review List Component", () => {
+  test("Review List Component should render", () => {
+    const wrapper = shallow(
+    <List
+      // reviews={reviewsArray}
+      // slicedReviews={slicedReviews}
+      // filteredReviews={filteredReviews}
+      // renderStars={() => {return []}}
+    />);
+    // console.log(reviewList);
+    // const reviewListTest = reviewList.getByTestId('reviewList');
+    // console.log(reviewListTest);
+    // expect(reviewList).toBeTruthy();
+  });
 
+//   test("Review List should render two reviews", () => {
+//     const renderer = new ShallowRenderer();
+//     renderer.render(
+//     <List
+//       reviews={reviewsArray}
+//       slicedReviews={slicedReviews}
+//       filteredReviews={filteredReviews}
+//       // renderStars={() => {return []}}
+//     />);
+//     const reviewListTiles = renderer.getRenderOutput();
+//     // const reviewList = screen.getByTestId('reviewList');
+//     expect(reviewList).toBeTruthy();
+//   });
 });
 
 describe("", () => {

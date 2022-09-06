@@ -64,8 +64,6 @@ const Reviews = (props) => {
   const getSortedReviews = (totalReviews) => {
     //Get reviews based on total reviews then the sort
     let params = `?product_id=${props.productId}&count=${totalReviews}&sort=${sort}`;
-    console.log('PARAMS :', params);
-    console.log('PRODUCT ID:', props.productId);
     return Parse.getAll(`reviews/`, params)
   };
 

@@ -25,14 +25,6 @@ const Tile = (props) => {
   const parseBody = () => {
     //render body (or response) to allow paragraphs
     let parsedBody = props.review.body.replaceAll('\n\n', '\n');
-    // if (parsedBody.length > 250 && !showMore) {
-    //   parsedBody = `${parsedBody.slice(0, 251)}...`;
-    //   parsedBody = parsedBody.split('\n');
-    //   return parsedBody.map((body, index) => <p key={body + props.review.review_id + index}>{body}</p>);
-    // } else {
-    //   parsedBody = parsedBody.split('\n');
-    //   return parsedBody.map((body, index) => <p key={body + props.review.review_id + index}>{body}</p>);
-    // }
     if (parsedBody.length > 250 && !showMore) {
       parsedBody = `${parsedBody.slice(0, 251)}...`;
       parsedBody = parsedBody.split('\n');
@@ -71,7 +63,7 @@ const Tile = (props) => {
         text.push(chunk);
       }
     }
-    // return (text.map((chunk) => chunk));
+
     return text;
   };
 
@@ -93,16 +85,17 @@ const Tile = (props) => {
       return(
         <p>You set this review as: Helpful ({props.review.helpfulness + (localClick ? 1 : 0)})</p>
       )
-    } else if (localStorageCopy[props.review.review_id] === false) {
-      return(
-        <p>You set this review as: Not helpful ({props.review.helpfulness})</p>
-      )
+    // }
+    // } else if (localStorageCopy[props.review.review_id] === false) {
+      // return(
+        // <p>You set this review as: Not helpful ({props.review.helpfulness})</p>
+      // )
     } else {
       return(
         <div className='reviewHelpful'>
           <p>Helpful?</p>
           <p onClick={()=>handleHelpful(true)}><u>Yes</u></p>
-          <p onClick={()=>handleHelpful(false)}><u>No</u></p>
+          {/* <p onClick={()=>handleHelpful(false)}><u>No</u></p> */}
           <p>({props.review.helpfulness})</p>
         </div>
       )
@@ -153,7 +146,7 @@ const Tile = (props) => {
       <h3><b>{props.review.summary}</b></h3>
       <div className='reviewBodySection'>
         {parseBody()}
-        {(props.review.body.length > 250 && !showMore) && <p onClick={handleShowMore}>Show more...</p>}
+        {(props.review.body.length > 250 && !showMore) && <p onClick={handleShowMore}><u>Show more...</u></p>}
         {props.review.photos.length >= 1 &&
         <div className='reviewPhotoThumbnailSection'>
           {props.review.photos.map((photo, index) => <img src={photo.url} className='reviewPhotoThumbnail' onClick={handlePhotoClick} key={index}/>)}
