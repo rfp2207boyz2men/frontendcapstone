@@ -9,9 +9,9 @@ export const lightTheme = {
   starColor: 'teal',
   productBgColor: 'rgba(28,28,30, .9)',
   productBorderColor: '1px solid black',
-  productImgBorder: '',
+  productImgBorder: '1px solid teal',
   productDescBorder: '1px solid burlywood',
-  burlyBorderBlack: '',
+  burlyBorderBlack: '1px solid black',
   starCardColor: '',
   defaultPrice: 'white',
   qandaSearchBg: 'white',
@@ -31,10 +31,12 @@ export const lightTheme = {
   plusCardAreaColor: 'teal',
   burlyAndTeal: 'teal',
   tealAndBurly: 'burlywood',
-  gContainerImg: '',
+  gContainerImg: '1px solid teal',
   togglerBg: 'burlywood',
   selectColor: 'black',
   selectBorder: '2px solid burlywood',
+  buttonText: 'white',
+  linkColor: 'black',
 };
 
 export const darkTheme = {
@@ -72,6 +74,8 @@ export const darkTheme = {
   togglerBg: '#858585',
   selectColor: 'teal',
   selectBorder: '2px solid #256D85',
+  buttonText: 'black',
+  linkColor: 'white',
 };
 
 export const GlobalStyles = createGlobalStyle`
@@ -86,6 +90,9 @@ html {
   background-color: ${(props) => props.theme.htmlBackgroundColor};
 }
 
+a {
+  color: ${(props) => props.theme.linkColor};
+}
 
 body {
   font-family: 'Noto Sans', sans-serif;
@@ -260,24 +267,24 @@ a:visited {
 .relatedSection, .outfitsSection {
   height: 500px;
   margin: auto;
-  width: 1340px;
+  width: 1330px;
   background-color: ${(props) => props.theme.mainBColor};
   padding-left: 70px;
 }
 
 .related {
   height: 450px;
-  width: 1170px;
+  width: 1200px;
   display: grid;
   position: relative;
   overflow: hidden;
   grid: auto / auto-flow max-content;
   z-index: 1;
+  padding-left: 20px;
 }
 
 .sectionTitle {
   font-weight: lighter;
-  width: auto;
   padding-left: 30px;
   color: ${(props) => props.theme.fontColor};
 }
@@ -317,7 +324,7 @@ a:visited {
 .productCardDesc {
   padding-left: 10px;
   padding-top: 10px;
-  width: 255px;
+  width: 245px;
   height: 50px;
   color: white;
   border-top: ${(props) => props.theme.productDescBorder};
@@ -380,7 +387,7 @@ a:visited {
 */
 
 .questionsSection {
-  width: 100px;
+  width: 1300px;
   height: auto;
   margin-left: 50px;
 }
@@ -388,9 +395,8 @@ a:visited {
 .qanda {
   display: flex;
   flex-direction: column;
-  width: 1300px;
+  width: 1250px;
   height: auto;
-  /* border: 2px solid black; */
   border-bottom: 1px dashed white;
   overflow-y: auto;
   padding: 20px;
@@ -411,7 +417,7 @@ a:visited {
 .qanda-search {
   display: inline-flex;
   border: 1px solid white;
-  width: 1298px;
+  width: 1248px;
   height: 50px;
   margin-top: 5px;
 }
@@ -455,7 +461,7 @@ a:visited {
 .question-list {
   display: flex;
   flex-direction: column;
-  width: 1300px;
+  width: 1250px;
   overflow-y: auto;
 }
 
@@ -464,9 +470,15 @@ a:visited {
   height: 0;
 }
 
+.qandaButtons {
+  display: flex;
+  width: 355px;
+  align-items: center;
+}
+
 .question-body {
   display: flex;
-  width: 1400px;
+  width: 1250px;
   height: auto;
   flex-direction: column;
   justify-content: space-between;
@@ -508,9 +520,27 @@ a:visited {
   margin: 5px
 }
 
+.photoThumbnail {
+  display: inline-flex;
+  height: auto;
+  width: 20%;
+}
+
+input[type='file'] {
+  color: rgba(0,0,0,0)
+}
+
 /*
   BUTTONS
 */
+
+.question-list-button {
+  height: 60px;
+  width: 150px;
+  display: inline-block;
+  margin-right: 10px;
+}
+
 .show-more-or-less {
   margin-top: 10px;
   height: 30px;
@@ -657,7 +687,6 @@ a:visited {
 .carousel {
   overflow: hidden;
   position: relative;
-  width: auto;
 }
 
 .rightArrow {
@@ -810,6 +839,12 @@ a:visited {
   scroll-behavior: smooth;
 }
 
+.reviewsInfo {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 .star {
   margin: 0 2px;
 }
@@ -875,6 +910,7 @@ a:visited {
 .add-cart {
   padding: 10px 30px;
   margin: 5px 7px;
+  width: 150px;
   background:  ${(props) => props.theme.tealAndBurly};
   border-radius: 4px;
   border: none;
@@ -889,23 +925,28 @@ a:visited {
 }
 
 .select {
-  background: transparent;
-  border-radius: 3px;
-  border: ${(props) => props.theme.selectBorder};
-  color: ${(props) => props.theme.selectColor};
+  background: #cccccc;
+  border: burlywood;
+  color: black;
   padding: 10px 20px;
   margin: 5px 7px;
 }
 
 .select > svg {
   font-size: 14px;
-  color: ${(props) => props.theme.tealAndBurly};
+  color: black;
+}
+
+.select select-star {
+  background: burlywood;
+  color: black;
 }
 
 
 /* ----------------- Product Overview ----------------- */
 .prodview-container {
   display: flex;
+  width: 600px;
   justify-content: center;
   align-items: center;
   flex-direction: row;
@@ -951,14 +992,9 @@ a:visited {
 .reviewMain {
   display: flex;
   flex-direction: row;
-  /* flex-wrap: wrap; */
-  justify-content: space-between;
+  justify-content: center;
   width: 1400px;
   height: auto;
-  padding: 50px;
-  /* background-color: pink; */
-  /* border: 2px solid black; */
-  /* overflow-y: auto; */
 }
 
 .reviewSideBar {
@@ -975,7 +1011,7 @@ a:visited {
 
 .reviewList {
   height: auto;
-  width: 900px;
+  width: 800px;
   /* border: 2px solid black; */
   overflow-y: auto;
 }
@@ -996,7 +1032,16 @@ a:visited {
 
 .averageRating {
   display: flex;
+  align-items: center;
   /* border: 1px solid gray; */
+}
+
+.averageRating h1 {
+  font-size: 36px;
+}
+
+.averageRating svg {
+  padding-bottom: 15px;
 }
 
 /*
@@ -1112,7 +1157,7 @@ a:visited {
 .reviewListHeader {
   display: flex;
   flex-direction: row;
-  width: 900px;
+  width: 800px;
   justify-content: space-between;
   align-items: center;
   margin-right: 50px;
@@ -1190,6 +1235,7 @@ a:visited {
 .reviewExpandButton {
   height: 60px;
   margin-right: 10px;
+  color: ${(props) => props.theme.buttonText};;
 }
 
 /**********************

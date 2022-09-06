@@ -278,7 +278,7 @@ const App = () => {
                   selectedProduct={selectedProduct}
                 />
               </div>
-              <div id='related'>
+              <div id='reviews'>
                 <Reviews
                   totalReviews={totalReviews}
                   averageRating={averageRating}
