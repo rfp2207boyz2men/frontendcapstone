@@ -39,18 +39,25 @@ const Breakdowns = (props) => {
       }
     }
     return (
-      <div>
-        {stars.map((star, index) => <p key={index}>{star}</p>)}
+      <>
+        <div className='ratingStarIndicatorStars'>
+          <p>Current Star Filters:</p>
+          {stars.map((star, index) => <p key={index}>{star}</p>)}
+        </div>
         <p onClick={props.removeStarFilter}><u>Remove all star filters</u></p>
-      </div>
+      </>
     )
   }
 
   return (
-    <div className='ratingBreakdown'>
-      {renderBars().map((bar) => bar)}
-      {renderFilterIndicator()}
-    </div>
+    <>
+      <div className='ratingBreakdown'>
+        {renderBars().map((bar) => bar)}
+      </div>
+      <div className='ratingStarIndicator'>
+        {renderFilterIndicator()}
+      </div>
+    </>
   )
 };
 

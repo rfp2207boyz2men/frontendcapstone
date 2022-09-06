@@ -5,14 +5,10 @@
 .reviewMain {
   display: flex;
   flex-direction: row;
-  /* flex-wrap: wrap; */
   justify-content: space-between;
   width: 1400px;
   height: auto;
   padding: 20px;
-  /* background-color: pink; */
-  /* border: 2px solid black; */
-  /* overflow-y: auto; */
 }
 
 .reviewSideBar {
@@ -22,22 +18,17 @@
   width: 400px;
   margin-right: 30px;
   padding: 20px 10px;
-  /* background-color: gray; */
-  /* border: 2px solid rgb(8, 88, 8); */
 }
 
 .reviewList {
-  /* min-height: 1000px; */
   max-height: 1000px;
   width: 900px;
-  /* border: 2px solid black; */
   overflow-y: auto;
 }
 
 .reviewList::-webkit-scrollbar {
   width: 0;
   height: 0;
-  /* background: transparent; */
 }
 
 /*******************
@@ -50,7 +41,6 @@
 
 .averageRating {
   display: flex;
-  /* border: 1px solid gray; */
 }
 
 /*
@@ -68,7 +58,6 @@
   flex-wrap: wrap;
   width: 400px;
   height: 400px;
-  /* border: 1px solid gray; */
 }
 
 .reviewBarSectionOff,
@@ -77,24 +66,18 @@
   display: flex;
   flex-direction: row;
   width: inherit;
-  /* border: 1px solid rgb(65, 65, 65); */
 }
 
 .reviewBarSectionOn {
   background-color: rgba(0, 128, 128, 0.274);
-  /* border: 5px solid teal; */
 }
 
 .reviewBarSectionOff:hover {
   cursor: pointer;
-  /* background-color: teal; */
-  /* transition: 0.3s; */
 }
 
 .reviewBarSectionOn:hover {
   cursor: pointer;
-  /* background-color: transparent; */
-  /* transition: 0.3s; */
 }
 
 .reviewBarLabel {
@@ -106,9 +89,29 @@
   height: 10px;
   width: 300px;
   margin-top: 30px;
-  /* background-color: pink; */
-  /* border: 2px solid red; */
 }
+
+/* .ratingStarIndicator {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 80px;
+}
+
+.ratingStarIndicator u {
+  cursor: pointer;
+}
+
+
+.ratingStarIndicatorStars {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.ratingStarIndicatorStars p {
+  margin: 0;
+} */
 
 /*
   CHARACTERISTICS
@@ -120,7 +123,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   width: 400px;
-  /* border: 2px solid black; */
+  padding-left: 8px;
 }
 
 .reviewCharacteristicLabel {
@@ -136,7 +139,6 @@
 
 .reviewCharacteristicBar {
   height: 10px;
-  /* width: 300px; */
   background-color: gray;
   margin-top: 15px;
   margin-right: 2px;
@@ -148,9 +150,7 @@
   width: 300px;
   margin-left: 60px;
   justify-content: space-between;
-  /* text-align: center; */
   height: 30px;
-  /* font-size: 30px; */
 }
 
 
@@ -166,8 +166,6 @@
 }
 
 .reviewTile {
-  /* background-color: red; */
-  /* height: 200px; */
   border-bottom: 3px solid gray;
   padding: 4px 10px;
 }
@@ -181,11 +179,6 @@
   overflow-wrap: break-word;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
-}
-
-.reviewPhotoThumbnailSection {
-  /* height: 150px; */
-  /* background-color: pink; */
 }
 
 .reviewPhotoThumbnail {
@@ -242,7 +235,6 @@
 }
 
 .reviewPhotoExit {
-  /* position: absolute; */
   left: 10px;
   top: 10px;
 }
@@ -251,17 +243,11 @@
   INPUT OVERLAY
 ***********************/
 
-.reviewOverlay {
-
-  /* height: 100vh;
-  width: 100vh; */
-}
-
 .reviewOverlayBackground {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: black;
+  /* background-color: black; */
   opacity: 30%;
   height: 100vh;
   width: 100vw;
@@ -322,11 +308,6 @@
   resize: none;
 }
 
-/* .reviewInput textarea:first-of-type {
-  width: 545px;
-  height: 15px;
-} */
-
 .reviewTextInput {
   width: 550px;
 }
@@ -381,13 +362,7 @@
   flex-wrap: wrap;
   height: auto;
   padding: 1px 5px;
-  /* background-color: red; */
 }
-
-/* .reviewInputRecommendations h3 {
-  width: 100%;
-  margin: 0;
-} */
 
 .reviewInputRecommendations input {
   margin-right: 6px;
@@ -396,7 +371,6 @@
 
 .reviewInputRecommendations p {
   margin: 0;
-  /* margin-top: 14px; */
   margin-right: 40px;
 }
 
@@ -405,9 +379,6 @@
 */
 
 .reviewInputCharacteristicsAggregate {
-  /* border: 1px solid black;
-  border-left: 0;
-  border-right: 0; */
   padding: 1px 5px;
   width: 550px;
 }
@@ -418,25 +389,16 @@
   flex-wrap: wrap;
   height: auto;
   margin-top: 5px;
-  /* padding-left: 5px; */
   border-bottom: 1px solid black;
-  /* border: 1px solid red; */
 }
 
 .reviewInputCharacteristicSection:first-child {
   margin-top: 0;
 }
 
-.reviewInputCharacteristicSection:last-child {
-  /* border-bottom: 0; */
-  /* border: 1px solid red; */
-}
-
 .reviewInputCharacteristicLabel {
   margin: 0;
   margin-bottom: 3px;
-  /* width: 100%; */
-  /* background-color: red; */
 }
 
 .reviewInputCharacteristicButtons {
@@ -444,7 +406,6 @@
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  /* border: 1px solid blue; */
 }
 
 .reviewInputCharacteristicButtons input {
@@ -456,7 +417,6 @@
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
-  /* border: 2px solid green; */
 }
 
 .reviewInputCharacteristicsDescriptors p {
@@ -468,14 +428,10 @@
 */
 
 .reviewInputPhotoSection {
-  /* box-sizing: border-box; */
   display: flex;
   flex-direction: row;
   height: 110px;
-  /* max-height: 120px; */
   width: calc(var(--width) - 100px);
-  /* padding: 5px; */
-  /* background-color: red; */
   border: 1px solid black;
 }
 
@@ -483,21 +439,16 @@
   height: 100px;
   margin: 5px;
   margin-right: 10px;
-  /* width: 80px; */
 }
 
 .reviewInputPhotoButton {
-  /* box-sizing: border-box; */
   display: flex;
   flex-direction: column;
-  /* grid-template-rows: 50% 30px; */
-  /* grid-template-columns: 50%; */
   background-color: #cccccc;
   height: 110px;
   width: 80px;
   justify-content: center;
   align-items: center;
-  /* align-content: center; */
 }
 
 .reviewInputPhotoButton:hover {
@@ -506,18 +457,6 @@
 }
 
 .reviewInputPhotoButtonPlus {
-  /* display: flex;
-  justify-content: center;
-  align-content: center; */
-  /* grid-row: 2; */
-  /* grid-column: 2; */
   font-size: 40px;
   margin: auto;
-}
-
-.reviewInputPhotoButtonText {
-  /* display: flex;
-  justify-content: center;
-  align-content: center; */
-  /* grid-row: 3; */
 }

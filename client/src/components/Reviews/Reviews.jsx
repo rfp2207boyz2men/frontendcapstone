@@ -20,9 +20,10 @@ const Reviews = (props) => {
   const [searchStars, setSearchStars] = useState({1:false, 2:false, 3:false, 4:false, 5:false});
   const [starFilter, setStarFilter] = useState(false);
   const [showAmount, setShowAmount] = useState(2);
-  const [sort, setSort] = useState();
+  const [sort, setSort] = useState('relevant');
 
   useEffect(() => {
+    console.log('REVIEWS PROCCED');
     if (!localStorage.getItem('helpfulReviews')) {
       localStorage.setItem('helpfulReviews', JSON.stringify({}));
     }
@@ -33,6 +34,7 @@ const Reviews = (props) => {
       localStorage.setItem('sort', 'relevant');
     }
 
+    let sort = localStorage.getItem('sort');
     let searchStars = JSON.parse(localStorage.getItem('searchStars'));
     let ratings = props.metaData.ratings;
     //If no star rating for the selecting product, set rating to 0
@@ -42,11 +44,11 @@ const Reviews = (props) => {
       }
     }
 
-    getSortedReviews(props.totalReviews)
+    getSortedReviews(props.totalReviews, sort)
     .then((reviews) => {
       setSearchStars(searchStars);
       setStarFilter(enableFilter(searchStars));
-      setSort(localStorage.getItem('sort'));
+      setSort(sort);
       setRatings(props.metaData.ratings);
       setAverageRating(props.averageRating);
       setRatingPercentages(getRatingPercentages(props.metaData.ratings));
@@ -59,9 +61,9 @@ const Reviews = (props) => {
       setInitialized(true)
     })
     .catch((err) => console.log(err));
-  }, [initialized]);
+  }, []);
 
-  const getSortedReviews = (totalReviews) => {
+  const getSortedReviews = (totalReviews, sort) => {
     //Get reviews based on total reviews then the sort
     let params = `?product_id=${props.productId}&count=${totalReviews}&sort=${sort}`;
     return Parse.getAll(`reviews/`, params)
@@ -133,7 +135,15 @@ const Reviews = (props) => {
 
   const handleOnSortChange = (e) => {
     localStorage.setItem('sort', e.target.value);
-    setSort(e.target.value);
+    getSortedReviews(totalReviews, e.target.value)
+    .then((reviews) => {
+      setReviews(reviews.data.results);
+      let filteredReviews = filterReviews(reviews.data.results);
+      setFilteredReviews(filteredReviews);
+      setSlicedReviews(filteredReviews.slice(0, showAmount));
+      setSort(e.target.value);
+    })
+    .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -143,11 +153,12 @@ const Reviews = (props) => {
     setSlicedReviews(filteredReviews.slice(0, showAmount));
   }, [searchStars, searchQuery])
 
-  useEffect(() => {
-    console.log('PROPS REVIEWS: ', props.totalReviews);
-    //If the sort has changed, do another GET request with that sort parameter
-    getSortedReviews();
-  }, [sort])
+  // useEffect(() => {
+  //   console.log('SORT: ', sort);
+  //   console.log('PROPS REVIEWS: ', props.totalReviews);
+  //   //If the sort has changed, do another GET request with that sort parameter
+  //   getSortedReviews();
+  // }, [sort])
 
   const handleReport = (index) => {
     //Immediately render out reported review instead of doing a GET request
@@ -174,7 +185,7 @@ const Reviews = (props) => {
         }
       }
       metaData = meta.data;
-      return getSortedReviews(totalReviews + 1);
+      return getSortedReviews(totalReviews + 1, sort);
     })
     .then((reviews) => {
       setRatings(metaData.ratings);
@@ -187,6 +198,7 @@ const Reviews = (props) => {
       setFilteredReviews(filteredReviews);
       setSlicedReviews(filteredReviews.slice(0, showAmount));
     })
+    .catch((err) => console.log(err));
   };
 
   return(
