@@ -196,10 +196,21 @@ textarea[name='email'] {
 input[type='submit'] {
   height: 30px;
   width: 90px;
+  margin-top: 20px;
 }
 
 .email-small {
   padding-bottom: 18px;
+}
+
+.photoThumbnail {
+  display: inline-flex;
+  height: auto;
+  width: 20%;
+}
+
+input[type='file'] {
+  color: rgba(0,0,0,0)
 }
 
 /*
