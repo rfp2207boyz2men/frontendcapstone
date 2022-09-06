@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { VscTriangleDown } from 'react-icons/vsc';
-import _ from 'underscore';
 
 const Characteristics = (props) => {
 

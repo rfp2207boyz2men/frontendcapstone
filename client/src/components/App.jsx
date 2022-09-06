@@ -15,12 +15,15 @@ import { AppContext } from './AppContext.js';
 import styled, { ThemeProvider } from "styled-components";
 import { MdLightMode, MdDarkMode } from 'react-icons/md';
 import { lightTheme, darkTheme, GlobalStyles } from '../themes.js';
+import ClickTracker from './ClickTracker.jsx';
+import moment from 'moment';
 
 const StyledApp = styled.div`
 
 `;
 
 const App = () => {
+
   const [outfits, setOutfits] = useState([]);
   const [styles, setStyles] = useState([]);
   const [localName, setLocalName] = useState('No Style Selected');
@@ -43,8 +46,8 @@ const App = () => {
   useEffect(() => {
     Parse.getAll(`products/`)
       .then((products) => {
-        let defaultIndex = Math.floor(Math.random() * products.data.length);
-        updateSelectedProduct(products.data[defaultIndex].id);
+        // let defaultIndex = Math.floor(Math.random() * products.data.length);
+        updateSelectedProduct(products.data[0].id);
       })
     retrieveStorage();
     getCart();
@@ -209,6 +212,37 @@ const App = () => {
     setCart(request.data);
   }
 
+  //Modify each component to include a click tracker with the respective widget name
+  const OverviewTrack = ClickTracker(Overview, 'Product Detail')
+  const RelatedTrack = ClickTracker(Related, 'Related');
+  const OutfitsTrack = ClickTracker(Outfits, 'Outfits');
+  const ReviewsTrack = ClickTracker(Reviews, 'Reviews');
+  const QandATrack = ClickTracker(QandA, 'Questions & Answers');
+
+  const trackHeader = (e) => {
+    //This particular tracker used for Header because of issues creating a separate header component
+    //When invoked via onClick, enable window.onclick
+    window.onclick = () => {
+      let date = (moment(new Date()).format('MMM DD[,] YYYY[,] hh:mm:ss a'));
+      // console.log(e.target.outerHTML);
+      console.log(`Widget: Header || Date: ${date}`);
+
+      let params = {
+        // element: `${e.target.className}`,
+        element: e.target.outerHTML,
+        widget: 'Header',
+        time: date
+      };
+
+      Parse.create('interactions', undefined, params)
+      // .then((response) => console.log(response))
+      .catch((err) => console.log(err));
+
+      //Disable window.onclick at the end of function to prevent from clicking on elements with no component(like page border)
+      window.onclick = () => {};
+    }
+  };
+
   return (
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
       <GlobalStyles />
@@ -224,7 +258,18 @@ const App = () => {
       }}>
         {loading ?
           <StyledApp>
-            <div className="header">
+            <div className="header" onClick={trackHeader}>
+              {theme === 'light' ?
+                <div className='theme-toggler' onClick={themeToggler}>
+                  <MdLightMode />
+                  Theme
+                </div>
+                :
+                <div className='theme-toggler' onClick={themeToggler}>
+                  <MdDarkMode />
+                  Theme
+                </div>
+              }
               <div className="logoheader">
                 <div className="logotext"><h1>Odin</h1></div>
                 <div className="logo"><GiTriquetra /></div>
@@ -278,10 +323,12 @@ const App = () => {
                   selectedProduct={selectedProduct}
                 />
               </div>
-              <div id='reviews'>
-                <Reviews
+              <div id='related'>
+                <ReviewsTrack
                   totalReviews={totalReviews}
+                  getTotalReviews={getTotalReviews}
                   averageRating={averageRating}
+                  getAverageRating={getAverageRating}
                   metaData={metaData}
                   renderStars={renderStars}
                   productName={selectedProduct.name}
