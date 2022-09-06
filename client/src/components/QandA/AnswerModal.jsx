@@ -6,9 +6,13 @@ const AnswerModal = (props) => {
   const [userAnswer, setUserAnswer] = useState('');
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
+  const [photos, setPhotos] = useState([]);
+  const [imageUrls, setImageUrls] = useState([]);
 
   let form;
   let data;
+  let newPhotos;
+  let photoUrl;
   let questionId = props.questionId;
 
   let handleSubmit = (event) => {
@@ -17,6 +21,7 @@ const AnswerModal = (props) => {
       body: userAnswer,
       name: nickname,
       email: email,
+      photos: imageUrl
       // need to add photos
     }
 
@@ -46,6 +51,18 @@ const AnswerModal = (props) => {
     } else if (form.name === 'email') {
       setEmail(form.value);
     }
+  }
+
+  let handlePhotoInput = (event) => {
+    if (photos.length === 5) {
+      alert('Only 5 pictures are allowed to upload')
+
+      return;
+    }
+    newPhotos = [...photos]
+    newPhotos.push(URL.createObjectURL(event.target.files[0]));
+    console.log(event.target.files[0])
+    setPhotos(newPhotos);
   }
 
 
@@ -86,11 +103,24 @@ const AnswerModal = (props) => {
             placeholder='Example: jack@email.com'
             onChange={handleChange}
             required/>
-          <small className='email-small'>For authentication reasons, you will not be emailed</small>
+          <small>For authentication reasons, you will not be emailed</small>
+          <h4> Upload your photos: </h4>
+          <span>
+            {photos.length ?
+            photos.map((photo) => <img className='photoThumbnail' src={photo}/>) : null
+            }
+          </span>
+          {photos.length < 5 &&
+          <input
+            name='photos'
+            type='file'
+            onChange={handlePhotoInput} />
+          }
           <input
             type='submit'
             value='Submit'
-            onSubmit={handleSubmit}/>
+            onSubmit={handleSubmit}>
+          </input>
         </form>
       </div>
     </>, document.getElementById('portal')
