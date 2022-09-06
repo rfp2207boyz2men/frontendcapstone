@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Parse from '../../parse.js';
-import axios from 'axios';
 import moment from 'moment';
-//import './QandA.css';
 
 const Answer = (props) => {
-  const [helpful, setHelpful] = useState(false);
-  const [reported, setReported] = useState(false);
+  const [isHelpful, setIsHelpful] = useState(false);
+  const [isReported, setIsReported] = useState(false);
 
   let answerId = props.answer.answer_id;
   let params = `?answer_id=${answerId}`;
@@ -16,36 +14,36 @@ const Answer = (props) => {
   let reportBtn;
 
   let answerIsHelpful = () => {
-    setHelpful(true);
+    setIsHelpful(true);
 
     Parse.update(`qa/answers/${answerId}/helpful`, params);
   }
 
   let answerIsReported = () => {
-    setReported(true);
+    setIsReported(true);
 
     Parse.update(`qa/answers/${answerId}/report`, params);
   }
 
-  if (helpful) {
+  if (isHelpful) {
     helpfulBtn = <u> Yes </u>
   } else {
     helpfulBtn =
       <button
         className='helpful'
         onClick={answerIsHelpful}>
-          <u> Yes </u>
+        <u> Yes </u>
       </button>
   }
 
-  if (reported) {
-    reportBtn = <u> Reported </u>
+  if (isReported) {
+    reportBtn = <u>Reported</u>
   } else {
     reportBtn =
       <button
         className='report'
         onClick={answerIsReported}>
-        <u> Report </u>
+        <u>Report</u>
       </button>
   }
 
