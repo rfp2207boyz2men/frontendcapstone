@@ -27,7 +27,8 @@
 }
 
 .reviewList {
-  height: 1000px;
+  /* min-height: 1000px; */
+  max-height: 1000px;
   width: 900px;
   /* border: 2px solid black; */
   overflow-y: auto;

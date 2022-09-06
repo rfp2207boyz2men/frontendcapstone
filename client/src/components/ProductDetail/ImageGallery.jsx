@@ -7,11 +7,43 @@ import {
   TiArrowMaximise,
   TiArrowMinimise,
 } from "react-icons/ti";
+import "./overview.css";
+import '../Reviews/ReviewsStyles.css';
+import styled, { css, keyframes } from 'styled-components';
+import ReactCSSTransitionGroup from 'react-transition-group';
 import { OrbitSpinner } from "react-epic-spinners";
 import Parse from "../../parse";
 import PhotoOverlay from "../Reviews/PhotoOverlay.jsx";
 
-function imageGallery({
+/* --------------------  styled components  --------------------*/
+
+const fadeIn = keyframes`
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+`
+
+
+const ImageContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  animation: ${fadeIn} 1s;
+`
+
+const PvImg = styled.img`
+  cursor: -moz-zoom-in;
+  cursor: -webkit-zoom-in;
+  cursor: zoom-in;
+  width: 500px;
+  height: 500px;
+  object-fit: cover;
+  animation: ${fadeIn} 1s;
+`
+
+/* --------------------  ImageGallery components  --------------------*/
+
+function ImageGallery({
   product,
   stylesList,
   expand,
@@ -19,6 +51,8 @@ function imageGallery({
   currentStyle,
   arrowDown,
   arrowUp,
+  arrowLeft,
+  arrowRight,
   handleThumbClick,
   handleLeftClick,
   handleRightClick,
@@ -47,8 +81,6 @@ function imageGallery({
     setOverlay(false);
   };
 
-  // test 2??
-
   return (
     <div>
       {!loading ? (
@@ -61,16 +93,16 @@ function imageGallery({
             {stylesList.map((style) => {
               let id = Math.random();
 
-              if (currentPhoto === style.photos[0].url || JSON.stringify(style).includes(currentPhoto)) {
-                if (style.photos[0].url === null) {
+              if (currentPhoto === style.url) {
+                if (style.url === null) {
                   return;
                 }
-                return <img onClick={e => handleThumbClick(e, style)} id={style.photos[0].url} key={id} src={style.photos[0].thumbnail_url} className='g-entry g-border'></img>
+                return <img onClick={e => handleThumbClick(e, style)} id={style.url} key={id} src={style.thumbnail_url} className='g-entry g-border'></img>
               } else {
-                if (style.photos[0].url === null) {
+                if (style.url === null) {
                   return;
                 }
-                return <img onClick={e => handleThumbClick(e, style)} id={style.photos[0].url} key={id} src={style.photos[0].thumbnail_url} className='g-entry'></img>
+                return <img onClick={e => handleThumbClick(e, style)} id={style.url} key={id} src={style.thumbnail_url} className='g-entry'></img>
               }
 
             })}
@@ -81,10 +113,14 @@ function imageGallery({
           </div>
 
           <div className="pv-container">
-            <TiArrowLeftThick onClick={handleLeftClick} className='arrow' />
+            {arrowLeft &&
+              <TiArrowLeftThick onClick={handleLeftClick} className='arrow' />}
+
             {overlay && <PhotoOverlay clickedPhoto={clickedPhoto} onClick={handleOverlay} />}
             <img className='pv-img' onClick={handlePhotoClick} src={currentPhoto || `https://via.placeholder.com/500`} alt={product.name}></img>
-            <TiArrowRightThick onClick={handleRightClick} className='arrow' />
+
+            {arrowRight && <TiArrowRightThick onClick={handleRightClick} className='arrow' />}
+
             <TiArrowMaximise onClick={handlePhotoClick} className='expand' />
           </div>
 
@@ -96,4 +132,4 @@ function imageGallery({
   );
 }
 
-export default imageGallery;
+export default ImageGallery;

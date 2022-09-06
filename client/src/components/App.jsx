@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import ReactDOM from 'react-dom';
 import Parse from '../parse.js';
 import axios from 'axios';
 import Related from './RelatedAndComp/Related.jsx';
@@ -12,9 +11,15 @@ import { OrbitSpinner } from 'react-epic-spinners';
 import { BsSearch, BsBag } from 'react-icons/bs'
 import QandA from './QandA/QandA.jsx';
 import { GoSearch } from 'react-icons/go';
+import { AppContext } from './AppContext.js';
+import styled, { ThemeProvider } from "styled-components";
+import { MdLightMode, MdDarkMode } from 'react-icons/md';
+import { lightTheme, darkTheme, GlobalStyles } from '../themes.js';
 import ClickTracker from './ClickTracker.jsx';
 
+const StyledApp = styled.div`
 
+`;
 
 const App = () => {
 
@@ -30,16 +35,41 @@ const App = () => {
   const [interactions, setInteractions] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState({});
   const [loading, setLoading] = useState(false);
-  const [theme, setTheme] = useState(true);
+  const [theme, setTheme] = useState('light');
+
+  const themeToggler = () => {
+    theme === 'light' ? setTheme('dark') : setTheme('light');
+    theme === 'light' ? localStorage.setItem('theme', 'dark') : localStorage.setItem('theme', 'light'); // to remember the last theme used by the user
+  }
 
   useEffect(() => {
     Parse.getAll(`products/`)
       .then((products) => {
-        let defaultIndex = Math.floor(Math.random() * products.data.length);
-        updateSelectedProduct(products.data[defaultIndex].id);
+        // let defaultIndex = Math.floor(Math.random() * products.data.length);
+        updateSelectedProduct(products.data[0].id);
       })
     retrieveStorage();
+    getCart();
   }, []);
+
+
+  // pending push info to array, save in localStorage?
+  // window.onclick = e => {
+  //   //console.log(e.target); // element clicked
+  //   // use viewport instead of pageY
+
+  //   // if (e.pageY < 850) {
+  //   //   console.log('you are on the overview module');
+  //   // } else if (e.pageY < 1820) {
+  //   //   console.log('you are on the related products module');
+  //   // } else if (e.pageY < 2327) {
+  //   //   console.log('you are on the questions and answers module');
+  //   // } else {
+  //   //   console.log('you are on the reviews module');
+  //   // }
+
+  //   //console.log('time pending to format:', Date.now());
+  // }
 
   const getAverageRating = (ratings) => {
     //Get average rating through gpa style math
@@ -114,7 +144,8 @@ const App = () => {
         storedOutfits.push(JSON.parse(storage.getItem(key)))
       }
     }
-
+    let lastTheme = storage.getItem('theme');
+    setTheme(lastTheme);
     setOutfits(storedOutfits);
   }
 
@@ -138,7 +169,6 @@ const App = () => {
     }
   }
 
-  // Not tested yet, why are event not firing??
   const removeStorage = (e) => {
     localStorage.removeItem(e.target.id);
   };
@@ -176,6 +206,11 @@ const App = () => {
     setOutfits([...updatedList])
   }
 
+  async function getCart() {
+    const request = await Parse.getAll('cart', undefined);
+    setCart(request.data);
+  }
+
   //Modify each component to include a click tracker with the respective widget name
   const OverviewTrack = ClickTracker(Overview, 'Product Detail')
   const RelatedTrack = ClickTracker(Related, 'Related');
@@ -184,71 +219,96 @@ const App = () => {
   const QandATrack = ClickTracker(QandA, 'Questions & Answers');
 
   return (
-    <div>
-      {loading ?
-        <div>
-          <div className="header">
-            <div className="logoheader">
-              <div className="logotext"><h1>Odin</h1></div>
-              <div className="logo"><GiTriquetra /></div>
+    <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+      <GlobalStyles />
+      <AppContext.Provider value={{
+        selectedProduct,
+        localName,
+        handleSelectedProduct,
+        handleLocalClick,
+        handleLocalSave,
+        getAverageRating,
+        getTotalReviews,
+        renderStars,
+      }}>
+
+
+        {loading ?
+          <StyledApp>
+            {/* <div className="toggleTheme">
+            <div>Dark Mode:</div>
+            <label className="switch">
+              <input type="checkbox"></input>
+              <span className="slider round"></span>
+            </label>
+          </div> */}
+            <div className="header">
+              {theme === 'light' ?
+                <div className='theme-toggler' onClick={themeToggler}>
+                  <MdLightMode />
+                  Theme
+                </div>
+                :
+                <div className='theme-toggler' onClick={themeToggler}>
+                  <MdDarkMode />
+                  Theme
+                </div>
+              }
+              <div className="logoheader">
+                <div className="logotext"><h1>Odin</h1></div>
+                <div className="logo"><GiTriquetra /></div>
+              </div>
+              <div className="toprightHeader">
+                <div className="searchbar"><input className="search" placeholder="Search"></input><GoSearch className="searchIcon" /></div>
+                <div className="shoppingBag"><BsBag /></div>{cart && <div className='cart'>{cart.length}</div>}
+              </div>
             </div>
-            <div className="toprightHeader">
-              <div className="searchbar"><input className="search" placeholder="Search"></input><GoSearch className="searchIcon" /></div>
-              <div className="shoppingBag"><BsBag /></div>
+            <div className="main">
+              <div>
+                <Overview
+                />
+              </div>
+              <div className='relatedSection'>
+                <Related
+                  selectedProduct={selectedProduct}
+                  addToOutfit={handleOutfitAdds}
+                  selectStyle={unloadComponents}
+                  avgRating={getAverageRating}
+                  starRender={renderStars} />
+              </div>
+              <div className='outfitsSection'>
+                <Outfits
+                  outfits={outfits}
+                  current={selectedProduct}
+                  outfitAdd={handleOutfitAdds}
+                  outfitRemove={handleOutfitRemoval}
+                  avgRating={getAverageRating}
+                  styleId={localId}
+                  starRender={renderStars} />
+              </div>
+              <div className="questionsSection">
+                <QandA
+                  selectedProduct={selectedProduct}
+                />
+              </div>
+              <div id='related'>
+                <ReviewsTrack
+                  totalReviews={totalReviews}
+                  getTotalReviews={getTotalReviews}
+                  averageRating={averageRating}
+                  getAverageRating={getAverageRating}
+                  metaData={metaData}
+                  renderStars={renderStars}
+                  productName={selectedProduct.name}
+                  productId={selectedProduct.id}
+                />
+              </div>
             </div>
-          </div>
-          <div className="main">
-            <div>
-              <Overview
-                selectedProduct={selectedProduct}
-                localName={localName}
-                handleSelectedProduct={handleSelectedProduct}
-                handleLocalClick={handleLocalClick}
-                handleLocalSave={handleLocalSave}
-                getAverageRating={getAverageRating}
-                getTotalReviews={getTotalReviews}
-                renderStars={renderStars} />
-            </div>
-            <div className='relatedSection'>
-              <Related
-                selectedProduct={selectedProduct}
-                addToOutfit={handleOutfitAdds}
-                selectStyle={unloadComponents}
-                avgRating={getAverageRating}
-                starRender={renderStars}/>
-            </div>
-            <div className='outfitsSection'>
-              <Outfits
-                outfits={outfits}
-                current={selectedProduct}
-                outfitAdd={handleOutfitAdds}
-                outfitRemove={handleOutfitRemoval}
-                avgRating={getAverageRating}
-                styleId={localId}
-                starRender={renderStars}/>
-            </div>
-            <div className="questionsSection">
-              <QandA
-                selectedProduct={selectedProduct}
-              />
-            </div>
-            <div>
-              <ReviewsTrack
-                totalReviews={totalReviews}
-                getTotalReviews={getTotalReviews}
-                averageRating={averageRating}
-                getAverageRating={getAverageRating}
-                metaData={metaData}
-                renderStars={renderStars}
-                productName={selectedProduct.name}
-                productId={selectedProduct.id}
-              />
-            </div>
-          </div>
-        </div>
-        : <div className="spinner"><OrbitSpinner color='teal' /></div>
-      }
-    </div>
+          </StyledApp>
+          : <StyledApp className="spinner"><OrbitSpinner color='teal' /></StyledApp>
+        }
+      </AppContext.Provider>
+    </ThemeProvider>
   )
 }
 

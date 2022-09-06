@@ -39,6 +39,15 @@
     "styled-components": "^5.3.5",
     "underscore": "^1.13.4"
   },
+  "overrides": {
+    "react-share": {
+      "react": "18.2.0",
+      "react-dom": "18.2.0"
+    }
+  },
+  "resolutions": {
+    "styled-components": "^5"
+  },
   "devDependencies": {
     "@babel/core": "^7.18.13",
     "@babel/preset-env": "^7.18.10",

@@ -20,7 +20,7 @@ const Reviews = (props) => {
   const [searchStars, setSearchStars] = useState({1:false, 2:false, 3:false, 4:false, 5:false});
   const [starFilter, setStarFilter] = useState(false);
   const [showAmount, setShowAmount] = useState(2);
-  const [sort, setSort] = useState('relevant');
+  const [sort, setSort] = useState();
 
   useEffect(() => {
     if (!localStorage.getItem('helpfulReviews')) {
@@ -144,6 +144,7 @@ const Reviews = (props) => {
   }, [searchStars, searchQuery])
 
   useEffect(() => {
+    console.log('PROPS REVIEWS: ', props.totalReviews);
     //If the sort has changed, do another GET request with that sort parameter
     getSortedReviews();
   }, [sort])
