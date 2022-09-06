@@ -1,8 +1,12 @@
+// require("dotenv").config();
+import CONFIG from '../../../../config.js';
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import Parse from '../../parse.js';
 import { SiIfixit } from 'react-icons/si';
 import { TiStarFullOutline, TiStarHalfOutline, TiStarOutline } from 'react-icons/ti';
 import { BsPlusCircle } from 'react-icons/bs';
+// import {AdvancedImage} from '@cloudinary/react';
+// import {Cloudinary} from "@cloudinary/url-gen";
 
 const Input = (props) => {
   const [textInputs, setTextInputs] = useState({
@@ -17,7 +21,7 @@ const Input = (props) => {
   const [photos, setPhotos] = useState([]);
   const [photosData, setPhotosData] = useState([]);
   const hiddenFileInput = useRef(null);
-  const [error, setError] = useState(false);
+  const [errorMessages, setErrorMessages] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const handleOnChange = (e) => {
@@ -31,7 +35,7 @@ const Input = (props) => {
   };
 
   const renderStars = () => {
-    //render 5 stars and a clicked star description into a div
+    //Render 5 stars and a clicked star description into a div
     let stars = [];
     for (let i = 1; i <= 5; i++) {
       stars.push(renderStar(i))
@@ -45,8 +49,8 @@ const Input = (props) => {
   };
 
   const renderStar = (value) => {
-    //render a full or empty star based on the clicked star
-    //each star has a corresponding value
+    //Render a full or empty star based on the clicked star
+    //Each star has a corresponding value
     if (rating - value >= 0) {
       return <div key={value}><TiStarFullOutline className='ratingInputStar star' size={20} onClick={()=>{handleStarClick(value)}}/></div>;
     } else {
@@ -55,7 +59,7 @@ const Input = (props) => {
   };
 
   const renderStarIndicator = () => {
-    //conditionally render an indicator for the clicked star
+    //Conditionally render an indicator for the clicked star
     switch(rating) {
       case 1:
         return 'Poor';
@@ -82,7 +86,7 @@ const Input = (props) => {
   };
 
   const renderRecommendations = () => {
-    //render 2 buttons to recommend/not recommend the product
+    //Render 2 buttons to recommend/not recommend the product
     return(
       <div className='reviewInputRecommendations'>
         <input type='radio' name='recommendation' value='true' onChange={handleRecommendationClick}></input>
@@ -94,7 +98,7 @@ const Input = (props) => {
   };
 
   const handleRecommendationClick = (e) => {
-    //convert recommendation from string to boolean
+    //Convert recommendation from string to boolean
     if (e.target.value === 'true') {
       setRecommendation(true);
     } else {
@@ -103,7 +107,7 @@ const Input = (props) => {
   };
 
   const renderCharacteristics = (id) => {
-    //render 5 buttons for characteristics with a corresponding value
+    //Render 5 buttons for characteristics with a corresponding value
     let characteristicButtons = [];
     for (let i = 1; i <= 5; i++) {
       characteristicButtons.push(<input type='radio' name={id} value={i} key={id+i} onChange={handleCharacteristicClick}></input>)
@@ -112,7 +116,7 @@ const Input = (props) => {
   };
 
   const renderCharacteristicsDescriptor = (characteristic) => {
-    //render characteristic descriptions based on the characteristic
+    //Render characteristic descriptions based on the characteristic
     switch(characteristic) {
       case 'Size':
         return ['A size too small', 'A size too wide'];
@@ -130,7 +134,7 @@ const Input = (props) => {
   };
 
   const renderCharacteristicsSection = (characteristic, id) => {
-    //render a characteristic section with a label, 5 buttons, and corresponding descriptions
+    //Render a characteristic section with a label, 5 buttons, and corresponding descriptions
     return (
       <div className='reviewInputCharacteristicSection' key={characteristic}>
         <h4 className='reviewInputCharacteristicLabel'>{characteristic}</h4>
@@ -145,7 +149,7 @@ const Input = (props) => {
   };
 
   const renderCharacteristicsAggregate = () => {
-    //render all characteristic sections into one div
+    //Render all characteristic sections into one div
     let characteristicAggregate = [];
     for (let characteristic in props.characteristics) {
       characteristicAggregate.push(renderCharacteristicsSection(characteristic, props.characteristics[characteristic].id));
@@ -158,13 +162,13 @@ const Input = (props) => {
   };
 
   const handleCharacteristicClick = (e) => {
-    //set the characteristic state as {characteristic_id : value}
-    //  convert value to an integer
+    //Set the characteristic state as {characteristic_id : value}
+    //  Convert value to an integer
     setCharacteristics((prevCharacteristics) => ({...prevCharacteristics, [e.target.name]: parseInt(e.target.value)}));
   };
 
   const renderPhotos = () => {
-    //render photo gallery up to 5 images (button will disappear after 5 images)
+    //Render photo gallery up to 5 images (button will disappear after 5 images)
     //Upload button onClick refers to a button that clicks useRef that is referred to by the file input
     //  This allows making a button that's stylized instead of the default file input button
     return(
@@ -181,11 +185,13 @@ const Input = (props) => {
   };
 
   const handlePhotoClick = () => {
-    //click the hidden input file button by invoking this function
+    //Click the hidden input file button by invoking this function
     hiddenFileInput.current.click();
   }
 
   const handlePhotoInput = (e) => {
+    //Push photo as readable photo to the thumbnail array
+    //Push photo as file to the photoData array for submission eventually
     let newPhotos = photos.slice();
     newPhotos.push(URL.createObjectURL(e.target.files[0]))
     setPhotos(newPhotos);
@@ -195,15 +201,70 @@ const Input = (props) => {
   };
 
   const handleSubmit = () => {
+    //First: Validate input field
+    //  If fail: create respective error messages
+    //Second: Upload photos
+    //  If fail: create message indicated failed upload
+    //Third: Submit form
+    //  If fail: create message indicating failed submit
+    event.preventDefault();
     setLoading(true);
-    submitForm();
+
+    let errors = validateInfo();
+    if (errors.length > 0) {
+      setErrorMessages(errors);
+      setLoading(false);
+      return;
+    }
+
+    uploadAllPhotos()
+    .then((photos) => submitForm(photos))
+    .then((response) => {
+      console.log('success!');
+      props.handleOverlay();
+      props.handleSubmit();
+    })
+    .catch((err) => {
+      console.log(err);
+      setErrorMessages(['Could not submit form']);
+      setLoading(false);
+    })
   }
 
-  const submitForm = () => {
-    event.preventDefault();
+  const uploadAllPhotos = () => {
+    //Upload all photos at the same time and get their urls into an array
+    return Promise.all(photosData.map((photo) => uploadPhoto(photo)))
+    .then((response) => {
+      console.log('promise.all checkpoint')
+      let photos = [];
+      for (let photo of response) {
+        photos.push(photo.data.secure_url);
+      }
+      return photos;
+    })
+    .catch((err) => {
+      console.log(err);
+      setPhotos([]);
+      setPhotosData([]);
+      setErrorMessages(['Photos could not be submitted or photos were invalid']);
+      setLoading(false);
+    });
+  };
 
-    let hardCodeImageUrl = `https://images.unsplash.com/photo-1501088430049-71c79fa3283e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80`;
-    let hardcodedPhotos = [hardCodeImageUrl, hardCodeImageUrl, hardCodeImageUrl];
+  const uploadPhoto = (photo) => {
+    //Uploads photo to Cloudinary
+    //Make sure to set CLOUDINARY_USER and CLOUDINARY_UPLOAD_PRESET in config.js
+    let url = `https://api.cloudinary.com/v1_1/${CONFIG.CLOUDINARY_USER}/image/upload`;
+    let upload_preset = CONFIG.CLOUDINARY_UPLOAD_PRESET;
+
+    let formData = new FormData();
+    formData.append('file', photo);
+    formData.append('upload_preset', upload_preset);
+    return Parse.upload(url, formData);
+  };
+
+  const submitForm = (photos) => {
+    //Submit all form data
     let params = {
       product_id: props.productId,
       rating: rating,
@@ -212,31 +273,46 @@ const Input = (props) => {
       recommend: recommendation,
       name: textInputs.nickname,
       email: textInputs.email,
-      photos: hardcodedPhotos,
-      // photos: photos,
+      photos: photos,
       characteristics: characteristics
     };
-    // console.log(typeof recommendation);
-    // console.log(params);
-
-    Parse.create('reviews', undefined, params)
-    .then((response) => {
-      // console.log(response);
-      props.handleOverlay();
-      props.getReviews();
-    })
-    .catch((err) => {
-      console.log(err)
-      setLoading(false);
-    })
+    return Parse.create('reviews', undefined, params)
   };
 
   const validateInfo = () => {
-    //What to validate:
-    //  Any blank fields
-    //  Body < 50 characters
-    //  Email not in correct email format
-    //  Images invalid/fail to upload
+    //Validate each input field and produce a corresponding error message
+    let errors = [];
+    if (rating === 0) {
+      errors.push('Rating');
+    }
+    if (recommendation === undefined) {
+      errors.push('Recommendation');
+    }
+    for (let characteristic in props.characteristics) {
+      let id = props.characteristics[characteristic].id;
+      if (!characteristics[id]) {
+        errors.push(characteristic);
+      }
+    }
+    if (textInputs.body.length < 50) {
+      errors.push(textInputs.body.length === 0 ? 'Body' : 'Invalid body length');
+    }
+    if (textInputs.nickname.length === 0) {
+      errors.push('Nickname');
+    }
+    if (!validateEmail(textInputs.email)) {
+      errors.push(textInputs.email.length === 0 ? 'Email' : 'Invalid email');
+    }
+
+    return errors;
+  };
+
+  const validateEmail = (email) => {
+    //Validate email to make sure it has a vague semblance of an email format
+    // /\S+@\S+\.\S+/                               simple regEx
+    // /^[^\s@]+@[^\s@]+\.[^\s@]+$/                 should prevent matching multiple @ signs
+    let re = /\S+@\S+\.\S+/;
+    return re.test(email);
   };
 
   return (
@@ -268,6 +344,11 @@ const Input = (props) => {
       {loading
       ? <button className='reviewSubmit' disabled>Submitting...</button>
       : <button className='reviewSubmit reviewSubmitEnable' type='submit'>Submit review</button>}
+      {errorMessages.length >= 1 &&
+      <div className='reviewInputErrors'>
+        <p>You must enter the following:</p>
+        {errorMessages.map((message, index) => <p key={index}>{message}</p>)}
+      </div>}
     </form>
   );
 };

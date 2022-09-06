@@ -300,7 +300,6 @@ function ProductInformation({
               <FaPinterest />
             </PinterestShareButton>
           </div>
-
         </div>
         :
         <OrbitSpinner color="teal" />

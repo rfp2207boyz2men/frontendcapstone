@@ -5,13 +5,15 @@ import Tile from './Tile.jsx';
 import SideBar from './SideBar.jsx';
 import { OrbitSpinner } from 'react-epic-spinners';
 
-
 const Reviews = (props) => {
   const [ratingPercentages, setRatingPercentages] = useState([]);
   const [averageRecommended, setAverageRecommended] = useState(0);
   const [initialized, setInitialized] = useState(false);
 
   const [reviews, setReviews] = useState([]);
+  const [totalReviews, setTotalReviews] = useState(0);
+  const [ratings, setRatings] = useState({});
+  const [averageRating, setAverageRating] = useState(0);
   const [filteredReviews, setFilteredReviews] = useState([]);
   const [slicedReviews, setSlicedReviews] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -19,61 +21,78 @@ const Reviews = (props) => {
   const [starFilter, setStarFilter] = useState(false);
   const [showAmount, setShowAmount] = useState(2);
   const [sort, setSort] = useState('relevant');
-  //MAKE SURE TO SET THIS DEFAULT TO 'relevant' UPON DELIVERING
 
   useEffect(() => {
+    console.log('REVIEWS PROCCED');
     if (!localStorage.getItem('helpfulReviews')) {
-      localStorage.setItem('helpfulReviews', JSON.stringify({}))
+      localStorage.setItem('helpfulReviews', JSON.stringify({}));
     }
-    //This only gets the initial averages
-    //  Should I update after adding a review?
-    let ratings = Object.values(props.metaData.ratings);
-    let recommendations = props.metaData.recommended;
+    if (!localStorage.getItem('searchStars')) {
+      localStorage.setItem('searchStars', JSON.stringify({1:false, 2:false, 3:false, 4:false, 5:false}));
+    }
+    if (!localStorage.getItem('sort')) {
+      localStorage.setItem('sort', 'relevant');
+    }
 
-    let ratingPercentages = ratings.map((rating) => (rating / props.totalReviews) * 100);
+    let sort = localStorage.getItem('sort');
+    let searchStars = JSON.parse(localStorage.getItem('searchStars'));
+    let ratings = props.metaData.ratings;
+    //If no star rating for the selecting product, set rating to 0
+    for (let i = 1; i <= 5; i++) {
+      if (!ratings[i]) {
+        ratings[i] = 0;
+      }
+    }
 
-    let totalRecommendations = parseInt(recommendations.false) + parseInt(recommendations.true);
-    let averageRecommended = ((parseInt(recommendations.true) / totalRecommendations) * 100);
-
-    setRatingPercentages(ratingPercentages);
-    setAverageRecommended(averageRecommended.toFixed(0));
-
-
-    getSortedReviews();
-  }, [initialized]);
-
-
-  //FORK-IN-THE-ROAD MOMENT
-  //  Upon changing sort...
-  //  Reset reviewSlice to two?
-  //  Do I keep the same?
-
-  let getSortedReviews = (sorter) => {
-    // console.log('sort: ', sorter)
-    let params = `?product_id=${props.productId}&count=${props.totalReviews}&sort=${sorter ? sorter : sort}`;
-    return Parse.getAll(`reviews/`, params)
+    getSortedReviews(props.totalReviews, sort)
     .then((reviews) => {
-      // console.log(reviews.data.results);
-      //let reviews = reviews.data.results
+      setSearchStars(searchStars);
+      setStarFilter(enableFilter(searchStars));
+      setSort(sort);
+      setRatings(props.metaData.ratings);
+      setAverageRating(props.averageRating);
+      setRatingPercentages(getRatingPercentages(props.metaData.ratings));
+      setAverageRecommended(getAverageRecommended(props.metaData.recommended));
+      setTotalReviews(props.totalReviews);
       setReviews(reviews.data.results);
       let filteredReviews = filterReviews(reviews.data.results);
       setFilteredReviews(filteredReviews);
       setSlicedReviews(filteredReviews.slice(0, showAmount));
       setInitialized(true)
-    });
+    })
+    .catch((err) => console.log(err));
+  }, []);
+
+  const getSortedReviews = (totalReviews, sort) => {
+    //Get reviews based on total reviews then the sort
+    let params = `?product_id=${props.productId}&count=${totalReviews}&sort=${sort}`;
+    return Parse.getAll(`reviews/`, params)
   };
 
-  let filterReviews = (reviews) => {
+  const getRatingPercentages = (ratings) => {
+    let ratingValues = Object.values(ratings);
+    return ratingValues.map((rating) => (rating / props.totalReviews) * 100);
+  };
+
+  const getAverageRecommended = (recommendations) => {
+    let totalRecommendations = parseInt(recommendations.false) + parseInt(recommendations.true);
+    return ((parseInt(recommendations.true) / totalRecommendations) * 100).toFixed(0);
+  }
+
+
+  const filterReviews = (reviews) => {
     //TODO: Set up highlighting (split text?)
     let filteredReviews = [];
-    let starFilter = enableFilter();
+    let starFilter = enableFilter(searchStars);
 
     for (let review of reviews) {
-      if (review.body.includes(searchQuery)) {
-        if (!starFilter) {
+      if (!starFilter) {
+        if (review.body.toLowerCase().includes(searchQuery.toLowerCase())) {
           filteredReviews.push(review);
-        } else {
-          if (searchStars[review.rating]) {
+        }
+      } else {
+        if (searchStars[review.rating]) {
+          if (review.body.toLowerCase().includes(searchQuery.toLowerCase())) {
             filteredReviews.push(review);
           }
         }
@@ -82,7 +101,8 @@ const Reviews = (props) => {
     return filteredReviews;
   };
 
-  let enableFilter = () => {
+  const enableFilter = (searchStars) => {
+    //Determine if no stars are clicked (renders as though all 5 are clicked)
     for (let star in searchStars) {
       if (searchStars[star]) {
         return true;
@@ -91,7 +111,13 @@ const Reviews = (props) => {
     return false;
   }
 
-  let handleOnQueryChange = (e) => {
+  const removeStarFilter = () => {
+    localStorage.setItem('searchStars', JSON.stringify({1:false, 2:false, 3:false, 4:false, 5:false}));
+    setSearchStars({1:false, 2:false, 3:false, 4:false, 5:false});
+    setStarFilter(false);
+  };
+
+  const handleOnQueryChange = (e) => {
     if (e.target.value.length >= 3) {
       setSearchQuery(e.target.value);
     } else {
@@ -99,46 +125,98 @@ const Reviews = (props) => {
     }
   };
 
-  let handleStarClick = (value) => {
-    setSearchStars((prevStars) => ({...prevStars, [value]: !searchStars[value]}));
+  const handleStarClick = (value) => {
+    localStorage.setItem('searchStars', JSON.stringify({...searchStars, [value]: !searchStars[value]}));
+    let stars = ({...searchStars, [value]: !searchStars[value]})
+    // setSearchStars((prevStars) => ({...prevStars, [value]: !searchStars[value]}));
+    setSearchStars(stars);
+    setStarFilter(enableFilter(stars));
   };
 
-  let handleOnSortChange = (e) => {
-    setSort(e.target.value);
+  const handleOnSortChange = (e) => {
+    localStorage.setItem('sort', e.target.value);
+    getSortedReviews(totalReviews, e.target.value)
+    .then((reviews) => {
+      setReviews(reviews.data.results);
+      let filteredReviews = filterReviews(reviews.data.results);
+      setFilteredReviews(filteredReviews);
+      setSlicedReviews(filteredReviews.slice(0, showAmount));
+      setSort(e.target.value);
+    })
+    .catch((err) => console.log(err));
   };
 
   useEffect(() => {
+    //If either stars or query change, filter reviews
     let filteredReviews = filterReviews(reviews);
     setFilteredReviews(filteredReviews);
     setSlicedReviews(filteredReviews.slice(0, showAmount));
   }, [searchStars, searchQuery])
 
-  useEffect(() => {
-    getSortedReviews();
-  }, [sort])
+  // useEffect(() => {
+  //   console.log('SORT: ', sort);
+  //   console.log('PROPS REVIEWS: ', props.totalReviews);
+  //   //If the sort has changed, do another GET request with that sort parameter
+  //   getSortedReviews();
+  // }, [sort])
 
-  let handleReport = () => {
-
+  const handleReport = (index) => {
+    //Immediately render out reported review instead of doing a GET request
+    let filteredReviewsCopy = filteredReviews.slice();
+    filteredReviewsCopy.splice(index, 1);
+    setFilteredReviews(filteredReviewsCopy);
+    setSlicedReviews(filteredReviewsCopy.slice(0, showAmount));
   };
 
-  let handleShowMore = () => {
+  const handleShowMore = () => {
+    //Increased sliceReviews length by 2 reviews
     setSlicedReviews(filteredReviews.slice(0, showAmount + 2));
     setShowAmount(showAmount + 2);
   };
 
+  const handleSubmitReview = () => {
+    let params = `?product_id=${props.productId}`;
+    let metaData;
+    Parse.getAll(`reviews/meta/`, params)
+    .then((meta) => {
+      for (let i = 0; i <= 5; i++) {
+        if (!meta.data.ratings[i]) {
+          meta.data.ratings[i] = 0;
+        }
+      }
+      metaData = meta.data;
+      return getSortedReviews(totalReviews + 1, sort);
+    })
+    .then((reviews) => {
+      setRatings(metaData.ratings);
+      setAverageRating(props.getAverageRating(metaData.ratings));
+      setRatingPercentages(getRatingPercentages(metaData.ratings));
+      setAverageRecommended(getAverageRecommended(metaData.recommended));
+      setTotalReviews(props.getTotalReviews(metaData.recommended));
+      setReviews(reviews.data.results);
+      let filteredReviews = filterReviews(reviews.data.results);
+      setFilteredReviews(filteredReviews);
+      setSlicedReviews(filteredReviews.slice(0, showAmount));
+    })
+    .catch((err) => console.log(err));
+  };
+
   return(
-    <div>
+    <div onClick={props.trackClick} data-testid='mainReviewPage'>
       {initialized
-      ?<div className='reviewMain'>
+      ?<div className='reviewMain' data-testid='reviewMain'>
         <SideBar
           renderStars={props.renderStars}
-          ratings={props.metaData.ratings}
-          averageRating={props.averageRating}
+          ratings={ratings}
+          totalReviews={totalReviews}
+          averageRating={averageRating}
           ratingPercentages={ratingPercentages}
           averageRecommended={averageRecommended}
           characteristics={props.metaData.characteristics}
-          clickedStar={searchStars}
+          clickedStars={searchStars}
           handleClick={handleStarClick}
+          starFilter={starFilter}
+          removeStarFilter={removeStarFilter}
         />
         <List
           // selectedProduct={props.selectedProduct}
@@ -153,8 +231,11 @@ const Reviews = (props) => {
           slicedReviews={slicedReviews}
           sort={sort}
           getReviews={getSortedReviews}
+          handleReport={handleReport}
           onQueryChange={handleOnQueryChange}
           onSortChange={handleOnSortChange}
+          handleSubmit={handleSubmitReview}
+          searchQuery={searchQuery}
         />
       </div>
       :<OrbitSpinner color='green' />}
@@ -163,77 +244,3 @@ const Reviews = (props) => {
 };
 
 export default Reviews;
-
-/*
-
-class Reviews extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ratings: [],
-      totalReviews: 0,
-      averageRating: 0,
-      ratingPercentages: [],
-      averageRecommended: 0,
-      loading: false,
-    };
-  }
-
-  componentDidMount() {
-    console.log(this.props)
-    let state = {};
-    let ratings = Object.values(this.props.metaData.ratings);
-    let recommendations = this.props.metaData.recommended;
-
-    let ratingPercentages = ratings.map((rating) => (rating / this.props.totalReviews) * 100);
-
-    let totalRecommendations = parseInt(recommendations.false) + parseInt(recommendations.true);
-    let averageRecommended = ((parseInt(recommendations.true) / totalRecommendations) * 100);
-
-    state.ratings = ratings;
-    state.ratingPercentages = ratingPercentages;
-    state.averageRecommended = averageRecommended.toFixed(0);
-    state.characteristics = this.props.metaData.characteristics;
-
-    //total reviews
-    state.loading = true;
-
-    this.setState(state);
-  };
-
-
-
-
-  render() {
-
-    return(
-      <div>
-        {this.state.loading
-        ?<div className='reviewMain'>
-          <SideBar
-            renderStars={this.props.renderStars}
-            ratings={this.props.metaData.ratings}
-            averageRating={this.props.averageRating}
-            ratingPercentages={this.state.ratingPercentages}
-            averageRecommended={this.state.averageRecommended}
-            characteristics={this.state.characteristics}
-          />
-          <List
-            // selectedProduct={this.props.selectedProduct}
-            renderStars={this.props.renderStars}
-            totalReviews={this.props.totalReviews}
-            characteristics={this.state.characteristics}
-            productName={this.props.productName}
-            productId={this.props.productId}
-          />
-        </div>
-        :<OrbitSpinner color='green' />}
-      </div>
-    )
-  }
-
-};
-
-export default Reviews;
-
-*/
