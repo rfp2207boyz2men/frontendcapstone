@@ -105,17 +105,6 @@ function ProductOverview({ product, currentPhoto, currentStyle }) {
           <div className='prodview-text'>
             <h2>{product.slogan}</h2>
             <p>{product.description}</p>
-            <div className='social'>
-              <FacebookShareButton className='social-btn' url={shareUrl} quote={shareQuote} hashtag={`#${shareHashtag}`}>
-                <FaFacebook />
-              </FacebookShareButton>
-              <TwitterShareButton className='social-btn' url={shareUrl} title={shareQuote} hashtag={`${shareHashtag}`}>
-                <FaTwitter />
-              </TwitterShareButton>
-              <PinterestShareButton className='social-btn' url={shareUrl} media={shareUrl} description={shareQuote} >
-                <FaPinterest />
-              </PinterestShareButton>
-            </div>
           </div>
           <div className='prodview-line'></div>
           <div>

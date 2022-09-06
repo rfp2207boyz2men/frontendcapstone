@@ -118,6 +118,7 @@ const Reviews = styled.a`
 function ProductInformation({
   product,
   currentStyle,
+  currentPhoto,
   renderStars,
   handleStyleClick,
   handleLocalClick,
@@ -129,7 +130,21 @@ function ProductInformation({
   const [qty, setQty] = useState();
   const [sizeSelected, setSizeSelected] = useState(false);
   const [skusId, setSkusId] = useState();
+  const [shareQuote, setShareQuote] = useState();
+  const [shareHashtag, setShareHashtag] = useState();
+  const [shareUrl, setShareUrl] = useState();
 
+  useEffect(() => {
+    if (currentStyle) {
+      setShareQuote(`Check this Awesome item! ${product.name}, $${product.default_price}`);
+      setShareHashtag([`Awesome:${product.category}`, `Reviews:${product.totalReviews}`]);
+      // set loading was moved to product useEffect
+    }
+  }, [currentStyle])
+
+  useEffect(() => {
+    setShareUrl(currentPhoto);
+  }, [currentPhoto]);
 
 
 
@@ -272,6 +287,18 @@ function ProductInformation({
 
             <button className='add-cart' onClick={(e) => { handleLocalSave(e); handleAddToCart(e); }}>ADD TO CART</button>
             <button className='select select-star' onClick={handleLocalSave}><TiStarFullOutline /></button>
+          </div>
+
+          <div className='social'>
+            <FacebookShareButton className='social-btn' url={shareUrl} quote={shareQuote} hashtag={`#${shareHashtag}`}>
+              <FaFacebook />
+            </FacebookShareButton>
+            <TwitterShareButton className='social-btn' url={shareUrl} title={shareQuote} hashtag={`${shareHashtag}`}>
+              <FaTwitter />
+            </TwitterShareButton>
+            <PinterestShareButton className='social-btn' url={shareUrl} media={shareUrl} description={shareQuote} >
+              <FaPinterest />
+            </PinterestShareButton>
           </div>
 
         </div>

@@ -197,6 +197,7 @@ function Overview() {
         <StyleInformation
           product={product}
           currentStyle={currentStyle}
+          currentPhoto={currentPhoto}
           localName={localName}
           localId={localId}
           renderStars={renderStars}
