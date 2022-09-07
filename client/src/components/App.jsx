@@ -255,6 +255,8 @@ const App = () => {
         getAverageRating,
         getTotalReviews,
         renderStars,
+        getCart,
+
       }}>
         {loading ?
           <StyledApp>

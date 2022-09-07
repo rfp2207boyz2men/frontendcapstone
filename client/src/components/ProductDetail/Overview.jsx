@@ -19,7 +19,7 @@ function Overview() {
     localId,
     renderStars,
     getTotalReviews,
-    getAverageRating } = useContext(AppContext);
+    getAverageRating, getCart } = useContext(AppContext);
 
 
 
@@ -37,7 +37,6 @@ function Overview() {
 
   useEffect(() => {
     fetchData(selectedProduct);
-    getCart();
   }, [])
 
   async function fetchData(productId) {
@@ -69,9 +68,9 @@ function Overview() {
     }
   }
 
-  async function getCart() {
-    const request = await Parse.getAll('cart', undefined);
-  }
+  // async function getCart() {
+  //   const request = await Parse.getAll('cart', undefined);
+  // }
 
 
   /* --------------------  style selection events  --------------------*/
@@ -204,6 +203,7 @@ function Overview() {
           handleStyleClick={handleStyleClick}
           handleLocalClick={handleLocalClick}
           handleLocalSave={handleLocalSave}
+          getCart={getCart}
         />
       </div>
       <ProductOverview product={product} currentPhoto={currentPhoto} currentStyle={currentStyle} />

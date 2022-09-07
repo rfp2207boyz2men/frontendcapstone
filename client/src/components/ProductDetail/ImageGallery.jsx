@@ -77,8 +77,8 @@ function ImageGallery({
                 }
                 return (
                   <div key={id}>
-                    <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry'></img>
-                    <div className="g-line aClass"></div>
+                    <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry-line'></img>
+                    <div className="g-line"></div>
                   </div>
                 )
 

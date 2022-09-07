@@ -125,6 +125,7 @@ function StyleInformation({
   localName,
   localId,
   handleLocalSave,
+  getCart,
 }) {
   const [loading, setLoading] = useState(true);
   const [qty, setQty] = useState();
@@ -201,6 +202,7 @@ function StyleInformation({
     let params = { sku_id: skusId };
     const request = await Parse.create('cart', undefined, params);
     console.log(request.data);
+    getCart();
   }
 
   const handleAddToCart = (e) => {
@@ -252,16 +254,29 @@ function StyleInformation({
                     if (item.photos[0].thumbnail_url === null) {
                       return;
                     }
-                    return (
-                      <img className='style-entry' key={id}
-                        id={item.style_id}
-                        name={item.name}
-                        onClick={(e, url, prod) => {
-                          handleLocalClick(e);
-                          handleStyleClick(e, item.url, item);
-                        }}
-                        src={item.photos[0].thumbnail_url} ></img>
-                    )
+                    if (currentPhoto === item.photos[0].url) {
+                      return (
+                        <img className='style-entry-border' key={id}
+                          id={item.style_id}
+                          name={item.name}
+                          onClick={(e, url, prod) => {
+                            handleLocalClick(e);
+                            handleStyleClick(e, item.url, item);
+                          }}
+                          src={item.photos[0].thumbnail_url} ></img>
+                      )
+                    } else {
+                      return (
+                        <img className='style-entry' key={id}
+                          id={item.style_id}
+                          name={item.name}
+                          onClick={(e, url, prod) => {
+                            handleLocalClick(e);
+                            handleStyleClick(e, item.url, item);
+                          }}
+                          src={item.photos[0].thumbnail_url} ></img>
+                      )
+                    }
                   }
 
                 })}

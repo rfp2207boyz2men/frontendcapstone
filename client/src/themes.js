@@ -39,6 +39,7 @@ export const lightTheme = {
   linkColor: 'black',
   modalCompareBg: 'white',
   modalCompareText: 'black',
+  styleBorder: '3px solid burlywood',
 };
 
 export const darkTheme = {
@@ -80,6 +81,7 @@ export const darkTheme = {
   linkColor: 'white',
   modalCompareBg: '#121212',
   modalCompareText: 'white',
+  styleBorder: '3px solid teal',
 };
 
 export const GlobalStyles = createGlobalStyle`
@@ -912,6 +914,20 @@ input[type='file'] {
   height: 50px;
   transition: all .5s ease;
 }
+.g-entry-line {
+  cursor: pointer;
+  background-color: #fff;
+  width: 50px;
+  margin-bottom: 0px;
+  height: 50px;
+  transition: all .5s ease;
+}
+.g-line {
+  height: 3px;
+  left: 10px;
+  margin-bottom: 20px;
+  background-color: ${(props) => props.theme.tealAndBurly};
+}
 
 .g-entry:hover {
   background: white;
@@ -921,6 +937,7 @@ input[type='file'] {
 .g-border {
   border-bottom: solid 5px burlywood;
 }
+
 
 .arrow {
   color: ${(props) => props.theme.fontColor};
@@ -989,24 +1006,31 @@ input[type='file'] {
 
 .style-entry {
   cursor: pointer;
-  border-radius: 30px;
-  border: solid 0.5px #333;
-  object-fit: cover;
+  box-sizing: border-box;
   height: 50px;
   width: 50px;
   margin: 5px;
+  border-radius: 30px;
+  object-fit: cover;
+  object-fit: cover;
+  background-color: ${(props) => props.theme.burlyAndTeal};
+}
+
+.style-entry-border {
+  cursor: pointer;
+  box-sizing: border-box;
+  margin: 5px;
+  height: 50px;
+  width: 50px;
+  border-radius: 30px;
+  border: ${(props) => props.theme.styleBorder};
+  object-fit: cover;
   background-color: ${(props) => props.theme.burlyAndTeal};
 }
 
 .style-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-wrap: wrap;
-}
-
-.style-container img {
-  border: ${(props) => props.theme.burlyBorderBlack};
 }
 
 .add-container {
