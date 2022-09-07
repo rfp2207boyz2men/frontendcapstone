@@ -2,7 +2,7 @@ import axios from 'axios';
 //import API from config
 import CONFIG from '../../config.js';
 
-let url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/';
+let url = 'https://app-hrsei-api.herokuapp.com/api/fec2/rfp/';
 
 let authorization = { headers: { Authorization: CONFIG.API_KEY } };
 //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products

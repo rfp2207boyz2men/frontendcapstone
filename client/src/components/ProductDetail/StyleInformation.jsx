@@ -220,12 +220,14 @@ function ProductInformation({
     <div>
       {!loading ?
         <div className='info-container'>
-          <div>
+          <div className='reviewsInfo'>
+            <div>
             {renderAvgStars()}
-            <Reviews href='' onClick={relatedLink}>Read all {product.totalReviews} reviews</Reviews>
+            </div>
+            <a href='#reviews' onClick={relatedLink}>  Read all {product.totalReviews} reviews</a>
           </div>
 
-          <h4>{product.category}</h4>
+          <h3>{product.category.toUpperCase()}</h3>
           <h2>{product.name}</h2>
           {currentStyle.sale_price !== null ?
             <div>
@@ -237,7 +239,7 @@ function ProductInformation({
 
           <div>
             <div className='style-title'>
-              <h4 className='style-text style'> Style: </h4>
+              <h4 className='style-text style'> STYLE: </h4>
               <h4 className='style-text'>{product.styles[0].photos[0].thumbnail_url === null ? 'No style available' : currentStyle.name}</h4>
             </div>
             <div className='style-container'>
@@ -272,7 +274,7 @@ function ProductInformation({
           <div className='add-container'>
 
             <select className='select' value={qty} onChange={handleSize}>
-              <option className='select' value="0">Select A Size</option>
+              <option className='select' value="0">SELECT SIZE</option>
               {currentStyle &&
                 Object.values(currentStyle.skus).map((item => {
                   let idR = Math.random();
