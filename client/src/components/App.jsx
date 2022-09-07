@@ -267,7 +267,7 @@ const App = () => {
               <span className="slider round"></span>
             </label>
           </div> */}
-            <div className="header">
+            <div className="header" onClick={trackHeader}>
               {theme === 'light' ?
                 <div className='theme-toggler' onClick={themeToggler}>
                   <MdLightMode />
