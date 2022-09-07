@@ -213,7 +213,7 @@ function ProductInformation({
 
   const relatedLink = (e) => {
     e.preventDefault();
-    window.location.replace("/#related");
+    window.location.replace("/#reviews");
   }
 
   return (

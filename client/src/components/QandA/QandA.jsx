@@ -28,7 +28,7 @@ const QandA = (props) => {
   }, []);
 
   return (
-    <div className='qanda'>
+    <div className='qanda' onClick={props.trackClick}>
       <h2 className='qanda-heading'>QUESTIONS AND ANSWERS</h2>
       <QuestionList
         questions={questions}

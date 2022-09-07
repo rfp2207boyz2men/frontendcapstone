@@ -394,7 +394,7 @@ a:visited {
   align-items: center;
   caret-color: white;
   padding-left: 10px;
-  color: white;
+  color: ${(props) => props.theme.qandaPlaceholder};
   font-size: 16px;
   border-left: ${(props) => props.theme.qandaBorderLeft};
   border-top: ${(props) => props.theme.qandaBorderTop};
@@ -1097,14 +1097,77 @@ a:visited {
   REVIEW LIST
 ***********************/
 
-.reviewListHeader {
-  display: flex;
-  flex-direction: row;
+.reviewSearchSection {
+  display: inline-flex;
+  border-bottom: 1px solid ${(props) => props.theme.burlyAndTeal};
   width: 900px;
-  justify-content: space-between;
+  height: 50px;
+  padding: 0 10px;
   align-items: center;
-  margin-right: 50px;
 }
+
+.reviewSearchBar {
+  display: inline-flex;
+  width: 900px;
+  height: 50px;
+  background-color: transparent;
+  border: 0;
+  font-size: 16px;
+  color: ${(props) => props.theme.qandaPlaceholder};
+}
+
+.reviewSearchBarIcon {
+  float: right;
+  border: none;
+  background-color: transparent;
+  font-size: 30px;
+}
+
+.reviewSearchBar::placeholder {
+  display: flex;
+  font-size: 16px;
+  color: ${(props) => props.theme.qandaPlaceholder};
+}
+
+.reviewListHeader {
+  padding: 0 10px;
+}
+
+.reviewSortSection span {
+  border-bottom: 1px solid black;
+  cursor: pointer;
+}
+
+.reviewSortDropDown {
+  position: absolute;
+  background-color: ${(props) => props.theme.tealAndBurly};
+  width: 80px;
+}
+
+.reviewSortDropDown p {
+  color: ${(props) => props.theme.fontColor};
+  margin: 0;
+  margin-bottom: 3px;
+}
+
+.reviewSortDropDown p:last-child {
+  margin: 0;
+}
+
+.reviewSortDropDown p:hover {
+  background-color: ${(props) => props.theme.burlyAndTeal};
+  color: ${(props) => props.theme.defaultPrice};
+  cursor: pointer;
+}
+
+// .reviewListHeader {
+//   display: flex;
+//   flex-direction: row;
+//   width: 900px;
+//   justify-content: space-between;
+//   align-items: center;
+//   margin-right: 50px;
+// }
 
 .reviewListHeader h3 {
   font-size: 14px;
@@ -1127,6 +1190,15 @@ a:visited {
   border-top: 1px solid black;
   border-bottom: 1px solid black;
 }
+
+.reviewTileShowMore {
+  cursor: pointer;
+  width: 80px;
+}
+
+// .reviewCheckmark {
+//   color: red;
+// }
 
 .reviewPhotoThumbnailSection {
   /* height: 150px; */
@@ -1491,7 +1563,8 @@ button:hover {
 .reviewExpandButton {
   border-radius: 5px;
   height: 30px;
-  background-color: ${(props) => props.theme.burlyAndTeal};
+  background-color: ${(props) => props.theme.tealAndBurly};
+  color: ${(props) => props.theme.fontColor};
   border-style: none;
 }
 
