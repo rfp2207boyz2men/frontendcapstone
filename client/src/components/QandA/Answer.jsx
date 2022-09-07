@@ -51,6 +51,8 @@ const Answer = (props) => {
     <div className='answer'>
       <div className='answer-line'>
         <strong> A: {props.answer.body}</strong>
+        {props.answer.photos.length > 0 ?
+        props.answer.photos.map((photo) => <img src={photo.url} className='answer-photo' key={photo.id}/>) : null}
         <small className='user-info'>
           by {username === 'Seller'
           ? <b>username</b>

@@ -1,31 +1,39 @@
 import React, { useState, useEffect, useContext } from 'react';
 import ReactDOM from 'react-dom'
 import Parse from '../../parse.js';
+import CONFIG from '../../../../config.js';
 
 const AnswerModal = (props) => {
   const [userAnswer, setUserAnswer] = useState('');
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
   const [photos, setPhotos] = useState([]);
+  const [photosData, setPhotosData] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
 
   let form;
   let data;
   let newPhotos;
-  let photoUrl;
+  let newPhotosData;
+  let photosUrl;
+  let formData;
+  let uploadPreset;
+  let url = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
   let questionId = props.questionId;
 
   let handleSubmit = (event) => {
     event.preventDefault();
+
+    uploadAllPhotos();
+
     data = {
       body: userAnswer,
       name: nickname,
       email: email,
-      photos: imageUrl
-      // need to add photos
+      photos: imageUrls
     }
 
-    Parse.create(`qa/questions/${questionId}/answers`, params, data)
+    Parse.create(`qa/questions/${questionId}/answers`, undefined, data)
       .then((results) => {
         props.getAnswers();
         props.handleModal();
@@ -56,8 +64,34 @@ const AnswerModal = (props) => {
   let handlePhotoInput = (event) => {
     newPhotos = [...photos]
     newPhotos.push(URL.createObjectURL(event.target.files[0]));
-    console.log(event.target.files[0])
     setPhotos(newPhotos);
+    newPhotosData = [...photosData];
+    newPhotosData.push(event.target.files[0]);
+    setPhotosData(newPhotosData);
+  }
+
+  let uploadPhoto = (photo) => {
+    formData = new FormData();
+    formData.append('file', photo);
+    formData.append('upload_preset', CLOUDINARY_PRESET);
+
+    return Parse.upload(url, formData);
+  }
+
+  let uploadAllPhotos = () => {
+    return Promise.all(photosData.map((photo) => uploadPhoto(photo)))
+      .then((response) => {
+        photosUrl = [];
+        for (let photo of response) {
+          photosUrl.push(photo.data.secure_url);
+        }
+        setImageUrls(photosUrl);
+      })
+      .catch((error) => {
+        console.log(error);
+        setPhotos([]);
+        setPhotosData([]);
+      })
   }
 
 

@@ -227,3 +227,12 @@ input[type='file'] {
   WEB PAGE FUNCTIONS
 */
 
+/*
+  ANSWER PHOTOS
+*/
+
+.answer-photo {
+  display: inline-flex;
+  height: 10%;
+  width: 20%;
+}

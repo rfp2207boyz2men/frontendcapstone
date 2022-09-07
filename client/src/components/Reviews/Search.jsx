@@ -5,7 +5,7 @@ const Search = (props) => {
 
   return (
     <div>
-      <input type='text' placeholder='search reviews' onChange={props.onChange}></input>
+      <input type='search' placeholder='search reviews' onChange={props.onChange}></input>
       <BiSearch />
     </div>
   )

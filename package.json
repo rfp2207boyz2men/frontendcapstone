@@ -5,7 +5,8 @@
   "main": "client/src/index.js",
   "scripts": {
     "dev": "webpack serve",
-    "build": "webpack"
+    "build": "webpack",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
