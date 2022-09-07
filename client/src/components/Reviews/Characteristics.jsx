@@ -78,7 +78,7 @@ const Characteristics = (props) => {
     let trueValue = value - 1;
     let percentage = trueValue / 4;
     let right = 10 + (300 * (1 - percentage));
-    return <div style={{position: 'relative', right: `${right}px`}}><VscTriangleDown /></div>
+    return <div className='reviewCharacteristicArrow' style={{position: 'relative', right: `${right}px`}}><VscTriangleDown /></div>
   };
 
   return(

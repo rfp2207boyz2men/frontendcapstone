@@ -1111,8 +1111,8 @@ input[type='file'] {
   height: auto;
   width: 400px;
   margin-right: 30px;
-  padding: 0 10px 20px 10px;
-  border-right: 1px solid ${(props) => props.theme.burlyAndTeal};
+  padding: 0 40px 20px 10px;
+  border-right: 1px solid burlywood;
 }
 
 .reviewList {
@@ -1160,7 +1160,7 @@ input[type='file'] {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 400px;
+  width: 420px;
   height: 400px;
 }
 
@@ -1203,9 +1203,11 @@ input[type='file'] {
   flex-direction: column;
   justify-content: space-between;
   height: 80px;
+  padding-left: 5px;
 }
 
 .ratingStarIndicator u {
+  color: ${(props) => props.theme.burlyAndTeal};
   cursor: pointer;
 }
 
@@ -1229,6 +1231,10 @@ input[type='file'] {
   flex-direction: row;
   flex-wrap: wrap;
   width: 400px;
+}
+
+.reviewSideCharacteristics {
+  padding-left: 4px;
 }
 
 .reviewCharacteristicLabel {
@@ -1258,6 +1264,15 @@ input[type='file'] {
   height: 30px;
 }
 
+.reviewCharacteristicBarLabels p {
+  margin-top: 0;
+}
+
+.reviewCharacteristicArrow {
+  margin-top: 10px;
+}
+
+
 
 
 
@@ -1274,7 +1289,7 @@ input[type='file'] {
 
 .reviewSearchSection {
   display: inline-flex;
-  border-bottom: 1px solid ${(props) => props.theme.burlyAndTeal};
+  border-bottom: 1px solid burlywood;
   width: 780px;
   height: 50px;
   padding: 0 10px;
@@ -1309,7 +1324,7 @@ input[type='file'] {
 }
 
 .reviewSortSection span {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid burlywood;
   cursor: pointer;
 }
 
@@ -1317,6 +1332,8 @@ input[type='file'] {
   position: absolute;
   background-color: ${(props) => props.theme.tealAndBurly};
   width: 80px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
 }
 
 .reviewSortDropDown p {
@@ -1381,6 +1398,10 @@ input[type='file'] {
   padding: 0 20px;
 }
 
+.reviewInteractions u {
+  color: ${(props) => props.theme.burlyAndTeal};
+}
+
 .reviewHelpful {
   display: flex;
   flex-direction: row;
@@ -1405,6 +1426,10 @@ input[type='file'] {
 .reviewExpandButton {
   height: 60px;
   margin-right: 10px;
+}
+
+.reviewCheckmark {
+  color: ${(props) => props.theme.fontColor};
 }
 
 /**********************

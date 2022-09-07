@@ -44,7 +44,7 @@ const Breakdowns = (props) => {
           <p>Current Star Filters:</p>
           {stars.map((star, index) => <p key={index}>{star}</p>)}
         </div>
-        <p onClick={props.removeStarFilter}><u>Remove all star filters</u></p>
+        <p className='ratingsRemoveStarFilter' onClick={props.removeStarFilter}><u>Remove all star filters</u></p>
       </>
     )
   }
