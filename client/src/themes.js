@@ -1,7 +1,11 @@
 import { createGlobalStyle } from "styled-components";
 
 export const lightTheme = {
+<<<<<<< HEAD
   body: "white",
+=======
+  body: "#fff",
+>>>>>>> dev
   fontColor: "black",
   mainBColor: 'white',
   headerBColor: 'white',
@@ -9,10 +13,17 @@ export const lightTheme = {
   starColor: 'teal',
   productBgColor: 'rgba(28,28,30, .9)',
   productBorderColor: '1px solid black',
+<<<<<<< HEAD
   productImgBorder: '1px solid teal',
   productDescBorder: '1px solid burlywood',
   burlyBorderBlack: '1px solid black',
   starCardColor: 'teal',
+=======
+  productImgBorder: '',
+  productDescBorder: '1px solid burlywood',
+  burlyBorderBlack: '',
+  starCardColor: '',
+>>>>>>> dev
   defaultPrice: 'white',
   qandaSearchBg: 'white',
   qandaBorderLeft: '1px solid black',
@@ -28,6 +39,7 @@ export const lightTheme = {
   addAnswercolor: 'teal',
   reportColor: 'teal',
   plusCardAreaBg: '#cccccc',
+<<<<<<< HEAD
   plusCardAreaColor: 'black',
   burlyAndTeal: 'teal',
   tealAndBurly: 'burlywood',
@@ -39,6 +51,15 @@ export const lightTheme = {
   linkColor: 'black',
   modalCompareBg: 'white',
   modalCompareText: 'black',
+=======
+  plusCardAreaColor: 'teal',
+  burlyAndTeal: 'teal',
+  tealAndBurly: 'burlywood',
+  gContainerImg: '',
+  togglerBg: 'burlywood',
+  selectColor: 'black',
+  selectBorder: '2px solid burlywood',
+>>>>>>> dev
 };
 
 export const darkTheme = {
@@ -76,14 +97,44 @@ export const darkTheme = {
   togglerBg: '#858585',
   selectColor: 'teal',
   selectBorder: '2px solid #256D85',
+<<<<<<< HEAD
   buttonText: 'black',
   linkColor: 'white',
   modalCompareBg: '#121212',
   modalCompareText: 'white',
+=======
+>>>>>>> dev
 };
 
 export const GlobalStyles = createGlobalStyle`
 
+<<<<<<< HEAD
+=======
+.aClass {
+  animation: slideIn 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translate3d(-20rem, 0, 500rem);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+>>>>>>> dev
 
 /*
   BOTH MODES
@@ -91,12 +142,17 @@ export const GlobalStyles = createGlobalStyle`
 
 html {
   scroll-behavior: smooth;
+<<<<<<< HEAD
   background-color: ${(props) => props.theme.htmlBackgroundColor};
 }
 
 a {
   color: ${(props) => props.theme.linkColor};
 }
+=======
+}
+
+>>>>>>> dev
 
 body {
   font-family: 'Noto Sans', sans-serif;
@@ -109,8 +165,11 @@ body {
   /* border: 1px dotted blue; */
   display: flex;
   flex-direction: column;
+<<<<<<< HEAD
   width: 1400px;
   margin: auto;
+=======
+>>>>>>> dev
   background-color: ${(props) => props.theme.mainBColor};
   color: ${(props) => props.theme.fontColor};
 }
@@ -119,11 +178,16 @@ body {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+<<<<<<< HEAD
   padding-top: 10px;
   padding-bottom: 10px;
   height: 100px;
   width: 1400px;
   margin: auto;
+=======
+  padding: 10px;
+  height: 100px;
+>>>>>>> dev
   background-color: ${(props) => props.theme.headerBColor};
   color: ${(props) => props.theme.fontColor};
   border-bottom: 1px solid burlywood;
@@ -131,6 +195,7 @@ body {
 
 .theme-toggler {
   cursor: pointer;
+<<<<<<< HEAD
   font-size: 18px;
   transition: ease-in-out 0.5s;
   padding: 5px;
@@ -157,6 +222,14 @@ body {
 .theme-toggler > svg {
   margin-right: 10px;
   padding-top: 10px;
+=======
+  font-size: 20px;
+  margin-left: 20px;
+  transition: ease-in-out 0.5s;
+}
+.theme-toggler > svg {
+  margin-right: 10px;
+>>>>>>> dev
 }
 
 .theme-toggler:hover {
@@ -218,6 +291,11 @@ a:visited {
 }
 
 .search:focus {
+<<<<<<< HEAD
+=======
+  border: 1px solid teal;
+  border-radius: 10px;
+>>>>>>> dev
   color: ${(props) => props.theme.fontColor};
 }
 
@@ -232,10 +310,15 @@ a:visited {
 
 .shoppingBag {
   margin-top: 15px;
+<<<<<<< HEAD
   font-size: 30px;
   padding: 5px;
   padding-right: 13px;
   position: relative;
+=======
+  font-size: 25px;
+  padding: 5px;
+>>>>>>> dev
 }
 
 .cart {
@@ -248,6 +331,7 @@ a:visited {
   background-color: teal;
   color: #fff;
   text-align: center;
+<<<<<<< HEAD
   font-size: 16px;
   margin: 0;
   padding: 0;
@@ -255,6 +339,11 @@ a:visited {
   top: 0px;
   right: 0px;
   opacity: .95;
+=======
+  font-size: 18px;
+  margin: 0;
+  padding: 0;
+>>>>>>> dev
 }
 
 .star {
@@ -269,7 +358,11 @@ a:visited {
 .relatedSection, .outfitsSection {
   height: 500px;
   margin: auto;
+<<<<<<< HEAD
   width: 1330px;
+=======
+  width: 1340px;
+>>>>>>> dev
   background-color: ${(props) => props.theme.mainBColor};
   padding-left: 70px;
 }
@@ -326,7 +419,11 @@ a:visited {
 .productCardDesc {
   padding-left: 10px;
   padding-top: 10px;
+<<<<<<< HEAD
   width: 245px;
+=======
+  width: 255px;
+>>>>>>> dev
   height: 50px;
   color: white;
   border-top: ${(props) => props.theme.productDescBorder};
@@ -389,7 +486,11 @@ a:visited {
 */
 
 .questionsSection {
+<<<<<<< HEAD
   width: 1300px;
+=======
+  width: 100px;
+>>>>>>> dev
   height: auto;
   margin-left: 50px;
 }
@@ -397,10 +498,17 @@ a:visited {
 .qanda {
   display: flex;
   flex-direction: column;
+<<<<<<< HEAD
   width: 1250px;
   height: 500px;
   border-bottom: 1px dashed burlywood;
   border-top: 1px dashed burlywood;
+=======
+  width: 1300px;
+  height: auto;
+  /* border: 2px solid black; */
+  border-bottom: 1px dashed white;
+>>>>>>> dev
   overflow-y: auto;
   padding: 20px;
   margin-top: 50px;
@@ -420,7 +528,11 @@ a:visited {
 .qanda-search {
   display: inline-flex;
   border: 1px solid white;
+<<<<<<< HEAD
   width: 1248px;
+=======
+  width: 1298px;
+>>>>>>> dev
   height: 50px;
   margin-top: 5px;
 }
@@ -435,7 +547,11 @@ a:visited {
   align-items: center;
   caret-color: white;
   padding-left: 10px;
+<<<<<<< HEAD
   color: ${(props) => props.theme.qandaPlaceholder};
+=======
+  color: white;
+>>>>>>> dev
   font-size: 16px;
   border-left: ${(props) => props.theme.qandaBorderLeft};
   border-top: ${(props) => props.theme.qandaBorderTop};
@@ -464,7 +580,11 @@ a:visited {
 .question-list {
   display: flex;
   flex-direction: column;
+<<<<<<< HEAD
   width: 1250px;
+=======
+  width: 1300px;
+>>>>>>> dev
   overflow-y: auto;
 }
 
@@ -473,6 +593,7 @@ a:visited {
   height: 0;
 }
 
+<<<<<<< HEAD
 .qandaButtons {
   display: flex;
   width: 355px;
@@ -482,6 +603,11 @@ a:visited {
 .question-body {
   display: flex;
   width: 1250px;
+=======
+.question-body {
+  display: flex;
+  width: 1400px;
+>>>>>>> dev
   height: auto;
   flex-direction: column;
   justify-content: space-between;
@@ -523,6 +649,7 @@ a:visited {
   margin: 5px
 }
 
+<<<<<<< HEAD
 .photoThumbnail {
   display: inline-flex;
   height: auto;
@@ -544,6 +671,11 @@ input[type='file'] {
   margin-right: 10px;
 }
 
+=======
+/*
+  BUTTONS
+*/
+>>>>>>> dev
 .show-more-or-less {
   margin-top: 10px;
   height: 30px;
@@ -578,6 +710,7 @@ input[type='file'] {
   color: ${(props) => props.theme.reportColor};
 }
 
+<<<<<<< HEAD
 /*
   PORTAL OVERLAY
 */
@@ -676,6 +809,8 @@ input[type='file'] {
 /*
   WEB PAGE FUNCTIONS
 */
+=======
+>>>>>>> dev
 
 /*
   Outfits
@@ -744,8 +879,13 @@ input[type='file'] {
 
 .modal-main {
   position:fixed;
+<<<<<<< HEAD
   background: ${(props) => props.theme.modalCompareBg};
   color: ${(props) => props.theme.modalCompareText};
+=======
+  background: #1c1c1e;
+  color: white;
+>>>>>>> dev
   width: 770px;
   height: auto;
   top:50%;
@@ -834,11 +974,17 @@ input[type='file'] {
 
 .main-container {
   display: flex;
+<<<<<<< HEAD
   align-items: flex-start;
   justify-content: center;
   scroll-behavior: smooth
   padding-top: 50px;
   margin-top: 50px;
+=======
+  align-items: center;
+  justify-content: center;
+  scroll-behavior: smooth
+>>>>>>> dev
 }
 
 /* ----------------- Image Gallery ----------------- */
@@ -846,10 +992,18 @@ input[type='file'] {
 
 .image-container {
   display: flex;
+<<<<<<< HEAD
   align-items: flex-start;
   justify-content: center;
   flex-direction: row;
   background-color: ${(props) => props.theme.mainBColor};
+=======
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  background-color: ${(props) => props.theme.mainBColor};
+  margin-top: 50px;
+>>>>>>> dev
 }
 
 .overviewFeature {
@@ -863,7 +1017,11 @@ input[type='file'] {
   align-items: center;
   justify-content: center;
   transition: ease-in 0.5s ease;
+<<<<<<< HEAD
   margin: 0px 10px 0px 10px;
+=======
+  margin: 10px;
+>>>>>>> dev
 }
 
 .pv-container-active {
@@ -881,6 +1039,10 @@ input[type='file'] {
   height: 500px;
   object-fit: cover;
   border: ${(props) => props.theme.burlyBorderBlack};
+<<<<<<< HEAD
+=======
+  animation: fadeIn 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+>>>>>>> dev
 }
 
 .pv-active {
@@ -895,7 +1057,11 @@ input[type='file'] {
 
 .g-container {
   display: flex;
+<<<<<<< HEAD
   align-items: space-between;
+=======
+  align-items: center;
+>>>>>>> dev
   justify-content: center;
   flex-direction: column;
 }
@@ -908,11 +1074,16 @@ input[type='file'] {
   cursor: pointer;
   background-color: #fff;
   width: 50px;
+<<<<<<< HEAD
   margin-bottom: 20px;
+=======
+  margin: 20px;
+>>>>>>> dev
   height: 50px;
   transition: all .5s ease;
 }
 
+<<<<<<< HEAD
 .g-entry:hover {
   background: white;
   opacity: .80;
@@ -920,6 +1091,16 @@ input[type='file'] {
 
 .g-border {
   border-bottom: solid 5px burlywood;
+=======
+/* .g-border {
+  border-bottom: solid 5px burlywood;
+} */
+
+.g-line {
+  width: 50px;
+  height: 3px;
+  background-color: ${(props) => props.theme.tealAndBurly};
+>>>>>>> dev
 }
 
 .arrow {
@@ -928,6 +1109,10 @@ input[type='file'] {
   font-size: 25px;
   padding: 5px;
   transition: all .5s ease;
+<<<<<<< HEAD
+=======
+  animation: slideIn 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+>>>>>>> dev
 }
 
 .expand {
@@ -940,17 +1125,24 @@ input[type='file'] {
 /* ----------------- Style Section ----------------- */
 
 .info-container {
+<<<<<<< HEAD
   margin: 0 30px;
+=======
+  margin: 30px 30px;
+>>>>>>> dev
   width: 250px;
   scroll-behavior: smooth;
 }
 
+<<<<<<< HEAD
 .reviewsInfo {
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
 
+=======
+>>>>>>> dev
 .star {
   margin: 0 2px;
 }
@@ -966,10 +1158,26 @@ input[type='file'] {
 .style-text {
   font-size: 14px;
   margin-right: 5px;
+<<<<<<< HEAD
   color: ${(props) => props.theme.fontColor};;
   font-weight: 400;
 }
 
+=======
+  color: ${(props) => props.theme.fontColor};
+  font-weight: 400;
+}
+
+.style-category {
+  line-height: 14px;
+  text-decoration: underline;
+  margin-top: 20px;
+  padding: 0;
+  font-size: 15px;
+  color: ${(props) => props.theme.fontColor};
+}
+
+>>>>>>> dev
 .price {
   font-size: 14px;
   font-weight: 400;
@@ -989,7 +1197,11 @@ input[type='file'] {
 
 .style-entry {
   cursor: pointer;
+<<<<<<< HEAD
   border-radius: 30px;
+=======
+  border-radius: 20%;
+>>>>>>> dev
   border: solid 0.5px #333;
   object-fit: cover;
   height: 50px;
@@ -1005,7 +1217,11 @@ input[type='file'] {
   flex-wrap: wrap;
 }
 
+<<<<<<< HEAD
 .style-container img {
+=======
+.style-container-active {
+>>>>>>> dev
   border: ${(props) => props.theme.burlyBorderBlack};
 }
 
@@ -1016,7 +1232,10 @@ input[type='file'] {
 .add-cart {
   padding: 10px 30px;
   margin: 5px 7px;
+<<<<<<< HEAD
   width: 150px;
+=======
+>>>>>>> dev
   background:  ${(props) => props.theme.tealAndBurly};
   border-radius: 4px;
   border: none;
@@ -1031,27 +1250,39 @@ input[type='file'] {
 }
 
 .select {
+<<<<<<< HEAD
   background: #cccccc;
   border: burlywood;
   color: black;
+=======
+  background: transparent;
+  border-radius: 3px;
+  border: ${(props) => props.theme.selectBorder};
+  color: ${(props) => props.theme.selectColor};
+>>>>>>> dev
   padding: 10px 20px;
   margin: 5px 7px;
 }
 
 .select > svg {
   font-size: 14px;
+<<<<<<< HEAD
   color: black;
 }
 
 .select select-star {
   background: burlywood;
   color: black;
+=======
+  color: ${(props) => props.theme.tealAndBurly};
+>>>>>>> dev
 }
 
 
 /* ----------------- Product Overview ----------------- */
 .prodview-container {
   display: flex;
+<<<<<<< HEAD
   width: 700px;
   justify-content: center;
   align-items: center;
@@ -1061,6 +1292,16 @@ input[type='file'] {
 
 .prodview-text {
   width: auto;
+=======
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin: 40px 400px;
+}
+
+.prodview-text {
+  width: 100%;
+>>>>>>> dev
 }
 
 .prodview-line {
@@ -1089,7 +1330,10 @@ input[type='file'] {
 .feature {
   display: inline-block;
   margin: 0 10px;
+<<<<<<< HEAD
   width: auto;
+=======
+>>>>>>> dev
 }
 
 /*******************
@@ -1099,9 +1343,20 @@ input[type='file'] {
 .reviewMain {
   display: flex;
   flex-direction: row;
+<<<<<<< HEAD
   justify-content: center;
   width: 1400px;
   height: auto;
+=======
+  /* flex-wrap: wrap; */
+  justify-content: space-between;
+  width: 1400px;
+  height: auto;
+  padding: 50px;
+  /* background-color: pink; */
+  /* border: 2px solid black; */
+  /* overflow-y: auto; */
+>>>>>>> dev
 }
 
 .reviewSideBar {
@@ -1111,14 +1366,22 @@ input[type='file'] {
   width: 400px;
   margin-right: 30px;
   padding: 0 10px 20px 10px;
+<<<<<<< HEAD
   border-right: 1px solid teal;
+=======
+  border-right: 1px solid white;
+>>>>>>> dev
   /* background-color: gray; */
   /* border: 2px solid rgb(8, 88, 8); */
 }
 
 .reviewList {
   height: auto;
+<<<<<<< HEAD
   width: 800px;
+=======
+  width: 900px;
+>>>>>>> dev
   /* border: 2px solid black; */
   overflow-y: auto;
 }
@@ -1139,6 +1402,7 @@ input[type='file'] {
 
 .averageRating {
   display: flex;
+<<<<<<< HEAD
   align-items: center;
   /* border: 1px solid gray; */
 }
@@ -1151,6 +1415,11 @@ input[type='file'] {
   padding-bottom: 15px;
 }
 
+=======
+  /* border: 1px solid gray; */
+}
+
+>>>>>>> dev
 /*
   RECOMMENDATIONS
 */
@@ -1283,6 +1552,7 @@ input[type='file'] {
   REVIEW LIST
 ***********************/
 
+<<<<<<< HEAD
 
 .reviewListHeader {
   display: flex;
@@ -1362,6 +1632,17 @@ input[type='file'] {
 //   margin-right: 50px;
 // }
 
+=======
+.reviewListHeader {
+  display: flex;
+  flex-direction: row;
+  width: 900px;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 50px;
+}
+
+>>>>>>> dev
 .reviewListHeader h3 {
   font-size: 14px;
 }
@@ -1384,6 +1665,7 @@ input[type='file'] {
   border-bottom: 1px solid black;
 }
 
+<<<<<<< HEAD
 .reviewTileShowMore {
   cursor: pointer;
   width: 80px;
@@ -1393,6 +1675,8 @@ input[type='file'] {
 //   color: red;
 // }
 
+=======
+>>>>>>> dev
 .reviewPhotoThumbnailSection {
   /* height: 150px; */
   /* background-color: pink; */
@@ -1443,7 +1727,10 @@ input[type='file'] {
 .reviewExpandButton {
   height: 60px;
   margin-right: 10px;
+<<<<<<< HEAD
   color: ${(props) => props.theme.buttonText};;
+=======
+>>>>>>> dev
 }
 
 /**********************
@@ -1452,14 +1739,23 @@ input[type='file'] {
 
 .reviewPhotoExpand {
   position: fixed;
+<<<<<<< HEAD
   max-height: 90vh;
   max-width: 90vw;
+=======
+  max-height: 70vh;
+  max-width: 70vw;
+>>>>>>> dev
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 10px;
   background-color: white;
+<<<<<<< HEAD
   border: 2px solid ${(props) => props.theme.burlyAndTeal};
+=======
+  border: 2px solid teal;
+>>>>>>> dev
   z-index: 3;
   overflow-y: auto;
 }
@@ -1757,8 +2053,12 @@ button:hover {
 .reviewExpandButton {
   border-radius: 5px;
   height: 30px;
+<<<<<<< HEAD
   background-color: ${(props) => props.theme.tealAndBurly};
   color: ${(props) => props.theme.fontColor};
+=======
+  background-color: ${(props) => props.theme.burlyAndTeal};
+>>>>>>> dev
   border-style: none;
 }
 

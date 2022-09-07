@@ -126,6 +126,7 @@ const App = () => {
   // const retrieveStyles = () => {
   //   let state = {};
   //   let params = `${selectedProduct.id}/styles`;
+<<<<<<< HEAD
 
   //   Parse.getAll(`products/`, params)
   //   .then((styles) => {
@@ -133,6 +134,15 @@ const App = () => {
   //   })
   // }
 
+=======
+
+  //   Parse.getAll(`products/`, params)
+  //   .then((styles) => {
+  //     setStyles(styles.data.results);
+  //   })
+  // }
+
+>>>>>>> dev
   const handleSelectedProduct = (id) => {
     //unloadComponents(id);
   }
@@ -149,6 +159,7 @@ const App = () => {
     setTheme(lastTheme);
     setOutfits(storedOutfits);
   }
+<<<<<<< HEAD
 
   const handleLocalClick = (e) => {
     e.preventDefault();
@@ -170,6 +181,29 @@ const App = () => {
     }
   }
 
+=======
+
+  const handleLocalClick = (e) => {
+    e.preventDefault();
+    setLocalName(e.target.name);
+    setLocalId(e.target.id);
+  }
+
+
+  const handleLocalSave = (e) => {
+    e.preventDefault();
+    let styleObj = styles.filter((style => {
+      return style.style_id === localId;
+    }));
+
+    if (!localStorage.getItem(localName)) {
+      const jsonObj = JSON.stringify(styleObj);
+      localStorage.setItem(localId, jsonObj);
+      console.log('item saved in localStorage');
+    }
+  }
+
+>>>>>>> dev
   const removeStorage = (e) => {
     localStorage.removeItem(e.target.id);
   };
@@ -256,15 +290,42 @@ const App = () => {
         getTotalReviews,
         renderStars,
       }}>
+<<<<<<< HEAD
         {loading ?
           <StyledApp>
             <div className="header" onClick={trackHeader}>
+=======
+
+
+        {loading ?
+          <StyledApp>
+            {/* <div className="toggleTheme">
+            <div>Dark Mode:</div>
+            <label className="switch">
+              <input type="checkbox"></input>
+              <span className="slider round"></span>
+            </label>
+          </div> */}
+            <div className="header" onClick={trackHeader}>
+              {theme === 'light' ?
+                <div className='theme-toggler' onClick={themeToggler}>
+                  <MdLightMode />
+                  Theme
+                </div>
+                :
+                <div className='theme-toggler' onClick={themeToggler}>
+                  <MdDarkMode />
+                  Theme
+                </div>
+              }
+>>>>>>> dev
               <div className="logoheader">
                 <div className="logotext"><h1>Odin</h1></div>
                 <div className="logo"><GiTriquetra /></div>
               </div>
               <div className="toprightHeader">
                 <div className="searchbar"><input className="search" placeholder="Search"></input><GoSearch className="searchIcon" /></div>
+<<<<<<< HEAD
                 <div className="shoppingBag"><BsBag />{cart && <div className='cart'>{cart.length}</div>}</div>
               </div>
               {
@@ -291,6 +352,18 @@ const App = () => {
               </div>
               <div className='relatedSection'>
                 <RelatedTrack
+=======
+                <div className="shoppingBag"><BsBag /></div>{cart && <div className='cart'>{cart.length}</div>}
+              </div>
+            </div>
+            <div className="main">
+              <div>
+                <Overview
+                />
+              </div>
+              <div className='relatedSection'>
+                <Related
+>>>>>>> dev
                   selectedProduct={selectedProduct}
                   addToOutfit={handleOutfitAdds}
                   selectStyle={unloadComponents}
@@ -298,7 +371,11 @@ const App = () => {
                   starRender={renderStars} />
               </div>
               <div className='outfitsSection'>
+<<<<<<< HEAD
                 <OutfitsTrack
+=======
+                <Outfits
+>>>>>>> dev
                   outfits={outfits}
                   current={selectedProduct}
                   outfitAdd={handleOutfitAdds}
@@ -308,11 +385,19 @@ const App = () => {
                   starRender={renderStars} />
               </div>
               <div className="questionsSection">
+<<<<<<< HEAD
                 <QandATrack
                   selectedProduct={selectedProduct}
                 />
               </div>
               <div id='reviews'>
+=======
+                <QandA
+                  selectedProduct={selectedProduct}
+                />
+              </div>
+              <div id='related'>
+>>>>>>> dev
                 <ReviewsTrack
                   totalReviews={totalReviews}
                   getTotalReviews={getTotalReviews}

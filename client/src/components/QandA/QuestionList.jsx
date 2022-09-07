@@ -78,7 +78,10 @@ const QuestionList = (props) => {
                 productName={props.productName} />
               )}
             </div>
+<<<<<<< HEAD
             <div className='qandaButtons'>
+=======
+>>>>>>> dev
             <button
               className='question-list-button'
               onClick={handleShowMore}>
@@ -89,7 +92,10 @@ const QuestionList = (props) => {
               onClick={handleModal}>
               Add a Question +
             </button>
+<<<<<<< HEAD
             </div>
+=======
+>>>>>>> dev
           </>:
           <>
             <div className='question-list'>

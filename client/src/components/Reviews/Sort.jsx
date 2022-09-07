@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+<<<<<<< HEAD
 import { VscTriangleDown } from 'react-icons/vsc';
 
 const Sort = (props) => {
@@ -52,6 +53,17 @@ const Sort = (props) => {
       </div>
 }
     </div>
+=======
+
+const Sort = (props) => {
+
+  return (
+    <select className='reviewSort' name='sort' onChange={props.onChange}>
+      <option value='helpful'>Helpful</option>
+      <option value='newest'>Newest</option>
+      <option value='relevant'>Relevant</option>
+    </select>
+>>>>>>> dev
   )
 };
 

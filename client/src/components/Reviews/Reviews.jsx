@@ -23,6 +23,10 @@ const Reviews = (props) => {
   const [sort, setSort] = useState('relevant');
 
   useEffect(() => {
+<<<<<<< HEAD
+=======
+    console.log('REVIEWS PROCCED');
+>>>>>>> dev
     if (!localStorage.getItem('helpfulReviews')) {
       localStorage.setItem('helpfulReviews', JSON.stringify({}));
     }
@@ -132,16 +136,26 @@ const Reviews = (props) => {
     setStarFilter(enableFilter(stars));
   };
 
+<<<<<<< HEAD
   const handleOnSortChange = (sort) => {
     localStorage.setItem('sort', sort);
     console.log(sort)
     getSortedReviews(totalReviews, sort)
+=======
+  const handleOnSortChange = (e) => {
+    localStorage.setItem('sort', e.target.value);
+    getSortedReviews(totalReviews, e.target.value)
+>>>>>>> dev
     .then((reviews) => {
       setReviews(reviews.data.results);
       let filteredReviews = filterReviews(reviews.data.results);
       setFilteredReviews(filteredReviews);
       setSlicedReviews(filteredReviews.slice(0, showAmount));
+<<<<<<< HEAD
       setSort(sort);
+=======
+      setSort(e.target.value);
+>>>>>>> dev
     })
     .catch((err) => console.log(err));
   };

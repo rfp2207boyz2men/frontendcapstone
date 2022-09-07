@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 /*******************
   MAIN DIVS
 ********************/
+=======
+/* ******************
+  MAIN DIVS
+
+>>>>>>> dev
 
 .reviewMain {
   display: flex;
@@ -160,6 +166,7 @@
   REVIEW LIST
 ***********************/
 
+<<<<<<< HEAD
 .reviewSearchSection {
   display: inline-flex;
   border-bottom: 1px solid grey;
@@ -218,6 +225,11 @@
   flex-direction: row;
   flex-wrap: wrap;
   width: 350px;
+=======
+.reviewListHeader {
+  display: flex;
+  flex-direction: row;
+>>>>>>> dev
 }
 
 .reviewTile {
@@ -274,7 +286,11 @@
 /**********************
   PHOTO OVERLAY
 ***********************/
+<<<<<<< HEAD
 
+=======
+/*
+>>>>>>> dev
 .reviewPhotoExpand {
   position: fixed;
   max-height: 90vh;
@@ -292,12 +308,17 @@
 .reviewPhotoExit {
   left: 10px;
   top: 10px;
+<<<<<<< HEAD
 }
+=======
+} */
+>>>>>>> dev
 
 /**********************
   INPUT OVERLAY
 ***********************/
 
+<<<<<<< HEAD
 .reviewOverlayBackground {
   position: fixed;
   top: 0;
@@ -307,6 +328,16 @@
   height: 100vh;
   width: 100vw;
 }
+=======
+/* .reviewOverlayBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 30%;
+  height: 100vh;
+  width: 100vw;
+} */
+>>>>>>> dev
 
 /**********************
   REVIEW INPUT
@@ -514,4 +545,8 @@
 .reviewInputPhotoButtonPlus {
   font-size: 40px;
   margin: auto;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> dev

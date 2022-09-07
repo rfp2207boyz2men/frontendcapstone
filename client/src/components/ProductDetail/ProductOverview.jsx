@@ -72,7 +72,11 @@ const Feature = styled.div`
 
 /* --------------------  ProductOverview  --------------------*/
 
+<<<<<<< HEAD
 function ProductOverview({ product, currentPhoto, currentStyle, trackClick }) {
+=======
+function ProductOverview({ product, currentPhoto, currentStyle }) {
+>>>>>>> dev
   const [loading, setLoading] = useState(true);
   const [shareQuote, setShareQuote] = useState();
   const [shareHashtag, setShareHashtag] = useState();
@@ -97,7 +101,11 @@ function ProductOverview({ product, currentPhoto, currentStyle, trackClick }) {
   }, [product])
 
   return (
+<<<<<<< HEAD
     <div onClick={trackClick}>
+=======
+    <div>
+>>>>>>> dev
       {!loading ?
         <div className='prodview-container'>
           <div className='prodview-text'>

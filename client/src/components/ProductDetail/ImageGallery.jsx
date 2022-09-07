@@ -12,6 +12,7 @@ import '../Reviews/ReviewsStyles.css';
 import styled, { css, keyframes } from 'styled-components';
 import ReactCSSTransitionGroup from 'react-transition-group';
 import { OrbitSpinner } from "react-epic-spinners";
+<<<<<<< HEAD
 import Parse from "../../parse";
 import PhotoOverlay from "../Reviews/PhotoOverlay.jsx";
 
@@ -42,6 +43,16 @@ const PvImg = styled.img`
 `
 
 /* --------------------  ImageGallery components  --------------------*/
+=======
+import {
+  SideBySideMagnifier,
+  MOUSE_ACTIVATION,
+  TOUCH_ACTIVATION
+} from "react-image-magnifiers";
+import Parse from "../../parse";
+import PhotoOverlay from "../Reviews/PhotoOverlay.jsx";
+import ExpandOverlay from "./ExpandOverlay.jsx";
+>>>>>>> dev
 
 function ImageGallery({
   product,
@@ -97,7 +108,18 @@ function ImageGallery({
                 if (style.url === null) {
                   return;
                 }
+<<<<<<< HEAD
                 return <img onClick={e => handleThumbClick(e, style)} id={style.url} key={id} src={style.thumbnail_url} className='g-entry g-border'></img>
+=======
+                return (
+                  <div key={id}>
+                    <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry'></img>
+                    <div className="g-line aClass"></div>
+                  </div>
+                )
+
+
+>>>>>>> dev
               } else {
                 if (style.url === null) {
                   return;
@@ -116,7 +138,13 @@ function ImageGallery({
             {arrowLeft &&
               <TiArrowLeftThick onClick={handleLeftClick} className='arrow' />}
 
+<<<<<<< HEAD
             {overlay && <PhotoOverlay clickedPhoto={clickedPhoto} onClick={handleOverlay} />}
+=======
+            {overlay && <ExpandOverlay clickedPhoto={clickedPhoto} onClick={handleOverlay} />}
+
+
+>>>>>>> dev
             <img className='pv-img' onClick={handlePhotoClick} src={currentPhoto || `https://via.placeholder.com/500`} alt={product.name}></img>
 
             {arrowRight && <TiArrowRightThick onClick={handleRightClick} className='arrow' />}

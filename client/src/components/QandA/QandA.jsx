@@ -2,7 +2,11 @@ import React, { useState, useEffect, useContext } from 'react';
 import Parse from '../../parse.js';
 
 import QuestionList from './QuestionList.jsx';
+<<<<<<< HEAD
 // import './QandA.css';
+=======
+import './QandA.css';
+>>>>>>> dev
 
 const QandA = (props) => {
   const [questions, setQuestions] = useState([]);
@@ -29,7 +33,11 @@ const QandA = (props) => {
   }, []);
 
   return (
+<<<<<<< HEAD
     <div className='qanda' onClick={props.trackClick}>
+=======
+    <div className='qanda'>
+>>>>>>> dev
       <h2 className='qanda-heading'>QUESTIONS AND ANSWERS</h2>
       <QuestionList
         questions={questions}

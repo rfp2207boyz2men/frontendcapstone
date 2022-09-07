@@ -140,12 +140,20 @@ const Tile = (props) => {
     <div className='reviewTile'>
       <div className='reviewUserInfo'>
         <p>{renderName()}</p>
+<<<<<<< HEAD
+=======
+        {props.review.recommend && <p><GrCheckmark /> I recommend this product</p>}
+>>>>>>> dev
       </div>
       <div className='ratingStars'>{renderStars()}</div>
       <h3><b>{props.review.summary}</b></h3>
       <div className='reviewBodySection'>
         {parseBody()}
+<<<<<<< HEAD
         {(props.review.body.length > 250 && !showMore) && <p className='reviewTileShowMore' onClick={handleShowMore}><u>Show more...</u></p>}
+=======
+        {(props.review.body.length > 250 && !showMore) && <p onClick={handleShowMore}><u>Show more...</u></p>}
+>>>>>>> dev
         {props.review.photos.length >= 1 &&
         <div className='reviewPhotoThumbnailSection'>
           {props.review.photos.map((photo, index) => <img src={photo.url} className='reviewPhotoThumbnail' onClick={handlePhotoClick} key={index}/>)}
@@ -155,7 +163,10 @@ const Tile = (props) => {
           <span><b>Response:</b></span>
           <p>{parseResponse()}</p>
         </div>}
+<<<<<<< HEAD
         {props.review.recommend && <p><GrCheckmark className='reviewCheckmark'/> I recommend this product</p>}
+=======
+>>>>>>> dev
       </div>
       <div className='reviewInteractions'>
         {renderHelpful()}

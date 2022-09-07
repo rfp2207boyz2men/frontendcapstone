@@ -213,13 +213,18 @@ function ProductInformation({
 
   const relatedLink = (e) => {
     e.preventDefault();
+<<<<<<< HEAD
     window.location.replace("/#reviews");
+=======
+    window.location.replace("/#related");
+>>>>>>> dev
   }
 
   return (
     <div>
       {!loading ?
         <div className='info-container'>
+<<<<<<< HEAD
           <div className='reviewsInfo'>
             <div>
             {renderAvgStars()}
@@ -229,6 +234,15 @@ function ProductInformation({
 
           <h3>{product.category.toUpperCase()}</h3>
           <h2>{product.name}</h2>
+=======
+          <div>
+            {renderAvgStars()}
+            <a href='' onClick={relatedLink}>Read all {product.totalReviews} reviews</a>
+          </div>
+
+          <h4 className='style-category'>{product.category}</h4>
+          <h2 className='style-name'>{product.name}</h2>
+>>>>>>> dev
           {currentStyle.sale_price !== null ?
             <div>
               <h2 className='price price-line'>${currentStyle.original_price}</h2>
@@ -239,7 +253,11 @@ function ProductInformation({
 
           <div>
             <div className='style-title'>
+<<<<<<< HEAD
               <h4 className='style-text style'> STYLE: </h4>
+=======
+              <h4 className='style-text style'> Style: </h4>
+>>>>>>> dev
               <h4 className='style-text'>{product.styles[0].photos[0].thumbnail_url === null ? 'No style available' : currentStyle.name}</h4>
             </div>
             <div className='style-container'>
@@ -274,7 +292,11 @@ function ProductInformation({
           <div className='add-container'>
 
             <select className='select' value={qty} onChange={handleSize}>
+<<<<<<< HEAD
               <option className='select' value="0">SELECT SIZE</option>
+=======
+              <option className='select' value="0">Select A Size</option>
+>>>>>>> dev
               {currentStyle &&
                 Object.values(currentStyle.skus).map((item => {
                   let idR = Math.random();

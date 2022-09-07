@@ -23,11 +23,22 @@ const List = (props) => {
           getReviews={props.getReviews}
           handleSubmit={props.handleSubmit}
         />}
+<<<<<<< HEAD
       <Search onChange={props.onQueryChange} />
       <div className='reviewListHeader'>
         <h3>{props.reviews.length} reviews, sorted by &nbsp;</h3>
         <h3><Sort sort={props.sort} onChange={props.onSortChange} /></h3>
         <h3>Currently showing {props.slicedReviews.length} reviews.</h3>
+=======
+      <div className='reviewListHeader'>
+        <h3>
+          There are {props.reviews.length} unreported reviews.
+          Currently showing {props.slicedReviews.length} reviews.
+          Sorting by <span>{props.sort}.</span>
+        </h3>
+        Sort by:<Sort onChange={props.onSortChange} />
+        <Search onChange={props.onQueryChange} />
+>>>>>>> dev
       </div>
       {props.reviews.length > 0
       ?<div className='reviewList' data-testid='reviewList'>
