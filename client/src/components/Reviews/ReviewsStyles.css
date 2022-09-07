@@ -160,9 +160,64 @@
   REVIEW LIST
 ***********************/
 
+.reviewSearchSection {
+  display: inline-flex;
+  border-bottom: 1px solid grey;
+  width: 900px;
+  height: 50px;
+  align-items: center;
+}
+
+.reviewSearchBar {
+  display: inline-flex;
+  width: 900px;
+  height: 50px;
+  background-color: transparent;
+  border: 0;
+  font-size: 16px;
+}
+
+.reviewSearchBarIcon {
+  float: right;
+  border: none;
+  background-color: transparent;
+  font-size: 30px;
+}
+
+.reviewSearchBar::placeholder {
+  display: flex;
+  font-size: 16px;
+}
+
+.reviewSortSection span {
+  border-bottom: 1px solid black;
+  cursor: pointer;
+}
+
+.reviewSortDropDown {
+  position: absolute;
+  /* margin-left: 53px; */
+  background-color: gray;
+}
+
+.reviewSortDropDown p {
+  margin: 0;
+}
+
+.reviewCheckmark {
+  color: red;
+}
+
+.reviewSortDropDown p:hover {
+  /* background-color: red; */
+  cursor: pointer;
+}
+
 .reviewListHeader {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  width: 350px;
 }
 
 .reviewTile {
