@@ -53,6 +53,9 @@ const App = () => {
     getCart();
   }, []);
 
+  useEffect(() => {
+  }, [theme])
+
 
   // pending push info to array, save in localStorage?
   // window.onclick = e => {
@@ -96,7 +99,7 @@ const App = () => {
   };
 
   const unloadComponents = (product_id) => {
-    setLoading(false);
+    // setLoading(false);
     updateSelectedProduct(product_id);
   };
   // IF YOU WANT TO UPDATE SELECTED PRODUCT, USE ^ unloadComponents ^
@@ -321,8 +324,7 @@ const App = () => {
                   metaData={metaData}
                   renderStars={renderStars}
                   productName={selectedProduct.name}
-                  productId={selectedProduct.id}
-                />
+                  productId={selectedProduct.id}/>
               </div>
             </div>
           </StyledApp>

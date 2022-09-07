@@ -39,6 +39,7 @@ export const lightTheme = {
   linkColor: 'black',
   modalCompareBg: 'white',
   modalCompareText: 'black',
+  salePriceColor: 'red',
 };
 
 export const darkTheme = {
@@ -80,6 +81,7 @@ export const darkTheme = {
   linkColor: 'white',
   modalCompareBg: '#121212',
   modalCompareText: 'white',
+  salePriceColor: '#FF5C5C',
 };
 
 export const GlobalStyles = createGlobalStyle`
@@ -296,7 +298,7 @@ a:visited {
 */
 
 .productCard {
-  border: ${(props) => props.theme.productBorderColor};;
+  border: ${(props) => props.theme.productBorderColor};
   width: 255px;
   height: 400px;
   margin-left: 10px;
@@ -364,7 +366,7 @@ a:visited {
 }
 
 .salePrice {
-  color: red;
+  color: ${(props) => props.theme.salePriceColor};
 }
 
 .defaultPrice {
@@ -739,7 +741,7 @@ input[type='file'] {
   width:100%;
   height: 100%;
   background: rgba(0, 0, 0, .15);
-  z-index: 2;
+  z-index: 14;
 }
 
 .modal-main {
@@ -752,6 +754,7 @@ input[type='file'] {
   left:50%;
   transform: translate(-50%,-50%);
   border: 1px solid black;
+  z-index: 14;
 }
 
 .modalTable {
@@ -980,7 +983,7 @@ input[type='file'] {
 }
 
 .price-sale {
-  color: red;
+  color: ${(props) => props.theme.salePriceColor};
 }
 
 .style {
@@ -1443,7 +1446,7 @@ input[type='file'] {
 .reviewExpandButton {
   height: 60px;
   margin-right: 10px;
-  color: ${(props) => props.theme.buttonText};;
+  color: ${(props) => props.theme.buttonText};
 }
 
 /**********************

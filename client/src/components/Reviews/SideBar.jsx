@@ -10,7 +10,7 @@ const SideBar = (props) => {
       <div className='averageRating'>
         <h1>{props.averageRating}</h1>
         {props.renderStars(props.averageRating)}
-        <p>Based on {props.totalReviews} reviews.</p>
+        <p>Based on {props.totalReviews} reviews</p>
       </div>
       <div className='ratingPercentages'>
         <p>{props.averageRecommended}% of reviews recommend this product</p>
