@@ -4,7 +4,7 @@ import CONFIG from '../../config.js';
 
 let url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/';
 
-let authorization = { headers: { Authorization: CONFIG.API_KEY } };
+let authorization = { headers: { Authorization: API_KEY } };
 //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products
 
 //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews
