@@ -44,6 +44,17 @@ const App = () => {
   }
 
   useEffect(() => {
+    if (!localStorage.getItem('helpfulReviews')) {
+      localStorage.setItem('helpfulReviews', JSON.stringify({}));
+    }
+    if (!localStorage.getItem('searchStars')) {
+      localStorage.setItem('searchStars', JSON.stringify({1:false, 2:false, 3:false, 4:false, 5:false}));
+    }
+    if (!localStorage.getItem('sort')) {
+      localStorage.setItem('sort', 'relevant');
+    }
+
+
     Parse.getAll(`products/`)
       .then((products) => {
         // let defaultIndex = Math.floor(Math.random() * products.data.length);

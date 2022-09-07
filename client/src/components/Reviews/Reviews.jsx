@@ -23,15 +23,6 @@ const Reviews = (props) => {
   const [sort, setSort] = useState('relevant');
 
   useEffect(() => {
-    if (!localStorage.getItem('helpfulReviews')) {
-      localStorage.setItem('helpfulReviews', JSON.stringify({}));
-    }
-    if (!localStorage.getItem('searchStars')) {
-      localStorage.setItem('searchStars', JSON.stringify({1:false, 2:false, 3:false, 4:false, 5:false}));
-    }
-    if (!localStorage.getItem('sort')) {
-      localStorage.setItem('sort', 'relevant');
-    }
 
     let sort = localStorage.getItem('sort');
     let searchStars = JSON.parse(localStorage.getItem('searchStars'));

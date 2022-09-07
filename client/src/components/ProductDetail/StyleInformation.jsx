@@ -259,7 +259,7 @@ function ProductInformation({
                         id={item.style_id}
                         name={item.name}
                         onClick={(e, url, prod) => {
-                          handleLocalClick(e);
+                          // handleLocalClick(e);
                           handleStyleClick(e, item.url, item);
                         }}
                         src={item.photos[0].thumbnail_url} ></img>

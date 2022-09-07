@@ -199,7 +199,7 @@ a:visited {
 .logo {
   margin-top: 10px;
   font-size: 60px;
-  color: teal;
+  color: ${(props) => props.theme.burlyAndTeal};
 }
 
 .logotext {
@@ -245,7 +245,7 @@ a:visited {
   border-radius: 50%;
   width: 24px;
   height: 24px;
-  background-color: teal;
+  background-color: ${(props) => props.theme.burlyAndTeal};
   color: #fff;
   text-align: center;
   font-size: 16px;
@@ -1112,7 +1112,7 @@ input[type='file'] {
   width: 400px;
   margin-right: 30px;
   padding: 0 10px 20px 10px;
-  border-right: 1px solid teal;
+  border-right: 1px solid ${(props) => props.theme.burlyAndTeal};
 }
 
 .reviewList {
