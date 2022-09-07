@@ -286,11 +286,11 @@ const App = () => {
             </div>
             <div className="main">
               <div>
-                <Overview
+                <OverviewTrack
                 />
               </div>
               <div className='relatedSection'>
-                <Related
+                <RelatedTrack
                   selectedProduct={selectedProduct}
                   addToOutfit={handleOutfitAdds}
                   selectStyle={unloadComponents}
@@ -298,7 +298,7 @@ const App = () => {
                   starRender={renderStars} />
               </div>
               <div className='outfitsSection'>
-                <Outfits
+                <OutfitsTrack
                   outfits={outfits}
                   current={selectedProduct}
                   outfitAdd={handleOutfitAdds}
@@ -308,7 +308,7 @@ const App = () => {
                   starRender={renderStars} />
               </div>
               <div className="questionsSection">
-                <QandA
+                <QandATrack
                   selectedProduct={selectedProduct}
                 />
               </div>
