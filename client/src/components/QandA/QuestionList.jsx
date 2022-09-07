@@ -58,68 +58,60 @@ const QuestionList = (props) => {
 
   return (
     <div className='question-body'>
-        {modal &&
+      {modal &&
         <QuestionModal
           handleModal={handleModal}
           productName={props.productName}
           productId={props.productId}
           getQuestions={props.getQuestions} />
-        }
-        {questionsCount ?
+      }
+      {questionsCount ?
         <>
           <QandASearch searchQuestion={searchQuestion} />
           {count < filteredCount ?
-          <>
-            <div className='question-list'>
-              {filtered.slice(0, count).map(question =>
-              <Question
-                key={question.question_id}
-                question={question}
-                productName={props.productName} />
-              )}
-            </div>
-<<<<<<< HEAD
-            <div className='qandaButtons'>
-=======
->>>>>>> dev
-            <button
-              className='question-list-button'
-              onClick={handleShowMore}>
-              More Answered Questions
-            </button>
-            <button
-              className='question-list-button'
-              onClick={handleModal}>
-              Add a Question +
-            </button>
-<<<<<<< HEAD
-            </div>
-=======
->>>>>>> dev
-          </>:
-          <>
-            <div className='question-list'>
-              {filtered.map(question =>
-              <Question
-                key={question.question_id}
-                question={question}
-                productName={props.productName} />
-              )}
-            </div>
-            {filteredCount > 2 &&
             <>
+              <div className='question-list'>
+                {filtered.slice(0, count).map(question =>
+                  <Question
+                    key={question.question_id}
+                    question={question}
+                    productName={props.productName} />
+                )}
+              </div>
               <button
                 className='question-list-button'
-                onClick={handleShowLess}>
-                Show Less
+                onClick={handleShowMore}>
+                More Answered Questions
               </button>
               <button
                 className='question-list-button'
                 onClick={handleModal}>
                 Add a Question +
               </button>
-            </>}
-          </>
+            </> :
+            <>
+              <div className='question-list'>
+                {filtered.map(question =>
+                  <Question
+                    key={question.question_id}
+                    question={question}
+                    productName={props.productName} />
+                )}
+              </div>
+              {filteredCount > 2 &&
+                <>
+                  <button
+                    className='question-list-button'
+                    onClick={handleShowLess}>
+                    Show Less
+                  </button>
+                  <button
+                    className='question-list-button'
+                    onClick={handleModal}>
+                    Add a Question +
+                  </button>
+                </>}
+            </>
           }
         </> :
         <>
@@ -130,7 +122,7 @@ const QuestionList = (props) => {
             Add a Question +
           </button>
         </>
-        }
+      }
     </div>
   )
 }

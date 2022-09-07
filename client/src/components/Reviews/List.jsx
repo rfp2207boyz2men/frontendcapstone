@@ -23,13 +23,6 @@ const List = (props) => {
           getReviews={props.getReviews}
           handleSubmit={props.handleSubmit}
         />}
-<<<<<<< HEAD
-      <Search onChange={props.onQueryChange} />
-      <div className='reviewListHeader'>
-        <h3>{props.reviews.length} reviews, sorted by &nbsp;</h3>
-        <h3><Sort sort={props.sort} onChange={props.onSortChange} /></h3>
-        <h3>Currently showing {props.slicedReviews.length} reviews.</h3>
-=======
       <div className='reviewListHeader'>
         <h3>
           There are {props.reviews.length} unreported reviews.
@@ -38,31 +31,30 @@ const List = (props) => {
         </h3>
         Sort by:<Sort onChange={props.onSortChange} />
         <Search onChange={props.onQueryChange} />
->>>>>>> dev
       </div>
       {props.reviews.length > 0
-      ?<div className='reviewList' data-testid='reviewList'>
-        {props.slicedReviews.map((review, index) => (
-          <Tile
-            review={review}
-            key={props.slicedReviews[index].review_id}
-            index={index}
-            renderStars={props.renderStars}
-            getReviews={props.getReviews}
-            handleReport={props.handleReport}
-            searchQuery={props.searchQuery}
-            data-testid='reviewListTiles'
-          />
-        ))}
-      </div>
-      :<h3>Help the Odin community by providing an answer!</h3>
+        ? <div className='reviewList' data-testid='reviewList'>
+          {props.slicedReviews.map((review, index) => (
+            <Tile
+              review={review}
+              key={props.slicedReviews[index].review_id}
+              index={index}
+              renderStars={props.renderStars}
+              getReviews={props.getReviews}
+              handleReport={props.handleReport}
+              searchQuery={props.searchQuery}
+              data-testid='reviewListTiles'
+            />
+          ))}
+        </div>
+        : <h3>Help the Odin community by providing an answer!</h3>
       }
       {(props.reviews.length > 0 && props.slicedReviews.length === 0) &&
-      <h3>No reviews found with the current search.</h3>
+        <h3>No reviews found with the current search.</h3>
       }
       <div className='reviewExpandButtonSection'>
         {((props.filteredReviews.length - props.slicedReviews.length > 0) && props.reviews.length > 0)
-        && <button className='reviewExpandButton' onClick={props.handleShowMore}>MORE REVIEWS</button>}
+          && <button className='reviewExpandButton' onClick={props.handleShowMore}>MORE REVIEWS</button>}
         <button className='reviewExpandButton' onClick={handleOverlay}>ADD A REVIEW +</button>
       </div>
     </div>

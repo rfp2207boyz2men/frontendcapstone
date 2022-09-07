@@ -12,38 +12,6 @@ import '../Reviews/ReviewsStyles.css';
 import styled, { css, keyframes } from 'styled-components';
 import ReactCSSTransitionGroup from 'react-transition-group';
 import { OrbitSpinner } from "react-epic-spinners";
-<<<<<<< HEAD
-import Parse from "../../parse";
-import PhotoOverlay from "../Reviews/PhotoOverlay.jsx";
-
-/* --------------------  styled components  --------------------*/
-
-const fadeIn = keyframes`
-  0% { opacity: 0; }
-  100% { opacity: 1; }
-`
-
-
-const ImageContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  animation: ${fadeIn} 1s;
-`
-
-const PvImg = styled.img`
-  cursor: -moz-zoom-in;
-  cursor: -webkit-zoom-in;
-  cursor: zoom-in;
-  width: 500px;
-  height: 500px;
-  object-fit: cover;
-  animation: ${fadeIn} 1s;
-`
-
-/* --------------------  ImageGallery components  --------------------*/
-=======
 import {
   SideBySideMagnifier,
   MOUSE_ACTIVATION,
@@ -52,7 +20,6 @@ import {
 import Parse from "../../parse";
 import PhotoOverlay from "../Reviews/PhotoOverlay.jsx";
 import ExpandOverlay from "./ExpandOverlay.jsx";
->>>>>>> dev
 
 function ImageGallery({
   product,
@@ -108,9 +75,6 @@ function ImageGallery({
                 if (style.url === null) {
                   return;
                 }
-<<<<<<< HEAD
-                return <img onClick={e => handleThumbClick(e, style)} id={style.url} key={id} src={style.thumbnail_url} className='g-entry g-border'></img>
-=======
                 return (
                   <div key={id}>
                     <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry'></img>
@@ -119,7 +83,6 @@ function ImageGallery({
                 )
 
 
->>>>>>> dev
               } else {
                 if (style.url === null) {
                   return;
@@ -138,13 +101,9 @@ function ImageGallery({
             {arrowLeft &&
               <TiArrowLeftThick onClick={handleLeftClick} className='arrow' />}
 
-<<<<<<< HEAD
-            {overlay && <PhotoOverlay clickedPhoto={clickedPhoto} onClick={handleOverlay} />}
-=======
             {overlay && <ExpandOverlay clickedPhoto={clickedPhoto} onClick={handleOverlay} />}
 
 
->>>>>>> dev
             <img className='pv-img' onClick={handlePhotoClick} src={currentPhoto || `https://via.placeholder.com/500`} alt={product.name}></img>
 
             {arrowRight && <TiArrowRightThick onClick={handleRightClick} className='arrow' />}

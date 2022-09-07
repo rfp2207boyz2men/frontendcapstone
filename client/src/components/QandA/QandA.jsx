@@ -2,18 +2,14 @@ import React, { useState, useEffect, useContext } from 'react';
 import Parse from '../../parse.js';
 
 import QuestionList from './QuestionList.jsx';
-<<<<<<< HEAD
-// import './QandA.css';
-=======
 import './QandA.css';
->>>>>>> dev
 
 const QandA = (props) => {
   const [questions, setQuestions] = useState([]);
 
   let productName = props.selectedProduct.name;
   let productId = props.selectedProduct.id;
-  let params =`?product_id=${productId}&count=100`
+  let params = `?product_id=${productId}&count=100`
   // let params = `?product_id=40347`;
   let results;
 
@@ -33,11 +29,7 @@ const QandA = (props) => {
   }, []);
 
   return (
-<<<<<<< HEAD
-    <div className='qanda' onClick={props.trackClick}>
-=======
     <div className='qanda'>
->>>>>>> dev
       <h2 className='qanda-heading'>QUESTIONS AND ANSWERS</h2>
       <QuestionList
         questions={questions}

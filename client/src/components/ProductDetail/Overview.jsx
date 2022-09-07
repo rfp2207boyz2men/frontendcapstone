@@ -9,11 +9,7 @@ import ProductOverview from './ProductOverview.jsx';
 import { select } from 'underscore';
 import { FcCheckmark } from 'react-icons/fc';
 
-<<<<<<< HEAD
-function Overview({ trackClick }) {
-=======
 function Overview() {
->>>>>>> dev
 
   const { selectedProduct,
     handleLocalClick,
@@ -178,11 +174,7 @@ function Overview() {
 
   return (
     <React.Fragment>
-<<<<<<< HEAD
-      <div className='main-container' onClick={trackClick}>
-=======
       <div className='main-container'>
->>>>>>> dev
         <ImageGallery
           product={product}
           stylesList={stylesList}
@@ -214,12 +206,8 @@ function Overview() {
           handleLocalSave={handleLocalSave}
         />
       </div>
-<<<<<<< HEAD
-      <ProductOverview product={product} currentPhoto={currentPhoto} currentStyle={currentStyle} trackClick={trackClick}/>
-=======
       <ProductOverview product={product} currentPhoto={currentPhoto} currentStyle={currentStyle} />
->>>>>>> dev
-    </React.Fragment>
+    </React.Fragment >
   )
 
 }
