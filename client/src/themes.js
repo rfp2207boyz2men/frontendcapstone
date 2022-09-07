@@ -12,7 +12,7 @@ export const lightTheme = {
   productImgBorder: '1px solid teal',
   productDescBorder: '1px solid burlywood',
   burlyBorderBlack: '1px solid black',
-  starCardColor: '',
+  starCardColor: 'teal',
   defaultPrice: 'white',
   qandaSearchBg: 'white',
   qandaBorderLeft: '1px solid black',
@@ -28,7 +28,7 @@ export const lightTheme = {
   addAnswercolor: 'teal',
   reportColor: 'teal',
   plusCardAreaBg: '#cccccc',
-  plusCardAreaColor: 'teal',
+  plusCardAreaColor: 'black',
   burlyAndTeal: 'teal',
   tealAndBurly: 'burlywood',
   gContainerImg: '1px solid teal',
@@ -37,6 +37,8 @@ export const lightTheme = {
   selectBorder: '2px solid burlywood',
   buttonText: 'white',
   linkColor: 'black',
+  modalCompareBg: 'white',
+  modalCompareText: 'black',
 };
 
 export const darkTheme = {
@@ -76,6 +78,8 @@ export const darkTheme = {
   selectBorder: '2px solid #256D85',
   buttonText: 'black',
   linkColor: 'white',
+  modalCompareBg: '#121212',
+  modalCompareText: 'white',
 };
 
 export const GlobalStyles = createGlobalStyle`
@@ -214,8 +218,6 @@ a:visited {
 }
 
 .search:focus {
-  border: 1px solid teal;
-  border-radius: 10px;
   color: ${(props) => props.theme.fontColor};
 }
 
@@ -396,8 +398,9 @@ a:visited {
   display: flex;
   flex-direction: column;
   width: 1250px;
-  height: auto;
-  border-bottom: 1px dashed white;
+  height: 500px;
+  border-bottom: 1px dashed burlywood;
+  border-top: 1px dashed burlywood;
   overflow-y: auto;
   padding: 20px;
   margin-top: 50px;
@@ -575,6 +578,104 @@ input[type='file'] {
   color: ${(props) => props.theme.reportColor};
 }
 
+/*
+  PORTAL OVERLAY
+*/
+
+.portal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  opacity: 30%;
+  z-index: 10;
+}
+
+/*
+  Q&A MODAL
+*/
+
+.question-modal,
+.answer-modal {
+  position: fixed;
+  width: 30%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: 'rgba(0, 0, 0, .3)';
+  padding: 25px;
+  z-index: 11;
+}
+
+.question-form,
+.answer-form {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  background-color: white;
+  padding: 10px;
+  z-index: 11;
+}
+
+/*
+  QUESTION MODAL INPUTS
+*/
+
+textarea[name='user-question'],
+textarea[name='user-answer'] {
+  width: auto;
+  height: 100px;
+}
+
+textarea[name='nickname'],
+textarea[name='email'] {
+  width: auto;
+}
+
+input[type='submit'] {
+  height: 30px;
+  width: 90px;
+  margin-top: 20px;
+}
+
+.email-small {
+  padding-bottom: 18px;
+}
+
+.photoThumbnail {
+  display: inline-flex;
+  height: auto;
+  width: 20%;
+}
+
+input[type='file'] {
+  color: rgba(0,0,0,0)
+}
+
+/*
+  QUESTION MODAL HEADINGS
+*/
+
+.question-form h4,
+.answer-form h4 {
+  margin-top: 18px;
+  margin-bottom: 18px;
+}
+
+/*
+  WEB PAGE FUNCTIONS
+*/
 
 /*
   Outfits
@@ -643,8 +744,8 @@ input[type='file'] {
 
 .modal-main {
   position:fixed;
-  background: #1c1c1e;
-  color: white;
+  background: ${(props) => props.theme.modalCompareBg};
+  color: ${(props) => props.theme.modalCompareText};
   width: 770px;
   height: auto;
   top:50%;
@@ -807,9 +908,14 @@ input[type='file'] {
   cursor: pointer;
   background-color: #fff;
   width: 50px;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   height: 50px;
   transition: all .5s ease;
+}
+
+.g-entry:hover {
+  background: white;
+  opacity: .80;
 }
 
 .g-border {
@@ -946,15 +1052,15 @@ input[type='file'] {
 /* ----------------- Product Overview ----------------- */
 .prodview-container {
   display: flex;
-  width: 600px;
+  width: 700px;
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  margin: 40px 400px;
+  margin: 40px auto;
 }
 
 .prodview-text {
-  width: 100%;
+  width: auto;
 }
 
 .prodview-line {
@@ -983,6 +1089,7 @@ input[type='file'] {
 .feature {
   display: inline-block;
   margin: 0 10px;
+  width: auto;
 }
 
 /*******************
@@ -1004,7 +1111,7 @@ input[type='file'] {
   width: 400px;
   margin-right: 30px;
   padding: 0 10px 20px 10px;
-  border-right: 1px solid white;
+  border-right: 1px solid teal;
   /* background-color: gray; */
   /* border: 2px solid rgb(8, 88, 8); */
 }
@@ -1274,7 +1381,7 @@ input[type='file'] {
   padding: 10px;
   background-color: white;
   border: 2px solid ${(props) => props.theme.burlyAndTeal};
-  z-index: 1;
+  z-index: 3;
   overflow-y: auto;
 }
 

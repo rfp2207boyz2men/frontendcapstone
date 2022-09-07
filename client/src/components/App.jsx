@@ -259,17 +259,6 @@ const App = () => {
         {loading ?
           <StyledApp>
             <div className="header" onClick={trackHeader}>
-              {theme === 'light' ?
-                <div className='theme-toggler' onClick={themeToggler}>
-                  <MdLightMode />
-                  Theme
-                </div>
-                :
-                <div className='theme-toggler' onClick={themeToggler}>
-                  <MdDarkMode />
-                  Theme
-                </div>
-              }
               <div className="logoheader">
                 <div className="logotext"><h1>Odin</h1></div>
                 <div className="logo"><GiTriquetra /></div>
@@ -323,7 +312,7 @@ const App = () => {
                   selectedProduct={selectedProduct}
                 />
               </div>
-              <div id='related'>
+              <div id='reviews'>
                 <ReviewsTrack
                   totalReviews={totalReviews}
                   getTotalReviews={getTotalReviews}
