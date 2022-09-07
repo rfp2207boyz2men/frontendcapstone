@@ -12,36 +12,14 @@ import '../Reviews/ReviewsStyles.css';
 import styled, { css, keyframes } from 'styled-components';
 import ReactCSSTransitionGroup from 'react-transition-group';
 import { OrbitSpinner } from "react-epic-spinners";
+import {
+  SideBySideMagnifier,
+  MOUSE_ACTIVATION,
+  TOUCH_ACTIVATION
+} from "react-image-magnifiers";
 import Parse from "../../parse";
 import PhotoOverlay from "../Reviews/PhotoOverlay.jsx";
-
-/* --------------------  styled components  --------------------*/
-
-const fadeIn = keyframes`
-  0% { opacity: 0; }
-  100% { opacity: 1; }
-`
-
-
-const ImageContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  animation: ${fadeIn} 1s;
-`
-
-const PvImg = styled.img`
-  cursor: -moz-zoom-in;
-  cursor: -webkit-zoom-in;
-  cursor: zoom-in;
-  width: 500px;
-  height: 500px;
-  object-fit: cover;
-  animation: ${fadeIn} 1s;
-`
-
-/* --------------------  ImageGallery components  --------------------*/
+import ExpandOverlay from "./ExpandOverlay.jsx";
 
 function ImageGallery({
   product,
@@ -123,7 +101,9 @@ function ImageGallery({
             {arrowLeft &&
               <TiArrowLeftThick onClick={handleLeftClick} className='arrow' />}
 
-            {overlay && <PhotoOverlay clickedPhoto={clickedPhoto} onClick={handleOverlay} />}
+            {overlay && <ExpandOverlay clickedPhoto={clickedPhoto} onClick={handleOverlay} />}
+
+
             <img className='pv-img' onClick={handlePhotoClick} src={currentPhoto || `https://via.placeholder.com/500`} alt={product.name}></img>
 
             {arrowRight && <TiArrowRightThick onClick={handleRightClick} className='arrow' />}

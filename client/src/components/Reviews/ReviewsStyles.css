@@ -1,6 +1,6 @@
-/*******************
+/* ******************
   MAIN DIVS
-********************/
+
 
 .reviewMain {
   display: flex;
@@ -219,7 +219,7 @@
 /**********************
   PHOTO OVERLAY
 ***********************/
-
+/*
 .reviewPhotoExpand {
   position: fixed;
   max-height: 90vh;
@@ -237,21 +237,20 @@
 .reviewPhotoExit {
   left: 10px;
   top: 10px;
-}
+} */
 
 /**********************
   INPUT OVERLAY
 ***********************/
 
-.reviewOverlayBackground {
+/* .reviewOverlayBackground {
   position: fixed;
   top: 0;
   left: 0;
-  /* background-color: black; */
   opacity: 30%;
   height: 100vh;
   width: 100vw;
-}
+} */
 
 /**********************
   REVIEW INPUT

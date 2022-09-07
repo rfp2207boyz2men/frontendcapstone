@@ -222,7 +222,7 @@ function ProductInformation({
         <div className='info-container'>
           <div>
             {renderAvgStars()}
-            <Reviews href='' onClick={relatedLink}>Read all {product.totalReviews} reviews</Reviews>
+            <a href='' onClick={relatedLink}>Read all {product.totalReviews} reviews</a>
           </div>
 
           <h4 className='style-category'>{product.category}</h4>

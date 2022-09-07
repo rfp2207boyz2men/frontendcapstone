@@ -1227,15 +1227,15 @@ a:visited {
 
 .reviewPhotoExpand {
   position: fixed;
-  max-height: 90vh;
-  max-width: 90vw;
+  max-height: 70vh;
+  max-width: 70vw;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 10px;
   background-color: white;
-  border: 2px solid ${(props) => props.theme.burlyAndTeal};
-  z-index: 1;
+  border: 2px solid teal;
+  z-index: 3;
   overflow-y: auto;
 }
 
