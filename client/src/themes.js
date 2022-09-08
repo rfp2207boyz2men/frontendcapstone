@@ -445,6 +445,7 @@ a:visited {
 
 .qanda-search-icon {
   display: inline-flex;
+  height: auto;
   border: none;
   background-color: #48484a;
   color: white;
