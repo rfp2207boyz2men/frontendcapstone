@@ -523,10 +523,15 @@ a:visited {
   margin: 5px
 }
 
-.photoThumbnail {
+.answer-photo {
   display: inline-flex;
-  height: auto;
-  width: 20%;
+  height: 100px;
+  margin: 5px 10px 5px 0;
+  // width: 20%;
+}
+
+.answer-photo:hover{
+  cursor: pointer;
 }
 
 input[type='file'] {
@@ -537,11 +542,19 @@ input[type='file'] {
   BUTTONS
 */
 
+.showAnswersButton {
+  background-color: ${(props) => props.theme.tealAndBurly};
+  color: ${(props) => props.theme.fontColor};
+}
+
 .question-list-button {
   height: 60px;
   width: 150px;
   display: inline-block;
   margin-right: 10px;
+  margin-top: 10px;
+  background-color: ${(props) => props.theme.tealAndBurly};
+  color: ${(props) => props.theme.fontColor};
 }
 
 .show-more-or-less {
@@ -623,9 +636,26 @@ input[type='file'] {
   display: flex;
   flex-direction: column;
   margin: auto;
-  background-color: white;
+  background-color: ${(props) => props.theme.mainBColor};
   padding: 10px;
   z-index: 11;
+}
+
+.question-form input,
+.answer-form input {
+  background-color: ${(props) => props.theme.tealAndBurly};
+  color: ${(props) => props.theme.fontColor};
+}
+
+.question-form input:hover,
+.answer-form input:hover {
+  cursor: pointer;
+}
+
+.answerInputPhotoSection,
+.questionInputPhotoSection {
+  display: flex;
+  flex-direction: row;
 }
 
 /*
@@ -1100,9 +1130,10 @@ input[type='file'] {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  width: 1400px;
+  width: 1000px;
   height: auto;
   padding: 50px;
+  margin-left: 140px;
 }
 
 .reviewSideBar {
