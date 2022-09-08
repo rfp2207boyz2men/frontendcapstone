@@ -82,7 +82,7 @@ const QuestionList = (props) => {
             <button
               className='question-list-button'
               onClick={handleShowMore}>
-              MORE ANSWERED QUESTIONS
+              MORE QUESTIONS
             </button>
             <button
               className='question-list-button'
