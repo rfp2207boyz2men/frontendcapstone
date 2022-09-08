@@ -159,7 +159,7 @@ function Overview() {
     setArrowUp(true);
     setArrowDown(false);
     setStylesList(currentStyle.photos.slice(7, 14));
-    setCurrentPhoto(currentStyle.photos[5].url);
+    setCurrentPhoto(currentStyle.photos[7].url);
     let lastIndex = currentStyle.photos.length - 1;
     currentStyle.photos[lastIndex].url === currentStyle.photos[5].url ? setArrowRight(false) : setArrowRight(true);
     setArrowLeft(true);
@@ -188,6 +188,7 @@ function Overview() {
           expand={expand}
           stylesList={stylesList}
           currentPhoto={currentPhoto}
+          setCurrentPhoto={setCurrentPhoto}
           currentStyle={currentStyle}
           arrowDown={arrowDown}
           arrowUp={arrowUp}

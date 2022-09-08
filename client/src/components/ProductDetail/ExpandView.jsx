@@ -18,7 +18,7 @@ import {
 
 
 
-const ExpandView = ({ stylesList, handleOverlay, currentPhoto, handleLeftClick, handleRightClick }) => {
+const ExpandView = ({ stylesList, handleOverlay, currentPhoto, setCurrentPhoto, currentStyle, handleLeftClick, handleRightClick }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const reviewPhotoExpand = {
@@ -59,24 +59,29 @@ const ExpandView = ({ stylesList, handleOverlay, currentPhoto, handleLeftClick, 
   }
 
   const goToPic = (picIndex) => {
-    setCurrentIndex(picIndex);
+    setCurrentPhoto(currentStyle.photos[picIndex].url);
   }
 
 
   return (
     <div className='slider'>
-      {arrowLeft ? <TiArrowLeftThick onClick={handleLeftClick} className='left-arrow-v' /> : <TiArrowLeftThick onClick={handleLeftClick} className='arrow-hidden' />}
-      {arrowRight ? <TiArrowRightThick onClick={handleRightClick} className='right-arrow-v' /> : <TiArrowRightThick onClick={handleRightClick} className='arrow-hidden' />}
       <img src={currentPhoto} className='sliderImg'></img>
-
       <div className='dot-container'>
-        {stylesList.map((pic, picIndex) => {
+        {currentStyle.photos.map((pic, picIndex) => {
           let id = Math.random();
-          return (
-            <div onClick={() => goToPic(picIndex)} className='dot' key={id}>
-              ●
-            </div>
-          )
+          if (currentStyle.photos[picIndex].url === currentPhoto) {
+            return (
+              <div onClick={() => goToPic(picIndex)} className='dot-active' key={id}>
+                ●
+              </div>
+            )
+          } else {
+            return (
+              <div onClick={() => goToPic(picIndex)} className='dot' key={id}>
+                ●
+              </div>
+            )
+          }
         })}
       </div>
 

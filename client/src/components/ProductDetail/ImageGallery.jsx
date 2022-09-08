@@ -21,6 +21,7 @@ function ImageGallery({
   stylesList,
   expand,
   currentPhoto,
+  setCurrentPhoto,
   currentStyle,
   arrowDown,
   arrowUp,
@@ -54,15 +55,7 @@ function ImageGallery({
     setOverlay(false);
   };
 
-  const expandOverlay = {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    backgroundColor: 'black',
-    opacity: '0.5',
-    height: '100%',
-    width: '100%',
-  }
+
 
   return (
     <div>
@@ -114,46 +107,52 @@ function ImageGallery({
 
           <div className="pv-container">
             {arrowLeft ? <TiArrowLeftThick onClick={handleLeftClick} className='arrow' /> : <TiArrowLeftThick onClick={handleLeftClick} className='arrow-hidden' />}
-
+            {/* SLIDER STARTS HERE */}
             {overlay &&
               <div>
-                <ExpandView clickedPhoto={clickedPhoto}
-                  handleOverlay={handleOverlay}
-                  currentPhoto={currentPhoto}
-                  stylesList={stylesList}
-                  handleLeftClick={handleLeftClick}
-                  handleRightClick={handleRightClick}
-                  arrowLeft={arrowLeft}
-                  arrowRight={arrowRight}
-                  onClick={handleOverlay} />
+                <div className="slider-modal">
+                  <ExpandView clickedPhoto={clickedPhoto}
+                    handleOverlay={handleOverlay}
+                    currentStyle={currentStyle}
+                    currentPhoto={currentPhoto}
+                    setCurrentPhoto={setCurrentPhoto}
+                    stylesList={stylesList}
+                    handleLeftClick={handleLeftClick}
+                    handleRightClick={handleRightClick}
+                    arrowLeft={arrowLeft}
+                    arrowRight={arrowRight}
+                    onClick={handleOverlay} />
+                </div>
+                {arrowLeft ? <TiArrowLeftThick onClick={handleLeftClick} className='left-arrow-v' /> : <TiArrowLeftThick onClick={handleLeftClick} className='arrow-hidden' />}
+                {arrowRight ? <TiArrowRightThick onClick={handleRightClick} className='right-arrow-v' /> : <TiArrowRightThick onClick={handleRightClick} className='arrow-hidden' />}
                 <div className="g-container-vertical">
                   {arrowUp && (
-                    <TiArrowSortedUp onClick={handleUpClick} className="arrow" />
+                    <TiArrowSortedUp onClick={handleUpClick} className="arrow-side" />
                   )}
 
                   {stylesList.map((style) => {
                     let id = Math.random();
 
                     if (currentPhoto === style.url) {
-                      if (style.url === null) {
+                      if (style.thumbnail_url === null) {
                         return;
                       }
                       return (
                         <div key={id}>
-                          <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry-v'></img>
-                          <div className="g-line-v"></div>
+                          <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry-v-b'></img>
+                          {/* <div className="g-line-v"></div> */}
                         </div>
                       )
 
 
                     } else {
-                      if (style.url === null) {
+                      if (style.thumbnail_url === null) {
                         return;
                       }
                       return (
                         <div key={id}>
                           <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry-v'></img>
-                          <div className="g-line-hidden"></div>
+                          {/* <div className="g-line-hidden"></div> */}
                         </div>
                       )
                     }
@@ -161,14 +160,14 @@ function ImageGallery({
                   })}
 
                   {arrowDown && (
-                    <TiArrowSortedDown onClick={handleDownClick} className="arrow" />
+                    <TiArrowSortedDown onClick={handleDownClick} className="arrow-side" />
                   )}
                 </div>
-                <div style={expandOverlay} onClick={handleOverlay}></div>
+                <div className="slider-overlay" onClick={handleOverlay}></div>
               </div>
             }
 
-            <img className='pv-img' onClick={handlePhotoClick} src={currentPhoto || `https://via.placeholder.com/500`} alt={product.name}></img>
+            {!overlay && <img className='pv-img' onClick={handlePhotoClick} src={currentPhoto || `https://via.placeholder.com/500`} alt={product.name}></img>}
 
             {arrowRight ? <TiArrowRightThick onClick={handleRightClick} className='arrow' /> : <TiArrowRightThick onClick={handleRightClick} className='arrow-hidden' />}
 
@@ -178,8 +177,9 @@ function ImageGallery({
         </div>
       ) : (
         <OrbitSpinner color="teal" />
-      )}
-    </div>
+      )
+      }
+    </div >
   );
 }
 

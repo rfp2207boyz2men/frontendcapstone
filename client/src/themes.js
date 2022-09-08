@@ -925,15 +925,6 @@ input[type='file'] {
   transition: all .5s ease;
 }
 
-.g-entry-v {
-  cursor: pointer;
-  background-color: #fff;
-  width: 60px;
-  height: 60px;
-  margin: 2px 10px;
-  transition: all .5s ease;
-}
-
 .g-line {
   height: 3px;
   left: 10px;
@@ -977,77 +968,136 @@ input[type='file'] {
 
 /* ----------------- Expaneded Section ----------------- */
 
-  .slider  {
-    position: fixed;
-    height: 70%;
-    width: 80%;
-    max-height: 70vh;
-    max-width: 80vw;
-    top: 50%;
-    left: 65%;
-    transform: translate(-50%, -50%);
-    z-index: 3;
-    overflow-y: hidden;
-    overflow-x: hidden;
+.slider-modal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+.arrow-side {
+  display: inline-block;
+  color: white;
+  cursor: pointer;
+  font-size: 25px;
+  padding: 20px 10px;
+  transform: rotate(270deg);
+  transition: all .5s ease;
+}
+
+.slider-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: black;
+  opacity: 0.5;
+  height: 100%;
+  width: 100%;
   }
 
-  .sliderImg {
-    width: 900px;
-    height: 900px;
-    border: ${(props) => props.theme.productBorderColor};
-    border-radius: 10px;
-    background-position: center;
-    object-fit: cover;
+.sliderImg {
+  width: 700px;
+  height: 700px;
+  //border: ${(props) => props.theme.productBorderColor};
+  padding: 10px;
+  background-color: white;
+  //border: 2px solid ${(props) => props.theme.burlyAndTeal};
+  border-radius: 10px;
+  background-position: center;
+  object-fit: cover;
   }
 
-  .g-container-vertical {
-    display: flex;
-    align-items: space-between;
-    justify-content: center;
-    flex-direction: row;
-    position: absolute;
-    top: 90%;
-    left: 40%;
-    font-size: 25px;
-    z-index: 3;
-    cursor: pointer;
+.g-container-vertical {
+  display: flex;
+  align-items: space-between;
+  justify-content: center;
+  flex-direction: row;
+  position: absolute;
+  top: 90%;
+  left: 37%;
+  font-size: 25px;
+  z-index: 3;
+  cursor: pointer;
+}
+
+.g-entry-v {
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  margin: 2px 10px;
+  transition: all .5s ease;
+  border-radius: 5px;
+  border: 3px solid transparent;
+}
+
+.g-entry-v-b {
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  margin: 2px 10px;
+  border-radius: 5px;
+  border: ${(props) => props.theme.styleBorder};
 }
 
 .g-line-v {
   width: 60px;
   height: 3px;
   margin: 0 auto;
-  background-color: ${(props) => props.theme.tealAndBurly};
+  border: 3px solid transparent;
 }
 
-  .left-arrow-v {
-    position: absolute;
-    top: 50%;
-    transform: translate(0, -50%);
-    left: 3%;
-    font-size: 25px;
-    color: #000;
-    z-index: 2;
-    cursor: pointer;
+.left-arrow-v {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  left: 29%;
+  font-size: 25px;
+  color: white;
+  z-index: 2;
+  cursor: pointer;
+  }
+
+.right-arrow-v {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  left: 70%;
+  font-size: 25px;
+  color: white;
+  z-index: 2;
+  cursor: pointer;
   }
 
 
-  .dot-container {
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    display: flex;
-    top: 95%;
-    left: 35%;
-    color: gray;
-    z-index: 4;
+
+.dot-container {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  display: flex;
+  top: 92%;
+  left: 40%;
+  color: gray;
+  z-index: 4;
   }
 
-  .dot {
-    margin: 0 5px;
-    cursor: pointer;
-    font-size: 20px;
-  }
+.dot {
+  margin: 0 5px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.dot-active {
+  margin: 0 5px;
+  cursor: pointer;
+  font-size: 20px;
+  color: white;
+}
 
 #modalCarousel {
   width: 38%;
@@ -1194,6 +1244,16 @@ input[type='file'] {
   transition: ease-in-out 0.5s;
   background-color: black;
   color: white;
+}
+
+.out-of-stock {
+  font-size: 14px;
+  color: ${(props) => props.theme.fontColor};
+}
+.select-size-please {
+  font-size: 14px;
+  margin-left: 5px;
+  color: ${(props) => props.theme.fontColor};
 }
 
 .select {

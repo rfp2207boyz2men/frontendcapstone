@@ -26,16 +26,21 @@ function StyleInformation({
   const [loading, setLoading] = useState(true);
   const [qty, setQty] = useState();
   const [sizeSelected, setSizeSelected] = useState(false);
+  const [sizeClick, setSizeClick] = useState(false);
   const [skusId, setSkusId] = useState();
   const [shareQuote, setShareQuote] = useState();
   const [shareHashtag, setShareHashtag] = useState();
   const [shareUrl, setShareUrl] = useState();
+  const [haveStock, setHaveStock] = useState(true);
 
   useEffect(() => {
     if (currentStyle) {
       setShareQuote(`Check this Awesome item! ${product.name}, $${product.default_price}`);
       setShareHashtag([`Awesome:${product.category}`, `Reviews:${product.totalReviews}`]);
       // set loading was moved to product useEffect
+      if (currentStyle.skus.null) {
+        setHaveStock(false);
+      }
     }
   }, [currentStyle])
 
@@ -74,6 +79,10 @@ function StyleInformation({
       }
     }
     setQty(parseInt(e.target.value));
+    console.log(e.target.value);
+    if (e.target.value === '0') {
+      setSizeClick(true);
+    }
   }
 
   const renderQty = (qty) => {
@@ -90,6 +99,7 @@ function StyleInformation({
   }
 
   const handleQty = (e) => {
+    setSizeClick(false);
     setSizeSelected(true);
   }
 
@@ -185,25 +195,32 @@ function StyleInformation({
             </div>
           </div>
 
-          <div className='add-container'>
 
-            <select className='select' value={qty} onChange={handleSize}>
-              <option className='select' value="0">Select Size</option>
-              {currentStyle &&
-                Object.values(currentStyle.skus).map((item => {
-                  let idR = Math.random();
-                  return <option className='select' id={item.size} value={item.quantity} key={idR}>{item.size}</option>
-                }))}
-            </select>
+          {!haveStock ?
+            <div className='add-container'>
+              <div className='out-of-stock'>out of stock :(</div>
+            </div>
+            :
+            <div className='add-container'>
+              {sizeClick ? <div className='select-size-please'>Please select a size</div> : <></>}
+              <select className='select' value={qty} onChange={handleSize}>
+                <option className='select' value="0">Select Size</option>
+                {currentStyle &&
+                  Object.values(currentStyle.skus).map((item => {
+                    let idR = Math.random();
+                    return <option className='select' id={item.size} value={item.quantity} key={idR}>{item.size}</option>
+                  }))}
+              </select>
 
-            <select className='select' onChange={handleQty}>
-              {qty ? <option className='option'>1</option> : <option className='option' value="-">-</option>}
-              {qty && renderQty(qty)}
-            </select>
+              <select className='select' onChange={handleQty}>
+                {qty ? <option className='option'>1</option> : <option className='option' value="-">-</option>}
+                {qty && renderQty(qty)}
+              </select>
 
-            <button className='add-cart' onClick={(e) => { handleLocalSave(e); handleAddToCart(e); }}>ADD TO CART</button>
-            <button className='select select-star' onClick={handleOutfitClick}><TiStarFullOutline /></button>
-          </div>
+              <button className='add-cart' onClick={(e) => { handleLocalSave(e); handleAddToCart(e); }}>ADD TO CART</button>
+              <button className='select select-star' onClick={handleOutfitClick}><TiStarFullOutline /></button>
+            </div>
+          }
 
           <div className='social'>
             <FacebookShareButton className='social-btn' url={shareUrl} quote={shareQuote} hashtag={`#${shareHashtag}`}>
