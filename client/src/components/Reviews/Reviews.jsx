@@ -6,6 +6,7 @@ import SideBar from './SideBar.jsx';
 import { OrbitSpinner } from 'react-epic-spinners';
 
 const Reviews = (props) => {
+
   const [ratingPercentages, setRatingPercentages] = useState([]);
   const [averageRecommended, setAverageRecommended] = useState(0);
   const [initialized, setInitialized] = useState(false);
@@ -23,6 +24,7 @@ const Reviews = (props) => {
   const [sort, setSort] = useState('relevant');
 
   useEffect(() => {
+<<<<<<< HEAD
     console.log('REVIEWS PROCCED');
     if (!localStorage.getItem('helpfulReviews')) {
       localStorage.setItem('helpfulReviews', JSON.stringify({}));
@@ -34,6 +36,9 @@ const Reviews = (props) => {
       localStorage.setItem('sort', 'relevant');
     }
 
+=======
+    console.log('REVIEWS PROCCED')
+>>>>>>> eda63e3ae1dde64faa1919a5f15a2804b13a8bc4
     let sort = localStorage.getItem('sort');
     let searchStars = JSON.parse(localStorage.getItem('searchStars'));
     let ratings = props.metaData.ratings;
@@ -133,6 +138,7 @@ const Reviews = (props) => {
     setStarFilter(enableFilter(stars));
   };
 
+<<<<<<< HEAD
   const handleOnSortChange = (e) => {
     localStorage.setItem('sort', e.target.value);
     getSortedReviews(totalReviews, e.target.value)
@@ -144,6 +150,20 @@ const Reviews = (props) => {
         setSort(e.target.value);
       })
       .catch((err) => console.log(err));
+=======
+  const handleOnSortChange = (sort) => {
+    localStorage.setItem('sort', sort);
+    console.log(sort)
+    getSortedReviews(totalReviews, sort)
+    .then((reviews) => {
+      setReviews(reviews.data.results);
+      let filteredReviews = filterReviews(reviews.data.results);
+      setFilteredReviews(filteredReviews);
+      setSlicedReviews(filteredReviews.slice(0, showAmount));
+      setSort(sort);
+    })
+    .catch((err) => console.log(err));
+>>>>>>> eda63e3ae1dde64faa1919a5f15a2804b13a8bc4
   };
 
   useEffect(() => {

@@ -343,10 +343,10 @@ const Input = (props) => {
       <p>For authentication reasons, you will not be emailed</p>
       {loading
       ? <button className='reviewSubmit' disabled>Submitting...</button>
-      : <button className='reviewSubmit reviewSubmitEnable' type='submit'>Submit review</button>}
+      : <button className='reviewSubmit reviewSubmitEnable' type='submit'>SUBMIT REVIEW</button>}
       {errorMessages.length >= 1 &&
       <div className='reviewInputErrors'>
-        <p>You must enter the following:</p>
+        <h4>You must enter the following:</h4>
         {errorMessages.map((message, index) => <p key={index}>{message}</p>)}
       </div>}
     </form>

@@ -11,7 +11,11 @@ import { TiTick } from 'react-icons/ti';
 
 /* --------------------  ProductOverview  --------------------*/
 
+<<<<<<< HEAD
 function ProductOverview({ product, currentPhoto, currentStyle }) {
+=======
+function ProductOverview({ product, currentPhoto, currentStyle, trackClick }) {
+>>>>>>> eda63e3ae1dde64faa1919a5f15a2804b13a8bc4
   const [loading, setLoading] = useState(true);
   const [shareQuote, setShareQuote] = useState();
   const [shareHashtag, setShareHashtag] = useState();
@@ -36,7 +40,11 @@ function ProductOverview({ product, currentPhoto, currentStyle }) {
   }, [product])
 
   return (
+<<<<<<< HEAD
     <div>
+=======
+    <div onClick={trackClick}>
+>>>>>>> eda63e3ae1dde64faa1919a5f15a2804b13a8bc4
       {!loading ?
         <div className='prodview-container'>
           <div className='prodview-text'>

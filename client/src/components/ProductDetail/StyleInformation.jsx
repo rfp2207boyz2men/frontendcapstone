@@ -121,11 +121,15 @@ function StyleInformation({
 
   const relatedLink = (e) => {
     e.preventDefault();
+<<<<<<< HEAD
     window.location.replace("/#related");
   }
 
   const handleOutfitClick = () => {
     outfitAdd(product)
+=======
+    window.location.replace("/#reviews");
+>>>>>>> eda63e3ae1dde64faa1919a5f15a2804b13a8bc4
   }
 
   return (
@@ -149,95 +153,135 @@ function StyleInformation({
 
           <div>
             <div className='style-title'>
+<<<<<<< HEAD
               <h4 className='style-text style'> Style: </h4>
+=======
+              <h4 className='style-text style'> STYLE: </h4>
+>>>>>>> eda63e3ae1dde64faa1919a5f15a2804b13a8bc4
               <h4 className='style-text'>{product.styles[0].photos[0].thumbnail_url === null ? 'No style available' : currentStyle.name}</h4>
-            </div>
-            <div className='style-container'>
+            </div >
+    <div className='style-container'>
 
-              {
-                product.styles.map(item => {
-                  let id = Math.random();
-                  if (findDuplicates.includes(item.photos[0].thumbnail_url)) {
-                    return;
-                  } else {
-                    findDuplicates.push(item.photos[0].thumbnail_url);
-                    if (item.photos[0].thumbnail_url === null) {
-                      return;
-                    }
-                    if (currentStyle.photos[0].url === item.photos[0].url) {
-                      return (
-                        <div className='style-container-active' key={id}>
-                          <img className='style-entry-active' key={id}
-                            id={item.style_id}
-                            name={item.name}
-                            onClick={(e, url, prod) => {
-                              handleStyleClick(e, item.url, item);
-                            }}
-                            src={item.photos[0].thumbnail_url}></img>
-                          <FaCheckCircle className='check-active' />
-                        </div>
-                      )
-                    } else {
-                      return (
-                        <img className='style-entry' key={id}
-                          id={item.style_id}
-                          name={item.name}
-                          onClick={(e, url, prod) => {
-                            handleStyleClick(e, item.url, item);
-                          }}
-                          src={item.photos[0].thumbnail_url} ></img>
-                      )
-                    }
-                  }
-
-                })}
-
-            </div>
-          </div>
-
-
-          {!haveStock ?
-            <div className='add-container'>
-              <div className='out-of-stock'>out of stock :(</div>
-            </div>
-            :
-            <div className='add-container'>
-              {sizeClick ? <div className='select-size-please'>Please select a size</div> : <></>}
-              <select className='select' value={qty} onChange={handleSize}>
-                <option className='select' value="0">Select Size</option>
-                {currentStyle &&
-                  Object.values(currentStyle.skus).map((item => {
-                    let idR = Math.random();
-                    return <option className='select' id={item.size} value={item.quantity} key={idR}>{item.size}</option>
-                  }))}
-              </select>
-
-              <select className='select' onChange={handleQty}>
-                {qty ? <option className='option'>1</option> : <option className='option' value="-">-</option>}
-                {qty && renderQty(qty)}
-              </select>
-
-              <button className='add-cart' onClick={(e) => { handleLocalSave(e); handleAddToCart(e); }}>ADD TO CART</button>
-              <button className='select select-star' onClick={handleOutfitClick}><TiStarFullOutline /></button>
-            </div>
+      {
+        product.styles.map(item => {
+          let id = Math.random();
+          if (findDuplicates.includes(item.photos[0].thumbnail_url)) {
+            return;
+          } else {
+            findDuplicates.push(item.photos[0].thumbnail_url);
+            if (item.photos[0].thumbnail_url === null) {
+              return;
+            }
+<<<<<<< HEAD
+            if (currentStyle.photos[0].url === item.photos[0].url) {
+              return (
+                <div className='style-container-active' key={id}>
+                  <img className='style-entry-active' key={id}
+                    id={item.style_id}
+                    name={item.name}
+                    onClick={(e, url, prod) => {
+                      handleStyleClick(e, item.url, item);
+                    }}
+                    src={item.photos[0].thumbnail_url}></img>
+                  <FaCheckCircle className='check-active' />
+                </div>
+              )
+            } else {
+              return (
+                <img className='style-entry' key={id}
+                  id={item.style_id}
+                  name={item.name}
+                  onClick={(e, url, prod) => {
+                    handleStyleClick(e, item.url, item);
+                  }}
+                  src={item.photos[0].thumbnail_url} ></img>
+              )
+            }
+=======
+                    return (
+                      <img className='style-entry' key={id}
+                        id={item.style_id}
+                        name={item.name}
+                        onClick={(e, url, prod) => {
+                          // handleLocalClick(e);
+                          handleStyleClick(e, item.url, item);
+                        }}
+                        src={item.photos[0].thumbnail_url}
+                        alt='Style Thumbnail' ></img>
+                    )
+>>>>>>> eda63e3ae1dde64faa1919a5f15a2804b13a8bc4
           }
 
-          <div className='social'>
-            <FacebookShareButton className='social-btn' url={shareUrl} quote={shareQuote} hashtag={`#${shareHashtag}`}>
-              <FaFacebook />
-            </FacebookShareButton>
-            <TwitterShareButton className='social-btn' url={shareUrl} title={shareQuote} hashtag={`${shareHashtag}`}>
-              <FaTwitter />
-            </TwitterShareButton>
-            <PinterestShareButton className='social-btn' url={shareUrl} media={shareUrl} description={shareQuote} >
-              <FaPinterest />
-            </PinterestShareButton>
-          </div>
-        </div>
-        :
-        <OrbitSpinner color="teal" />
-      }
+        })}
+
     </div>
+          </div >
+
+<<<<<<< HEAD
+
+    {!haveStock ?
+      <div className='add-container'>
+        <div className='out-of-stock'>out of stock :(</div>
+      </div>
+      :
+      <div className='add-container'>
+        {sizeClick ? <div className='select-size-please'>Please select a size</div> : <></>}
+        <select className='select' value={qty} onChange={handleSize}>
+          <option className='select' value="0">Select Size</option>
+          {currentStyle &&
+            Object.values(currentStyle.skus).map((item => {
+              let idR = Math.random();
+              return <option className='select' id={item.size} value={item.quantity} key={idR}>{item.size}</option>
+            }))}
+        </select>
+
+        <select className='select' onChange={handleQty}>
+          {qty ? <option className='option'>1</option> : <option className='option' value="-">-</option>}
+          {qty && renderQty(qty)}
+        </select>
+
+        <button className='add-cart' onClick={(e) => { handleLocalSave(e); handleAddToCart(e); }}>ADD TO CART</button>
+        <button className='select select-star' onClick={handleOutfitClick}><TiStarFullOutline /></button>
+      </div>
+}
+=======
+          <div className='add-container'>
+
+            <select className='select' value={qty} onChange={handleSize}>
+              <option className='select' value="0">SELECT SIZE</option>
+              {currentStyle &&
+                Object.values(currentStyle.skus).map((item => {
+                  let idR = Math.random();
+                  return <option className='select' id={item.size} value={item.quantity} key={idR}>{item.size}</option>
+                }))}
+            </select>
+
+            <select className='select' onChange={handleQty}>
+              {qty ? <option className='option'>1</option> : <option className='option' value="-">-</option>}
+              {qty && renderQty(qty)}
+            </select>
+
+            <button className='add-cart' onClick={(e) => { handleLocalSave(e); handleAddToCart(e); }}>ADD TO CART</button>
+            <button className='select select-star' onClick={handleLocalSave}><TiStarFullOutline /></button>
+          </div>
+>>>>>>> eda63e3ae1dde64faa1919a5f15a2804b13a8bc4
+
+<div className='social'>
+  <FacebookShareButton className='social-btn' url={shareUrl} quote={shareQuote} hashtag={`#${shareHashtag}`}>
+    <FaFacebook />
+  </FacebookShareButton>
+  <TwitterShareButton className='social-btn' url={shareUrl} title={shareQuote} hashtag={`${shareHashtag}`}>
+    <FaTwitter />
+  </TwitterShareButton>
+  <PinterestShareButton className='social-btn' url={shareUrl} media={shareUrl} description={shareQuote} >
+    <FaPinterest />
+  </PinterestShareButton>
+</div>
+        </div >
+        :
+<OrbitSpinner color="teal" />
+      }
+    </div >
 
 
 

@@ -12,7 +12,7 @@ const Breakdowns = (props) => {
       // style = {backgroundColor: props.clickedStar[i] ? 'teal' : 'transparent'};
       ratingBars.push(
         <div className={props.clickedStars[i] ? 'reviewBarSectionOn' : 'reviewBarSectionOff'} key={i} onClick={()=>props.handleClick(i)}>
-          <p className='reviewBarLabel'><u>{i} stars</u></p>
+          <p className='reviewBarLabel'>{i} stars</p>
           <div style={renderBarSize(i-1)} className='reviewBar'></div>
           <p>({props.ratings[i]})</p>
         </div>
@@ -23,7 +23,7 @@ const Breakdowns = (props) => {
 
   const renderBarSize = (index) => {
     //Renders the green/gray proportion of the bar depending on the ratio of that star rating
-    let background = {background: `linear-gradient(to right, green, green ${props.ratingPercentages[index]}%, gray ${props.ratingPercentages[index]}%)`};
+    let background = {background: `linear-gradient(to right, teal, teal ${props.ratingPercentages[index]}%, gray ${props.ratingPercentages[index]}%)`};
     return background;
   };
 
@@ -44,7 +44,7 @@ const Breakdowns = (props) => {
           <p>Current Star Filters:</p>
           {stars.map((star, index) => <p key={index}>{star}</p>)}
         </div>
-        <p onClick={props.removeStarFilter}><u>Remove all star filters</u></p>
+        <p className='ratingsRemoveStarFilter' onClick={props.removeStarFilter}><u>Remove all star filters</u></p>
       </>
     )
   }

@@ -160,9 +160,70 @@
   REVIEW LIST
 ***********************/
 
+<<<<<<< HEAD
 .reviewListHeader {
   display: flex;
   flex-direction: row;
+=======
+.reviewSearchSection {
+  display: inline-flex;
+  border-bottom: 1px solid grey;
+  width: 800px;
+  height: 50px;
+  align-items: center;
+}
+
+.reviewSearchBar {
+  display: inline-flex;
+  width: 800px;
+  height: 50px;
+  background-color: transparent;
+  border: 0;
+  font-size: 16px;
+}
+
+.reviewSearchBarIcon {
+  float: right;
+  border: none;
+  background-color: transparent;
+  font-size: 30px;
+}
+
+.reviewSearchBar::placeholder {
+  display: flex;
+  font-size: 16px;
+}
+
+.reviewSortSection span {
+  border-bottom: 1px solid black;
+  cursor: pointer;
+}
+
+.reviewSortDropDown {
+  position: absolute;
+  /* margin-left: 53px; */
+  background-color: gray;
+}
+
+.reviewSortDropDown p {
+  margin: 0;
+}
+
+.reviewCheckmark {
+  color: red;
+}
+
+.reviewSortDropDown p:hover {
+  /* background-color: red; */
+  cursor: pointer;
+}
+
+.reviewListHeader {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 350px;
+>>>>>>> eda63e3ae1dde64faa1919a5f15a2804b13a8bc4
 }
 
 .reviewTile {
@@ -326,6 +387,19 @@
   cursor: pointer;
 }
 
+.reviewInputErrors {
+  position: absolute;
+  left: 700px;
+  top: 985px;
+  color: red;
+}
+
+.reviewInputErrors p {
+  margin: 0;
+  margin-bottom: 5px;
+  margin-left: 6px;
+}
+
 /*
   STAR INPUT
 */
@@ -421,6 +495,7 @@
 .reviewInputCharacteristicsDescriptors p {
   margin: 5px 0;
 }
+
 
 /*
   IMAGES INPUT

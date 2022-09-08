@@ -74,24 +74,12 @@ function ImageGallery({
                   if (style.url === null) {
                     return;
                   }
-                  return (
-                    <div key={id}>
-                      <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry'></img>
-                      <div className="g-line"></div>
-                    </div>
-                  )
-
-
+                  return <img onClick={e => handleThumbClick(e, style)} id={style.url} key={id} src={style.thumbnail_url} className='g-entry g-border' alt='Image Gallery Thumbnail'></img>
                 } else {
                   if (style.url === null) {
                     return;
                   }
-                  return (
-                    <div key={id}>
-                      <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry'></img>
-                      <div className="g-line-hidden"></div>
-                    </div>
-                  )
+                  return <img onClick={e => handleThumbClick(e, style)} id={style.url} key={id} src={style.thumbnail_url} className='g-entry' alt='Image Gallery Thumbnail'></img>
                 }
 
               })}
@@ -103,7 +91,12 @@ function ImageGallery({
 
 
 
+<<<<<<< HEAD
           }
+=======
+            {overlay && <PhotoOverlay clickedPhoto={clickedPhoto} onClick={handleOverlay} />}
+          <img className='pv-img' onClick={handlePhotoClick} src={currentPhoto || `https://via.placeholder.com/500`} alt={product.name} alt='Image Gallery Focus Photo'></img>
+>>>>>>> eda63e3ae1dde64faa1919a5f15a2804b13a8bc4
 
           <div className="pv-container">
             {arrowLeft ? <TiArrowLeftThick onClick={handleLeftClick} className='arrow' /> : <TiArrowLeftThick onClick={handleLeftClick} className='arrow-hidden' />}

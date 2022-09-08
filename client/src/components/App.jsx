@@ -17,6 +17,8 @@ import { MdLightMode, MdDarkMode } from 'react-icons/md';
 import { lightTheme, darkTheme, GlobalStyles } from '../themes.js';
 import ClickTracker from './ClickTracker.jsx';
 import moment from 'moment';
+import Header from './Header.jsx';
+import FourOhFour from './404.jsx';
 
 const StyledApp = styled.div`
 `;
@@ -36,6 +38,7 @@ const App = () => {
   const [selectedProduct, setSelectedProduct] = useState({});
   const [loading, setLoading] = useState(false);
   const [theme, setTheme] = useState('light');
+  const [crashed, setCrashed] = useState(false);
 
   const themeToggler = () => {
     theme === 'light' ? setTheme('dark') : setTheme('light');
@@ -43,6 +46,17 @@ const App = () => {
   }
 
   useEffect(() => {
+    if (!localStorage.getItem('helpfulReviews')) {
+      localStorage.setItem('helpfulReviews', JSON.stringify({}));
+    }
+    if (!localStorage.getItem('searchStars')) {
+      localStorage.setItem('searchStars', JSON.stringify({ 1: false, 2: false, 3: false, 4: false, 5: false }));
+    }
+    if (!localStorage.getItem('sort')) {
+      localStorage.setItem('sort', 'relevant');
+    }
+
+
 
     if (!localStorage.getItem('helpfulReviews')) {
       localStorage.setItem('helpfulReviews', JSON.stringify({}));
@@ -63,8 +77,15 @@ const App = () => {
         // let defaultIndex = Math.floor(Math.random() * products.data.length);
         updateSelectedProduct(products.data[0].id);
       })
+<<<<<<< HEAD
 
 
+=======
+      .catch((err) => {
+        console.log(err);
+        return setCrashed(true);
+      });
+>>>>>>> eda63e3ae1dde64faa1919a5f15a2804b13a8bc4
     retrieveStorage();
     getCart();
   }, []);
@@ -136,7 +157,10 @@ const App = () => {
         //this.retrieveStorage();
         // retrieveStyles();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        return setCrashed(true);
+      });
   }
 
   // const retrieveStyles = () => {
@@ -234,6 +258,7 @@ const App = () => {
   const OutfitsTrack = ClickTracker(Outfits, 'Outfits');
   const ReviewsTrack = ClickTracker(Reviews, 'Reviews');
   const QandATrack = ClickTracker(QandA, 'Questions & Answers');
+  const HeaderTrack = ClickTracker(Header, 'Header');
 
   const trackHeader = (e) => {
     //This particular tracker used for Header because of issues creating a separate header component
@@ -275,29 +300,40 @@ const App = () => {
         getCart,
         handleOutfitAdds,
       }}>
-        {loading ?
-          <StyledApp>
-            <div className="header" onClick={trackHeader}>
-              <div className="logoheader">
-                <div className="logotext"><h1>Odin</h1></div>
-                <div className="logo"><GiTriquetra /></div>
-              </div>
-              <div className="toprightHeader">
-                <div className="searchbar"><input className="search" placeholder="Search"></input><GoSearch className="searchIcon" /></div>
-                <div className="shoppingBag"><BsBag />{cart && <div className='cart'>{cart.length}</div>}</div>
-              </div>
-              {theme === 'light' ?
-                <div className='theme-toggler' onClick={themeToggler}>
-                  <MdLightMode />
-                  Theme
-                </div>
-                :
-                <div className='theme-toggler' onClick={themeToggler}>
-                  <MdDarkMode />
-                  Theme
-                </div>
-              }
+<<<<<<< HEAD
+  {
+    loading ?
+      <StyledApp>
+        <div className="header" onClick={trackHeader}>
+          <div className="logoheader">
+            <div className="logotext"><h1>Odin</h1></div>
+            <div className="logo"><GiTriquetra /></div>
+          </div>
+          <div className="toprightHeader">
+            <div className="searchbar"><input className="search" placeholder="Search"></input><GoSearch className="searchIcon" /></div>
+            <div className="shoppingBag"><BsBag />{cart && <div className='cart'>{cart.length}</div>}</div>
+          </div>
+          {theme === 'light' ?
+            <div className='theme-toggler' onClick={themeToggler}>
+              <MdLightMode />
+              Theme
             </div>
+            :
+            <div className='theme-toggler' onClick={themeToggler}>
+              <MdDarkMode />
+              Theme
+            </div>
+          }
+        </div>
+=======
+        {loading &&
+          <StyledApp>
+            <HeaderTrack
+              theme={theme}
+              cart={cart}
+              themeToggler={themeToggler}
+            />
+>>>>>>> eda63e3ae1dde64faa1919a5f15a2804b13a8bc4
             <div className="main">
               <div>
                 <OverviewTrack
@@ -339,11 +375,17 @@ const App = () => {
                 />
               </div>
             </div>
-          </StyledApp>
+<<<<<<< HEAD
+          </StyledApp >
           : <OrbitSpinner color='teal' />
         }
-      </AppContext.Provider>
-    </ThemeProvider>
+=======
+          </StyledApp>}
+          {(!loading && !crashed) && <StyledApp className="spinner"><OrbitSpinner color='teal' /></StyledApp>}
+          {crashed && <FourOhFour/>}
+>>>>>>> eda63e3ae1dde64faa1919a5f15a2804b13a8bc4
+      </AppContext.Provider >
+    </ThemeProvider >
   )
 }
 

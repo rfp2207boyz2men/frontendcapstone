@@ -19,9 +19,11 @@ const ClickTracker = (Component, widget) => {
         time: date
       };
 
-      Parse.create('interactions', undefined, params)
-      // .then((response) => console.log(response))
-      .catch((err) => console.log(err));
+      // v Uncomment v to enable interaction posts to API
+
+      // Parse.create('interactions', undefined, params)
+      // // .then((response) => console.log(response))
+      // .catch((err) => console.log(err));
 
       //Disable window.onclick at the end of function to prevent from clicking on elements with no component(like page border)
       window.onclick = () => {};
@@ -31,6 +33,5 @@ const ClickTracker = (Component, widget) => {
   return (props) =>
     <Component trackClick={handleClickTrack} {...props}/>;
 };
-//console.log('NODER: ', e.target.outerHTML);
 
 export default ClickTracker;

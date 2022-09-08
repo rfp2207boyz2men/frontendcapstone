@@ -6,7 +6,12 @@ import { OrbitSpinner } from 'react-epic-spinners';
 import { BsPlusCircle } from 'react-icons/bs';
 import { RiArrowRightSLine, RiArrowLeftSLine } from 'react-icons/ri'
 
+<<<<<<< HEAD
 const Outfits = ({ outfits, current, outfitAdd, outfitRemove, avgRating, styleId, starRender }) => {
+=======
+const Outfits = ({ outfits, current, outfitAdd, outfitRemove, avgRating, styleId, starRender, trackClick }) => {
+
+>>>>>>> eda63e3ae1dde64faa1919a5f15a2804b13a8bc4
   const [outfitHover, setOutfitHover] = useState(false);
   const [carousel, setCarousel] = useState([]);
   const [left, setLeft] = useState([]);
@@ -14,6 +19,7 @@ const Outfits = ({ outfits, current, outfitAdd, outfitRemove, avgRating, styleId
   const [view, setView] = useState([])
 
   useEffect(() => {
+    console.log('OUTFITS PROCCED')
     if (outfits.length > 3) {
       setCarousel([...outfits.slice(0, 3)]);
       setRight([...outfits.slice(3)]);
@@ -55,7 +61,11 @@ const Outfits = ({ outfits, current, outfitAdd, outfitRemove, avgRating, styleId
   }
 
   return (
+<<<<<<< HEAD
     <div>
+=======
+    <div onClick={trackClick}>
+>>>>>>> eda63e3ae1dde64faa1919a5f15a2804b13a8bc4
       <div className='sectionTitle'><h2>YOUR OUTFIT</h2></div>
       <div className="carousel">
         <div className="rightArrow" onClick={shiftLeft}>{right.length ? <RiArrowRightSLine /> : null}</div>

@@ -78,16 +78,18 @@ const QuestionList = (props) => {
                     productName={props.productName} />
                 )}
               </div>
-              <button
-                className='question-list-button'
-                onClick={handleShowMore}>
-                More Answered Questions
-              </button>
-              <button
-                className='question-list-button'
-                onClick={handleModal}>
-                Add a Question +
-              </button>
+              <div className='qandaButtons'>
+                <button
+                  className='question-list-button'
+                  onClick={handleShowMore}>
+                  MORE QUESTIONS
+                </button>
+                <button
+                  className='question-list-button'
+                  onClick={handleModal}>
+                  ADD A QUESTION +
+                </button>
+              </div>
             </> :
             <>
               <div className='question-list'>
@@ -99,18 +101,18 @@ const QuestionList = (props) => {
                 )}
               </div>
               {filteredCount > 2 &&
-                <>
+                <div className='qandaButtons'>
                   <button
                     className='question-list-button'
                     onClick={handleShowLess}>
-                    Show Less
+                    SHOW LESS
                   </button>
                   <button
                     className='question-list-button'
                     onClick={handleModal}>
-                    Add a Question +
+                    ADD A QUESTION +
                   </button>
-                </>}
+                </div>}
             </>
           }
         </> :
@@ -119,7 +121,7 @@ const QuestionList = (props) => {
           <button
             className='question-list-button'
             onClick={handleModal}>
-            Add a Question +
+            ADD A QUESTION +
           </button>
         </>
       }
