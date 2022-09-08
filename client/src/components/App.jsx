@@ -21,7 +21,6 @@ import Header from './Header.jsx';
 import FourOhFour from './404.jsx';
 
 const StyledApp = styled.div`
-
 `;
 
 const App = () => {
@@ -51,12 +50,27 @@ const App = () => {
       localStorage.setItem('helpfulReviews', JSON.stringify({}));
     }
     if (!localStorage.getItem('searchStars')) {
-      localStorage.setItem('searchStars', JSON.stringify({1:false, 2:false, 3:false, 4:false, 5:false}));
+      localStorage.setItem('searchStars', JSON.stringify({ 1: false, 2: false, 3: false, 4: false, 5: false }));
     }
     if (!localStorage.getItem('sort')) {
       localStorage.setItem('sort', 'relevant');
     }
 
+
+
+    if (!localStorage.getItem('helpfulReviews')) {
+      localStorage.setItem('helpfulReviews', JSON.stringify({}));
+    }
+    if (!localStorage.getItem('searchStars')) {
+      localStorage.setItem('searchStars', JSON.stringify({ 1: false, 2: false, 3: false, 4: false, 5: false }));
+    }
+    if (!localStorage.getItem('sort')) {
+      localStorage.setItem('sort', 'relevant');
+    }
+
+    if (!localStorage.getItem('theme')) {
+      localStorage.setItem('theme', 'light');
+    }
 
     Parse.getAll(`products/`)
       .then((products) => {
@@ -257,11 +271,11 @@ const App = () => {
       };
 
       Parse.create('interactions', undefined, params)
-      // .then((response) => console.log(response))
-      .catch((err) => console.log(err));
+        // .then((response) => console.log(response))
+        .catch((err) => console.log(err));
 
       //Disable window.onclick at the end of function to prevent from clicking on elements with no component(like page border)
-      window.onclick = () => {};
+      window.onclick = () => { };
     }
   };
 
@@ -271,12 +285,15 @@ const App = () => {
       <AppContext.Provider value={{
         selectedProduct,
         localName,
+        outfits,
         handleSelectedProduct,
         handleLocalClick,
         handleLocalSave,
         getAverageRating,
         getTotalReviews,
         renderStars,
+        getCart,
+        handleOutfitAdds,
       }}>
         {loading &&
           <StyledApp>
@@ -327,10 +344,10 @@ const App = () => {
               </div>
             </div>
           </StyledApp>}
-          {(!loading && !crashed) && <StyledApp className="spinner"><OrbitSpinner color='teal' /></StyledApp>}
-          {crashed && <FourOhFour/>}
-      </AppContext.Provider>
-    </ThemeProvider>
+        {(!loading && !crashed) && <StyledApp className="spinner"><OrbitSpinner color='teal' /></StyledApp>}
+        {crashed && <FourOhFour />}
+      </AppContext.Provider >
+    </ThemeProvider >
   )
 }
 

@@ -39,6 +39,8 @@ export const lightTheme = {
   linkColor: 'black',
   modalCompareBg: 'white',
   modalCompareText: 'black',
+  styleBorder: '3px solid teal',
+  priceColor: 'red',
 };
 
 export const darkTheme = {
@@ -80,6 +82,8 @@ export const darkTheme = {
   linkColor: 'white',
   modalCompareBg: '#121212',
   modalCompareText: 'white',
+  styleBorder: '3px solid burlywood',
+  priceColor: '#FF5C5C',
 };
 
 export const GlobalStyles = createGlobalStyle`
@@ -953,10 +957,24 @@ input[type='file'] {
 .g-entry {
   cursor: pointer;
   background-color: #fff;
-  width: 50px;
-  margin-bottom: 20px;
+  width: 40px;
+  margin-bottom: 2px;
   height: 50px;
   transition: all .5s ease;
+}
+
+.g-line {
+  height: 3px;
+  left: 10px;
+  margin-bottom: 20px;
+  background-color: ${(props) => props.theme.tealAndBurly};
+}
+.g-line-hidden {
+  visibility: hidden;
+  height: 3px;
+  left: 10px;
+  margin-bottom: 20px;
+  background-color: ${(props) => props.theme.tealAndBurly};
 }
 
 .g-entry:hover {
@@ -968,6 +986,7 @@ input[type='file'] {
   border-bottom: solid 5px burlywood;
 }
 
+
 .arrow {
   color: ${(props) => props.theme.fontColor};
   cursor: pointer;
@@ -976,11 +995,179 @@ input[type='file'] {
   transition: all .5s ease;
 }
 
+.arrow-hidden {
+  visibility: hidden;
+  color: ${(props) => props.theme.fontColor};
+  cursor: pointer;
+  font-size: 25px;
+  padding: 5px;
+}
+
+/* ----------------- Expaneded Section ----------------- */
+
+.slider-modal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+.arrow-side {
+  display: inline-block;
+  color: white;
+  cursor: pointer;
+  font-size: 25px;
+  padding: 20px 10px;
+  transform: rotate(270deg);
+  transition: all .5s ease;
+}
+
+.slider-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: black;
+  opacity: 0.5;
+  height: 100%;
+  width: 100%;
+  }
+
+.sliderImg {
+  width: 700px;
+  height: 700px;
+  //border: ${(props) => props.theme.productBorderColor};
+  padding: 10px;
+  background-color: white;
+  //border: 2px solid ${(props) => props.theme.burlyAndTeal};
+  border-radius: 10px;
+  background-position: center;
+  object-fit: cover;
+  }
+
+.g-container-vertical {
+  display: flex;
+  align-items: space-between;
+  justify-content: center;
+  flex-direction: row;
+  position: absolute;
+  top: 90%;
+  left: 37%;
+  font-size: 25px;
+  z-index: 3;
+  cursor: pointer;
+}
+
+.g-entry-v {
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  margin: 2px 10px;
+  transition: all .5s ease;
+  border-radius: 5px;
+  border: 3px solid transparent;
+}
+
+.g-entry-v-b {
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  margin: 2px 10px;
+  border-radius: 5px;
+  border: ${(props) => props.theme.styleBorder};
+}
+
+.g-line-v {
+  width: 60px;
+  height: 3px;
+  margin: 0 auto;
+  border: 3px solid transparent;
+}
+
+.left-arrow-v {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  left: 29%;
+  font-size: 25px;
+  color: white;
+  z-index: 2;
+  cursor: pointer;
+  }
+
+.right-arrow-v {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  left: 70%;
+  font-size: 25px;
+  color: white;
+  z-index: 2;
+  cursor: pointer;
+  }
+
+
+
+.dot-container {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  display: flex;
+  top: 92%;
+  left: 40%;
+  color: gray;
+  z-index: 4;
+  }
+
+.dot {
+  margin: 0 5px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.dot-active {
+  margin: 0 5px;
+  cursor: pointer;
+  font-size: 20px;
+  color: white;
+}
+
+#modalCarousel {
+  width: 38%;
+  max-height: fit-content;
+}
+
+.mainImage {
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+
+
+.mainImage:hover {
+  cursor: zoom-in;
+}
+
+.modalImage:hover {
+  cursor: crosshair;
+}
+
 .expand {
   color: ${(props) => props.theme.fontColor};
   cursor: pointer;
   font-size: 30px;
   align-self: flex-start;
+}
+
+.expand-container {
+  width: 500px;
+  height: 280px;
+  margin: 0 auto;
 }
 
 /* ----------------- Style Section ----------------- */
@@ -1012,21 +1199,24 @@ input[type='file'] {
 .style-text {
   font-size: 14px;
   margin-right: 5px;
-  color: ${(props) => props.theme.fontColor};;
+  color: ${(props) => props.theme.fontColor};
   font-weight: 400;
 }
 
 .price {
+  display: inline;
   font-size: 14px;
   font-weight: 400;
 }
 
 .price-line {
+  font-size: 10px;
   text-decoration: line-through;
 }
 
 .price-sale {
-  color: red;
+  margin-right: 10px;
+  color: ${(props) => props.theme.priceColor};
 }
 
 .style {
@@ -1035,24 +1225,41 @@ input[type='file'] {
 
 .style-entry {
   cursor: pointer;
-  border-radius: 30px;
-  border: solid 0.5px #333;
-  object-fit: cover;
+  box-sizing: border-box;
   height: 50px;
   width: 50px;
   margin: 5px;
+  border-radius: 30px;
+  object-fit: cover;
   background-color: ${(props) => props.theme.burlyAndTeal};
 }
 
 .style-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-wrap: wrap;
 }
-
-.style-container img {
-  border: ${(props) => props.theme.burlyBorderBlack};
+.style-container-active {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+}
+.style-entry-active {
+  position: block;
+  cursor: pointer;
+  box-sizing: border-box;
+  margin: 5px;
+  border-radius: 30px;
+  height: 50px;
+  width: 50px;
+  border: ${(props) => props.theme.styleBorder};
+  object-fit: cover;
+  background-color: ${(props) => props.theme.burlyAndTeal};
+}
+.check-active {
+  color: ${(props) => props.theme.burlyAndTeal};;
+  position: absolute;
+  bottom: 42px;
+  left: 5px;
 }
 
 .add-container {
@@ -1076,12 +1283,33 @@ input[type='file'] {
   color: white;
 }
 
+.out-of-stock {
+  font-size: 14px;
+  color: ${(props) => props.theme.fontColor};
+}
+.select-size-please {
+  font-size: 14px;
+  margin-left: 5px;
+  color: ${(props) => props.theme.fontColor};
+}
+
 .select {
   background: #cccccc;
   border: burlywood;
   color: black;
   padding: 10px 20px;
   margin: 5px 7px;
+}
+
+.select-size {
+  background: #cccccc;
+  border: burlywood;
+  color: black;
+  padding: 10px 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 20px;
+  margin-left: 7px;
 }
 
 .select > svg {
