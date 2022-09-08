@@ -141,39 +141,22 @@ const Tile = (props) => {
     <div className='reviewTile'>
       <div className='reviewUserInfo'>
         <p>{renderName()}</p>
-<<<<<<< HEAD
-        {props.review.recommend && <p><GrCheckmark /> I recommend this product</p>}
-=======
->>>>>>> eda63e3ae1dde64faa1919a5f15a2804b13a8bc4
       </div>
       <div className='ratingStars'>{renderStars()}</div>
       <h3><b>{props.review.summary}</b></h3>
       <div className='reviewBodySection'>
         {parseBody()}
-<<<<<<< HEAD
-        {(props.review.body.length > 250 && !showMore) && <p onClick={handleShowMore}><u>Show more...</u></p>}
+        {(props.review.body.length > 250 && !showMore) && <p className='reviewTileShowMore' onClick={handleShowMore}><u>Show more...</u></p>}
         {props.review.photos.length >= 1 &&
           <div className='reviewPhotoThumbnailSection'>
-            {props.review.photos.map((photo, index) => <img src={photo.url} className='reviewPhotoThumbnail' onClick={handlePhotoClick} key={index} />)}
+            {props.review.photos.map((photo, index) => <img src={photo.url} className='reviewPhotoThumbnail' alt='Review photo thumbnail' onClick={handlePhotoClick} key={index} />)}
           </div>}
         {props.review.response &&
           <div className='reviewResponse'>
             <span><b>Response:</b></span>
             <p>{parseResponse()}</p>
           </div>}
-=======
-        {(props.review.body.length > 250 && !showMore) && <p className='reviewTileShowMore' onClick={handleShowMore}><u>Show more...</u></p>}
-        {props.review.photos.length >= 1 &&
-        <div className='reviewPhotoThumbnailSection'>
-          {props.review.photos.map((photo, index) => <img src={photo.url} className='reviewPhotoThumbnail' alt='Review photo thumbnail' onClick={handlePhotoClick} key={index}/>)}
-        </div>}
-        {props.review.response &&
-        <div className='reviewResponse'>
-          <span><b>Response:</b></span>
-          <p>{parseResponse()}</p>
-        </div>}
-        {props.review.recommend && <p><FaCheckCircle className='reviewCheckmark'/> I recommend this product</p>}
->>>>>>> eda63e3ae1dde64faa1919a5f15a2804b13a8bc4
+        {props.review.recommend && <p><FaCheckCircle className='reviewCheckmark' /> I recommend this product</p>}
       </div>
       <div className='reviewInteractions'>
         {renderHelpful()}

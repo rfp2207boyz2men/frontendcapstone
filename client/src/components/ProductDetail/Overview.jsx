@@ -170,7 +170,7 @@ function Overview({ trackClick }) {
     setArrowDown(true);
     setArrowRight(true);
     setStylesList(currentStyle.photos.slice(0, 7));
-    setCurrentPhoto(currentStyle.photos[0].url);
+    setCurrentPhoto(currentStyle.photos[6].url);
   }
   const handleExpandedView = (e) => {
     e.preventDefault();

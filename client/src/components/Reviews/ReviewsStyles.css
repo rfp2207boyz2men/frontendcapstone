@@ -160,11 +160,6 @@
   REVIEW LIST
 ***********************/
 
-<<<<<<< HEAD
-.reviewListHeader {
-  display: flex;
-  flex-direction: row;
-=======
 .reviewSearchSection {
   display: inline-flex;
   border-bottom: 1px solid grey;
@@ -223,7 +218,6 @@
   flex-direction: row;
   flex-wrap: wrap;
   width: 350px;
->>>>>>> eda63e3ae1dde64faa1919a5f15a2804b13a8bc4
 }
 
 .reviewTile {

@@ -1,15 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-<<<<<<< HEAD
-
-const Sort = (props) => {
-
-  return (
-    <select className='reviewSort' name='sort' onChange={props.onChange}>
-      <option value='helpful'>Helpful</option>
-      <option value='newest'>Newest</option>
-      <option value='relevant'>Relevant</option>
-    </select>
-=======
 import { VscTriangleDown } from 'react-icons/vsc';
 
 const Sort = (props) => {
@@ -32,7 +21,7 @@ const Sort = (props) => {
   const capitalizeSort = () => {
     let firstLetter = props.sort.slice(0, 1).toUpperCase();
     let restOfWord = props.sort.slice(1);
-    return (<span onMouseEnter={handleDropDownEnter}>{firstLetter + restOfWord}<VscTriangleDown/></span>)
+    return (<span onMouseEnter={handleDropDownEnter}>{firstLetter + restOfWord}<VscTriangleDown /></span>)
   }
 
   // const renderSort = () => {
@@ -51,19 +40,18 @@ const Sort = (props) => {
     <div className='reviewSortSection' onMouseLeave={handleDropDownLeave}>
       <div>{capitalizeSort()}</div>
       {dropDown &&
-      // <select className='reviewSort' name='sort' onChange={props.onChange} onMouseLeave={handleDropDown} onClick={handleDropDown}>
-      //   <option value='relevant'>Relevant</option>
-      //   <option value='helpful'>Helpful</option>
-      //   <option value='newest'>Newest</option>
-      // </select>}
-      <div className='reviewSortDropDown'>
-        <p onClick={() => {handleClick('relevant')}}>Relevant</p>
-        <p onClick={() => {handleClick('helpful')}}>Helpful</p>
-        <p onClick={() => {handleClick('newest')}}>Newest</p>
-      </div>
-}
+        // <select className='reviewSort' name='sort' onChange={props.onChange} onMouseLeave={handleDropDown} onClick={handleDropDown}>
+        //   <option value='relevant'>Relevant</option>
+        //   <option value='helpful'>Helpful</option>
+        //   <option value='newest'>Newest</option>
+        // </select>}
+        <div className='reviewSortDropDown'>
+          <p onClick={() => { handleClick('relevant') }}>Relevant</p>
+          <p onClick={() => { handleClick('helpful') }}>Helpful</p>
+          <p onClick={() => { handleClick('newest') }}>Newest</p>
+        </div>
+      }
     </div>
->>>>>>> eda63e3ae1dde64faa1919a5f15a2804b13a8bc4
   )
 };
 

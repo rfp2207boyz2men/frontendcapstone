@@ -4,12 +4,8 @@ import ProductCard from './ProductCard.jsx';
 import Outfits from './Outfits.jsx';
 import { RiArrowRightSLine, RiArrowLeftSLine } from 'react-icons/ri'
 
-<<<<<<< HEAD
-const Related = ({ selectedProduct, addToOutfit, selectStyle, avgRating, starRender }) => {
-=======
 const Related = ({ selectedProduct, addToOutfit, selectStyle, avgRating, starRender, trackClick }) => {
 
->>>>>>> eda63e3ae1dde64faa1919a5f15a2804b13a8bc4
   const [relatedIds, setRelatedIds] = useState([]);
   const [carousel, setCarousel] = useState([]);
   const [left, setLeft] = useState([]);
@@ -54,11 +50,7 @@ const Related = ({ selectedProduct, addToOutfit, selectStyle, avgRating, starRen
   }
 
   return (
-<<<<<<< HEAD
-    <div>
-=======
     <div onClick={trackClick}>
->>>>>>> eda63e3ae1dde64faa1919a5f15a2804b13a8bc4
       <div className='sectionTitle'><h2>RELATED PRODUCTS</h2></div>
       <div className='carousel'>
         <div className="rightArrow" onClick={shiftLeft}>{right.length ? <RiArrowRightSLine /> : null}</div>

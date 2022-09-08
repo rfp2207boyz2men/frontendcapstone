@@ -39,6 +39,8 @@ export const lightTheme = {
   linkColor: 'black',
   modalCompareBg: 'white',
   modalCompareText: 'black',
+  styleBorder: '3px solid teal',
+  priceColor: 'red',
 };
 
 export const darkTheme = {
@@ -80,6 +82,8 @@ export const darkTheme = {
   linkColor: 'white',
   modalCompareBg: '#121212',
   modalCompareText: 'white',
+  styleBorder: '3px solid burlywood',
+  priceColor: '#FF5C5C',
 };
 
 export const GlobalStyles = createGlobalStyle`
@@ -953,10 +957,24 @@ input[type='file'] {
 .g-entry {
   cursor: pointer;
   background-color: #fff;
-  width: 50px;
-  margin-bottom: 20px;
+  width: 40px;
+  margin-bottom: 2px;
   height: 50px;
   transition: all .5s ease;
+}
+
+.g-line {
+  height: 3px;
+  left: 10px;
+  margin-bottom: 20px;
+  background-color: ${(props) => props.theme.tealAndBurly};
+}
+.g-line-hidden {
+  visibility: hidden;
+  height: 3px;
+  left: 10px;
+  margin-bottom: 20px;
+  background-color: ${(props) => props.theme.tealAndBurly};
 }
 
 .g-entry:hover {

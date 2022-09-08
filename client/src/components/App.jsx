@@ -77,15 +77,10 @@ const App = () => {
         // let defaultIndex = Math.floor(Math.random() * products.data.length);
         updateSelectedProduct(products.data[0].id);
       })
-<<<<<<< HEAD
-
-
-=======
       .catch((err) => {
         console.log(err);
         return setCrashed(true);
       });
->>>>>>> eda63e3ae1dde64faa1919a5f15a2804b13a8bc4
     retrieveStorage();
     getCart();
   }, []);
@@ -300,32 +295,6 @@ const App = () => {
         getCart,
         handleOutfitAdds,
       }}>
-<<<<<<< HEAD
-  {
-    loading ?
-      <StyledApp>
-        <div className="header" onClick={trackHeader}>
-          <div className="logoheader">
-            <div className="logotext"><h1>Odin</h1></div>
-            <div className="logo"><GiTriquetra /></div>
-          </div>
-          <div className="toprightHeader">
-            <div className="searchbar"><input className="search" placeholder="Search"></input><GoSearch className="searchIcon" /></div>
-            <div className="shoppingBag"><BsBag />{cart && <div className='cart'>{cart.length}</div>}</div>
-          </div>
-          {theme === 'light' ?
-            <div className='theme-toggler' onClick={themeToggler}>
-              <MdLightMode />
-              Theme
-            </div>
-            :
-            <div className='theme-toggler' onClick={themeToggler}>
-              <MdDarkMode />
-              Theme
-            </div>
-          }
-        </div>
-=======
         {loading &&
           <StyledApp>
             <HeaderTrack
@@ -333,7 +302,6 @@ const App = () => {
               cart={cart}
               themeToggler={themeToggler}
             />
->>>>>>> eda63e3ae1dde64faa1919a5f15a2804b13a8bc4
             <div className="main">
               <div>
                 <OverviewTrack
@@ -375,15 +343,9 @@ const App = () => {
                 />
               </div>
             </div>
-<<<<<<< HEAD
-          </StyledApp >
-          : <OrbitSpinner color='teal' />
-        }
-=======
           </StyledApp>}
-          {(!loading && !crashed) && <StyledApp className="spinner"><OrbitSpinner color='teal' /></StyledApp>}
-          {crashed && <FourOhFour/>}
->>>>>>> eda63e3ae1dde64faa1919a5f15a2804b13a8bc4
+        {(!loading && !crashed) && <StyledApp className="spinner"><OrbitSpinner color='teal' /></StyledApp>}
+        {crashed && <FourOhFour />}
       </AppContext.Provider >
     </ThemeProvider >
   )
