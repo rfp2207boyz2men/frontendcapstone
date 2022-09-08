@@ -27,7 +27,7 @@ const List = (props) => {
       <div className='reviewListHeader'>
         <h3>{props.reviews.length} reviews, sorted by &nbsp;</h3>
         <h3><Sort sort={props.sort} onChange={props.onSortChange} /></h3>
-        <h3>Currently showing {props.slicedReviews.length} reviews.</h3>
+        <h3>Currently showing {props.slicedReviews.length} reviews</h3>
       </div>
       {props.reviews.length > 0
       ?<div className='reviewList' data-testid='reviewList'>

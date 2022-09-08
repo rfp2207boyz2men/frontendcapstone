@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
 export const lightTheme = {
-  body: "#fff",
+  body: "white",
   fontColor: "black",
   mainBColor: 'white',
   headerBColor: 'white',
@@ -9,10 +9,10 @@ export const lightTheme = {
   starColor: 'teal',
   productBgColor: 'rgba(28,28,30, .9)',
   productBorderColor: '1px solid black',
-  productImgBorder: '',
+  productImgBorder: '1px solid teal',
   productDescBorder: '1px solid burlywood',
-  burlyBorderBlack: '',
-  starCardColor: '',
+  burlyBorderBlack: '1px solid black',
+  starCardColor: 'teal',
   defaultPrice: 'white',
   qandaSearchBg: 'white',
   qandaBorderLeft: '1px solid black',
@@ -28,13 +28,17 @@ export const lightTheme = {
   addAnswercolor: 'teal',
   reportColor: 'teal',
   plusCardAreaBg: '#cccccc',
-  plusCardAreaColor: 'teal',
+  plusCardAreaColor: 'black',
   burlyAndTeal: 'teal',
   tealAndBurly: 'burlywood',
-  gContainerImg: '',
+  gContainerImg: '1px solid teal',
   togglerBg: 'burlywood',
   selectColor: 'black',
   selectBorder: '2px solid burlywood',
+  buttonText: 'white',
+  linkColor: 'black',
+  modalCompareBg: 'white',
+  modalCompareText: 'black',
 };
 
 export const darkTheme = {
@@ -72,6 +76,10 @@ export const darkTheme = {
   togglerBg: '#858585',
   selectColor: 'teal',
   selectBorder: '2px solid #256D85',
+  buttonText: 'black',
+  linkColor: 'white',
+  modalCompareBg: '#121212',
+  modalCompareText: 'white',
 };
 
 export const GlobalStyles = createGlobalStyle`
@@ -83,8 +91,12 @@ export const GlobalStyles = createGlobalStyle`
 
 html {
   scroll-behavior: smooth;
+  background-color: ${(props) => props.theme.htmlBackgroundColor};
 }
 
+a {
+  color: ${(props) => props.theme.linkColor};
+}
 
 body {
   font-family: 'Noto Sans', sans-serif;
@@ -97,6 +109,8 @@ body {
   /* border: 1px dotted blue; */
   display: flex;
   flex-direction: column;
+  width: 1400px;
+  margin: auto;
   background-color: ${(props) => props.theme.mainBColor};
   color: ${(props) => props.theme.fontColor};
 }
@@ -105,8 +119,11 @@ body {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  padding: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   height: 100px;
+  width: 1400px;
+  margin: auto;
   background-color: ${(props) => props.theme.headerBColor};
   color: ${(props) => props.theme.fontColor};
   border-bottom: 1px solid burlywood;
@@ -114,12 +131,32 @@ body {
 
 .theme-toggler {
   cursor: pointer;
-  font-size: 20px;
-  margin-left: 20px;
+  font-size: 18px;
   transition: ease-in-out 0.5s;
+  padding: 5px;
+  position: absolute;
+  top: 5px;
+  right: 20px;
+  opacity: .75
 }
+
+.themeswitch {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  width: 70px;
+  height: 10px;
+}
+
+.themetext {
+  font-size: 14px;
+  padding-bottom: 5px;
+}
+
 .theme-toggler > svg {
   margin-right: 10px;
+  padding-top: 10px;
 }
 
 .theme-toggler:hover {
@@ -162,7 +199,7 @@ a:visited {
 .logo {
   margin-top: 10px;
   font-size: 60px;
-  color: teal;
+  color: ${(props) => props.theme.burlyAndTeal};
 }
 
 .logotext {
@@ -181,8 +218,6 @@ a:visited {
 }
 
 .search:focus {
-  border: 1px solid teal;
-  border-radius: 10px;
   color: ${(props) => props.theme.fontColor};
 }
 
@@ -197,8 +232,10 @@ a:visited {
 
 .shoppingBag {
   margin-top: 15px;
-  font-size: 25px;
+  font-size: 30px;
   padding: 5px;
+  padding-right: 13px;
+  position: relative;
 }
 
 .cart {
@@ -208,12 +245,16 @@ a:visited {
   border-radius: 50%;
   width: 24px;
   height: 24px;
-  background-color: teal;
+  background-color: ${(props) => props.theme.burlyAndTeal};
   color: #fff;
   text-align: center;
-  font-size: 18px;
+  font-size: 16px;
   margin: 0;
   padding: 0;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  opacity: .95;
 }
 
 .star {
@@ -228,7 +269,7 @@ a:visited {
 .relatedSection, .outfitsSection {
   height: 500px;
   margin: auto;
-  width: 1340px;
+  width: 1330px;
   background-color: ${(props) => props.theme.mainBColor};
   padding-left: 70px;
 }
@@ -285,7 +326,7 @@ a:visited {
 .productCardDesc {
   padding-left: 10px;
   padding-top: 10px;
-  width: 255px;
+  width: 245px;
   height: 50px;
   color: white;
   border-top: ${(props) => props.theme.productDescBorder};
@@ -348,7 +389,7 @@ a:visited {
 */
 
 .questionsSection {
-  width: 100px;
+  width: 1300px;
   height: auto;
   margin-left: 50px;
 }
@@ -356,10 +397,10 @@ a:visited {
 .qanda {
   display: flex;
   flex-direction: column;
-  width: 1300px;
-  height: auto;
-  /* border: 2px solid black; */
-  border-bottom: 1px dashed white;
+  width: 1250px;
+  height: 500px;
+  border-bottom: 1px dashed burlywood;
+  border-top: 1px dashed burlywood;
   overflow-y: auto;
   padding: 20px;
   margin-top: 50px;
@@ -379,7 +420,7 @@ a:visited {
 .qanda-search {
   display: inline-flex;
   border: 1px solid white;
-  width: 1298px;
+  width: 1248px;
   height: 50px;
   margin-top: 5px;
 }
@@ -423,7 +464,7 @@ a:visited {
 .question-list {
   display: flex;
   flex-direction: column;
-  width: 1300px;
+  width: 1250px;
   overflow-y: auto;
 }
 
@@ -432,9 +473,15 @@ a:visited {
   height: 0;
 }
 
+.qandaButtons {
+  display: flex;
+  width: 355px;
+  align-items: center;
+}
+
 .question-body {
   display: flex;
-  width: 1400px;
+  width: 1250px;
   height: auto;
   flex-direction: column;
   justify-content: space-between;
@@ -476,9 +523,45 @@ a:visited {
   margin: 5px
 }
 
+.answer-photo {
+  display: inline-flex;
+  height: 100px;
+  margin: 5px 10px 5px 0;
+  // width: 20%;
+}
+
+.answer-photo:hover{
+  cursor: pointer;
+}
+
+input[type='file'] {
+  color: rgba(0,0,0,0)
+}
+
+.answerPhotoThumbnail {
+  height: 100px;
+  width: 20%;
+}
+
 /*
   BUTTONS
 */
+
+.showAnswersButton {
+  background-color: ${(props) => props.theme.tealAndBurly};
+  color: ${(props) => props.theme.fontColor};
+}
+
+.question-list-button {
+  height: 60px;
+  width: 150px;
+  display: inline-block;
+  margin-right: 10px;
+  margin-top: 10px;
+  background-color: ${(props) => props.theme.tealAndBurly};
+  color: ${(props) => props.theme.fontColor};
+}
+
 .show-more-or-less {
   margin-top: 10px;
   height: 30px;
@@ -513,6 +596,121 @@ a:visited {
   color: ${(props) => props.theme.reportColor};
 }
 
+/*
+  PORTAL OVERLAY
+*/
+
+.portal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  opacity: 30%;
+  z-index: 10;
+}
+
+/*
+  Q&A MODAL
+*/
+
+.question-modal,
+.answer-modal {
+  position: fixed;
+  width: 30%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: 'rgba(0, 0, 0, .3)';
+  padding: 25px;
+  z-index: 11;
+}
+
+.question-form,
+.answer-form {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  background-color: ${(props) => props.theme.mainBColor};
+  padding: 10px;
+  z-index: 11;
+}
+
+.question-form input,
+.answer-form input {
+  background-color: ${(props) => props.theme.tealAndBurly};
+  color: ${(props) => props.theme.fontColor};
+}
+
+.question-form input:hover,
+.answer-form input:hover {
+  cursor: pointer;
+}
+
+.answerInputPhotoSection,
+.questionInputPhotoSection {
+  display: flex;
+  flex-direction: row;
+}
+
+/*
+  QUESTION MODAL INPUTS
+*/
+
+textarea[name='user-question'],
+textarea[name='user-answer'] {
+  width: auto;
+  height: 100px;
+}
+
+textarea[name='nickname'],
+textarea[name='email'] {
+  width: auto;
+}
+
+input[type='submit'] {
+  height: 30px;
+  width: 90px;
+  margin-top: 20px;
+}
+
+.email-small {
+  padding-bottom: 18px;
+}
+
+.photoThumbnail {
+  display: inline-flex;
+  height: auto;
+  width: 20%;
+}
+
+input[type='file'] {
+  color: rgba(0,0,0,0)
+}
+
+/*
+  QUESTION MODAL HEADINGS
+*/
+
+.question-form h4,
+.answer-form h4 {
+  margin-top: 18px;
+  margin-bottom: 18px;
+}
+
+/*
+  WEB PAGE FUNCTIONS
+*/
 
 /*
   Outfits
@@ -581,8 +779,8 @@ a:visited {
 
 .modal-main {
   position:fixed;
-  background: #1c1c1e;
-  color: white;
+  background: ${(props) => props.theme.modalCompareBg};
+  color: ${(props) => props.theme.modalCompareText};
   width: 770px;
   height: auto;
   top:50%;
@@ -671,9 +869,11 @@ a:visited {
 
 .main-container {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   scroll-behavior: smooth
+  padding-top: 50px;
+  margin-top: 50px;
 }
 
 /* ----------------- Image Gallery ----------------- */
@@ -681,11 +881,10 @@ a:visited {
 
 .image-container {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   flex-direction: row;
   background-color: ${(props) => props.theme.mainBColor};
-  margin-top: 50px;
 }
 
 .overviewFeature {
@@ -699,7 +898,7 @@ a:visited {
   align-items: center;
   justify-content: center;
   transition: ease-in 0.5s ease;
-  margin: 10px;
+  margin: 0px 10px 0px 10px;
 }
 
 .pv-container-active {
@@ -731,7 +930,7 @@ a:visited {
 
 .g-container {
   display: flex;
-  align-items: center;
+  align-items: space-between;
   justify-content: center;
   flex-direction: column;
 }
@@ -744,9 +943,14 @@ a:visited {
   cursor: pointer;
   background-color: #fff;
   width: 50px;
-  margin: 20px;
+  margin-bottom: 20px;
   height: 50px;
   transition: all .5s ease;
+}
+
+.g-entry:hover {
+  background: white;
+  opacity: .80;
 }
 
 .g-border {
@@ -774,6 +978,12 @@ a:visited {
   margin: 0 30px;
   width: 250px;
   scroll-behavior: smooth;
+}
+
+.reviewsInfo {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .star {
@@ -841,6 +1051,7 @@ a:visited {
 .add-cart {
   padding: 10px 30px;
   margin: 5px 7px;
+  width: 150px;
   background:  ${(props) => props.theme.tealAndBurly};
   border-radius: 4px;
   border: none;
@@ -855,31 +1066,36 @@ a:visited {
 }
 
 .select {
-  background: transparent;
-  border-radius: 3px;
-  border: ${(props) => props.theme.selectBorder};
-  color: ${(props) => props.theme.selectColor};
+  background: #cccccc;
+  border: burlywood;
+  color: black;
   padding: 10px 20px;
   margin: 5px 7px;
 }
 
 .select > svg {
   font-size: 14px;
-  color: ${(props) => props.theme.tealAndBurly};
+  color: black;
+}
+
+.select select-star {
+  background: burlywood;
+  color: black;
 }
 
 
 /* ----------------- Product Overview ----------------- */
 .prodview-container {
   display: flex;
+  width: 700px;
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  margin: 40px 400px;
+  margin: 40px auto;
 }
 
 .prodview-text {
-  width: 100%;
+  width: auto;
 }
 
 .prodview-line {
@@ -908,6 +1124,7 @@ a:visited {
 .feature {
   display: inline-block;
   margin: 0 10px;
+  width: auto;
 }
 
 /*******************
@@ -917,14 +1134,11 @@ a:visited {
 .reviewMain {
   display: flex;
   flex-direction: row;
-  /* flex-wrap: wrap; */
-  justify-content: space-between;
-  width: 1400px;
+  justify-content: center;
+  width: 1000px;
   height: auto;
   padding: 50px;
-  /* background-color: pink; */
-  /* border: 2px solid black; */
-  /* overflow-y: auto; */
+  margin-left: 140px;
 }
 
 .reviewSideBar {
@@ -933,23 +1147,19 @@ a:visited {
   height: auto;
   width: 400px;
   margin-right: 30px;
-  padding: 0 10px 20px 10px;
-  border-right: 1px solid white;
-  /* background-color: gray; */
-  /* border: 2px solid rgb(8, 88, 8); */
+  padding: 0 40px 20px 10px;
+  border-right: 1px solid burlywood;
 }
 
 .reviewList {
   height: auto;
-  width: 900px;
-  /* border: 2px solid black; */
+  width: 800px;
   overflow-y: auto;
 }
 
 .reviewList::-webkit-scrollbar {
   width: 0;
   height: 0;
-  /* background: transparent; */
 }
 
 /*******************
@@ -962,7 +1172,15 @@ a:visited {
 
 .averageRating {
   display: flex;
-  /* border: 1px solid gray; */
+  align-items: center;
+}
+
+.averageRating h1 {
+  font-size: 36px;
+}
+
+.averageRating svg {
+  padding-bottom: 15px;
 }
 
 /*
@@ -978,9 +1196,8 @@ a:visited {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 400px;
+  width: 420px;
   height: 400px;
-  /* border: 1px solid gray; */
 }
 
 .reviewBarSectionOff,
@@ -990,24 +1207,18 @@ a:visited {
   flex-direction: row;
   width: inherit;
   align-items: center;
-  /* border: 1px solid rgb(65, 65, 65); */
 }
 
 .reviewBarSectionOn {
   background-color: rgba(012, 012, 012, 0.274);
-  /* border: 5px solid teal; */
 }
 
 .reviewBarSectionOff:hover {
   cursor: pointer;
-  /* background-color: teal; */
-  /* transition: 0.3s; */
 }
 
 .reviewBarSectionOn:hover {
   cursor: pointer;
-  /* background-color: transparent; */
-  /* transition: 0.3s; */
 }
 
 .reviewBarLabel {
@@ -1021,8 +1232,6 @@ a:visited {
   width: 300px;
   margin-top: 5px;
   margin-right: 5px;
-  /* background-color: pink; */
-  /* border: 2px solid red; */
 }
 
 .ratingStarIndicator {
@@ -1030,12 +1239,13 @@ a:visited {
   flex-direction: column;
   justify-content: space-between;
   height: 80px;
+  padding-left: 5px;
 }
 
 .ratingStarIndicator u {
+  color: ${(props) => props.theme.burlyAndTeal};
   cursor: pointer;
 }
-
 
 .ratingStarIndicatorStars {
   display: flex;
@@ -1057,7 +1267,10 @@ a:visited {
   flex-direction: row;
   flex-wrap: wrap;
   width: 400px;
-  /* border: 2px solid black; */
+}
+
+.reviewSideCharacteristics {
+  padding-left: 4px;
 }
 
 .reviewCharacteristicLabel {
@@ -1073,7 +1286,6 @@ a:visited {
 
 .reviewCharacteristicBar {
   height: 10px;
-  /* width: 300px; */
   background-color: gray;
   margin-top: 18px;
   margin-right: 2px;
@@ -1085,10 +1297,17 @@ a:visited {
   width: 300px;
   margin-left: 60px;
   justify-content: space-between;
-  /* text-align: center; */
   height: 30px;
-  /* font-size: 30px; */
 }
+
+.reviewCharacteristicBarLabels p {
+  margin-top: 0;
+}
+
+.reviewCharacteristicArrow {
+  margin-top: 10px;
+}
+
 
 
 
@@ -1097,10 +1316,17 @@ a:visited {
   REVIEW LIST
 ***********************/
 
+
+.reviewListHeader {
+  display: flex;
+  flex-direction: row;
+  width: 400px;
+}
+
 .reviewSearchSection {
   display: inline-flex;
-  border-bottom: 1px solid ${(props) => props.theme.burlyAndTeal};
-  width: 900px;
+  border-bottom: 1px solid burlywood;
+  width: 780px;
   height: 50px;
   padding: 0 10px;
   align-items: center;
@@ -1108,7 +1334,7 @@ a:visited {
 
 .reviewSearchBar {
   display: inline-flex;
-  width: 900px;
+  width: 780px;
   height: 50px;
   background-color: transparent;
   border: 0;
@@ -1134,7 +1360,7 @@ a:visited {
 }
 
 .reviewSortSection span {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid burlywood;
   cursor: pointer;
 }
 
@@ -1142,6 +1368,8 @@ a:visited {
   position: absolute;
   background-color: ${(props) => props.theme.tealAndBurly};
   width: 80px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
 }
 
 .reviewSortDropDown p {
@@ -1160,22 +1388,11 @@ a:visited {
   cursor: pointer;
 }
 
-// .reviewListHeader {
-//   display: flex;
-//   flex-direction: row;
-//   width: 900px;
-//   justify-content: space-between;
-//   align-items: center;
-//   margin-right: 50px;
-// }
-
 .reviewListHeader h3 {
   font-size: 14px;
 }
 
 .reviewTile {
-  /* background-color: red; */
-  /* height: 200px; */
   border-bottom: 2px solid burlywood;
   padding: 4px 10px;
 }
@@ -1194,15 +1411,6 @@ a:visited {
 .reviewTileShowMore {
   cursor: pointer;
   width: 80px;
-}
-
-// .reviewCheckmark {
-//   color: red;
-// }
-
-.reviewPhotoThumbnailSection {
-  /* height: 150px; */
-  /* background-color: pink; */
 }
 
 .reviewPhotoThumbnailSection img:hover{
@@ -1224,6 +1432,10 @@ a:visited {
   flex-direction: row;
   justify-content: space-between;
   padding: 0 20px;
+}
+
+.reviewInteractions u {
+  color: ${(props) => props.theme.burlyAndTeal};
 }
 
 .reviewHelpful {
@@ -1252,6 +1464,10 @@ a:visited {
   margin-right: 10px;
 }
 
+.reviewCheckmark {
+  color: ${(props) => props.theme.fontColor};
+}
+
 /**********************
   PHOTO OVERLAY
 ***********************/
@@ -1266,7 +1482,7 @@ a:visited {
   padding: 10px;
   background-color: white;
   border: 2px solid ${(props) => props.theme.burlyAndTeal};
-  z-index: 1;
+  z-index: 3;
   overflow-y: auto;
 }
 
@@ -1279,12 +1495,6 @@ a:visited {
 /**********************
   INPUT OVERLAY
 ***********************/
-
-.reviewOverlay {
-
-  /* height: 100vh;
-  width: 100vh; */
-}
 
 .reviewOverlayBackground {
   position: fixed;
@@ -1369,7 +1579,7 @@ a:visited {
   height: 60px;
   width: 150px;
   margin-top: 40px;
-  background-color: ${(props) => props.theme.burlyAndTeal};
+  background-color: ${(props) => props.theme.tealAndBurly};
   border-radius: 5px;
   margin-bottom: 15px;
 }
@@ -1413,13 +1623,7 @@ a:visited {
   flex-wrap: wrap;
   height: auto;
   padding: 1px 5px;
-  /* background-color: red; */
 }
-
-/* .reviewInputRecommendations h3 {
-  width: 100%;
-  margin: 0;
-} */
 
 .reviewInputRecommendations input {
   margin-right: 6px;
@@ -1428,7 +1632,6 @@ a:visited {
 
 .reviewInputRecommendations p {
   margin: 0;
-  /* margin-top: 14px; */
   margin-right: 40px;
 }
 
@@ -1437,9 +1640,6 @@ a:visited {
 */
 
 .reviewInputCharacteristicsAggregate {
-  /* border: 1px solid black;
-  border-left: 0;
-  border-right: 0; */
   padding: 1px 5px;
   width: 550px;
 }
@@ -1450,25 +1650,17 @@ a:visited {
   flex-wrap: wrap;
   height: auto;
   margin-top: 5px;
-  /* padding-left: 5px; */
   border-bottom: 1px solid white;
-  /* border: 1px solid red; */
 }
 
 .reviewInputCharacteristicSection:first-child {
   margin-top: 0;
 }
 
-.reviewInputCharacteristicSection:last-child {
-  /* border-bottom: 0; */
-  /* border: 1px solid red; */
-}
 
 .reviewInputCharacteristicLabel {
   margin: 0;
   margin-bottom: 3px;
-  /* width: 100%; */
-  /* background-color: red; */
 }
 
 .reviewInputCharacteristicButtons {
@@ -1476,7 +1668,6 @@ a:visited {
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  /* border: 1px solid blue; */
 }
 
 .reviewInputCharacteristicButtons input {
@@ -1488,7 +1679,6 @@ a:visited {
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
-  /* border: 2px solid green; */
 }
 
 .reviewInputCharacteristicsDescriptors p {
@@ -1500,14 +1690,10 @@ a:visited {
 */
 
 .reviewInputPhotoSection {
-  /* box-sizing: border-box; */
   display: flex;
   flex-direction: row;
   height: 110px;
-  /* max-height: 120px; */
   width: calc(var(--width) - 100px);
-  /* padding: 5px; */
-  /* background-color: red; */
   border: 1px solid black;
   background-color: white;
 }
@@ -1516,44 +1702,27 @@ a:visited {
   height: 100px;
   margin: 5px;
   margin-right: 10px;
-  /* width: 80px; */
 }
 
 .reviewInputPhotoButton {
-  /* box-sizing: border-box; */
   display: flex;
   flex-direction: column;
-  /* grid-template-rows: 50% 30px; */
-  /* grid-template-columns: 50%; */
   background-color: #cccccc;
   height: 110px;
   width: 80px;
   justify-content: center;
   align-items: center;
   color: black;
-  /* align-content: center; */
 }
 
 .reviewInputPhotoButton:hover {
-  background-color: burlywood;
+  background-color: ${(props) => props.theme.tealAndBurly};
   cursor: pointer;
 }
 
 .reviewInputPhotoButtonPlus {
-  /* display: flex;
-  justify-content: center;
-  align-content: center; */
-  /* grid-row: 2; */
-  /* grid-column: 2; */
   font-size: 40px;
   margin: auto;
-}
-
-.reviewInputPhotoButtonText {
-  /* display: flex;
-  justify-content: center;
-  align-content: center; */
-  /* grid-row: 3; */
 }
 
 button:hover {
