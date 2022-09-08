@@ -13,29 +13,45 @@ const OutfitCard = ({ product_id, removeApp, styleId, removeOutfit, starRender }
   const [styleIndex, setStyleIndex] = useState(0);
 
   // On load, get all data to be used on cards and render
+  // useEffect(() => {
+  //   Parse.getAll('products', `/${product_id}/`)
+  //   .then((productData) => {
+  //     setProductInfo(productData.data)
+  //   })
+  //   .then((data) => {
+  //     Parse.getAll('products', `/${product_id}/styles`)
+  //     .then((stylesData) => {
+  //       setProductStyles(stylesData.data.results)
+  //     })
+  //     .then((data) => {
+  //       Parse.getAll('reviews', `?product_id=${product_id}`)
+  //       .then((reviewsData) => {
+  //         setStars(getAverage(reviewsData.data.results))
+  //       })
+  //       .then((data) => {
+  //         setProductLoad(true);
+  //       })
+  //       .catch((err) => console.log(err));
+  //     })
+  //     .catch((err) => console.log(err))
+  //   })
+  //   .catch((err) => console.log(err))
+  // }, []);
+
   useEffect(() => {
-    Parse.getAll('products', `/${product_id}/`)
-    .then((productData) => {
-      setProductInfo(productData.data)
+    Promise.all([
+      Parse.getAll('products', `/${product_id}/`),
+      Parse.getAll('products', `/${product_id}/styles`),
+      Parse.getAll('reviews', `?product_id=${product_id}`)
+    ])
+    .then((response) => {
+      console.log(response);
+      setProductInfo(response[0].data);
+      setProductStyles(response[1].data.results);
+      setStars(getAverage(response[2].data.results));
+      setProductLoad(true);
     })
-    .then((data) => {
-      Parse.getAll('products', `/${product_id}/styles`)
-      .then((stylesData) => {
-        setProductStyles(stylesData.data.results)
-      })
-      .then((data) => {
-        Parse.getAll('reviews', `?product_id=${product_id}`)
-        .then((reviewsData) => {
-          setStars(getAverage(reviewsData.data.results))
-        })
-        .then((data) => {
-          setProductLoad(true);
-        })
-        .catch((err) => console.log(err));
-      })
-      .catch((err) => console.log(err))
-    })
-    .catch((err) => console.log(err))
+    .catch((err) => console.log(err));
   }, []);
 
   // Remove outfit from outfits event handler, calls from App

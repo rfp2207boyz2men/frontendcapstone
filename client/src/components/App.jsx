@@ -18,6 +18,7 @@ import { lightTheme, darkTheme, GlobalStyles } from '../themes.js';
 import ClickTracker from './ClickTracker.jsx';
 import moment from 'moment';
 import Header from './Header.jsx';
+import FourOhFour from './404.jsx';
 
 const StyledApp = styled.div`
 
@@ -38,6 +39,7 @@ const App = () => {
   const [selectedProduct, setSelectedProduct] = useState({});
   const [loading, setLoading] = useState(false);
   const [theme, setTheme] = useState('light');
+  const [crashed, setCrashed] = useState(false);
 
   const themeToggler = () => {
     theme === 'light' ? setTheme('dark') : setTheme('light');
@@ -61,6 +63,10 @@ const App = () => {
         // let defaultIndex = Math.floor(Math.random() * products.data.length);
         updateSelectedProduct(products.data[0].id);
       })
+      .catch((err) => {
+        console.log(err);
+        return setCrashed(true);
+      });
     retrieveStorage();
     getCart();
   }, []);
@@ -132,7 +138,10 @@ const App = () => {
         //this.retrieveStorage();
         // retrieveStyles();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        return setCrashed(true);
+      });
   }
 
   // const retrieveStyles = () => {
@@ -269,7 +278,7 @@ const App = () => {
         getTotalReviews,
         renderStars,
       }}>
-        {loading ?
+        {loading &&
           <StyledApp>
             <HeaderTrack
               theme={theme}
@@ -317,9 +326,9 @@ const App = () => {
                 />
               </div>
             </div>
-          </StyledApp>
-          : <StyledApp className="spinner"><OrbitSpinner color='teal' /></StyledApp>
-        }
+          </StyledApp>}
+          {(!loading && !crashed) && <StyledApp className="spinner"><OrbitSpinner color='teal' /></StyledApp>}
+          {crashed && <FourOhFour/>}
       </AppContext.Provider>
     </ThemeProvider>
   )
