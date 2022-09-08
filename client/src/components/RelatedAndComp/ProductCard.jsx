@@ -21,7 +21,6 @@ const ProductCard = ({ product_id, addOutfit, select, current, avgStars, starRen
       .then((data) => {
         Parse.getAll('products', `/${product_id}/styles`)
         .then((productStyles) => {
-          console.log(productStyles.data.results)
           setProductStyles(productStyles.data.results)
         })
         .then((data) => {

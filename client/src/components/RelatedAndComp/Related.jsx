@@ -20,7 +20,6 @@ const Related = ({ selectedProduct, addToOutfit, selectStyle, avgRating, starRen
             cleanedData.push(id)
           }
         })
-        console.log(cleanedData)
         if (cleanedData.length > 4) {
           setCarousel(cleanedData.slice(0,4))
           setViewCarousel(cleanedData.slice(0,4))
