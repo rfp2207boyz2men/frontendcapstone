@@ -538,6 +538,11 @@ input[type='file'] {
   color: rgba(0,0,0,0)
 }
 
+.answerPhotoThumbnail {
+  height: 100px;
+  width: 20%;
+}
+
 /*
   BUTTONS
 */

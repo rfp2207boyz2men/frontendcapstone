@@ -20,7 +20,7 @@ const AnswerModal = (props) => {
   let photosUrl;
   let formData;
   let uploadPreset;
-  let url = `https://api.cloudinary.com/v1_1/${CONFIG.CLOUD_USER}/image/upload`;
+  let url = `https://api.cloudinary.com/v1_1/${CONFIG.CLOUDINARY_USER}/image/upload`;
   let questionId = props.questionId;
 
   const handlePhotoClick = () => {
@@ -28,17 +28,34 @@ const AnswerModal = (props) => {
     hiddenFileInput.current.click();
   }
 
-  let handleSubmit = (event) => {
+  let handleSubmitCheck = (event) => {
     event.preventDefault();
+    if (photos.length === 0) {
+      console.log('PHOTOS LENGTH IS 0')
+      handleSubmit(event);
+    } else {
+      console.log('PHOTOS LENGTH IS >0');
+      uploadAllPhotos(event);
+    }
+  }
 
-    uploadAllPhotos();
+  let handleSubmit = (event, photos = []) => {
+    // event.preventDefault();
+
+    // uploadAllPhotos();
+    console.log('PHOTOS STATE: ', photos);
+    console.log(imageUrls);
 
     data = {
       body: userAnswer,
       name: nickname,
       email: email,
-      photos: imageUrls
+      photos: photos
     }
+
+    console.log('URL: ', url);
+    console.log('USER: ', CONFIG.CLOUDINARY_USER);
+    console.log('PHOTO URLS: ', data.photos);
 
     Parse.create(`qa/questions/${questionId}/answers`, undefined, data)
       .then((results) => {
@@ -80,19 +97,27 @@ const AnswerModal = (props) => {
   let uploadPhoto = (photo) => {
     formData = new FormData();
     formData.append('file', photo);
-    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+    formData.append('upload_preset', CONFIG.CLOUDINARY_UPLOAD_PRESET);
 
     return Parse.upload(url, formData);
   }
 
-  let uploadAllPhotos = () => {
+  let uploadAllPhotos = (event) => {
+    console.log('UPLOADALLPHOTOS INVOKED');
     return Promise.all(photosData.map((photo) => uploadPhoto(photo)))
       .then((response) => {
+        console.log('RESPONSE: ', response)
         photosUrl = [];
         for (let photo of response) {
           photosUrl.push(photo.data.secure_url);
         }
-        setImageUrls(photosUrl);
+        console.log('CLOUD PHOTOS URLS: ', photosUrl);
+        return photosUrl;
+        // setImageUrls(photosUrl);
+      })
+      .then((photosUrl) => {
+        console.log('PHOTO UPLOAD CHECKPOINT PASSED');
+        handleSubmit(event, photosUrl);
       })
       .catch((error) => {
         console.log(error);
@@ -112,7 +137,7 @@ const AnswerModal = (props) => {
         onKeyDown={handleKeyDown}>
         <form
           className='answer-form'
-          onSubmit={handleSubmit}>
+          onSubmit={handleSubmitCheck}>
           <h2>Submit Your Answer</h2>
           <h3>{props.productName}: {props.question}</h3>
           <h4>Answer: </h4>
@@ -162,7 +187,8 @@ const AnswerModal = (props) => {
           <input
             type='submit'
             value='Submit'
-            onSubmit={handleSubmit}>
+            // onSubmit={handleSubmit}
+            >
           </input>
         </form>
       </div>
