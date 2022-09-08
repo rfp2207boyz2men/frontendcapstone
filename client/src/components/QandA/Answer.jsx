@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Parse from '../../parse.js';
 import moment from 'moment';
+import '../Reviews/ReviewsStyles.css';
+import PhotoOverlay from "../Reviews/PhotoOverlay.jsx";
 
 const Answer = (props) => {
   const [isHelpful, setIsHelpful] = useState(false);
   const [isReported, setIsReported] = useState(false);
+  const [overlay, setOverlay] = useState(false);
+  const [clickedPhoto, setClickedPhoto] = useState('');
 
   let answerId = props.answer.answer_id;
   let params = `?answer_id=${answerId}`;
@@ -47,13 +51,22 @@ const Answer = (props) => {
       </button>
   }
 
+  let handleClick = (e) => {
+    setOverlay(true);
+    setClickedPhoto(e.target.src);
+  }
+
+  let handleOverlay = () => {
+    setOverlay(false);
+  }
+
   return (
     <div className='answer'>
       <div className='answer-line'>
         <strong> A: {props.answer.body}</strong>
         <span>
         {props.answer.photos.length > 0 ?
-        props.answer.photos.map((photo) => <img src={photo.url} className='answer-photo' key={photo.id}/>) : null}
+        props.answer.photos.map((photo) => <img src={photo.url} className='answer-photo' onClick={handleClick} key={photo.id}/>) : null}
         </span>
         <small className='user-info'>
           by {username === 'Seller'
@@ -63,6 +76,7 @@ const Answer = (props) => {
           {reportBtn}
         </small>
       </div>
+      {overlay && <PhotoOverlay clickedPhoto={clickedPhoto} onClick={handleOverlay} />}
     </div>
   )
 }

@@ -39,7 +39,10 @@ export const lightTheme = {
   linkColor: 'black',
   modalCompareBg: 'white',
   modalCompareText: 'black',
+<<<<<<< HEAD
   salePriceColor: 'red',
+=======
+>>>>>>> 3a38b22984fe26295e707c86a21f0c3174da5e76
 };
 
 export const darkTheme = {
@@ -81,7 +84,10 @@ export const darkTheme = {
   linkColor: 'white',
   modalCompareBg: '#121212',
   modalCompareText: 'white',
+<<<<<<< HEAD
   salePriceColor: '#FF5C5C',
+=======
+>>>>>>> 3a38b22984fe26295e707c86a21f0c3174da5e76
 };
 
 export const GlobalStyles = createGlobalStyle`
@@ -149,6 +155,7 @@ body {
   padding: 10px;
   width: 70px;
   height: 10px;
+<<<<<<< HEAD
 }
 
 .themetext {
@@ -156,6 +163,15 @@ body {
   padding-bottom: 5px;
 }
 
+=======
+}
+
+.themetext {
+  font-size: 14px;
+  padding-bottom: 5px;
+}
+
+>>>>>>> 3a38b22984fe26295e707c86a21f0c3174da5e76
 .theme-toggler > svg {
   margin-right: 10px;
   padding-top: 10px;
@@ -201,7 +217,7 @@ a:visited {
 .logo {
   margin-top: 10px;
   font-size: 60px;
-  color: teal;
+  color: ${(props) => props.theme.burlyAndTeal};
 }
 
 .logotext {
@@ -247,7 +263,7 @@ a:visited {
   border-radius: 50%;
   width: 24px;
   height: 24px;
-  background-color: teal;
+  background-color: ${(props) => props.theme.burlyAndTeal};
   color: #fff;
   text-align: center;
   font-size: 16px;
@@ -525,25 +541,59 @@ a:visited {
   margin: 5px
 }
 
+<<<<<<< HEAD
 .photoThumbnail {
   display: inline-flex;
   height: auto;
   width: 20%;
+=======
+.answer-photo {
+  display: inline-flex;
+  height: 100px;
+  margin: 5px 10px 5px 0;
+  // width: 20%;
+}
+
+.answer-photo:hover{
+  cursor: pointer;
+>>>>>>> 3a38b22984fe26295e707c86a21f0c3174da5e76
 }
 
 input[type='file'] {
   color: rgba(0,0,0,0)
 }
 
+<<<<<<< HEAD
+=======
+.answerPhotoThumbnail {
+  height: 100px;
+  width: 20%;
+}
+
+>>>>>>> 3a38b22984fe26295e707c86a21f0c3174da5e76
 /*
   BUTTONS
 */
 
+<<<<<<< HEAD
+=======
+.showAnswersButton {
+  background-color: ${(props) => props.theme.tealAndBurly};
+  color: ${(props) => props.theme.fontColor};
+}
+
+>>>>>>> 3a38b22984fe26295e707c86a21f0c3174da5e76
 .question-list-button {
   height: 60px;
   width: 150px;
   display: inline-block;
   margin-right: 10px;
+<<<<<<< HEAD
+=======
+  margin-top: 10px;
+  background-color: ${(props) => props.theme.tealAndBurly};
+  color: ${(props) => props.theme.fontColor};
+>>>>>>> 3a38b22984fe26295e707c86a21f0c3174da5e76
 }
 
 .show-more-or-less {
@@ -625,11 +675,35 @@ input[type='file'] {
   display: flex;
   flex-direction: column;
   margin: auto;
+<<<<<<< HEAD
   background-color: white;
+=======
+  background-color: ${(props) => props.theme.mainBColor};
+>>>>>>> 3a38b22984fe26295e707c86a21f0c3174da5e76
   padding: 10px;
   z-index: 11;
 }
 
+<<<<<<< HEAD
+=======
+.question-form input,
+.answer-form input {
+  background-color: ${(props) => props.theme.tealAndBurly};
+  color: ${(props) => props.theme.fontColor};
+}
+
+.question-form input:hover,
+.answer-form input:hover {
+  cursor: pointer;
+}
+
+.answerInputPhotoSection,
+.questionInputPhotoSection {
+  display: flex;
+  flex-direction: row;
+}
+
+>>>>>>> 3a38b22984fe26295e707c86a21f0c3174da5e76
 /*
   QUESTION MODAL INPUTS
 */
@@ -1103,8 +1177,10 @@ input[type='file'] {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  width: 1400px;
+  width: 1000px;
   height: auto;
+  padding: 50px;
+  margin-left: 140px;
 }
 
 .reviewSideBar {
@@ -1113,10 +1189,8 @@ input[type='file'] {
   height: auto;
   width: 400px;
   margin-right: 30px;
-  padding: 0 10px 20px 10px;
-  border-right: 1px solid teal;
-  /* background-color: gray; */
-  /* border: 2px solid rgb(8, 88, 8); */
+  padding: 0 40px 20px 10px;
+  border-right: 1px solid burlywood;
 }
 
 .reviewList {
@@ -1129,7 +1203,6 @@ input[type='file'] {
 .reviewList::-webkit-scrollbar {
   width: 0;
   height: 0;
-  /* background: transparent; */
 }
 
 /*******************
@@ -1143,7 +1216,14 @@ input[type='file'] {
 .averageRating {
   display: flex;
   align-items: center;
-  /* border: 1px solid gray; */
+}
+
+.averageRating h1 {
+  font-size: 36px;
+}
+
+.averageRating svg {
+  padding-bottom: 15px;
 }
 
 .averageRating h1 {
@@ -1167,9 +1247,8 @@ input[type='file'] {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 400px;
+  width: 420px;
   height: 400px;
-  /* border: 1px solid gray; */
 }
 
 .reviewBarSectionOff,
@@ -1179,24 +1258,18 @@ input[type='file'] {
   flex-direction: row;
   width: inherit;
   align-items: center;
-  /* border: 1px solid rgb(65, 65, 65); */
 }
 
 .reviewBarSectionOn {
   background-color: rgba(012, 012, 012, 0.274);
-  /* border: 5px solid teal; */
 }
 
 .reviewBarSectionOff:hover {
   cursor: pointer;
-  /* background-color: teal; */
-  /* transition: 0.3s; */
 }
 
 .reviewBarSectionOn:hover {
   cursor: pointer;
-  /* background-color: transparent; */
-  /* transition: 0.3s; */
 }
 
 .reviewBarLabel {
@@ -1210,8 +1283,6 @@ input[type='file'] {
   width: 300px;
   margin-top: 5px;
   margin-right: 5px;
-  /* background-color: pink; */
-  /* border: 2px solid red; */
 }
 
 .ratingStarIndicator {
@@ -1219,12 +1290,13 @@ input[type='file'] {
   flex-direction: column;
   justify-content: space-between;
   height: 80px;
+  padding-left: 5px;
 }
 
 .ratingStarIndicator u {
+  color: ${(props) => props.theme.burlyAndTeal};
   cursor: pointer;
 }
-
 
 .ratingStarIndicatorStars {
   display: flex;
@@ -1246,7 +1318,10 @@ input[type='file'] {
   flex-direction: row;
   flex-wrap: wrap;
   width: 400px;
-  /* border: 2px solid black; */
+}
+
+.reviewSideCharacteristics {
+  padding-left: 4px;
 }
 
 .reviewCharacteristicLabel {
@@ -1262,7 +1337,6 @@ input[type='file'] {
 
 .reviewCharacteristicBar {
   height: 10px;
-  /* width: 300px; */
   background-color: gray;
   margin-top: 18px;
   margin-right: 2px;
@@ -1274,10 +1348,17 @@ input[type='file'] {
   width: 300px;
   margin-left: 60px;
   justify-content: space-between;
-  /* text-align: center; */
   height: 30px;
-  /* font-size: 30px; */
 }
+
+.reviewCharacteristicBarLabels p {
+  margin-top: 0;
+}
+
+.reviewCharacteristicArrow {
+  margin-top: 10px;
+}
+
 
 
 
@@ -1290,13 +1371,13 @@ input[type='file'] {
 .reviewListHeader {
   display: flex;
   flex-direction: row;
-  width: 800px;
-  justify-content: space-between;
+  width: 400px;
+}
 
 .reviewSearchSection {
   display: inline-flex;
-  border-bottom: 1px solid ${(props) => props.theme.burlyAndTeal};
-  width: 900px;
+  border-bottom: 1px solid burlywood;
+  width: 780px;
   height: 50px;
   padding: 0 10px;
   align-items: center;
@@ -1304,7 +1385,7 @@ input[type='file'] {
 
 .reviewSearchBar {
   display: inline-flex;
-  width: 900px;
+  width: 780px;
   height: 50px;
   background-color: transparent;
   border: 0;
@@ -1330,7 +1411,7 @@ input[type='file'] {
 }
 
 .reviewSortSection span {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid burlywood;
   cursor: pointer;
 }
 
@@ -1338,6 +1419,8 @@ input[type='file'] {
   position: absolute;
   background-color: ${(props) => props.theme.tealAndBurly};
   width: 80px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
 }
 
 .reviewSortDropDown p {
@@ -1356,22 +1439,11 @@ input[type='file'] {
   cursor: pointer;
 }
 
-// .reviewListHeader {
-//   display: flex;
-//   flex-direction: row;
-//   width: 900px;
-//   justify-content: space-between;
-//   align-items: center;
-//   margin-right: 50px;
-// }
-
 .reviewListHeader h3 {
   font-size: 14px;
 }
 
 .reviewTile {
-  /* background-color: red; */
-  /* height: 200px; */
   border-bottom: 2px solid burlywood;
   padding: 4px 10px;
 }
@@ -1390,15 +1462,6 @@ input[type='file'] {
 .reviewTileShowMore {
   cursor: pointer;
   width: 80px;
-}
-
-// .reviewCheckmark {
-//   color: red;
-// }
-
-.reviewPhotoThumbnailSection {
-  /* height: 150px; */
-  /* background-color: pink; */
 }
 
 .reviewPhotoThumbnailSection img:hover{
@@ -1420,6 +1483,10 @@ input[type='file'] {
   flex-direction: row;
   justify-content: space-between;
   padding: 0 20px;
+}
+
+.reviewInteractions u {
+  color: ${(props) => props.theme.burlyAndTeal};
 }
 
 .reviewHelpful {
@@ -1449,6 +1516,10 @@ input[type='file'] {
   color: ${(props) => props.theme.buttonText};
 }
 
+.reviewCheckmark {
+  color: ${(props) => props.theme.fontColor};
+}
+
 /**********************
   PHOTO OVERLAY
 ***********************/
@@ -1476,12 +1547,6 @@ input[type='file'] {
 /**********************
   INPUT OVERLAY
 ***********************/
-
-.reviewOverlay {
-
-  /* height: 100vh;
-  width: 100vh; */
-}
 
 .reviewOverlayBackground {
   position: fixed;
@@ -1566,7 +1631,7 @@ input[type='file'] {
   height: 60px;
   width: 150px;
   margin-top: 40px;
-  background-color: ${(props) => props.theme.burlyAndTeal};
+  background-color: ${(props) => props.theme.tealAndBurly};
   border-radius: 5px;
   margin-bottom: 15px;
 }
@@ -1610,13 +1675,7 @@ input[type='file'] {
   flex-wrap: wrap;
   height: auto;
   padding: 1px 5px;
-  /* background-color: red; */
 }
-
-/* .reviewInputRecommendations h3 {
-  width: 100%;
-  margin: 0;
-} */
 
 .reviewInputRecommendations input {
   margin-right: 6px;
@@ -1625,7 +1684,6 @@ input[type='file'] {
 
 .reviewInputRecommendations p {
   margin: 0;
-  /* margin-top: 14px; */
   margin-right: 40px;
 }
 
@@ -1634,9 +1692,6 @@ input[type='file'] {
 */
 
 .reviewInputCharacteristicsAggregate {
-  /* border: 1px solid black;
-  border-left: 0;
-  border-right: 0; */
   padding: 1px 5px;
   width: 550px;
 }
@@ -1647,25 +1702,17 @@ input[type='file'] {
   flex-wrap: wrap;
   height: auto;
   margin-top: 5px;
-  /* padding-left: 5px; */
   border-bottom: 1px solid white;
-  /* border: 1px solid red; */
 }
 
 .reviewInputCharacteristicSection:first-child {
   margin-top: 0;
 }
 
-.reviewInputCharacteristicSection:last-child {
-  /* border-bottom: 0; */
-  /* border: 1px solid red; */
-}
 
 .reviewInputCharacteristicLabel {
   margin: 0;
   margin-bottom: 3px;
-  /* width: 100%; */
-  /* background-color: red; */
 }
 
 .reviewInputCharacteristicButtons {
@@ -1673,7 +1720,6 @@ input[type='file'] {
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  /* border: 1px solid blue; */
 }
 
 .reviewInputCharacteristicButtons input {
@@ -1685,7 +1731,6 @@ input[type='file'] {
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
-  /* border: 2px solid green; */
 }
 
 .reviewInputCharacteristicsDescriptors p {
@@ -1697,14 +1742,10 @@ input[type='file'] {
 */
 
 .reviewInputPhotoSection {
-  /* box-sizing: border-box; */
   display: flex;
   flex-direction: row;
   height: 110px;
-  /* max-height: 120px; */
   width: calc(var(--width) - 100px);
-  /* padding: 5px; */
-  /* background-color: red; */
   border: 1px solid black;
   background-color: white;
 }
@@ -1713,44 +1754,27 @@ input[type='file'] {
   height: 100px;
   margin: 5px;
   margin-right: 10px;
-  /* width: 80px; */
 }
 
 .reviewInputPhotoButton {
-  /* box-sizing: border-box; */
   display: flex;
   flex-direction: column;
-  /* grid-template-rows: 50% 30px; */
-  /* grid-template-columns: 50%; */
   background-color: #cccccc;
   height: 110px;
   width: 80px;
   justify-content: center;
   align-items: center;
   color: black;
-  /* align-content: center; */
 }
 
 .reviewInputPhotoButton:hover {
-  background-color: burlywood;
+  background-color: ${(props) => props.theme.tealAndBurly};
   cursor: pointer;
 }
 
 .reviewInputPhotoButtonPlus {
-  /* display: flex;
-  justify-content: center;
-  align-content: center; */
-  /* grid-row: 2; */
-  /* grid-column: 2; */
   font-size: 40px;
   margin: auto;
-}
-
-.reviewInputPhotoButtonText {
-  /* display: flex;
-  justify-content: center;
-  align-content: center; */
-  /* grid-row: 3; */
 }
 
 button:hover {

@@ -205,8 +205,8 @@ input[type='submit'] {
 
 .photoThumbnail {
   display: inline-flex;
-  height: auto;
-  width: 20%;
+  /* height: auto; */
+  /* width: 20%; */
 }
 
 input[type='file'] {

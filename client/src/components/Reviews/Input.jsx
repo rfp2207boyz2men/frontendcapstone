@@ -346,7 +346,7 @@ const Input = (props) => {
       : <button className='reviewSubmit reviewSubmitEnable' type='submit'>Submit review</button>}
       {errorMessages.length >= 1 &&
       <div className='reviewInputErrors'>
-        <p>You must enter the following:</p>
+        <h4>You must enter the following:</h4>
         {errorMessages.map((message, index) => <p key={index}>{message}</p>)}
       </div>}
     </form>

@@ -3,6 +3,7 @@ import moment from 'moment';
 import Parse from '../../parse.js';
 import PhotoOverlay from './PhotoOverlay.jsx';
 import { GrCheckmark } from 'react-icons/gr';
+import { FaCheckCircle } from 'react-icons/fa';
 
 const Tile = (props) => {
   const [localClick, setLocalClick] = useState(false);
@@ -155,7 +156,7 @@ const Tile = (props) => {
           <span><b>Response:</b></span>
           <p>{parseResponse()}</p>
         </div>}
-        {props.review.recommend && <p><GrCheckmark className='reviewCheckmark'/> I recommend this product</p>}
+        {props.review.recommend && <p><FaCheckCircle className='reviewCheckmark'/> I recommend this product</p>}
       </div>
       <div className='reviewInteractions'>
         {renderHelpful()}

@@ -163,14 +163,14 @@
 .reviewSearchSection {
   display: inline-flex;
   border-bottom: 1px solid grey;
-  width: 900px;
+  width: 800px;
   height: 50px;
   align-items: center;
 }
 
 .reviewSearchBar {
   display: inline-flex;
-  width: 900px;
+  width: 800px;
   height: 50px;
   background-color: transparent;
   border: 0;
@@ -382,6 +382,19 @@
   cursor: pointer;
 }
 
+.reviewInputErrors {
+  position: absolute;
+  left: 700px;
+  top: 985px;
+  color: red;
+}
+
+.reviewInputErrors p {
+  margin: 0;
+  margin-bottom: 5px;
+  margin-left: 6px;
+}
+
 /*
   STAR INPUT
 */
@@ -477,6 +490,7 @@
 .reviewInputCharacteristicsDescriptors p {
   margin: 5px 0;
 }
+
 
 /*
   IMAGES INPUT
