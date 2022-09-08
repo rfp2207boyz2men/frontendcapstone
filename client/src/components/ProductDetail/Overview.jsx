@@ -19,7 +19,11 @@ function Overview() {
     localId,
     renderStars,
     getTotalReviews,
-    getAverageRating, getCart } = useContext(AppContext);
+    getAverageRating,
+    getCart,
+    handleOutfitAdds,
+    outfits,
+  } = useContext(AppContext);
 
 
 
@@ -208,6 +212,8 @@ function Overview() {
           handleLocalClick={handleLocalClick}
           handleLocalSave={handleLocalSave}
           getCart={getCart}
+          outfits={outfits}
+          outfitAdd={handleOutfitAdds}
         />
       </div>
       <ProductOverview product={product} currentPhoto={currentPhoto} currentStyle={currentStyle} />

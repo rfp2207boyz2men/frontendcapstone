@@ -265,6 +265,7 @@ const App = () => {
       <AppContext.Provider value={{
         selectedProduct,
         localName,
+        outfits,
         handleSelectedProduct,
         handleLocalClick,
         handleLocalSave,
@@ -272,7 +273,7 @@ const App = () => {
         getTotalReviews,
         renderStars,
         getCart,
-
+        handleOutfitAdds,
       }}>
         {loading ?
           <StyledApp>

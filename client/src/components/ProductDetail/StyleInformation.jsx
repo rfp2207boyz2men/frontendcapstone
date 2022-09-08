@@ -7,113 +7,6 @@ import { FacebookShareButton, TwitterShareButton, PinterestShareButton } from 'r
 import { OrbitSpinner } from 'react-epic-spinners';
 import { TiStarFullOutline, TiStarHalfOutline, TiStarOutline } from 'react-icons/ti';
 
-/* --------------------  styled-components  --------------------*/
-
-const InfoContainer = styled.div`
-  margin: 0 30px;
-  width: 250px;
-  scroll-behavior: smooth;
-`
-const StyleContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-`
-
-const AddContainer = styled.div`
-  margin: 30px 10px;
-`
-
-const StyleTitle = styled.div`
-  display: inline-flex;
-`
-
-const Title = styled.h1`
-  font-size: 24px;
-  letter-spacing: 1px;
-  font-weight: bolder;
-  color: black;
-`
-
-const StyleText = styled.h4`
-  font-size: 17px;
-  margin-right: 5px;
-  color: black;
-  font-weight: 400;
-  ${props =>
-    props.primary &&
-    css`
-      font-weight: bold;
-    `};
-`
-
-const Category = styled.h4`
-  line-height: 14px;
-  text-decoration: underline;
-  margin-top: 20px;
-  padding: 0;
-  font-size: 15px;
-  color: black;
-`
-
-const StyleEntry = styled.img`
-  cursor: pointer;
-  border-radius: 30px;
-  border: solid 0.5px #333;
-  object-fit: cover;
-  height: 50px;
-  width: 50px;
-  margin: 5px;
-  background-color: #94B49F;
-`
-
-const Price = styled.h2`
-  font-size: 14px;
-
-  ${props => {
-    if (props.primary) {
-      return `
-        text-decoration: line-through;
-    `
-    } else if (props.secondary) {
-      return `
-      color: #850E35;
-    `
-    }
-  }}
-`;
-
-const Button = styled.button`
-  background: transparent;
-  border-radius: 3px;
-  border: 2px solid #256D85;
-  color: #256D85;
-  padding: 10px 10px;
-  margin: 5px 7px;
-
-  ${props =>
-    props.primary &&
-    css`
-      background: #256D85;
-      color: white;
-      &:hover {
-    border: 2px solid white;
-    transition: ease-in-out 0.5s;
-    background-color: black;
-  }
-    `};
-`
-const Reviews = styled.a`
-  margin-left: 10px;
-  text-decoration: underline;
-  color: #256D85;
-  &:hover {
-    transition: all 0.5s;
-    background-color: black;
-    color: white;
-  }
-`
 
 /* --------------------  StyleInformation  --------------------*/
 function StyleInformation({
@@ -127,6 +20,8 @@ function StyleInformation({
   localId,
   handleLocalSave,
   getCart,
+  outfitAdd,
+  outfits,
 }) {
   const [loading, setLoading] = useState(true);
   const [qty, setQty] = useState();
@@ -219,6 +114,10 @@ function StyleInformation({
     window.location.replace("/#related");
   }
 
+  const handleOutfitClick = () => {
+    outfitAdd(product)
+  }
+
   return (
     <div>
       {!loading ?
@@ -303,7 +202,7 @@ function StyleInformation({
             </select>
 
             <button className='add-cart' onClick={(e) => { handleLocalSave(e); handleAddToCart(e); }}>ADD TO CART</button>
-            <button className='select select-star' onClick={handleLocalSave}><TiStarFullOutline /></button>
+            <button className='select select-star' onClick={handleOutfitClick}><TiStarFullOutline /></button>
           </div>
 
           <div className='social'>

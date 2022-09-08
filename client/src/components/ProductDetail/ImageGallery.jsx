@@ -68,51 +68,64 @@ function ImageGallery({
     <div>
       {!loading ? (
         <div className="image-container">
-          <div className="g-container">
-            {arrowUp && (
-              <TiArrowSortedUp onClick={handleUpClick} className="arrow" />
-            )}
+          {!overlay &&
+            <div className="g-container">
+              {arrowUp && (
+                <TiArrowSortedUp onClick={handleUpClick} className="arrow" />
+              )}
 
-            {stylesList.map((style) => {
-              let id = Math.random();
+              {stylesList.map((style) => {
+                let id = Math.random();
 
-              if (currentPhoto === style.url) {
-                if (style.url === null) {
-                  return;
+                if (currentPhoto === style.url) {
+                  if (style.url === null) {
+                    return;
+                  }
+                  return (
+                    <div key={id}>
+                      <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry'></img>
+                      <div className="g-line"></div>
+                    </div>
+                  )
+
+
+                } else {
+                  if (style.url === null) {
+                    return;
+                  }
+                  return (
+                    <div key={id}>
+                      <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry'></img>
+                      <div className="g-line-hidden"></div>
+                    </div>
+                  )
                 }
-                return (
-                  <div key={id}>
-                    <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry'></img>
-                    <div className="g-line"></div>
-                  </div>
-                )
+
+              })}
+
+              {arrowDown && (
+                <TiArrowSortedDown onClick={handleDownClick} className="arrow" />
+              )}
+            </div>
 
 
-              } else {
-                if (style.url === null) {
-                  return;
-                }
-                return (
-                  <div key={id}>
-                    <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry'></img>
-                    <div className="g-line-hidden"></div>
-                  </div>
-                )
-              }
 
-            })}
-
-            {arrowDown && (
-              <TiArrowSortedDown onClick={handleDownClick} className="arrow" />
-            )}
-          </div>
+          }
 
           <div className="pv-container">
             {arrowLeft ? <TiArrowLeftThick onClick={handleLeftClick} className='arrow' /> : <TiArrowLeftThick onClick={handleLeftClick} className='arrow-hidden' />}
 
             {overlay &&
               <div>
-                <ExpandView clickedPhoto={clickedPhoto} handleOverlay={handleOverlay} stylesList={stylesList} onClick={handleOverlay} />
+                <ExpandView clickedPhoto={clickedPhoto}
+                  handleOverlay={handleOverlay}
+                  currentPhoto={currentPhoto}
+                  stylesList={stylesList}
+                  handleLeftClick={handleLeftClick}
+                  handleRightClick={handleRightClick}
+                  arrowLeft={arrowLeft}
+                  arrowRight={arrowRight}
+                  onClick={handleOverlay} />
                 <div className="g-container-vertical">
                   {arrowUp && (
                     <TiArrowSortedUp onClick={handleUpClick} className="arrow" />
@@ -128,7 +141,7 @@ function ImageGallery({
                       return (
                         <div key={id}>
                           <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry-v'></img>
-                          <div className="g-line"></div>
+                          <div className="g-line-v"></div>
                         </div>
                       )
 

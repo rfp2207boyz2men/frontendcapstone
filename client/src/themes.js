@@ -912,19 +912,6 @@ input[type='file'] {
   flex-direction: column;
 }
 
-.g-container-vertical {
-  display: flex;
-  align-items: space-between;
-  justify-content: center;
-  flex-direction: row;
-  position: absolute;
-  top: 90%;
-  left: 50%;
-  font-size: 25px;
-  z-index: 3;
-  cursor: pointer;
-}
-
 .g-container img {
   border: ${(props) => props.theme.gContainerImg};
 }
@@ -986,6 +973,101 @@ input[type='file'] {
   cursor: pointer;
   font-size: 25px;
   padding: 5px;
+}
+
+/* ----------------- Expaneded Section ----------------- */
+
+  .slider  {
+    position: fixed;
+    height: 70%;
+    width: 80%;
+    max-height: 70vh;
+    max-width: 80vw;
+    top: 50%;
+    left: 65%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    overflow-y: hidden;
+    overflow-x: hidden;
+  }
+
+  .sliderImg {
+    width: 900px;
+    height: 900px;
+    border: ${(props) => props.theme.productBorderColor};
+    border-radius: 10px;
+    background-position: center;
+    object-fit: cover;
+  }
+
+  .g-container-vertical {
+    display: flex;
+    align-items: space-between;
+    justify-content: center;
+    flex-direction: row;
+    position: absolute;
+    top: 90%;
+    left: 40%;
+    font-size: 25px;
+    z-index: 3;
+    cursor: pointer;
+}
+
+.g-line-v {
+  width: 60px;
+  height: 3px;
+  margin: 0 auto;
+  background-color: ${(props) => props.theme.tealAndBurly};
+}
+
+  .left-arrow-v {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    left: 3%;
+    font-size: 25px;
+    color: #000;
+    z-index: 2;
+    cursor: pointer;
+  }
+
+
+  .dot-container {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    display: flex;
+    top: 95%;
+    left: 35%;
+    color: gray;
+    z-index: 4;
+  }
+
+  .dot {
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 20px;
+  }
+
+#modalCarousel {
+  width: 38%;
+  max-height: fit-content;
+}
+
+.mainImage {
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+
+
+.mainImage:hover {
+  cursor: zoom-in;
+}
+
+.modalImage:hover {
+  cursor: crosshair;
 }
 
 .expand {

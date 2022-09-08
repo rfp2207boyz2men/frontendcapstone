@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, arrowLeft, arrowRight } from 'react';
 import {
   TiArrowSortedDown,
   TiArrowSortedUp,
@@ -18,70 +18,8 @@ import {
 
 
 
-const ExpandView = ({ stylesList, handleOverlay }) => {
+const ExpandView = ({ stylesList, handleOverlay, currentPhoto, handleLeftClick, handleRightClick }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  const sliderStyle = {
-    position: 'fixed',
-    height: '70%',
-    width: '80%',
-    maxHeight: '70vh',
-    maxWidth: '80vw',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    zIndex: 3,
-    overflowY: 'hidden',
-    overflowX: 'hidden',
-  }
-
-  const slideStyle = {
-    width: '100%',
-    height: '100%',
-    borderRadius: '10px',
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-  }
-
-  const leftArrow = {
-    position: 'absolute',
-    top: '50%',
-    transform: 'translate(0, -50%)',
-    left: '3%',
-    fontSize: '25px',
-    color: '#000',
-    zIndex: 2,
-    cursor: 'pointer',
-  }
-
-  const rightArrow = {
-    position: 'absolute',
-    top: '50%',
-    transform: 'translate(0, -50%)',
-    left: '95%',
-    fontSize: '25px',
-    color: '#000',
-    zIndex: 2,
-    cursor: 'pointer',
-  }
-
-  const dotContainer = {
-    display: 'flex',
-    justifyContent: 'center',
-    position: 'absolute',
-    display: 'flex',
-    top: '95%',
-    left: '50%',
-    color: 'gray',
-    zIndex: 4,
-  }
-
-  const dot = {
-    margin: '0 5px',
-    cursor: 'pointer',
-    fontSize: '20px',
-  }
-
 
   const reviewPhotoExpand = {
     position: 'fixed',
@@ -124,22 +62,18 @@ const ExpandView = ({ stylesList, handleOverlay }) => {
     setCurrentIndex(picIndex);
   }
 
-  const sliderPicture = {
-    ...slideStyle,
-    backgroundImage: `url(${stylesList[currentIndex].url})`,
-  };
 
   return (
-    <div style={sliderStyle}>
-      <TiArrowLeftThick onClick={goPrevious} style={leftArrow} />
-      <TiArrowRightThick onClick={goNext} style={rightArrow} />
-      <div style={sliderPicture}></div>
+    <div className='slider'>
+      {arrowLeft ? <TiArrowLeftThick onClick={handleLeftClick} className='left-arrow-v' /> : <TiArrowLeftThick onClick={handleLeftClick} className='arrow-hidden' />}
+      {arrowRight ? <TiArrowRightThick onClick={handleRightClick} className='right-arrow-v' /> : <TiArrowRightThick onClick={handleRightClick} className='arrow-hidden' />}
+      <img src={currentPhoto} className='sliderImg'></img>
 
-      <div style={dotContainer}>
+      <div className='dot-container'>
         {stylesList.map((pic, picIndex) => {
           let id = Math.random();
           return (
-            <div onClick={() => goToPic(picIndex)} style={dot} key={id}>
+            <div onClick={() => goToPic(picIndex)} className='dot' key={id}>
               ●
             </div>
           )
