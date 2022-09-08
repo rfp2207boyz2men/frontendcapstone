@@ -777,7 +777,6 @@ input[type='file'] {
   position: relative;
   overflow: hidden;
   grid: auto / auto-flow max-content;
-  z-index: 1;
   padding-left: 20px;
 }
 
@@ -792,7 +791,7 @@ input[type='file'] {
   width:100%;
   height: 100%;
   background: rgba(0, 0, 0, .15);
-  z-index: 14;
+  z-index: 99;
 }
 
 .modal-main {
@@ -805,7 +804,7 @@ input[type='file'] {
   left:50%;
   transform: translate(-50%,-50%);
   border: 1px solid black;
-  z-index: 14;
+  z-index: 99;
 }
 
 .modalTable {
@@ -813,6 +812,7 @@ input[type='file'] {
   height: 300px;
   padding: 10px;
   padding-bottom: 30px;
+  z-index: 99;
 }
 
 .modalData {
@@ -820,19 +820,23 @@ input[type='file'] {
   height: 10px;
   text-align: center;
   padding: 3px;
+  z-index: 99;
 }
 
 .tableHead {
   width: 750px;
   text-align: center;
+  z-index: 99;
 }
 
 .display-block {
   display: block;
+  z-index: 99;
 }
 
 .display-none {
   display: none;
+  z-index: 99;
 }
 
 /*
