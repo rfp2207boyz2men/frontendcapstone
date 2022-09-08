@@ -288,7 +288,7 @@ function ProductInformation({
             </select>
 
             <button className='add-cart' onClick={(e) => { handleLocalSave(e); handleAddToCart(e); }}>ADD TO CART</button>
-            <button className='select select-star' onClick={handleLocalSave}><TiStarFullOutline /></button>
+            <button className='select select-star' aria-label='Add to Outfits'onClick={handleLocalSave}><TiStarFullOutline /></button>
           </div>
 
           <div className='social'>

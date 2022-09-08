@@ -41,7 +41,8 @@ export const lightTheme = {
   modalCompareText: 'black',
   salePriceColor: 'red',
   caretColor: 'black',
-  dropdownShadow: 'rgba(0,0,0,0.2)'
+  dropdownShadow: 'rgba(0,0,0,0.2)',
+  searchBarBG: '#F5F5F5',
 };
 
 export const darkTheme = {
@@ -85,7 +86,8 @@ export const darkTheme = {
   modalCompareText: 'white',
   salePriceColor: '#FF5C5C',
   caretColor: 'white',
-  dropdownShadow: 'rgba(0,0,0,0.3)'
+  dropdownShadow: 'rgba(0,0,0,0.3)',
+  searchBarBG: '#0F0F0F'
 };
 
 export const GlobalStyles = createGlobalStyle`
@@ -220,7 +222,7 @@ a:visited {
   border-style: none;
   padding-top: 5px;
   outline:none;
-  background-color: ${(props) => props.theme.headerBColor};
+  background-color: ${(props) => props.theme.searchBarBG};
 }
 
 .search:focus {
@@ -404,7 +406,7 @@ a:visited {
   display: flex;
   flex-direction: column;
   width: 1250px;
-  height: 500px;
+  height: 900px;
   border-bottom: 1px dashed burlywood;
   border-top: 1px dashed burlywood;
   padding: 20px;
