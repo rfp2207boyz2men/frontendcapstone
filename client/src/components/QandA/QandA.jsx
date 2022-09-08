@@ -24,6 +24,7 @@ const QandA = (props) => {
   }
 
   useEffect(() => {
+    console.log('Q AND A PROCCED')
     getQuestions();
   }, []);
 

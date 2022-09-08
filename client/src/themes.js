@@ -1183,15 +1183,29 @@ input[type='file'] {
 
 .averageRating {
   display: flex;
+  flex-direction: column;
+}
+
+.averageRating p{
+  margin: 0;
+}
+
+.averageRatingSection {
+  display: flex;
+  flex-direction: row;
   align-items: center;
 }
 
 .averageRating h1 {
   font-size: 36px;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: 5px;
 }
 
 .averageRating svg {
-  padding-bottom: 15px;
+  margin-top: 2px;
+  // padding-bottom: 15px;
 }
 
 /*
@@ -1351,7 +1365,9 @@ input[type='file'] {
   border: 0;
   font-size: 16px;
   color: ${(props) => props.theme.qandaPlaceholder};
+  caret-color: ${(props) => props.theme.fontColor};
 }
+
 
 .reviewSearchBarIcon {
   float: right;

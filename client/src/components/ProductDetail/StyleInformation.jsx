@@ -262,7 +262,8 @@ function ProductInformation({
                           // handleLocalClick(e);
                           handleStyleClick(e, item.url, item);
                         }}
-                        src={item.photos[0].thumbnail_url} ></img>
+                        src={item.photos[0].thumbnail_url}
+                        alt='Style Thumbnail' ></img>
                     )
                   }
 

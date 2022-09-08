@@ -149,7 +149,7 @@ const Tile = (props) => {
         {(props.review.body.length > 250 && !showMore) && <p className='reviewTileShowMore' onClick={handleShowMore}><u>Show more...</u></p>}
         {props.review.photos.length >= 1 &&
         <div className='reviewPhotoThumbnailSection'>
-          {props.review.photos.map((photo, index) => <img src={photo.url} className='reviewPhotoThumbnail' onClick={handlePhotoClick} key={index}/>)}
+          {props.review.photos.map((photo, index) => <img src={photo.url} className='reviewPhotoThumbnail' alt='Review photo thumbnail' onClick={handlePhotoClick} key={index}/>)}
         </div>}
         {props.review.response &&
         <div className='reviewResponse'>
