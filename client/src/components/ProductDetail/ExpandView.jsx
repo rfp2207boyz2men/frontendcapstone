@@ -18,12 +18,21 @@ import {
 
 
 
-const ExpandView = ({ stylesList }) => {
+const ExpandView = ({ stylesList, handleOverlay }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const sliderStyle = {
-    position: 'relative',
-    height: '100%',
+    position: 'fixed',
+    height: '70%',
+    width: '80%',
+    maxHeight: '70vh',
+    maxWidth: '80vw',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    zIndex: 3,
+    overflowY: 'hidden',
+    overflowX: 'hidden',
   }
 
   const slideStyle = {
@@ -38,7 +47,7 @@ const ExpandView = ({ stylesList }) => {
     position: 'absolute',
     top: '50%',
     transform: 'translate(0, -50%)',
-    left: '32px',
+    left: '3%',
     fontSize: '25px',
     color: '#000',
     zIndex: 2,
@@ -49,7 +58,7 @@ const ExpandView = ({ stylesList }) => {
     position: 'absolute',
     top: '50%',
     transform: 'translate(0, -50%)',
-    left: '462px',
+    left: '95%',
     fontSize: '25px',
     color: '#000',
     zIndex: 2,
@@ -59,12 +68,44 @@ const ExpandView = ({ stylesList }) => {
   const dotContainer = {
     display: 'flex',
     justifyContent: 'center',
+    position: 'absolute',
+    display: 'flex',
+    top: '95%',
+    left: '50%',
+    color: 'gray',
+    zIndex: 4,
   }
 
   const dot = {
-    margin: '0 3px',
+    margin: '0 5px',
     cursor: 'pointer',
     fontSize: '20px',
+  }
+
+
+  const reviewPhotoExpand = {
+    position: 'fixed',
+    maxHeight: '70vh',
+    maxWidth: '70vw',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    padding: '10px',
+    backgroundColor: 'white',
+    border: '2px solid teal',
+    zIndex: 3,
+    overflowY: 'auto',
+  }
+
+  const expandOverlay = {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    backgroundColor: 'black',
+    opacity: '0.5',
+    height: '100%',
+    width: '100%',
+    zIndex: 10,
   }
 
   const goPrevious = () => {

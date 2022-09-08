@@ -54,6 +54,16 @@ function ImageGallery({
     setOverlay(false);
   };
 
+  const expandOverlay = {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    backgroundColor: 'black',
+    opacity: '0.5',
+    height: '100%',
+    width: '100%',
+  }
+
   return (
     <div>
       {!loading ? (
@@ -101,8 +111,47 @@ function ImageGallery({
             {arrowLeft ? <TiArrowLeftThick onClick={handleLeftClick} className='arrow' /> : <TiArrowLeftThick onClick={handleLeftClick} className='arrow-hidden' />}
 
             {overlay &&
-              <div className="expand-container">
-                <ExpandView clickedPhoto={clickedPhoto} stylesList={stylesList} onClick={handleOverlay} />
+              <div>
+                <ExpandView clickedPhoto={clickedPhoto} handleOverlay={handleOverlay} stylesList={stylesList} onClick={handleOverlay} />
+                <div className="g-container-vertical">
+                  {arrowUp && (
+                    <TiArrowSortedUp onClick={handleUpClick} className="arrow" />
+                  )}
+
+                  {stylesList.map((style) => {
+                    let id = Math.random();
+
+                    if (currentPhoto === style.url) {
+                      if (style.url === null) {
+                        return;
+                      }
+                      return (
+                        <div key={id}>
+                          <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry-v'></img>
+                          <div className="g-line"></div>
+                        </div>
+                      )
+
+
+                    } else {
+                      if (style.url === null) {
+                        return;
+                      }
+                      return (
+                        <div key={id}>
+                          <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry-v'></img>
+                          <div className="g-line-hidden"></div>
+                        </div>
+                      )
+                    }
+
+                  })}
+
+                  {arrowDown && (
+                    <TiArrowSortedDown onClick={handleDownClick} className="arrow" />
+                  )}
+                </div>
+                <div style={expandOverlay} onClick={handleOverlay}></div>
               </div>
             }
 

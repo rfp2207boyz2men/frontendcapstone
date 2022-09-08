@@ -5,7 +5,7 @@ const PhotoOverlay = (props) => {
   return (
     <div className='reviewPhotoOverlay'>
       {/* <SiIfixit className='reviewPhotoExit' size={30} onClick={props.onClick}/> */}
-      <img className='reviewPhotoExpand' src={props.clickedPhoto}/>
+      <img className='reviewPhotoExpand' src={props.clickedPhoto} />
       <div className='reviewOverlayBackground' onClick={props.onClick}></div>
     </div>
   )

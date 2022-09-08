@@ -912,6 +912,19 @@ input[type='file'] {
   flex-direction: column;
 }
 
+.g-container-vertical {
+  display: flex;
+  align-items: space-between;
+  justify-content: center;
+  flex-direction: row;
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  font-size: 25px;
+  z-index: 3;
+  cursor: pointer;
+}
+
 .g-container img {
   border: ${(props) => props.theme.gContainerImg};
 }
@@ -919,9 +932,18 @@ input[type='file'] {
 .g-entry {
   cursor: pointer;
   background-color: #fff;
-  width: 50px;
+  width: 40px;
   margin-bottom: 2px;
   height: 50px;
+  transition: all .5s ease;
+}
+
+.g-entry-v {
+  cursor: pointer;
+  background-color: #fff;
+  width: 60px;
+  height: 60px;
+  margin: 2px 10px;
   transition: all .5s ease;
 }
 
