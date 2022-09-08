@@ -15,12 +15,12 @@ export const lightTheme = {
   starCardColor: 'teal',
   defaultPrice: 'white',
   qandaSearchBg: 'white',
-  qandaBorderLeft: '1px solid black',
-  qandaBorderTop: '1px solid black',
-  qandaBorderBottom: '1px solid black',
-  qandaIconBorderLeft: '1px solid black',
-  qandaIconBorderTop: '1px solid black',
-  qandaIconBorderBottom: '1px solid black',
+  qandaBorderLeft: '1px solid white',
+  qandaBorderTop: '1px solid white',
+  qandaBorderBottom: '1px solid white',
+  qandaIconBorderLeft: '1px solid white',
+  qandaIconBorderTop: '1px solid white',
+  qandaIconBorderBottom: '1px solid white',
   qandaPlaceholder: 'gray',
   showMoreBg: 'teal',
   showMoreColor: 'white',
@@ -39,10 +39,9 @@ export const lightTheme = {
   linkColor: 'black',
   modalCompareBg: 'white',
   modalCompareText: 'black',
-<<<<<<< HEAD
   salePriceColor: 'red',
-=======
->>>>>>> 3a38b22984fe26295e707c86a21f0c3174da5e76
+  caretColor: 'black',
+  dropdownShadow: 'rgba(0,0,0,0.2)'
 };
 
 export const darkTheme = {
@@ -84,10 +83,9 @@ export const darkTheme = {
   linkColor: 'white',
   modalCompareBg: '#121212',
   modalCompareText: 'white',
-<<<<<<< HEAD
   salePriceColor: '#FF5C5C',
-=======
->>>>>>> 3a38b22984fe26295e707c86a21f0c3174da5e76
+  caretColor: 'white',
+  dropdownShadow: 'rgba(0,0,0,0.3)'
 };
 
 export const GlobalStyles = createGlobalStyle`
@@ -155,7 +153,6 @@ body {
   padding: 10px;
   width: 70px;
   height: 10px;
-<<<<<<< HEAD
 }
 
 .themetext {
@@ -163,15 +160,6 @@ body {
   padding-bottom: 5px;
 }
 
-=======
-}
-
-.themetext {
-  font-size: 14px;
-  padding-bottom: 5px;
-}
-
->>>>>>> 3a38b22984fe26295e707c86a21f0c3174da5e76
 .theme-toggler > svg {
   margin-right: 10px;
   padding-top: 10px;
@@ -217,7 +205,7 @@ a:visited {
 .logo {
   margin-top: 10px;
   font-size: 60px;
-  color: ${(props) => props.theme.burlyAndTeal};
+  color: teal;
 }
 
 .logotext {
@@ -263,7 +251,7 @@ a:visited {
   border-radius: 50%;
   width: 24px;
   height: 24px;
-  background-color: ${(props) => props.theme.burlyAndTeal};
+  background-color: teal;
   color: #fff;
   text-align: center;
   font-size: 16px;
@@ -419,7 +407,6 @@ a:visited {
   height: 500px;
   border-bottom: 1px dashed burlywood;
   border-top: 1px dashed burlywood;
-  overflow-y: auto;
   padding: 20px;
   margin-top: 50px;
   margin-bottom: 50px;
@@ -437,10 +424,11 @@ a:visited {
 
 .qanda-search {
   display: inline-flex;
-  border: 1px solid white;
+  border: 1px solid ${(props) => props.theme.caretColor};
   width: 1248px;
   height: 50px;
   margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .qanda-search-input {
@@ -451,7 +439,7 @@ a:visited {
   height: 50px;
   background-color: ${(props) => props.theme.qandaSearchBg};
   align-items: center;
-  caret-color: white;
+  caret-color: ${(props) => props.theme.caretColor};
   padding-left: 10px;
   color: ${(props) => props.theme.qandaPlaceholder};
   font-size: 16px;
@@ -463,8 +451,8 @@ a:visited {
 .qanda-search-icon {
   display: inline-flex;
   border: none;
-  background-color: #48484a;
-  color: white;
+  background-color: ${(props) => props.theme.qandaSearchBg};
+  color: ${(props) => props.theme.caretColor};
   font-size: 30px;
   align-items: center;
   border-left: ${(props) => props.theme.qandaIconBorderLeft};
@@ -504,6 +492,7 @@ a:visited {
   flex-direction: column;
   justify-content: space-between;
   font-size: 16px;
+  overflow-y: scroll;
 }
 
 .question-set {
@@ -541,12 +530,12 @@ a:visited {
   margin: 5px
 }
 
-<<<<<<< HEAD
 .photoThumbnail {
   display: inline-flex;
   height: auto;
   width: 20%;
-=======
+}
+
 .answer-photo {
   display: inline-flex;
   height: 100px;
@@ -556,44 +545,39 @@ a:visited {
 
 .answer-photo:hover{
   cursor: pointer;
->>>>>>> 3a38b22984fe26295e707c86a21f0c3174da5e76
 }
 
 input[type='file'] {
   color: rgba(0,0,0,0)
 }
 
-<<<<<<< HEAD
-=======
 .answerPhotoThumbnail {
   height: 100px;
   width: 20%;
 }
 
->>>>>>> 3a38b22984fe26295e707c86a21f0c3174da5e76
 /*
   BUTTONS
 */
 
-<<<<<<< HEAD
-=======
 .showAnswersButton {
   background-color: ${(props) => props.theme.tealAndBurly};
   color: ${(props) => props.theme.fontColor};
+  border-radius: 6px;
+  border-style: none;
+  padding: 10px;
 }
 
->>>>>>> 3a38b22984fe26295e707c86a21f0c3174da5e76
 .question-list-button {
   height: 60px;
   width: 150px;
   display: inline-block;
   margin-right: 10px;
-<<<<<<< HEAD
-=======
   margin-top: 10px;
+  border-radius: 6px;
+  border-style: none;
   background-color: ${(props) => props.theme.tealAndBurly};
   color: ${(props) => props.theme.fontColor};
->>>>>>> 3a38b22984fe26295e707c86a21f0c3174da5e76
 }
 
 .show-more-or-less {
@@ -675,17 +659,11 @@ input[type='file'] {
   display: flex;
   flex-direction: column;
   margin: auto;
-<<<<<<< HEAD
-  background-color: white;
-=======
   background-color: ${(props) => props.theme.mainBColor};
->>>>>>> 3a38b22984fe26295e707c86a21f0c3174da5e76
   padding: 10px;
   z-index: 11;
 }
 
-<<<<<<< HEAD
-=======
 .question-form input,
 .answer-form input {
   background-color: ${(props) => props.theme.tealAndBurly};
@@ -703,7 +681,6 @@ input[type='file'] {
   flex-direction: row;
 }
 
->>>>>>> 3a38b22984fe26295e707c86a21f0c3174da5e76
 /*
   QUESTION MODAL INPUTS
 */
@@ -1417,14 +1394,16 @@ input[type='file'] {
 
 .reviewSortDropDown {
   position: absolute;
-  background-color: ${(props) => props.theme.tealAndBurly};
+  padding: 5px;
+  background-color: ${(props) => props.theme.mainBColor};
   width: 80px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px ${(props) => props.theme.dropdownShadow};
   z-index: 1;
 }
 
 .reviewSortDropDown p {
   color: ${(props) => props.theme.fontColor};
+  padding: 5px;
   margin: 0;
   margin-bottom: 3px;
 }

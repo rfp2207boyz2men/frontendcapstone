@@ -29,9 +29,9 @@ const AnswerList = (props) => {
     <div className='answers'>
       {answerList}
       {(count < answerCount && count >= 2) &&
-      <button className='showAnswersButton' onClick={handleShowMore}>Show More Answers</button>}
+      <button className='showAnswersButton' onClick={handleShowMore}>SHOW MORE ANSWERS</button>}
       {(count >= answerCount && answerCount > 2) &&
-      <button className='showAnswersButton' onClick={handleShowLess}>Show Less Answers</button>}
+      <button className='showAnswersButton' onClick={handleShowLess}>SHOW LESS ANSWERS</button>}
     </div>
   )
 }

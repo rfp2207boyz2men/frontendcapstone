@@ -57,6 +57,8 @@ const QuestionList = (props) => {
   }
 
   return (
+    <React.Fragment>
+    <QandASearch searchQuestion={searchQuestion} />
     <div className='question-body'>
         {modal &&
         <QuestionModal
@@ -67,7 +69,6 @@ const QuestionList = (props) => {
         }
         {questionsCount ?
         <>
-          <QandASearch searchQuestion={searchQuestion} />
           {count < filteredCount ?
           <>
             <div className='question-list'>
@@ -82,12 +83,12 @@ const QuestionList = (props) => {
             <button
               className='question-list-button'
               onClick={handleShowMore}>
-              More Answered Questions
+              MORE ANSWERED QUESTIONS
             </button>
             <button
               className='question-list-button'
               onClick={handleModal}>
-              Add a Question +
+              ADD A QUESTION +
             </button>
             </div>
           </>:
@@ -105,12 +106,12 @@ const QuestionList = (props) => {
               <button
                 className='question-list-button'
                 onClick={handleShowLess}>
-                Show Less
+                SHOW LESS
               </button>
               <button
                 className='question-list-button'
                 onClick={handleModal}>
-                Add a Question +
+                ADD A QUESTION +
               </button>
             </>}
           </>
@@ -121,11 +122,12 @@ const QuestionList = (props) => {
           <button
             className='question-list-button'
             onClick={handleModal}>
-            Add a Question +
+            ADD A QUESTION +
           </button>
         </>
         }
     </div>
+    </React.Fragment>
   )
 }
 
