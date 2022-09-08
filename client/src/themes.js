@@ -42,7 +42,7 @@ export const lightTheme = {
   salePriceColor: 'red',
   caretColor: 'black',
   dropdownShadow: 'rgba(0,0,0,0.2)',
-  searchBarBG: '#F5F5F5',
+  searchBarBG: 'white',
 };
 
 export const darkTheme = {
@@ -87,7 +87,7 @@ export const darkTheme = {
   salePriceColor: '#FF5C5C',
   caretColor: 'white',
   dropdownShadow: 'rgba(0,0,0,0.3)',
-  searchBarBG: '#0F0F0F'
+  searchBarBG: '#1c1c1e'
 };
 
 export const GlobalStyles = createGlobalStyle`
@@ -217,12 +217,12 @@ a:visited {
 
 .search {
   width: 500px;
-  margin-top: 5px;
   height: 30px;
   border-style: none;
-  padding-top: 5px;
-  outline:none;
+  outline: none;
   background-color: ${(props) => props.theme.searchBarBG};
+  border-radius: 15px;
+  padding-left: 15px;
 }
 
 .search:focus {
@@ -230,12 +230,21 @@ a:visited {
 }
 
 .searchbar {
+  display: flex;
+  align-items: center;
   border-bottom: ${(props) => props.theme.borderColor};
-  padding: 1px;
+  background-color: ${(props) => props.theme.searchBarBG};
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 20px;
+  margin-right: 20px;
 }
 
 .searchIcon {
-  font-size: 20px;
+  font-size: 18px;
+  padding-right: 15px;
+  border-radius: 15px;
+  background-color: ${(props) => props.theme.searchBarBG};
 }
 
 .shoppingBag {
@@ -409,7 +418,6 @@ a:visited {
   height: 900px;
   border-bottom: 1px dashed burlywood;
   border-top: 1px dashed burlywood;
-  // overflow-y: auto;
   overflow-y: hidden;
   padding: 20px;
   margin-top: 50px;
@@ -494,7 +502,7 @@ a:visited {
 .question-body {
   display: flex;
   width: 1250px;
-  height: 400px;
+  height: 800px;
   flex-direction: column;
   justify-content: space-between;
   font-size: 16px;
@@ -576,11 +584,11 @@ input[type='file'] {
   color: ${(props) => props.theme.fontColor};
   border-radius: 6px;
   border-style: none;
-  padding: 10px;
+  padding: 5px 10px;
 }
 
 .question-list-button {
-  height: 60px;
+  height: 30px;
   width: 150px;
   border-radius: 5px;
   border-style: none;
