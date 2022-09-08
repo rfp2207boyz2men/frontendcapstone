@@ -182,48 +182,44 @@ function Overview({ trackClick }) {
 
   return (
     <React.Fragment>
-<<<<<<< HEAD
-  <div className='main-container'>
-=======
       <div className='main-container' onClick={trackClick}>
->>>>>>> eda63e3ae1dde64faa1919a5f15a2804b13a8bc4
-      <ImageGallery
-        product={product}
-        stylesList={stylesList}
-        expand={expand}
-        stylesList={stylesList}
-        currentPhoto={currentPhoto}
-        setCurrentPhoto={setCurrentPhoto}
-        currentStyle={currentStyle}
-        arrowDown={arrowDown}
-        arrowUp={arrowUp}
-        arrowLeft={arrowLeft}
-        arrowRight={arrowRight}
-        handleThumbClick={handleThumbClick}
-        handleLeftClick={handleLeftClick}
-        handleRightClick={handleRightClick}
-        handleDownClick={handleDownClick}
-        handleUpClick={handleUpClick}
-        handleExpandedView={handleExpandedView}
-        handleSelectedProduct={handleSelectedProduct}
-      />
-      <StyleInformation
-        product={product}
-        currentStyle={currentStyle}
-        currentPhoto={currentPhoto}
-        localName={localName}
-        localId={localId}
-        renderStars={renderStars}
-        handleStyleClick={handleStyleClick}
-        handleLocalClick={handleLocalClick}
-        handleLocalSave={handleLocalSave}
-        getCart={getCart}
-        outfits={outfits}
-        outfitAdd={handleOutfitAdds}
-      />
-    </div>
-    <ProductOverview product={product} currentPhoto={currentPhoto} currentStyle={currentStyle} trackClick={trackClick} />
-  </React.Fragment>
+        <ImageGallery
+          product={product}
+          stylesList={stylesList}
+          expand={expand}
+          stylesList={stylesList}
+          currentPhoto={currentPhoto}
+          setCurrentPhoto={setCurrentPhoto}
+          currentStyle={currentStyle}
+          arrowDown={arrowDown}
+          arrowUp={arrowUp}
+          arrowLeft={arrowLeft}
+          arrowRight={arrowRight}
+          handleThumbClick={handleThumbClick}
+          handleLeftClick={handleLeftClick}
+          handleRightClick={handleRightClick}
+          handleDownClick={handleDownClick}
+          handleUpClick={handleUpClick}
+          handleExpandedView={handleExpandedView}
+          handleSelectedProduct={handleSelectedProduct}
+        />
+        <StyleInformation
+          product={product}
+          currentStyle={currentStyle}
+          currentPhoto={currentPhoto}
+          localName={localName}
+          localId={localId}
+          renderStars={renderStars}
+          handleStyleClick={handleStyleClick}
+          handleLocalClick={handleLocalClick}
+          handleLocalSave={handleLocalSave}
+          getCart={getCart}
+          outfits={outfits}
+          outfitAdd={handleOutfitAdds}
+        />
+      </div>
+      <ProductOverview product={product} currentPhoto={currentPhoto} currentStyle={currentStyle} trackClick={trackClick} />
+    </React.Fragment>
   )
 
 }
