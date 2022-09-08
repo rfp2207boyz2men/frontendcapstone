@@ -66,6 +66,10 @@ function Overview() {
     if (requestStyles.data.results[0].photos.length > 6) {
       setArrowDown(true);
     }
+
+    if (requestStyles.data.results[0].photos.length < 2) {
+      setArrowRight(false);
+    }
   }
 
   // async function getCart() {

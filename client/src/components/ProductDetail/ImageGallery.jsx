@@ -12,14 +12,9 @@ import '../Reviews/ReviewsStyles.css';
 import styled, { css, keyframes } from 'styled-components';
 import ReactCSSTransitionGroup from 'react-transition-group';
 import { OrbitSpinner } from "react-epic-spinners";
-import {
-  SideBySideMagnifier,
-  MOUSE_ACTIVATION,
-  TOUCH_ACTIVATION
-} from "react-image-magnifiers";
 import Parse from "../../parse";
 import PhotoOverlay from "../Reviews/PhotoOverlay.jsx";
-import ExpandOverlay from "./ExpandOverlay.jsx";
+import ExpandView from "./ExpandView.jsx";
 
 function ImageGallery({
   product,
@@ -77,7 +72,7 @@ function ImageGallery({
                 }
                 return (
                   <div key={id}>
-                    <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry-line'></img>
+                    <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry'></img>
                     <div className="g-line"></div>
                   </div>
                 )
@@ -87,7 +82,12 @@ function ImageGallery({
                 if (style.url === null) {
                   return;
                 }
-                return <img onClick={e => handleThumbClick(e, style)} id={style.url} key={id} src={style.thumbnail_url} className='g-entry'></img>
+                return (
+                  <div key={id}>
+                    <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry'></img>
+                    <div className="g-line-hidden"></div>
+                  </div>
+                )
               }
 
             })}
@@ -98,15 +98,17 @@ function ImageGallery({
           </div>
 
           <div className="pv-container">
-            {arrowLeft &&
-              <TiArrowLeftThick onClick={handleLeftClick} className='arrow' />}
+            {arrowLeft ? <TiArrowLeftThick onClick={handleLeftClick} className='arrow' /> : <TiArrowLeftThick onClick={handleLeftClick} className='arrow-hidden' />}
 
-            {overlay && <ExpandOverlay clickedPhoto={clickedPhoto} onClick={handleOverlay} />}
-
+            {overlay &&
+              <div className="expand-container">
+                <ExpandView clickedPhoto={clickedPhoto} stylesList={stylesList} onClick={handleOverlay} />
+              </div>
+            }
 
             <img className='pv-img' onClick={handlePhotoClick} src={currentPhoto || `https://via.placeholder.com/500`} alt={product.name}></img>
 
-            {arrowRight && <TiArrowRightThick onClick={handleRightClick} className='arrow' />}
+            {arrowRight ? <TiArrowRightThick onClick={handleRightClick} className='arrow' /> : <TiArrowRightThick onClick={handleRightClick} className='arrow-hidden' />}
 
             <TiArrowMaximise onClick={handlePhotoClick} className='expand' />
           </div>

@@ -219,7 +219,7 @@
 /**********************
   PHOTO OVERLAY
 ***********************/
-/*
+
 .reviewPhotoExpand {
   position: fixed;
   max-height: 90vh;
@@ -230,27 +230,27 @@
   padding: 10px;
   background-color: white;
   border: 2px solid teal;
-  z-index: 1;
-  overflow-y: auto;
+  z-index: 3;
+  overflow-y: visible;
 }
 
 .reviewPhotoExit {
   left: 10px;
   top: 10px;
-} */
+}
 
 /**********************
   INPUT OVERLAY
 ***********************/
 
-/* .reviewOverlayBackground {
+.reviewOverlayBackground {
   position: fixed;
   top: 0;
   left: 0;
   opacity: 30%;
   height: 100vh;
   width: 100vw;
-} */
+}
 
 /**********************
   REVIEW INPUT

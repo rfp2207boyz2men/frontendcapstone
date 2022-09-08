@@ -19,7 +19,6 @@ import ClickTracker from './ClickTracker.jsx';
 import moment from 'moment';
 
 const StyledApp = styled.div`
-
 `;
 
 const App = () => {
@@ -44,11 +43,28 @@ const App = () => {
   }
 
   useEffect(() => {
+
+    if (!localStorage.getItem('helpfulReviews')) {
+      localStorage.setItem('helpfulReviews', JSON.stringify({}));
+    }
+    if (!localStorage.getItem('searchStars')) {
+      localStorage.setItem('searchStars', JSON.stringify({ 1: false, 2: false, 3: false, 4: false, 5: false }));
+    }
+    if (!localStorage.getItem('sort')) {
+      localStorage.setItem('sort', 'relevant');
+    }
+
+    if (!localStorage.getItem('theme')) {
+      localStorage.setItem('theme', 'light');
+    }
+
     Parse.getAll(`products/`)
       .then((products) => {
         // let defaultIndex = Math.floor(Math.random() * products.data.length);
         updateSelectedProduct(products.data[0].id);
       })
+
+
     retrieveStorage();
     getCart();
   }, []);
@@ -269,21 +285,16 @@ const App = () => {
                 <div className="searchbar"><input className="search" placeholder="Search"></input><GoSearch className="searchIcon" /></div>
                 <div className="shoppingBag"><BsBag />{cart && <div className='cart'>{cart.length}</div>}</div>
               </div>
-              {
-                theme === 'light' ?
-                  <div className='theme-toggler' onClick={themeToggler}>
-                    <div className='themeswitch'>
-                      <div><MdDarkMode /></div>
-                      <div className='themetext'>Theme</div>
-                    </div>
-                  </div>
-                  :
-                  <div className='theme-toggler' onClick={themeToggler}>
-                    <div className='themeswitch'>
-                      <div><MdLightMode /></div>
-                      <div className='themetext'>Theme</div>
-                    </div>
-                  </div>
+              {theme === 'light' ?
+                <div className='theme-toggler' onClick={themeToggler}>
+                  <MdLightMode />
+                  Theme
+                </div>
+                :
+                <div className='theme-toggler' onClick={themeToggler}>
+                  <MdDarkMode />
+                  Theme
+                </div>
               }
             </div>
             <div className="main">
@@ -328,7 +339,7 @@ const App = () => {
               </div>
             </div>
           </StyledApp>
-          : <StyledApp className="spinner"><OrbitSpinner color='teal' /></StyledApp>
+          : <OrbitSpinner color='teal' />
         }
       </AppContext.Provider>
     </ThemeProvider>

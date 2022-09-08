@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import Parse from '../../parse';
+import { FaCheckCircle } from 'react-icons/fa';
 import { FaFacebook, FaTwitter, FaPinterest } from 'react-icons/fa';
 import { FacebookShareButton, TwitterShareButton, PinterestShareButton } from 'react-share';
 import { OrbitSpinner } from 'react-epic-spinners';
@@ -231,8 +232,8 @@ function StyleInformation({
           <h2 className='style-name'>{product.name}</h2>
           {currentStyle.sale_price !== null ?
             <div>
-              <h2 className='price price-line'>${currentStyle.original_price}</h2>
               <h2 className='price price-sale'>${currentStyle.sale_price}</h2>
+              <h2 className='price price-line'>${currentStyle.original_price}</h2>
             </div>
 
             : <h2 className='price'>${product.default_price}</h2>}
@@ -254,16 +255,18 @@ function StyleInformation({
                     if (item.photos[0].thumbnail_url === null) {
                       return;
                     }
-                    if (currentPhoto === item.photos[0].url) {
+                    if (currentStyle.photos[0].url === item.photos[0].url) {
                       return (
-                        <img className='style-entry-border' key={id}
-                          id={item.style_id}
-                          name={item.name}
-                          onClick={(e, url, prod) => {
-                            handleLocalClick(e);
-                            handleStyleClick(e, item.url, item);
-                          }}
-                          src={item.photos[0].thumbnail_url} ></img>
+                        <div className='style-container-active' key={id}>
+                          <img className='style-entry-active' key={id}
+                            id={item.style_id}
+                            name={item.name}
+                            onClick={(e, url, prod) => {
+                              handleStyleClick(e, item.url, item);
+                            }}
+                            src={item.photos[0].thumbnail_url}></img>
+                          <FaCheckCircle className='check-active' />
+                        </div>
                       )
                     } else {
                       return (
@@ -271,7 +274,6 @@ function StyleInformation({
                           id={item.style_id}
                           name={item.name}
                           onClick={(e, url, prod) => {
-                            handleLocalClick(e);
                             handleStyleClick(e, item.url, item);
                           }}
                           src={item.photos[0].thumbnail_url} ></img>
@@ -287,7 +289,7 @@ function StyleInformation({
           <div className='add-container'>
 
             <select className='select' value={qty} onChange={handleSize}>
-              <option className='select' value="0">Select A Size</option>
+              <option className='select' value="0">Select Size</option>
               {currentStyle &&
                 Object.values(currentStyle.skus).map((item => {
                   let idR = Math.random();

@@ -39,7 +39,8 @@ export const lightTheme = {
   linkColor: 'black',
   modalCompareBg: 'white',
   modalCompareText: 'black',
-  styleBorder: '3px solid burlywood',
+  styleBorder: '3px solid teal',
+  priceColor: 'red',
 };
 
 export const darkTheme = {
@@ -81,7 +82,8 @@ export const darkTheme = {
   linkColor: 'white',
   modalCompareBg: '#121212',
   modalCompareText: 'white',
-  styleBorder: '3px solid teal',
+  styleBorder: '3px solid burlywood',
+  priceColor: '#FF5C5C',
 };
 
 export const GlobalStyles = createGlobalStyle`
@@ -90,6 +92,14 @@ export const GlobalStyles = createGlobalStyle`
 /*
   BOTH MODES
 */
+
+img{
+    -khtml-user-select: none;
+    -o-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
 
 html {
   scroll-behavior: smooth;
@@ -910,19 +920,20 @@ input[type='file'] {
   cursor: pointer;
   background-color: #fff;
   width: 50px;
-  margin-bottom: 20px;
+  margin-bottom: 2px;
   height: 50px;
   transition: all .5s ease;
 }
-.g-entry-line {
-  cursor: pointer;
-  background-color: #fff;
-  width: 50px;
-  margin-bottom: 0px;
-  height: 50px;
-  transition: all .5s ease;
-}
+
 .g-line {
+  height: 3px;
+  left: 10px;
+  margin-bottom: 20px;
+  background-color: ${(props) => props.theme.tealAndBurly};
+}
+
+.g-line-hidden {
+  visibility: hidden;
   height: 3px;
   left: 10px;
   margin-bottom: 20px;
@@ -947,11 +958,25 @@ input[type='file'] {
   transition: all .5s ease;
 }
 
+.arrow-hidden {
+  visibility: hidden;
+  color: ${(props) => props.theme.fontColor};
+  cursor: pointer;
+  font-size: 25px;
+  padding: 5px;
+}
+
 .expand {
   color: ${(props) => props.theme.fontColor};
   cursor: pointer;
   font-size: 30px;
   align-self: flex-start;
+}
+
+.expand-container {
+  width: 500px;
+  height: 280px;
+  margin: 0 auto;
 }
 
 /* ----------------- Style Section ----------------- */
@@ -983,21 +1008,24 @@ input[type='file'] {
 .style-text {
   font-size: 14px;
   margin-right: 5px;
-  color: ${(props) => props.theme.fontColor};;
+  color: ${(props) => props.theme.fontColor};
   font-weight: 400;
 }
 
 .price {
+  display: inline;
   font-size: 14px;
   font-weight: 400;
 }
 
 .price-line {
+  font-size: 10px;
   text-decoration: line-through;
 }
 
 .price-sale {
-  color: red;
+  margin-right: 10px;
+  color: ${(props) => props.theme.priceColor};
 }
 
 .style {
@@ -1012,25 +1040,35 @@ input[type='file'] {
   margin: 5px;
   border-radius: 30px;
   object-fit: cover;
-  object-fit: cover;
-  background-color: ${(props) => props.theme.burlyAndTeal};
-}
-
-.style-entry-border {
-  cursor: pointer;
-  box-sizing: border-box;
-  margin: 5px;
-  height: 50px;
-  width: 50px;
-  border-radius: 30px;
-  border: ${(props) => props.theme.styleBorder};
-  object-fit: cover;
   background-color: ${(props) => props.theme.burlyAndTeal};
 }
 
 .style-container {
   display: flex;
   flex-wrap: wrap;
+}
+.style-container-active {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+}
+.style-entry-active {
+  position: block;
+  cursor: pointer;
+  box-sizing: border-box;
+  margin: 5px;
+  border-radius: 30px;
+  height: 50px;
+  width: 50px;
+  border: ${(props) => props.theme.styleBorder};
+  object-fit: cover;
+  background-color: ${(props) => props.theme.burlyAndTeal};
+}
+.check-active {
+  color: ${(props) => props.theme.burlyAndTeal};;
+  position: absolute;
+  bottom: 42px;
+  left: 5px;
 }
 
 .add-container {
@@ -1060,6 +1098,17 @@ input[type='file'] {
   color: black;
   padding: 10px 20px;
   margin: 5px 7px;
+}
+
+.select-size {
+  background: #cccccc;
+  border: burlywood;
+  color: black;
+  padding: 10px 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 20px;
+  margin-left: 7px;
 }
 
 .select > svg {
