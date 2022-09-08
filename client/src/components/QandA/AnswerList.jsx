@@ -10,7 +10,7 @@ const AnswerList = (props) => {
   let answerList;
 
   let handleShowMore = () => {
-    setCount(count + 2);
+    setCount(answerCount);
   }
 
   let handleShowLess = () => {
@@ -29,9 +29,15 @@ const AnswerList = (props) => {
     <div className='answers'>
       {answerList}
       {(count < answerCount && count >= 2) &&
+<<<<<<< HEAD
       <button className='showAnswersButton' onClick={handleShowMore}>SHOW MORE ANSWERS</button>}
       {(count >= answerCount && answerCount > 2) &&
       <button className='showAnswersButton' onClick={handleShowLess}>SHOW LESS ANSWERS</button>}
+=======
+      <button className='showAnswersButton' onClick={handleShowMore}>MORE ANSWERS</button>}
+      {(count >= answerCount && answerCount > 2) &&
+      <button className='showAnswersButton' onClick={handleShowLess}>COLLAPSE ANSWERS</button>}
+>>>>>>> 903b12066277a1033bdc425dbdce27547504a566
     </div>
   )
 }

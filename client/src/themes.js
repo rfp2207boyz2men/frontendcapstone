@@ -409,6 +409,8 @@ a:visited {
   height: 900px;
   border-bottom: 1px dashed burlywood;
   border-top: 1px dashed burlywood;
+  // overflow-y: auto;
+  overflow-y: hidden;
   padding: 20px;
   margin-top: 50px;
   margin-bottom: 50px;
@@ -452,6 +454,7 @@ a:visited {
 
 .qanda-search-icon {
   display: inline-flex;
+  height: auto;
   border: none;
   background-color: ${(props) => props.theme.qandaSearchBg};
   color: ${(props) => props.theme.caretColor};
@@ -483,14 +486,15 @@ a:visited {
 
 .qandaButtons {
   display: flex;
-  width: 355px;
+  width: 1250px;
   align-items: center;
+  border-top: 1px solid grey;
 }
 
 .question-body {
   display: flex;
   width: 1250px;
-  height: auto;
+  height: 400px;
   flex-direction: column;
   justify-content: space-between;
   font-size: 16px;
@@ -525,6 +529,8 @@ a:visited {
   flex-direction: column;
   justify-content: space-between;
   margin: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .no-answer {
@@ -563,6 +569,9 @@ input[type='file'] {
 */
 
 .showAnswersButton {
+  border-radius: 5px;
+  border-style: none;
+  height: 30px;
   background-color: ${(props) => props.theme.tealAndBurly};
   color: ${(props) => props.theme.fontColor};
   border-radius: 6px;
@@ -573,6 +582,8 @@ input[type='file'] {
 .question-list-button {
   height: 60px;
   width: 150px;
+  border-radius: 5px;
+  border-style: none;
   display: inline-block;
   margin-right: 10px;
   margin-top: 10px;
@@ -661,6 +672,7 @@ input[type='file'] {
   display: flex;
   flex-direction: column;
   margin: auto;
+  border: 2px solid burlywood;
   background-color: ${(props) => props.theme.mainBColor};
   padding: 10px;
   z-index: 11;

@@ -83,7 +83,11 @@ const QuestionList = (props) => {
             <button
               className='question-list-button'
               onClick={handleShowMore}>
+<<<<<<< HEAD
               MORE ANSWERED QUESTIONS
+=======
+              MORE QUESTIONS
+>>>>>>> 903b12066277a1033bdc425dbdce27547504a566
             </button>
             <button
               className='question-list-button'
@@ -102,7 +106,7 @@ const QuestionList = (props) => {
               )}
             </div>
             {filteredCount > 2 &&
-            <>
+            <div className='qandaButtons'>
               <button
                 className='question-list-button'
                 onClick={handleShowLess}>
@@ -113,7 +117,7 @@ const QuestionList = (props) => {
                 onClick={handleModal}>
                 ADD A QUESTION +
               </button>
-            </>}
+            </div>}
           </>
           }
         </> :
