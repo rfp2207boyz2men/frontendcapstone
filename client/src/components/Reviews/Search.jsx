@@ -6,7 +6,7 @@ const Search = (props) => {
   return (
     <div className='reviewSearchSection'>
       <input className='reviewSearchBar' type='search' placeholder='Search Reviews' onChange={props.onChange}></input>
-      <BiSearch className='reviewSearchBarIcon'/>
+      <BiSearch className='reviewSearchBarIcon' />
     </div>
   )
 };

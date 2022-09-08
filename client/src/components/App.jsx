@@ -17,9 +17,10 @@ import { MdLightMode, MdDarkMode } from 'react-icons/md';
 import { lightTheme, darkTheme, GlobalStyles } from '../themes.js';
 import ClickTracker from './ClickTracker.jsx';
 import moment from 'moment';
+import Header from './Header.jsx';
+import FourOhFour from './404.jsx';
 
 const StyledApp = styled.div`
-
 `;
 
 const App = () => {
@@ -37,6 +38,7 @@ const App = () => {
   const [selectedProduct, setSelectedProduct] = useState({});
   const [loading, setLoading] = useState(false);
   const [theme, setTheme] = useState('light');
+  const [crashed, setCrashed] = useState(false);
 
   const themeToggler = () => {
     theme === 'light' ? setTheme('dark') : setTheme('light');
@@ -48,18 +50,37 @@ const App = () => {
       localStorage.setItem('helpfulReviews', JSON.stringify({}));
     }
     if (!localStorage.getItem('searchStars')) {
-      localStorage.setItem('searchStars', JSON.stringify({1:false, 2:false, 3:false, 4:false, 5:false}));
+      localStorage.setItem('searchStars', JSON.stringify({ 1: false, 2: false, 3: false, 4: false, 5: false }));
     }
     if (!localStorage.getItem('sort')) {
       localStorage.setItem('sort', 'relevant');
     }
 
 
+
+    if (!localStorage.getItem('helpfulReviews')) {
+      localStorage.setItem('helpfulReviews', JSON.stringify({}));
+    }
+    if (!localStorage.getItem('searchStars')) {
+      localStorage.setItem('searchStars', JSON.stringify({ 1: false, 2: false, 3: false, 4: false, 5: false }));
+    }
+    if (!localStorage.getItem('sort')) {
+      localStorage.setItem('sort', 'relevant');
+    }
+
+    if (!localStorage.getItem('theme')) {
+      localStorage.setItem('theme', 'light');
+    }
+
     Parse.getAll(`products/`)
       .then((products) => {
         // let defaultIndex = Math.floor(Math.random() * products.data.length);
         updateSelectedProduct(products.data[0].id);
       })
+      .catch((err) => {
+        console.log(err);
+        return setCrashed(true);
+      });
     retrieveStorage();
     getCart();
   }, []);
@@ -134,7 +155,10 @@ const App = () => {
         //this.retrieveStorage();
         // retrieveStyles();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        return setCrashed(true);
+      });
   }
 
   // const retrieveStyles = () => {
@@ -232,6 +256,7 @@ const App = () => {
   const OutfitsTrack = ClickTracker(Outfits, 'Outfits');
   const ReviewsTrack = ClickTracker(Reviews, 'Reviews');
   const QandATrack = ClickTracker(QandA, 'Questions & Answers');
+  const HeaderTrack = ClickTracker(Header, 'Header');
 
   const trackHeader = (e) => {
     //This particular tracker used for Header because of issues creating a separate header component
@@ -249,11 +274,11 @@ const App = () => {
       };
 
       Parse.create('interactions', undefined, params)
-      // .then((response) => console.log(response))
-      .catch((err) => console.log(err));
+        // .then((response) => console.log(response))
+        .catch((err) => console.log(err));
 
       //Disable window.onclick at the end of function to prevent from clicking on elements with no component(like page border)
-      window.onclick = () => {};
+      window.onclick = () => { };
     }
   };
 
@@ -263,41 +288,23 @@ const App = () => {
       <AppContext.Provider value={{
         selectedProduct,
         localName,
+        outfits,
         handleSelectedProduct,
         handleLocalClick,
         handleLocalSave,
         getAverageRating,
         getTotalReviews,
         renderStars,
+        getCart,
+        handleOutfitAdds,
       }}>
-        {loading ?
+        {loading &&
           <StyledApp>
-            <div className="header" onClick={trackHeader}>
-              <div className="logoheader">
-                <div className="logotext"><h1>Odin</h1></div>
-                <div className="logo"><GiTriquetra /></div>
-              </div>
-              <div className="toprightHeader">
-                <div className="searchbar"><input className="search" placeholder="Search"></input><GoSearch className="searchIcon" /></div>
-                <div className="shoppingBag"><BsBag />{cart && <div className='cart'>{cart.length}</div>}</div>
-              </div>
-              {
-                theme === 'light' ?
-                <div className='theme-toggler' onClick={themeToggler}>
-                  <div className='themeswitch'>
-                    <div><MdDarkMode /></div>
-                    <div className='themetext'>Theme</div>
-                  </div>
-                </div>
-                :
-                <div className='theme-toggler' onClick={themeToggler}>
-                  <div className='themeswitch'>
-                    <div><MdLightMode /></div>
-                    <div className='themetext'>Theme</div>
-                  </div>
-                </div>
-              }
-            </div>
+            <HeaderTrack
+              theme={theme}
+              cart={cart}
+              themeToggler={themeToggler}
+            />
             <div className="main">
               <div>
                 <OverviewTrack
@@ -338,11 +345,11 @@ const App = () => {
                   productId={selectedProduct.id}/>
               </div>
             </div>
-          </StyledApp>
-          : <StyledApp className="spinner"><OrbitSpinner color='teal' /></StyledApp>
-        }
-      </AppContext.Provider>
-    </ThemeProvider>
+          </StyledApp>}
+        {(!loading && !crashed) && <StyledApp className="spinner"><OrbitSpinner color='teal' /></StyledApp>}
+        {crashed && <FourOhFour />}
+      </AppContext.Provider >
+    </ThemeProvider >
   )
 }
 

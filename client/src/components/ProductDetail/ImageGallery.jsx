@@ -14,40 +14,14 @@ import ReactCSSTransitionGroup from 'react-transition-group';
 import { OrbitSpinner } from "react-epic-spinners";
 import Parse from "../../parse";
 import PhotoOverlay from "../Reviews/PhotoOverlay.jsx";
-
-/* --------------------  styled components  --------------------*/
-
-const fadeIn = keyframes`
-  0% { opacity: 0; }
-  100% { opacity: 1; }
-`
-
-
-const ImageContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  animation: ${fadeIn} 1s;
-`
-
-const PvImg = styled.img`
-  cursor: -moz-zoom-in;
-  cursor: -webkit-zoom-in;
-  cursor: zoom-in;
-  width: 500px;
-  height: 500px;
-  object-fit: cover;
-  animation: ${fadeIn} 1s;
-`
-
-/* --------------------  ImageGallery components  --------------------*/
+import ExpandView from "./ExpandView.jsx";
 
 function ImageGallery({
   product,
   stylesList,
   expand,
   currentPhoto,
+  setCurrentPhoto,
   currentStyle,
   arrowDown,
   arrowUp,
@@ -81,45 +55,121 @@ function ImageGallery({
     setOverlay(false);
   };
 
+
+
   return (
     <div>
       {!loading ? (
         <div className="image-container">
-          <div className="g-container">
-            {arrowUp && (
-              <TiArrowSortedUp onClick={handleUpClick} className="arrow" />
-            )}
+          {!overlay &&
+            <div className="g-container">
+              {arrowUp && (
+                <TiArrowSortedUp onClick={handleUpClick} className="arrow" />
+              )}
 
-            {stylesList.map((style) => {
-              let id = Math.random();
+              {stylesList.map((style) => {
+                let id = Math.random();
 
-              if (currentPhoto === style.url) {
-                if (style.url === null) {
-                  return;
+                if (currentPhoto === style.url) {
+                  if (style.url === null) {
+                    return;
+                  }
+                  return (
+                    <div key={id}>
+                      <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry'></img>
+                      <div className="g-line"></div>
+                    </div>
+                  )
+
+
+                } else {
+                  if (style.url === null) {
+                    return;
+                  }
+                  return (
+                    <div key={id}>
+                      <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry'></img>
+                      <div className="g-line-hidden"></div>
+                    </div>
+                  )
                 }
-                return <img onClick={e => handleThumbClick(e, style)} id={style.url} key={id} src={style.thumbnail_url} className='g-entry g-border'></img>
-              } else {
-                if (style.url === null) {
-                  return;
-                }
-                return <img onClick={e => handleThumbClick(e, style)} id={style.url} key={id} src={style.thumbnail_url} className='g-entry'></img>
-              }
 
-            })}
+              })}
 
-            {arrowDown && (
-              <TiArrowSortedDown onClick={handleDownClick} className="arrow" />
-            )}
-          </div>
+              {arrowDown && (
+                <TiArrowSortedDown onClick={handleDownClick} className="arrow" />
+              )}
+            </div>
+
+
+
+          }
 
           <div className="pv-container">
-            {arrowLeft &&
-              <TiArrowLeftThick onClick={handleLeftClick} className='arrow' />}
+            {arrowLeft ? <TiArrowLeftThick onClick={handleLeftClick} className='arrow' /> : <TiArrowLeftThick onClick={handleLeftClick} className='arrow-hidden' />}
+            {/* SLIDER STARTS HERE */}
+            {overlay &&
+              <div>
+                <div className="slider-modal">
+                  <ExpandView clickedPhoto={clickedPhoto}
+                    handleOverlay={handleOverlay}
+                    currentStyle={currentStyle}
+                    currentPhoto={currentPhoto}
+                    setCurrentPhoto={setCurrentPhoto}
+                    stylesList={stylesList}
+                    handleLeftClick={handleLeftClick}
+                    handleRightClick={handleRightClick}
+                    arrowLeft={arrowLeft}
+                    arrowRight={arrowRight}
+                    onClick={handleOverlay} />
+                </div>
+                {arrowLeft ? <TiArrowLeftThick onClick={handleLeftClick} className='left-arrow-v' /> : <TiArrowLeftThick onClick={handleLeftClick} className='arrow-hidden' />}
+                {arrowRight ? <TiArrowRightThick onClick={handleRightClick} className='right-arrow-v' /> : <TiArrowRightThick onClick={handleRightClick} className='arrow-hidden' />}
+                <div className="g-container-vertical">
+                  {arrowUp && (
+                    <TiArrowSortedUp onClick={handleUpClick} className="arrow-side" />
+                  )}
 
-            {overlay && <PhotoOverlay clickedPhoto={clickedPhoto} onClick={handleOverlay} />}
-            <img className='pv-img' onClick={handlePhotoClick} src={currentPhoto || `https://via.placeholder.com/500`} alt={product.name}></img>
+                  {stylesList.map((style) => {
+                    let id = Math.random();
 
-            {arrowRight && <TiArrowRightThick onClick={handleRightClick} className='arrow' />}
+                    if (currentPhoto === style.url) {
+                      if (style.thumbnail_url === null) {
+                        return;
+                      }
+                      return (
+                        <div key={id}>
+                          <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry-v-b'></img>
+                          {/* <div className="g-line-v"></div> */}
+                        </div>
+                      )
+
+
+                    } else {
+                      if (style.thumbnail_url === null) {
+                        return;
+                      }
+                      return (
+                        <div key={id}>
+                          <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry-v'></img>
+                          {/* <div className="g-line-hidden"></div> */}
+                        </div>
+                      )
+                    }
+
+                  })}
+
+                  {arrowDown && (
+                    <TiArrowSortedDown onClick={handleDownClick} className="arrow-side" />
+                  )}
+                </div>
+                <div className="slider-overlay" onClick={handleOverlay}></div>
+              </div>
+            }
+
+            {!overlay && <img className='pv-img' onClick={handlePhotoClick} src={currentPhoto || `https://via.placeholder.com/500`} alt={product.name}></img>}
+
+            {arrowRight ? <TiArrowRightThick onClick={handleRightClick} className='arrow' /> : <TiArrowRightThick onClick={handleRightClick} className='arrow-hidden' />}
 
             <TiArrowMaximise onClick={handlePhotoClick} className='expand' />
           </div>
@@ -127,8 +177,9 @@ function ImageGallery({
         </div>
       ) : (
         <OrbitSpinner color="teal" />
-      )}
-    </div>
+      )
+      }
+    </div >
   );
 }
 

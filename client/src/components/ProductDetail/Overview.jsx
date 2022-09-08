@@ -19,7 +19,11 @@ function Overview({ trackClick }) {
     localId,
     renderStars,
     getTotalReviews,
-    getAverageRating } = useContext(AppContext);
+    getAverageRating,
+    getCart,
+    handleOutfitAdds,
+    outfits,
+  } = useContext(AppContext);
 
 
 
@@ -36,8 +40,8 @@ function Overview({ trackClick }) {
 
 
   useEffect(() => {
+    console.log('OVERVIEW PROC')
     fetchData(selectedProduct);
-    getCart();
   }, [])
 
   async function fetchData(productId) {
@@ -67,11 +71,15 @@ function Overview({ trackClick }) {
     if (requestStyles.data.results[0].photos.length > 6) {
       setArrowDown(true);
     }
+
+    if (requestStyles.data.results[0].photos.length < 2) {
+      setArrowRight(false);
+    }
   }
 
-  async function getCart() {
-    const request = await Parse.getAll('cart', undefined);
-  }
+  // async function getCart() {
+  //   const request = await Parse.getAll('cart', undefined);
+  // }
 
 
   /* --------------------  style selection events  --------------------*/
@@ -152,7 +160,7 @@ function Overview({ trackClick }) {
     setArrowUp(true);
     setArrowDown(false);
     setStylesList(currentStyle.photos.slice(7, 14));
-    setCurrentPhoto(currentStyle.photos[5].url);
+    setCurrentPhoto(currentStyle.photos[7].url);
     let lastIndex = currentStyle.photos.length - 1;
     currentStyle.photos[lastIndex].url === currentStyle.photos[5].url ? setArrowRight(false) : setArrowRight(true);
     setArrowLeft(true);
@@ -162,7 +170,7 @@ function Overview({ trackClick }) {
     setArrowDown(true);
     setArrowRight(true);
     setStylesList(currentStyle.photos.slice(0, 7));
-    setCurrentPhoto(currentStyle.photos[0].url);
+    setCurrentPhoto(currentStyle.photos[6].url);
   }
   const handleExpandedView = (e) => {
     e.preventDefault();
@@ -181,6 +189,7 @@ function Overview({ trackClick }) {
           expand={expand}
           stylesList={stylesList}
           currentPhoto={currentPhoto}
+          setCurrentPhoto={setCurrentPhoto}
           currentStyle={currentStyle}
           arrowDown={arrowDown}
           arrowUp={arrowUp}
@@ -204,9 +213,12 @@ function Overview({ trackClick }) {
           handleStyleClick={handleStyleClick}
           handleLocalClick={handleLocalClick}
           handleLocalSave={handleLocalSave}
+          getCart={getCart}
+          outfits={outfits}
+          outfitAdd={handleOutfitAdds}
         />
       </div>
-      <ProductOverview product={product} currentPhoto={currentPhoto} currentStyle={currentStyle} trackClick={trackClick}/>
+      <ProductOverview product={product} currentPhoto={currentPhoto} currentStyle={currentStyle} trackClick={trackClick} />
     </React.Fragment>
   )
 

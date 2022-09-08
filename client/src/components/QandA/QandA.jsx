@@ -9,7 +9,7 @@ const QandA = (props) => {
 
   let productName = props.selectedProduct.name;
   let productId = props.selectedProduct.id;
-  let params =`?product_id=${productId}&count=100`
+  let params = `?product_id=${productId}&count=100`
   let results;
 
   let getQuestions = () => {
@@ -24,6 +24,7 @@ const QandA = (props) => {
   }
 
   useEffect(() => {
+    console.log('Q AND A PROCCED')
     getQuestions();
   }, []);
 

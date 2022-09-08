@@ -13,7 +13,34 @@ const ProductCard = ({ product_id, addOutfit, select, current, avgStars, starRen
   const [starHover, setStarHover] = useState(false);
   const [showCompare, setShowCompareModal] = useState(false);
 
+  // useEffect(() => {
+  //   Parse.getAll('products', `/${product_id}/`)
+  //     .then((productInfo) => {
+  //       setProductInfo(productInfo.data)
+  //     })
+  //     .then((data) => {
+  //       Parse.getAll('products', `/${product_id}/styles`)
+  //       .then((productStyles) => {
+  //         console.log(productStyles.data.results)
+  //         setProductStyles(productStyles.data.results)
+  //       })
+  //       .then((data) => {
+  //         Parse.getAll('reviews', `?product_id=${product_id}`)
+  //           .then((reviewsData) => {
+  //             setStars(getAverage(reviewsData.data.results))
+  //           })
+  //           .then((data) => {
+  //             setProductLoad(true);
+  //           })
+  //           .catch((err) => console.log(err));
+  //       })
+  //       .catch((err) => console.log(err))
+  //     })
+  //     .catch((err) => console.log(err))
+  // }, [])
+
   useEffect(() => {
+<<<<<<< HEAD
     Parse.getAll('products', `/${product_id}/`)
       .then((productInfo) => {
         setProductInfo(productInfo.data)
@@ -37,6 +64,22 @@ const ProductCard = ({ product_id, addOutfit, select, current, avgStars, starRen
       })
       .catch((err) => console.log(err))
   }, [])
+=======
+    Promise.all([
+      Parse.getAll('products', `/${product_id}/`),
+      Parse.getAll('products', `/${product_id}/styles`),
+      Parse.getAll('reviews', `?product_id=${product_id}`)
+    ])
+    .then((response) => {
+      console.log(response);
+      setProductInfo(response[0].data);
+      setProductStyles(response[1].data.results);
+      setStars(getAverage(response[2].data.results));
+      setProductLoad(true);
+    })
+    .catch((err) => console.log(err));
+  }, []);
+>>>>>>> 4ead37027f8ba179f47361a73127810a6ebaaabc
 
   const getAverage = (reviewsArray) => {
     let ratings = reviewsArray.map(review => review.rating);
@@ -76,9 +119,15 @@ const ProductCard = ({ product_id, addOutfit, select, current, avgStars, starRen
       {productLoad ?
         <div className='productCard'>
           <div className='productCardImg' onClick={(event) =>{handleImageClick(event)}}>
+<<<<<<< HEAD
             <img className='productImages' src={productStyles[0].photos[0].thumbnail_url || `https://via.placeholder.com/150`}/>
             <div className='starCard' onMouseEnter={mouseHoverStar} onMouseLeave={mouseExitStar} onClick={(event) => {showCompareModal(event)}}>
               {
+=======
+            <img className='productImages' src={productStyles[0].photos[0].thumbnail_url || `https://via.placeholder.com/150`} alt='Product Card Image'/>
+            <div className='starCard' onMouseEnter={mouseHoverStar} onMouseLeave={mouseExitStar} onClick={(event) => {showModal(event)}}>
+              { /* Show interaction with action button to show comparison modal */
+>>>>>>> 4ead37027f8ba179f47361a73127810a6ebaaabc
                 starHover ? <TiStarFullOutline/> : <TiStarOutline />
               }
             </div>

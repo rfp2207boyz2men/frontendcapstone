@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "webpack serve",
     "build": "webpack",
-    "test": "jest"
+    "test": "jest --coverage --coverageDirectory=output/coverage/jest",
+    "test:watch": "npm run test -- --watch",
+    "coverage": "jest --collect--coverage"
   },
   "repository": {
     "type": "git",
@@ -30,6 +32,7 @@
     "react-dom": "^18.2.0",
     "react-epic-spinners": "^0.5.0",
     "react-icons": "^4.4.0",
+    "react-image-magnifiers": "^1.4.0",
     "react-share": "^4.4.0",
     "react-star-ratings": "^2.3.0",
     "styled-components": "^5.3.5",
@@ -37,6 +40,18 @@
   },
   "overrides": {
     "react-share": {
+      "react": "18.2.0",
+      "react-dom": "18.2.0"
+    },
+    "react-image-magnifiers": {
+      "react": "18.2.0",
+      "react-dom": "18.2.0"
+    },
+    "enzyme-adapter-react": {
+      "react": "18.2.0",
+      "react-dom": "18.2.0"
+    },
+    "enzyme-adapter-react-16": {
       "react": "18.2.0",
       "react-dom": "18.2.0"
     }
