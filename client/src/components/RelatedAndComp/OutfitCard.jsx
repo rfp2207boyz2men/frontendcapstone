@@ -70,7 +70,7 @@ const OutfitCard = ({ product_id, removeApp, styleId, removeOutfit, starRender }
         productLoad ?
           <div className = 'productCard'>
             <div className = 'productCardImg'>
-              <img className = 'productImages' src={productStyles[findIndex(styleId)].photos[0].thumbnail_url || `https://via.placeholder.com/150`}/>
+              <img className = 'productImages' src={productStyles[findIndex(styleId)].photos[0].thumbnail_url || `https://via.placeholder.com/150`} alt='Outfit Card Image'/>
               <div className = "actionCard" onClick={handleClickRemove}><AiFillCloseCircle color='crimson'/></div>
             </div>
             <div>

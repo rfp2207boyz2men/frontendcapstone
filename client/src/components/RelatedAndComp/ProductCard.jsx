@@ -85,7 +85,7 @@ const ProductCard = ({ product_id, addOutfit, select, current, avgStars, starRen
       {productLoad ?
         <div className='productCard'>
           <div className='productCardImg' onClick={(event) =>{handleImageClick(event)}}>
-            <img className='productImages' src={productStyles[0].photos[0].thumbnail_url || `https://via.placeholder.com/150`}/>
+            <img className='productImages' src={productStyles[0].photos[0].thumbnail_url || `https://via.placeholder.com/150`} alt='Product Card Image'/>
             <div className='starCard' onMouseEnter={mouseHoverStar} onMouseLeave={mouseExitStar} onClick={(event) => {showModal(event)}}>
               { /* Show interaction with action button to show comparison modal */
                 starHover ? <TiStarFullOutline/> : <TiStarOutline />

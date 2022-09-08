@@ -5,6 +5,7 @@ import Outfits from './Outfits.jsx';
 import { RiArrowRightSLine, RiArrowLeftSLine } from 'react-icons/ri'
 
 const Related = ({ selectedProduct, addToOutfit, selectStyle, avgRating, starRender, trackClick }) => {
+
   const [relatedIds, setRelatedIds] = useState([]);
   const [carousel, setCarousel] = useState([]);
   const [left, setLeft] = useState([]);
@@ -12,6 +13,7 @@ const Related = ({ selectedProduct, addToOutfit, selectStyle, avgRating, starRen
   const [view, setView] = useState([])
 
   useEffect(() => {
+    console.log('RELATED PROCCED')
     // Requests the related_ids from API based on selected product within App
     Parse.getAll('products', `/${selectedProduct.id}/related`)
       .then((relatedProducts) => {

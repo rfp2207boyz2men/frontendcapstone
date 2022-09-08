@@ -1340,7 +1340,9 @@ input[type='file'] {
   border: 0;
   font-size: 16px;
   color: ${(props) => props.theme.qandaPlaceholder};
+  caret-color: ${(props) => props.theme.fontColor};
 }
+
 
 .reviewSearchBarIcon {
   float: right;

@@ -6,6 +6,7 @@ import SideBar from './SideBar.jsx';
 import { OrbitSpinner } from 'react-epic-spinners';
 
 const Reviews = (props) => {
+
   const [ratingPercentages, setRatingPercentages] = useState([]);
   const [averageRecommended, setAverageRecommended] = useState(0);
   const [initialized, setInitialized] = useState(false);
@@ -23,7 +24,7 @@ const Reviews = (props) => {
   const [sort, setSort] = useState('relevant');
 
   useEffect(() => {
-
+    console.log('REVIEWS PROCCED')
     let sort = localStorage.getItem('sort');
     let searchStars = JSON.parse(localStorage.getItem('searchStars'));
     let ratings = props.metaData.ratings;

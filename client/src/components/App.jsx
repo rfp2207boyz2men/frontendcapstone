@@ -17,6 +17,7 @@ import { MdLightMode, MdDarkMode } from 'react-icons/md';
 import { lightTheme, darkTheme, GlobalStyles } from '../themes.js';
 import ClickTracker from './ClickTracker.jsx';
 import moment from 'moment';
+import Header from './Header.jsx';
 
 const StyledApp = styled.div`
 
@@ -229,6 +230,7 @@ const App = () => {
   const OutfitsTrack = ClickTracker(Outfits, 'Outfits');
   const ReviewsTrack = ClickTracker(Reviews, 'Reviews');
   const QandATrack = ClickTracker(QandA, 'Questions & Answers');
+  const HeaderTrack = ClickTracker(Header, 'Header');
 
   const trackHeader = (e) => {
     //This particular tracker used for Header because of issues creating a separate header component
@@ -269,32 +271,11 @@ const App = () => {
       }}>
         {loading ?
           <StyledApp>
-            <div className="header" onClick={trackHeader}>
-              <div className="logoheader">
-                <div className="logotext"><h1>Odin</h1></div>
-                <div className="logo"><GiTriquetra /></div>
-              </div>
-              <div className="toprightHeader">
-                <div className="searchbar"><input className="search" placeholder="Search"></input><GoSearch className="searchIcon" /></div>
-                <div className="shoppingBag"><BsBag />{cart && <div className='cart'>{cart.length}</div>}</div>
-              </div>
-              {
-                theme === 'light' ?
-                <div className='theme-toggler' onClick={themeToggler}>
-                  <div className='themeswitch'>
-                    <div><MdDarkMode /></div>
-                    <div className='themetext'>Theme</div>
-                  </div>
-                </div>
-                :
-                <div className='theme-toggler' onClick={themeToggler}>
-                  <div className='themeswitch'>
-                    <div><MdLightMode /></div>
-                    <div className='themetext'>Theme</div>
-                  </div>
-                </div>
-              }
-            </div>
+            <HeaderTrack
+              theme={theme}
+              cart={cart}
+              themeToggler={themeToggler}
+            />
             <div className="main">
               <div>
                 <OverviewTrack

@@ -36,6 +36,7 @@ function Overview({ trackClick }) {
 
 
   useEffect(() => {
+    console.log('OVERVIEW PROC')
     fetchData(selectedProduct);
     getCart();
   }, [])
