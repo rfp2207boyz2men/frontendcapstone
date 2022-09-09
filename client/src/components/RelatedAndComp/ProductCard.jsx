@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import ReactDOM from 'react-dom';
 import Parse from '../../parse.js';
 import { OrbitSpinner } from 'react-epic-spinners';
-import { TiStarFullOutline, TiStarOutline } from 'react-icons/ti';
+import { MdOutlineStar, MdOutlineStarOutline } from 'react-icons/md';
 import ComparisonModal from './Compare.jsx';
 
 const ProductCard = ({ product_id, addOutfit, select, current, avgStars, starRender }) => {
@@ -35,7 +35,7 @@ const ProductCard = ({ product_id, addOutfit, select, current, avgStars, starRen
   }
 
   let renderAvgStars = () => {
-    return starRender(stars).map((star => star))
+    return starRender(stars);
   };
 
   const mouseHoverStar = () => {
@@ -68,7 +68,7 @@ const ProductCard = ({ product_id, addOutfit, select, current, avgStars, starRen
           <div className='productCardImg' onClick={(event) =>{handleImageClick(event)}}>
             <img className='productImages' src={productStyles[0].photos[0].thumbnail_url || `https://via.placeholder.com/150`} alt='Product Card Image'/>
             <div className='starCard' onMouseEnter={mouseHoverStar} onMouseLeave={mouseExitStar} onClick={(event) => {showCompareModal(event)}}>
-              { starHover ? <TiStarFullOutline/> : <TiStarOutline /> }
+              { starHover ? <MdOutlineStar/> : <MdOutlineStarOutline /> }
             </div>
           </div>
           <div>

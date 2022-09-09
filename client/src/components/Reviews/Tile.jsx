@@ -20,7 +20,7 @@ const Tile = (props) => {
   };
 
   const renderStars = () => {
-    return props.renderStars(props.review.rating).map((star => star))
+    return props.renderStars(props.review.rating)
   };
 
   const parseBody = () => {

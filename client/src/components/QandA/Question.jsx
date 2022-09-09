@@ -49,6 +49,27 @@ const Question = (props) => {
     setModal(!modal);
   }
 
+  let highlightQuestion = () => {
+    if (props.searchQuery === '') {
+      return props.question.question_body;
+    }
+
+    let splitRegex = new RegExp(`(${props.searchQuery})`, `i`);
+    let splitQuestion = props.question.question_body.split(splitRegex);
+    if (splitQuestion.length === 1) {
+      return splitQuestion;
+    }
+
+    splitQuestion = splitQuestion.map((chunk) => {
+      if (chunk.toLowerCase() === props.searchQuery.toLowerCase()) {
+        return (<mark>{chunk}</mark>);
+      } else {
+        return chunk;
+      }
+    })
+    return splitQuestion;
+  }
+
   useEffect(() => {
     getAnswers();
   }, [isHelpful]);
@@ -64,10 +85,12 @@ const Question = (props) => {
       </button>
   }
 
+  let styleBottomBorder = {borderBottom: '1px solid burlywood'};
+
   return (
     <div className='question-set'>
       <div className='question-line'>
-        <strong className='question'>Q: {question}</strong>
+        <strong style={styleBottomBorder} className='question'>Q: {highlightQuestion()}</strong>
         {modal &&
         <AnswerModal
           handleModal={handleModal}

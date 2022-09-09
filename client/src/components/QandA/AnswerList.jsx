@@ -18,11 +18,11 @@ const AnswerList = (props) => {
   }
 
   if (count < answerCount) {
-    answerList = answers.slice(0, count).map(answer =>
-      <Answer key={answer.answer_id} answer={answer} />)
+    answerList = answers.slice(0, count).map((answer, index) =>
+      <Answer key={answer.answer_id} answer={answer} count={count} index={index} answerCount={answerCount}/>)
   } else {
-    answerList = answers.map(answer =>
-      <Answer key={answer.answer_id} answer={answer} />)
+    answerList = answers.map((answer, index) =>
+      <Answer key={answer.answer_id} answer={answer} count={count} index={index} answerCount={answerCount}/>)
   }
 
   return (

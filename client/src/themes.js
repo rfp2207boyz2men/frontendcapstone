@@ -550,6 +550,11 @@ a:visited {
   padding-bottom: 5px;
 }
 
+.answer-bottom-border {
+  width: 50%;
+  // border-bottom: 1px dotted burlywood;
+}
+
 .no-answer {
   justify-content: center;
   margin: 5px
@@ -1218,6 +1223,14 @@ input[type='file'] {
   scroll-behavior: smooth;
 }
 
+.style-category {
+  margin-left: 3px;
+}
+
+.star-ratings {
+  margin-right: 8px;
+}
+
 .reviewsInfo {
   display: flex;
   justify-content: flex-start;
@@ -1371,6 +1384,10 @@ input[type='file'] {
   color: white;
 }
 
+.add-cart span {
+  margin: 0;
+}
+
 .select-size-dropdown {
   padding: 0;
   margin: 0;
@@ -1391,7 +1408,7 @@ input[type='file'] {
 }
 
 .select-star {
-  padding: 0;
+  padding: 0 0 2px 0;
   margin: 0;
   height: 30px;
   width: 30px;
@@ -1399,7 +1416,7 @@ input[type='file'] {
 }
 
 .select-star svg {
-  // margin-top: 4px;
+  margin: 0;
   color: ${(props) => props.theme.fontColor};
 }
 
@@ -1433,6 +1450,7 @@ input[type='file'] {
   flex-direction: row;
   cursor: pointer;
   font-size: 24px;
+  padding-right: 45px;
   color: ${(props) => props.theme.burlyAndTeal};
 }
 
@@ -1472,7 +1490,7 @@ input[type='file'] {
 }
 
 .reviewList {
-  height: auto;
+  height: 800px;
   width: 800px;
   border-top: 1px dashed burlywood;
   overflow-y: auto;
@@ -1551,6 +1569,7 @@ input[type='file'] {
   flex-direction: row;
   width: inherit;
   align-items: center;
+  // margin-left: 10px;
 }
 
 .reviewBarSectionOn {
@@ -1567,8 +1586,9 @@ input[type='file'] {
 
 .reviewBarLabel {
   width: 50px;
-  padding:5px;
+  padding: 5px 5px 5px 0;
   text-align: center;
+  margin-right: 7px;
 }
 
 .reviewBar {
@@ -1862,7 +1882,7 @@ input[type='file'] {
 
 .reviewInput {
   position: fixed;
-  --height: 900px;
+  --height: 92vh;
   --width: 1000px;
   top: calc(50% - (var(--height) / 2));
   left: calc(50% - (var(--width) / 2));

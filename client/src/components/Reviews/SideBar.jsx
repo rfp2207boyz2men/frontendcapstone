@@ -6,8 +6,8 @@ const SideBar = (props) => {
 
   return (
     <div className='reviewSideBar'>
-      <h2 style={{marginLeft: '10px'}}>RATINGS & REVIEWS</h2>
-      <div className='averageRating' style={{marginLeft: '10px'}}>
+      <h2 style={{marginLeft: '5px'}}>RATINGS & REVIEWS</h2>
+      <div className='averageRating' style={{marginLeft: '5px'}}>
         <p>Based on {props.totalReviews} reviews</p>
         <div className='averageRatingSection'>
           <h1>{props.averageRating}</h1>
@@ -15,7 +15,7 @@ const SideBar = (props) => {
         </div>
       </div>
       <div className='ratingPercentages'>
-        <p style={{marginLeft: '10px'}}>{props.averageRecommended}% of reviews recommend this product</p>
+        <p style={{marginLeft: '5px'}}>{props.averageRecommended}% of reviews recommend this product</p>
       </div>
       <Breakdowns
         ratings={props.ratings}

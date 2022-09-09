@@ -39,7 +39,7 @@ const OutfitCard = ({ product_id, removeApp, styleId, removeOutfit, starRender }
   }
 
   let renderAvgStars = () => {
-    return starRender(stars).map((star => star))
+    return starRender(stars);
   };
 
   const findStyleIndex = (id) => {

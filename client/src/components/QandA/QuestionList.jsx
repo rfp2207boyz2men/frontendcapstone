@@ -8,6 +8,7 @@ const QuestionList = (props) => {
   const [filteredCount, setFilteredCount] = useState(0);
   const [count, setCount] = useState(2);
   const [modal, setModal] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   let questions = props.questions
   let questionsCount = questions.length;
@@ -25,15 +26,18 @@ const QuestionList = (props) => {
     if (query === undefined || query.length <= 2) {
       setFiltered(questions);
       setFilteredCount(questions.length);
+      setSearchQuery('');
     } else {
       filteredQuestions = questions.filter(question =>
         question.question_body.toLowerCase().includes(query.toLowerCase()));
       if (filteredQuestions === []) {
         setFiltered(filteredQuestions);
         setFilteredCount(1);
+        setSearchQuery(query);
       } else {
         setFiltered(filteredQuestions);
         setFilteredCount(filteredQuestions.length);
+        setSearchQuery(query);
       }
     }
   }
@@ -53,6 +57,19 @@ const QuestionList = (props) => {
   let handleModal = () => {
     setModal(!modal);
     toggleScrollLock();
+  }
+
+  let renderNoSearchedQuestions = () => {
+    return (
+      <>
+        <h2>No questions found with the current search.</h2>
+        <button
+          className='question-list-button'
+          onClick={handleModal}>
+          ADD A QUESTION +
+        </button>
+      </>
+    )
   }
 
   return (
@@ -75,7 +92,8 @@ const QuestionList = (props) => {
                   <Question
                     key={question.question_id}
                     question={question}
-                    productName={props.productName} />
+                    productName={props.productName}
+                    searchQuery={searchQuery} />
                 )}
               </div>
               <div className='qandaButtons'>
@@ -97,7 +115,8 @@ const QuestionList = (props) => {
                   <Question
                     key={question.question_id}
                     question={question}
-                    productName={props.productName} />
+                    productName={props.productName}
+                    searchQuery={searchQuery} />
                 )}
               </div>
               {filteredCount > 2 &&
@@ -125,6 +144,7 @@ const QuestionList = (props) => {
           </button>
         </>
       }
+      {(questionsCount && filtered.length === 0) && renderNoSearchedQuestions()}
     </div>
     </React.Fragment>
   )

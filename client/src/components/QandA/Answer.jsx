@@ -60,6 +60,14 @@ const Answer = (props) => {
     setOverlay(false);
   }
 
+  let styleBottomBorder = () => {
+    if (props.index < props.count - 1 && props.answerCount > 1) {
+      return {borderBottom: '1px dotted burlywood'};
+    } else {
+      return {borderBottom: 'none'};
+    }
+  };
+
   return (
     <div className='answer'>
       <div className='answer-line'>
@@ -76,6 +84,7 @@ const Answer = (props) => {
           {reportBtn}
         </small>
       </div>
+      <div style={styleBottomBorder()} className='answer-bottom-border'></div>
       {overlay && <PhotoOverlay clickedPhoto={clickedPhoto} onClick={handleOverlay} />}
     </div>
   )
