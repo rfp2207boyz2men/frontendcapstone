@@ -1,16 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Parse from '../../parse.js';
-
 import QuestionList from './QuestionList.jsx';
-// import './QandA.css';
 
 const QandA = (props) => {
   const [questions, setQuestions] = useState([]);
 
   let productName = props.selectedProduct.name;
   let productId = props.selectedProduct.id;
-  let params =`?product_id=${productId}&count=100`
-  // let params = `?product_id=40347`;
+  let params = `?product_id=${productId}&count=100`
   let results;
 
   let getQuestions = () => {

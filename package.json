@@ -5,7 +5,10 @@
   "main": "client/src/index.js",
   "scripts": {
     "dev": "webpack serve",
-    "build": "webpack"
+    "build": "webpack",
+    "test": "jest --coverage --coverageDirectory=output/coverage/jest",
+    "test:watch": "npm run test -- --watch",
+    "coverage": "jest --collect--coverage"
   },
   "repository": {
     "type": "git",
@@ -19,21 +22,57 @@
   "homepage": "https://github.com/rfp2207boyz2men/frontendcapstone#readme",
   "dependencies": {
     "axios": "^0.27.2",
+    "boostrap": "^2.0.0",
+    "bootstrap": "^5.2.0",
     "express": "^4.18.1",
+    "moment": "^2.29.4",
     "nodemon": "^2.0.19",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
+    "react-epic-spinners": "^0.5.0",
     "react-icons": "^4.4.0",
-    "styled-components": "^5.3.5"
+    "react-image-magnifiers": "^1.4.0",
+    "react-share": "^4.4.0",
+    "react-star-ratings": "^2.3.0",
+    "styled-components": "^5.3.5",
+    "underscore": "^1.13.4"
+  },
+  "overrides": {
+    "react-share": {
+      "react": "18.2.0",
+      "react-dom": "18.2.0"
+    },
+    "react-image-magnifiers": {
+      "react": "18.2.0",
+      "react-dom": "18.2.0"
+    },
+    "enzyme-adapter-react": {
+      "react": "18.2.0",
+      "react-dom": "18.2.0"
+    },
+    "enzyme-adapter-react-16": {
+      "react": "18.2.0",
+      "react-dom": "18.2.0"
+    }
+  },
+  "resolutions": {
+    "styled-components": "^5"
   },
   "devDependencies": {
     "@babel/core": "^7.18.13",
     "@babel/preset-env": "^7.18.10",
     "@babel/preset-react": "^7.18.6",
+    "@babel/preset-typescript": "^7.18.6",
+    "@testing-library/react": "^13.4.0",
+    "@types/jest": "^29.0.0",
     "babel-loader": "^8.2.5",
     "css-loader": "^6.7.1",
     "eslint-config-airbnb": "^19.0.4",
     "html-webpack-plugin": "^5.5.0",
+    "jest": "^29.0.2",
+    "jest-dom": "^4.0.0",
+    "react-test-renderer": "^18.2.0",
     "style-loader": "^3.3.1",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0",

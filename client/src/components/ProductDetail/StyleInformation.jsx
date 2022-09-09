@@ -1,121 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import Parse from '../../parse';
+import { FaCheckCircle } from 'react-icons/fa';
 import { FaFacebook, FaTwitter, FaPinterest } from 'react-icons/fa';
 import { FacebookShareButton, TwitterShareButton, PinterestShareButton } from 'react-share';
 import { OrbitSpinner } from 'react-epic-spinners';
 import { TiStarFullOutline, TiStarHalfOutline, TiStarOutline } from 'react-icons/ti';
 
-/* --------------------  styled-components  --------------------*/
 
-const InfoContainer = styled.div`
-  margin: 0 30px;
-  width: 250px;
-  scroll-behavior: smooth;
-`
-const StyleContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-`
-
-const AddContainer = styled.div`
-  margin: 30px 10px;
-`
-
-const StyleTitle = styled.div`
-  display: inline-flex;
-`
-
-const Title = styled.h1`
-  font-size: 24px;
-  letter-spacing: 1px;
-  font-weight: bolder;
-  color: black;
-`
-
-const StyleText = styled.h4`
-  font-size: 17px;
-  margin-right: 5px;
-  color: black;
-  font-weight: 400;
-  ${props =>
-    props.primary &&
-    css`
-      font-weight: bold;
-    `};
-`
-
-const Category = styled.h4`
-  line-height: 14px;
-  text-decoration: underline;
-  margin-top: 20px;
-  padding: 0;
-  font-size: 15px;
-  color: black;
-`
-
-const StyleEntry = styled.img`
-  cursor: pointer;
-  border-radius: 30px;
-  border: solid 0.5px #333;
-  object-fit: cover;
-  height: 50px;
-  width: 50px;
-  margin: 5px;
-  background-color: #94B49F;
-`
-
-const Price = styled.h2`
-  font-size: 14px;
-
-  ${props => {
-    if (props.primary) {
-      return `
-        text-decoration: line-through;
-    `
-    } else if (props.secondary) {
-      return `
-      color: #850E35;
-    `
-    }
-  }}
-`;
-
-const Button = styled.button`
-  background: transparent;
-  border-radius: 3px;
-  border: 2px solid #256D85;
-  color: #256D85;
-  padding: 10px 10px;
-  margin: 5px 7px;
-
-  ${props =>
-    props.primary &&
-    css`
-      background: #256D85;
-      color: white;
-      &:hover {
-    border: 2px solid white;
-    transition: ease-in-out 0.5s;
-    background-color: black;
-  }
-    `};
-`
-const Reviews = styled.a`
-  margin-left: 10px;
-  text-decoration: underline;
-  color: #256D85;
-  &:hover {
-    transition: all 0.5s;
-    background-color: black;
-    color: white;
-  }
-`
-
-/* --------------------  ProductInformation  --------------------*/
-function ProductInformation({
+function StyleInformation({
   product,
   currentStyle,
   currentPhoto,
@@ -125,20 +18,27 @@ function ProductInformation({
   localName,
   localId,
   handleLocalSave,
+  getCart,
+  outfitAdd,
+  outfits,
 }) {
   const [loading, setLoading] = useState(true);
   const [qty, setQty] = useState();
   const [sizeSelected, setSizeSelected] = useState(false);
+  const [sizeClick, setSizeClick] = useState(false);
   const [skusId, setSkusId] = useState();
   const [shareQuote, setShareQuote] = useState();
   const [shareHashtag, setShareHashtag] = useState();
   const [shareUrl, setShareUrl] = useState();
+  const [haveStock, setHaveStock] = useState(true);
 
   useEffect(() => {
     if (currentStyle) {
       setShareQuote(`Check this Awesome item! ${product.name}, $${product.default_price}`);
       setShareHashtag([`Awesome:${product.category}`, `Reviews:${product.totalReviews}`]);
-      // set loading was moved to product useEffect
+      if (currentStyle.skus.null) {
+        setHaveStock(false);
+      }
     }
   }, [currentStyle])
 
@@ -160,6 +60,7 @@ function ProductInformation({
 
 
   let findDuplicates = [];
+  let sizeRenderList = [];
 
   const handleSize = (e) => {
     let keys = [];
@@ -177,6 +78,12 @@ function ProductInformation({
       }
     }
     setQty(parseInt(e.target.value));
+    if (e.target.value === '0') {
+      setSizeClick(true);
+    }
+    if (e.target.value !== '0') {
+      setSizeClick(false);
+    }
   }
 
   const renderQty = (qty) => {
@@ -193,6 +100,7 @@ function ProductInformation({
   }
 
   const handleQty = (e) => {
+    setSizeClick(false);
     setSizeSelected(true);
   }
 
@@ -200,7 +108,7 @@ function ProductInformation({
   async function addToCart(skusId) {
     let params = { sku_id: skusId };
     const request = await Parse.create('cart', undefined, params);
-    console.log(request.data);
+    getCart();
   }
 
   const handleAddToCart = (e) => {
@@ -216,30 +124,32 @@ function ProductInformation({
     window.location.replace("/#reviews");
   }
 
+  const handleOutfitClick = () => {
+    outfitAdd(product)
+  }
+
   return (
     <div>
       {!loading ?
         <div className='info-container'>
-          <div className='reviewsInfo'>
-            <div>
+          <div>
             {renderAvgStars()}
-            </div>
-            <a href='#reviews' onClick={relatedLink}>  Read all {product.totalReviews} reviews</a>
+            <a href='' onClick={relatedLink}>Read all {product.totalReviews} reviews</a>
           </div>
 
-          <h3>{product.category.toUpperCase()}</h3>
-          <h2>{product.name}</h2>
+          <h4 className='style-category'>{product.category}</h4>
+          <h2 className='style-name'>{product.name}</h2>
           {currentStyle.sale_price !== null ?
             <div>
-              <h2 className='price price-line'>${currentStyle.original_price}</h2>
               <h2 className='price price-sale'>${currentStyle.sale_price}</h2>
+              <h2 className='price price-line'>${currentStyle.original_price}</h2>
             </div>
 
             : <h2 className='price'>${product.default_price}</h2>}
 
           <div>
             <div className='style-title'>
-              <h4 className='style-text style'> STYLE: </h4>
+              <h4 className='style-text style'> Style: </h4>
               <h4 className='style-text'>{product.styles[0].photos[0].thumbnail_url === null ? 'No style available' : currentStyle.name}</h4>
             </div>
             <div className='style-container'>
@@ -254,42 +164,68 @@ function ProductInformation({
                     if (item.photos[0].thumbnail_url === null) {
                       return;
                     }
-                    return (
-                      <img className='style-entry' key={id}
-                        id={item.style_id}
-                        name={item.name}
-                        onClick={(e, url, prod) => {
-                          handleLocalClick(e);
-                          handleStyleClick(e, item.url, item);
-                        }}
-                        src={item.photos[0].thumbnail_url} ></img>
-                    )
+                    if (currentStyle.photos[0].url === item.photos[0].url) {
+                      return (
+                        <div className='style-container-active' key={id}>
+                          <img className='style-entry-active' key={id}
+                            id={item.style_id}
+                            name={item.name}
+                            onClick={(e, url, prod) => {
+                              handleStyleClick(e, item.url, item);
+                            }}
+                            src={item.photos[0].thumbnail_url}
+                            alt='Style Thumbnail'></img>
+                          <FaCheckCircle className='check-active' />
+                        </div>
+                      )
+                    } else {
+                      return (
+                        <img className='style-entry' key={id}
+                          id={item.style_id}
+                          name={item.name}
+                          onClick={(e, url, prod) => {
+                            handleStyleClick(e, item.url, item);
+                          }}
+                          src={item.photos[0].thumbnail_url}
+                          alt='Style Thumbnail'></img>
+                      )
+                    }
                   }
 
                 })}
 
             </div>
           </div>
+          {!haveStock ?
+            <div className='add-container'>
+              <div className='out-of-stock'>out of stock :(</div>
+            </div>
+            :
+            <div className='add-container'>
+              {sizeClick ? <div className='select-size-please'>Please select a size</div> : <></>}
+              <select className='select select-size-dropdown' value={qty} onChange={handleSize}>
+                <option className='select' value="0">SELECT SIZE</option>
+                {currentStyle &&
+                  Object.values(currentStyle.skus).map((item => {
+                    let idR = Math.random();
+                    if (sizeRenderList.includes(item.size)) {
+                      return;
+                    } else {
+                      sizeRenderList.push(item.size);
+                      return <option className='select' id={item.size} value={item.quantity} key={idR}>{item.size}</option>
+                    }
+                  }))}
+              </select>
 
-          <div className='add-container'>
+              <select className='select select-quantity' onChange={handleQty}>
+                {qty ? <option className='option'>1</option> : <option className='option' value="-">-</option>}
+                {qty && renderQty(qty)}
+              </select>
 
-            <select className='select' value={qty} onChange={handleSize}>
-              <option className='select' value="0">SELECT SIZE</option>
-              {currentStyle &&
-                Object.values(currentStyle.skus).map((item => {
-                  let idR = Math.random();
-                  return <option className='select' id={item.size} value={item.quantity} key={idR}>{item.size}</option>
-                }))}
-            </select>
-
-            <select className='select' onChange={handleQty}>
-              {qty ? <option className='option'>1</option> : <option className='option' value="-">-</option>}
-              {qty && renderQty(qty)}
-            </select>
-
-            <button className='add-cart' onClick={(e) => { handleLocalSave(e); handleAddToCart(e); }}>ADD TO CART</button>
-            <button className='select select-star' onClick={handleLocalSave}><TiStarFullOutline /></button>
-          </div>
+              <button className='add-cart' onClick={(e) => { handleLocalSave(e); handleAddToCart(e); }}>ADD TO CART</button>
+              <button className='select select-star' aria-label='Add Outfit' onClick={handleOutfitClick}><TiStarFullOutline /></button>
+            </div>
+          }
 
           <div className='social'>
             <FacebookShareButton className='social-btn' url={shareUrl} quote={shareQuote} hashtag={`#${shareHashtag}`}>
@@ -314,4 +250,4 @@ function ProductInformation({
 
 }
 
-export default ProductInformation;
+export default StyleInformation;

@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-
 import QandASearch from './QandASearch.jsx';
 import Question from './Question.jsx'
 import QuestionModal from './QuestionModal.jsx';
@@ -57,63 +56,64 @@ const QuestionList = (props) => {
   }
 
   return (
+    <React.Fragment>
+    <QandASearch searchQuestion={searchQuestion} />
     <div className='question-body'>
-        {modal &&
+      {modal &&
         <QuestionModal
           handleModal={handleModal}
           productName={props.productName}
           productId={props.productId}
           getQuestions={props.getQuestions} />
-        }
-        {questionsCount ?
+      }
+      {questionsCount ?
         <>
-          <QandASearch searchQuestion={searchQuestion} />
           {count < filteredCount ?
-          <>
-            <div className='question-list'>
-              {filtered.slice(0, count).map(question =>
-              <Question
-                key={question.question_id}
-                question={question}
-                productName={props.productName} />
-              )}
-            </div>
-            <div className='qandaButtons'>
-            <button
-              className='question-list-button'
-              onClick={handleShowMore}>
-              More Answered Questions
-            </button>
-            <button
-              className='question-list-button'
-              onClick={handleModal}>
-              Add a Question +
-            </button>
-            </div>
-          </>:
-          <>
-            <div className='question-list'>
-              {filtered.map(question =>
-              <Question
-                key={question.question_id}
-                question={question}
-                productName={props.productName} />
-              )}
-            </div>
-            {filteredCount > 2 &&
             <>
-              <button
-                className='question-list-button'
-                onClick={handleShowLess}>
-                Show Less
-              </button>
-              <button
-                className='question-list-button'
-                onClick={handleModal}>
-                Add a Question +
-              </button>
-            </>}
-          </>
+              <div className='question-list'>
+                {filtered.slice(0, count).map(question =>
+                  <Question
+                    key={question.question_id}
+                    question={question}
+                    productName={props.productName} />
+                )}
+              </div>
+              <div className='qandaButtons'>
+                <button
+                  className='question-list-button'
+                  onClick={handleShowMore}>
+                  MORE QUESTIONS
+                </button>
+                <button
+                  className='question-list-button'
+                  onClick={handleModal}>
+                  ADD A QUESTION +
+                </button>
+              </div>
+            </> :
+            <>
+              <div className='question-list'>
+                {filtered.map(question =>
+                  <Question
+                    key={question.question_id}
+                    question={question}
+                    productName={props.productName} />
+                )}
+              </div>
+              {filteredCount > 2 &&
+                <div className='qandaButtons'>
+                  <button
+                    className='question-list-button'
+                    onClick={handleShowLess}>
+                    SHOW LESS
+                  </button>
+                  <button
+                    className='question-list-button'
+                    onClick={handleModal}>
+                    ADD A QUESTION +
+                  </button>
+                </div>}
+            </>
           }
         </> :
         <>
@@ -121,11 +121,12 @@ const QuestionList = (props) => {
           <button
             className='question-list-button'
             onClick={handleModal}>
-            Add a Question +
+            ADD A QUESTION +
           </button>
         </>
-        }
+      }
     </div>
+    </React.Fragment>
   )
 }
 

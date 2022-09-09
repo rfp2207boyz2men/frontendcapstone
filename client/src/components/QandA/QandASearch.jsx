@@ -10,7 +10,7 @@ const QandASearch = (props) => {
         placeholder='Have a question? Search for answers...'
         name='questionQuery'
         onChange={(event) => props.searchQuestion(event.target.value)}/>
-      <button className='qanda-search-icon'><BiSearch /></button>
+      <BiSearch className='qanda-search-icon'/>
     </div>
   )
 }
