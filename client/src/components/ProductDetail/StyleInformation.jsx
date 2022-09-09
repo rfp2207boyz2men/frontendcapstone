@@ -60,6 +60,7 @@ function StyleInformation({
 
 
   let findDuplicates = [];
+  let sizeRenderList = [];
 
   const handleSize = (e) => {
     let keys = [];
@@ -77,9 +78,11 @@ function StyleInformation({
       }
     }
     setQty(parseInt(e.target.value));
-    console.log(e.target.value);
     if (e.target.value === '0') {
       setSizeClick(true);
+    }
+    if (e.target.value !== '0') {
+      setSizeClick(false);
     }
   }
 
@@ -105,7 +108,6 @@ function StyleInformation({
   async function addToCart(skusId) {
     let params = { sku_id: skusId };
     const request = await Parse.create('cart', undefined, params);
-    console.log(request.data);
     getCart();
   }
 
@@ -201,16 +203,21 @@ function StyleInformation({
             :
             <div className='add-container'>
               {sizeClick ? <div className='select-size-please'>Please select a size</div> : <></>}
-              <select className='select' value={qty} onChange={handleSize}>
+              <select className='select select-size-dropdown' value={qty} onChange={handleSize}>
                 <option className='select' value="0">SELECT SIZE</option>
                 {currentStyle &&
                   Object.values(currentStyle.skus).map((item => {
                     let idR = Math.random();
-                    return <option className='select' id={item.size} value={item.quantity} key={idR}>{item.size}</option>
+                    if (sizeRenderList.includes(item.size)) {
+                      return;
+                    } else {
+                      sizeRenderList.push(item.size);
+                      return <option className='select' id={item.size} value={item.quantity} key={idR}>{item.size}</option>
+                    }
                   }))}
               </select>
 
-              <select className='select' onChange={handleQty}>
+              <select className='select select-quantity' onChange={handleQty}>
                 {qty ? <option className='option'>1</option> : <option className='option' value="-">-</option>}
                 {qty && renderQty(qty)}
               </select>

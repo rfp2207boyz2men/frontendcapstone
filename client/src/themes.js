@@ -1307,23 +1307,6 @@ input[type='file'] {
   margin: 30px 0;
 }
 
-.add-cart {
-  padding: 10px 30px;
-  margin: 5px 7px;
-  width: 150px;
-  background:  ${(props) => props.theme.tealAndBurly};
-  border-radius: 4px;
-  border: none;
-  transition: ease-in-out 0.5s;
-  color: ${(props) => props.theme.fontColor};
-}
-
-.add-cart:hover {
-  transition: ease-in-out 0.5s;
-  background-color: black;
-  color: white;
-}
-
 .out-of-stock {
   font-size: 14px;
   color: ${(props) => props.theme.fontColor};
@@ -1351,6 +1334,7 @@ input[type='file'] {
   margin-bottom: 5px;
   margin-right: 20px;
   margin-left: 7px;
+  width: 500px;
 }
 
 .select > svg {
@@ -1358,9 +1342,65 @@ input[type='file'] {
   color: black;
 }
 
-.select select-star {
+.select-star {
   background: burlywood;
   color: black;
+}
+
+.select-size {
+  width: 70px;
+  height: 30px;
+}
+
+.add-cart {
+  // padding: 10px 30px;
+  // margin: 5px 7px;
+  height: 30px;
+  width: 175px;
+  background:  ${(props) => props.theme.tealAndBurly};
+  // border-radius: 4px;
+  border: none;
+  transition: ease-in-out 0.5s;
+  color: ${(props) => props.theme.fontColor};
+  margin-right: 5px;
+}
+
+.add-cart:hover {
+  transition: ease-in-out 0.5s;
+  background-color: black;
+  color: white;
+}
+
+.select-size-dropdown {
+  padding: 0;
+  margin: 0;
+  height: 30px;
+  width: 150px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  border: 1px solid ${(props) => props.theme.burlyBorderBlack};
+}
+
+.select-quantity {
+  padding: 0;
+  margin: 0;
+  height: 30px;
+  width: 55px;
+  margin-bottom: 5px;
+  border: 1px solid ${(props) => props.theme.burlyBorderBlack};
+}
+
+.select-star {
+  padding: 0;
+  margin: 0;
+  height: 30px;
+  width: 30px;
+  background: ${(props) => props.theme.tealAndBurly};
+}
+
+.select-star svg {
+  // margin-top: 4px;
+  color: ${(props) => props.theme.fontColor};
 }
 
 
@@ -1791,7 +1831,7 @@ input[type='file'] {
   padding: 10px;
   background-color: white;
   border: 2px solid ${(props) => props.theme.burlyAndTeal};
-  z-index: 3;
+  z-index: 50;
   overflow-y: auto;
 }
 
@@ -1813,6 +1853,7 @@ input[type='file'] {
   opacity: 30%;
   height: 100vh;
   width: 100vw;
+  z-index: 49;
 }
 
 /**********************
@@ -1831,7 +1872,7 @@ input[type='file'] {
   padding: 6px 18px;
   background-color: ${(props) => props.theme.mainBColor};
   border: 2px solid burlywood;
-  z-index: 1;
+  z-index: 50;
   overflow-y:scroll;
 }
 
