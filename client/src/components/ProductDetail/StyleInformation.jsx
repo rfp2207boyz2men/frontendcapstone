@@ -8,7 +8,6 @@ import { OrbitSpinner } from 'react-epic-spinners';
 import { TiStarFullOutline, TiStarHalfOutline, TiStarOutline } from 'react-icons/ti';
 
 
-/* --------------------  StyleInformation  --------------------*/
 function StyleInformation({
   product,
   currentStyle,
@@ -37,7 +36,6 @@ function StyleInformation({
     if (currentStyle) {
       setShareQuote(`Check this Awesome item! ${product.name}, $${product.default_price}`);
       setShareHashtag([`Awesome:${product.category}`, `Reviews:${product.totalReviews}`]);
-      // set loading was moved to product useEffect
       if (currentStyle.skus.null) {
         setHaveStock(false);
       }
@@ -110,7 +108,6 @@ function StyleInformation({
   async function addToCart(skusId) {
     let params = { sku_id: skusId };
     const request = await Parse.create('cart', undefined, params);
-    console.log(request.data);
     getCart();
   }
 
@@ -176,7 +173,8 @@ function StyleInformation({
                             onClick={(e, url, prod) => {
                               handleStyleClick(e, item.url, item);
                             }}
-                            src={item.photos[0].thumbnail_url}></img>
+                            src={item.photos[0].thumbnail_url}
+                            alt='Style Thumbnail'></img>
                           <FaCheckCircle className='check-active' />
                         </div>
                       )
@@ -188,7 +186,8 @@ function StyleInformation({
                           onClick={(e, url, prod) => {
                             handleStyleClick(e, item.url, item);
                           }}
-                          src={item.photos[0].thumbnail_url} ></img>
+                          src={item.photos[0].thumbnail_url}
+                          alt='Style Thumbnail'></img>
                       )
                     }
                   }
@@ -197,8 +196,6 @@ function StyleInformation({
 
             </div>
           </div>
-
-
           {!haveStock ?
             <div className='add-container'>
               <div className='out-of-stock'>out of stock :(</div>
@@ -206,7 +203,11 @@ function StyleInformation({
             :
             <div className='add-container'>
               {sizeClick ? <div className='select-size-please'>Please select a size</div> : <></>}
+<<<<<<< HEAD
               <select className='select' value={qty} onChange={handleSize}>
+=======
+              <select className='select select-size-dropdown' value={qty} onChange={handleSize}>
+>>>>>>> main
                 <option className='select' value="0">SELECT SIZE</option>
                 {currentStyle &&
                   Object.values(currentStyle.skus).map((item => {
@@ -220,14 +221,14 @@ function StyleInformation({
                   }))}
               </select>
 
-              <select className='select' onChange={handleQty}>
+              <select className='select select-quantity' onChange={handleQty}>
                 {qty ? <option className='option'>1</option> : <option className='option' value="-">-</option>}
                 {qty && renderQty(qty)}
               </select>
 
               <button className='add-cart' onClick={(e) => { handleLocalSave(e); handleAddToCart(e); }}>ADD TO CART</button>
-              <button className='select select-star' onClick={handleOutfitClick}><TiStarFullOutline /></button>
-            </div>
+              <button className='select select-star' aria-label='Add Outfit' onClick={handleOutfitClick}><TiStarFullOutline /></button>
+            </div >
           }
 
           <div className='social'>
@@ -241,11 +242,11 @@ function StyleInformation({
               <FaPinterest />
             </PinterestShareButton>
           </div>
-        </div>
+        </div >
         :
         <OrbitSpinner color="teal" />
       }
-    </div>
+    </div >
 
 
 

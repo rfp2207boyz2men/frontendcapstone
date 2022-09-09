@@ -160,6 +160,11 @@
   REVIEW LIST
 ***********************/
 
+<<<<<<< HEAD:client/src/components/Reviews/ReviewsStyles.css
+=======
+<<<<<<< HEAD:client/src/components/Reviews/ReviewsStyles.css
+=======
+>>>>>>> main:client/src/components/Reviews/old/ReviewsStyles.css
 .reviewSearchSection {
   display: inline-flex;
   border-bottom: 1px solid grey;
@@ -213,6 +218,10 @@
   cursor: pointer;
 }
 
+<<<<<<< HEAD:client/src/components/Reviews/ReviewsStyles.css
+=======
+>>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2:client/src/components/Reviews/old/ReviewsStyles.css
+>>>>>>> main:client/src/components/Reviews/old/ReviewsStyles.css
 .reviewListHeader {
   display: flex;
   flex-direction: row;

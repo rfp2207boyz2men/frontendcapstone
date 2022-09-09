@@ -20,12 +20,7 @@ const ExpandView = ({ stylesList, handleOverlay, currentPhoto, setCurrentPhoto, 
 
   return (
     <div className='slider'>
-
-      <div id='lens-container'>
-        <div id='lens'></div>
-        <img id='featured' src={currentPhoto} className='sliderImg' ></img>
-      </div>
-
+      <img src={currentPhoto} className='sliderImg' alt='Expanded Image'></img>
       <div className='dot-container'>
         {currentStyle.photos.map((pic, picIndex) => {
           let id = Math.random();

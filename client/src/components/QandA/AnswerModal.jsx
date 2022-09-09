@@ -24,28 +24,39 @@ const AnswerModal = (props) => {
   let questionId = props.questionId;
 
   const handlePhotoClick = () => {
+<<<<<<< HEAD
     //Click the hidden input file button by invoking this function
+=======
+>>>>>>> main
     hiddenFileInput.current.click();
   }
 
   let handleSubmitCheck = (event) => {
     event.preventDefault();
     if (photos.length === 0) {
+<<<<<<< HEAD
       console.log('PHOTOS LENGTH IS 0')
       handleSubmit(event);
     } else {
       console.log('PHOTOS LENGTH IS >0');
+=======
+      handleSubmit(event);
+    } else {
+>>>>>>> main
       uploadAllPhotos(event);
     }
   }
 
   let handleSubmit = (event, photos = []) => {
+<<<<<<< HEAD
     // event.preventDefault();
 
     // uploadAllPhotos();
     console.log('PHOTOS STATE: ', photos);
     console.log(imageUrls);
 
+=======
+>>>>>>> main
     data = {
       body: userAnswer,
       name: nickname,
@@ -53,10 +64,13 @@ const AnswerModal = (props) => {
       photos: photos
     }
 
+<<<<<<< HEAD
     console.log('URL: ', url);
     console.log('USER: ', CONFIG.CLOUDINARY_USER);
     console.log('PHOTO URLS: ', data.photos);
 
+=======
+>>>>>>> main
     Parse.create(`qa/questions/${questionId}/answers`, undefined, data)
       .then((results) => {
         props.getAnswers();
@@ -103,14 +117,20 @@ const AnswerModal = (props) => {
   }
 
   let uploadAllPhotos = (event) => {
+<<<<<<< HEAD
     console.log('UPLOADALLPHOTOS INVOKED');
     return Promise.all(photosData.map((photo) => uploadPhoto(photo)))
       .then((response) => {
         console.log('RESPONSE: ', response)
+=======
+    return Promise.all(photosData.map((photo) => uploadPhoto(photo)))
+      .then((response) => {
+>>>>>>> main
         photosUrl = [];
         for (let photo of response) {
           photosUrl.push(photo.data.secure_url);
         }
+<<<<<<< HEAD
         console.log('CLOUD PHOTOS URLS: ', photosUrl);
         return photosUrl;
         // setImageUrls(photosUrl);
@@ -121,6 +141,14 @@ const AnswerModal = (props) => {
       })
       .catch((error) => {
         console.log(error);
+=======
+        return photosUrl;
+      })
+      .then((photosUrl) => {
+        handleSubmit(event, photosUrl);
+      })
+      .catch((error) => {
+>>>>>>> main
         setPhotos([]);
         setPhotosData([]);
       })
@@ -187,7 +215,10 @@ const AnswerModal = (props) => {
           <input
             type='submit'
             value='Submit'
+<<<<<<< HEAD
             // onSubmit={handleSubmit}
+=======
+>>>>>>> main
             >
           </input>
         </form>

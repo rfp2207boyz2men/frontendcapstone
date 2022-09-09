@@ -33,10 +33,13 @@ const Input = (props) => {
       stars.push(renderStar(i))
     }
     return (
-      <div className='reviewInputStarSection'>
-        {stars.map((star) => star)}
-        <p>{renderStarIndicator()}</p>
-      </div>
+      <>
+        <h3>Overall rating<span style={{color:'red'}}>*</span></h3>
+        <div className='reviewInputStarSection'>
+          {stars.map((star) => star)}
+          <p>{renderStarIndicator()}</p>
+        </div>
+      </>
     )
   };
 
@@ -49,7 +52,11 @@ const Input = (props) => {
   };
 
   const renderStarIndicator = () => {
+<<<<<<< HEAD
     switch (rating) {
+=======
+    switch(rating) {
+>>>>>>> main
       case 1:
         return 'Poor';
         break;
@@ -75,6 +82,7 @@ const Input = (props) => {
   };
 
   const renderRecommendations = () => {
+<<<<<<< HEAD
     return (
       <div className='reviewInputRecommendations'>
         <input type='radio' name='recommendation' value='true' onChange={handleRecommendationClick}></input>
@@ -82,6 +90,18 @@ const Input = (props) => {
         <input type='radio' name='recommendation' value='false' onChange={handleRecommendationClick}></input>
         <p>No</p>
       </div>
+=======
+    return(
+      <>
+        <h3>Do you recommend this product?<span style={{color:'red'}}>*</span></h3>
+        <div className='reviewInputRecommendations'>
+          <input type='radio' name='recommendation' value='true' onChange={handleRecommendationClick}></input>
+          <p>Yes</p>
+          <input type='radio' name='recommendation' value='false' onChange={handleRecommendationClick}></input>
+          <p>No</p>
+        </div>
+      </>
+>>>>>>> main
     )
   };
 
@@ -102,7 +122,11 @@ const Input = (props) => {
   };
 
   const renderCharacteristicsDescriptor = (characteristic) => {
+<<<<<<< HEAD
     switch (characteristic) {
+=======
+    switch(characteristic) {
+>>>>>>> main
       case 'Size':
         return ['A size too small', 'A size too wide'];
       case 'Width':
@@ -138,6 +162,7 @@ const Input = (props) => {
       characteristicAggregate.push(renderCharacteristicsSection(characteristic, props.characteristics[characteristic].id));
     }
     return (
+<<<<<<< HEAD
       <div className='reviewInputCharacteristicsAggregate'>
         {characteristicAggregate.map((characteristic, index) => characteristic)}
       </div>
@@ -146,9 +171,42 @@ const Input = (props) => {
 
   const handleCharacteristicClick = (e) => {
     setCharacteristics((prevCharacteristics) => ({ ...prevCharacteristics, [e.target.name]: parseInt(e.target.value) }));
+=======
+      <>
+        <h3>Characteristics<span style={{color:'red'}}>*</span></h3>
+        <div className='reviewInputCharacteristicsAggregate'>
+          {characteristicAggregate.map((characteristic, index) => characteristic)}
+        </div>
+      </>
+      );
+  };
+
+  const handleCharacteristicClick = (e) => {
+    setCharacteristics((prevCharacteristics) => ({...prevCharacteristics, [e.target.name]: parseInt(e.target.value)}));
+>>>>>>> main
+  };
+
+  const renderSummaryInput = () => {
+    return (
+      <>
+        <h3>Review summary</h3>
+        <input type='text' className='reviewTextInput' name='summary' placeholder='Example: Best purchase ever!' maxLength='60' onChange={handleOnChange}></input>
+      </>
+    );
+  };
+
+  const renderBodyInput = () => {
+    return (
+      <>
+        <h3>Review body<span style={{color:'red'}}>*</span></h3>
+        <textarea name='body' placeholder='Why did you like the product or not?' maxLength='1000' onChange={handleOnChange}></textarea>
+        {textInputs.body.length < 50 ?<p>Minimum required characters left: [{50 - textInputs.body.length}]</p> : <p>Minimum reached</p>}
+      </>
+    );
   };
 
   const renderPhotos = () => {
+<<<<<<< HEAD
     return (
       <div className='reviewInputPhotoSection'>
         {photos.map((photo) => <img className='reviewInputPhotoThumbnail' src={photo} />)}
@@ -159,6 +217,21 @@ const Input = (props) => {
           </div>}
         <input type='file' style={{ display: 'none' }} ref={hiddenFileInput} onChange={handlePhotoInput}></input>
       </div>
+=======
+    return(
+      <>
+        <h3>Upload your photos</h3>
+        <div className='reviewInputPhotoSection'>
+          {photos.map((photo) => <img className='reviewInputPhotoThumbnail' src={photo}/>)}
+          {photos.length < 5 &&
+            <div className='reviewInputPhotoButton' onClick={handlePhotoClick}>
+              <BsPlusCircle className='reviewInputPhotoButtonPlus'/>
+              <p className='reviewInputPhotoButtonText'>Upload</p>
+            </div>}
+          <input type='file' style={{display:'none'}} ref={hiddenFileInput} onChange={handlePhotoInput}></input>
+        </div>
+      </>
+>>>>>>> main
     )
   };
 
@@ -175,6 +248,26 @@ const Input = (props) => {
     setPhotosData(newPhotosData);
   };
 
+  const renderNicknameInput = () => {
+    return (
+      <>
+        <h3>What is your nickname<span style={{color:'red'}}>*</span></h3>
+        <input type='text' className='reviewTextInput' name='nickname' placeholder='Example: jackson11!' maxLength='60' onChange={handleOnChange}></input>
+        <p>For privacy reasons, do not use your full name or email address</p>
+      </>
+    );
+  };
+
+  const renderEmailInput = () => {
+    return (
+      <>
+        <h3>Your email<span style={{color:'red'}}>*</span></h3>
+        <input type='text' className='reviewTextInput' name='email' placeholder='Example: jackson11@email.com' maxLength='60' onChange={handleOnChange}></input>
+        <p>For authentication reasons, you will not be emailed</p>
+      </>
+    );
+  };
+
   const handleSubmit = () => {
     event.preventDefault();
     setLoading(true);
@@ -187,6 +280,7 @@ const Input = (props) => {
     }
 
     uploadAllPhotos()
+<<<<<<< HEAD
       .then((photos) => submitForm(photos))
       .then((response) => {
         console.log('success!');
@@ -198,10 +292,22 @@ const Input = (props) => {
         setErrorMessages(['Could not submit form']);
         setLoading(false);
       })
+=======
+    .then((photos) => submitForm(photos))
+    .then((response) => {
+      props.handleOverlay();
+      props.handleSubmit();
+    })
+    .catch((err) => {
+      setErrorMessages(['Could not submit form']);
+      setLoading(false);
+    })
+>>>>>>> main
   }
 
   const uploadAllPhotos = () => {
     return Promise.all(photosData.map((photo) => uploadPhoto(photo)))
+<<<<<<< HEAD
       .then((response) => {
         console.log('promise.all checkpoint')
         let photos = [];
@@ -217,6 +323,22 @@ const Input = (props) => {
         setErrorMessages(['Photos could not be submitted or photos were invalid']);
         setLoading(false);
       });
+=======
+    .then((response) => {
+      let photos = [];
+      for (let photo of response) {
+        photos.push(photo.data.secure_url);
+      }
+      return photos;
+    })
+    .catch((err) => {
+      console.log(err);
+      setPhotos([]);
+      setPhotosData([]);
+      setErrorMessages(['Photos could not be submitted or photos were invalid']);
+      setLoading(false);
+    });
+>>>>>>> main
   };
 
   const uploadPhoto = (photo) => {
@@ -272,8 +394,28 @@ const Input = (props) => {
   };
 
   const validateEmail = (email) => {
+<<<<<<< HEAD
     let re = /\S+@\S+\.\S+/;
     return re.test(email);
+=======
+    let emailRegex = /\S+@\S+\.\S+/;
+    return emailRegex.test(email);
+  };
+
+  const renderSubmitButton = () => {
+    return (
+      loading ? <button className='reviewSubmit' disabled>Submitting...</button> : <button className='reviewSubmit reviewSubmitEnable' type='submit'>SUBMIT REVIEW</button>
+    )
+  }
+
+  const renderErrorMessages = () => {
+    return (
+      <div className='reviewInputErrors'>
+        <h4>You must enter the following:</h4>
+        {errorMessages.map((message, index) => <p key={index}>{message}</p>)}
+      </div>
+    );
+>>>>>>> main
   };
 
   return (
@@ -281,6 +423,7 @@ const Input = (props) => {
       <SiIfixit className='reviewInputExit' size={30} onClick={props.handleOverlay} />
       <h2>Write Your Review</h2>
       <h4>About The <u>{props.productName}</u></h4>
+<<<<<<< HEAD
       <h3>Overall rating<span style={{ color: 'red' }}>*</span></h3>
       {renderStars()}
       <h3>Do you recommend this product?<span style={{ color: 'red' }}>*</span></h3>
@@ -310,6 +453,18 @@ const Input = (props) => {
           <h4>You must enter the following:</h4>
           {errorMessages.map((message, index) => <p key={index}>{message}</p>)}
         </div>}
+=======
+      {renderStars()}
+      {renderRecommendations()}
+      {renderCharacteristicsAggregate()}
+      {renderSummaryInput()}
+      {renderBodyInput()}
+      {renderPhotos()}
+      {renderNicknameInput()}
+      {renderEmailInput()}
+      {renderSubmitButton()}
+      {errorMessages.length >= 1 && renderErrorMessages()}
+>>>>>>> main
     </form>
   );
 };

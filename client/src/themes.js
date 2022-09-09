@@ -15,12 +15,12 @@ export const lightTheme = {
   starCardColor: 'teal',
   defaultPrice: 'white',
   qandaSearchBg: 'white',
-  qandaBorderLeft: '1px solid black',
-  qandaBorderTop: '1px solid black',
-  qandaBorderBottom: '1px solid black',
-  qandaIconBorderLeft: '1px solid black',
-  qandaIconBorderTop: '1px solid black',
-  qandaIconBorderBottom: '1px solid black',
+  qandaBorderLeft: '1px solid white',
+  qandaBorderTop: '1px solid white',
+  qandaBorderBottom: '1px solid white',
+  qandaIconBorderLeft: '1px solid white',
+  qandaIconBorderTop: '1px solid white',
+  qandaIconBorderBottom: '1px solid white',
   qandaPlaceholder: 'gray',
   showMoreBg: 'teal',
   showMoreColor: 'white',
@@ -39,6 +39,10 @@ export const lightTheme = {
   linkColor: 'black',
   modalCompareBg: 'white',
   modalCompareText: 'black',
+  salePriceColor: 'red',
+  caretColor: 'black',
+  dropdownShadow: 'rgba(0,0,0,0.2)',
+  searchBarBG: 'white',
   styleBorder: '3px solid teal',
   priceColor: 'red',
 };
@@ -82,6 +86,10 @@ export const darkTheme = {
   linkColor: 'white',
   modalCompareBg: '#121212',
   modalCompareText: 'white',
+  salePriceColor: '#FF5C5C',
+  caretColor: 'white',
+  dropdownShadow: 'rgba(0,0,0,0.3)',
+  searchBarBG: '#1c1c1e',
   styleBorder: '3px solid burlywood',
   priceColor: '#FF5C5C',
 };
@@ -211,14 +219,19 @@ a:visited {
   color: ${(props) => props.theme.fontColor};
 }
 
+.logo:hover,
+.logotext:hover {
+  cursor: pointer;
+}
+
 .search {
   width: 500px;
-  margin-top: 5px;
   height: 30px;
   border-style: none;
-  padding-top: 5px;
-  outline:none;
-  background-color: ${(props) => props.theme.headerBColor};
+  outline: none;
+  background-color: ${(props) => props.theme.searchBarBG};
+  border-radius: 15px;
+  padding-left: 15px;
 }
 
 .search:focus {
@@ -226,12 +239,21 @@ a:visited {
 }
 
 .searchbar {
+  display: flex;
+  align-items: center;
   border-bottom: ${(props) => props.theme.borderColor};
-  padding: 1px;
+  background-color: ${(props) => props.theme.searchBarBG};
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 20px;
+  margin-right: 20px;
 }
 
 .searchIcon {
-  font-size: 20px;
+  font-size: 18px;
+  padding-right: 15px;
+  border-radius: 15px;
+  background-color: ${(props) => props.theme.searchBarBG};
 }
 
 .shoppingBag {
@@ -300,7 +322,7 @@ a:visited {
 */
 
 .productCard {
-  border: ${(props) => props.theme.productBorderColor};;
+  border: ${(props) => props.theme.productBorderColor};
   width: 255px;
   height: 400px;
   margin-left: 10px;
@@ -368,7 +390,7 @@ a:visited {
 }
 
 .salePrice {
-  color: red;
+  color: ${(props) => props.theme.salePriceColor};
 }
 
 .defaultPrice {
@@ -402,10 +424,13 @@ a:visited {
   display: flex;
   flex-direction: column;
   width: 1250px;
-  height: 500px;
+  height: 900px;
   border-bottom: 1px dashed burlywood;
   border-top: 1px dashed burlywood;
+<<<<<<< HEAD
   // overflow-y: auto;
+=======
+>>>>>>> main
   overflow-y: hidden;
   padding: 20px;
   margin-top: 50px;
@@ -424,10 +449,11 @@ a:visited {
 
 .qanda-search {
   display: inline-flex;
-  border: 1px solid white;
+  border: 1px solid ${(props) => props.theme.caretColor};
   width: 1248px;
   height: 50px;
   margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .qanda-search-input {
@@ -438,7 +464,7 @@ a:visited {
   height: 50px;
   background-color: ${(props) => props.theme.qandaSearchBg};
   align-items: center;
-  caret-color: white;
+  caret-color: ${(props) => props.theme.caretColor};
   padding-left: 10px;
   color: ${(props) => props.theme.qandaPlaceholder};
   font-size: 16px;
@@ -451,8 +477,8 @@ a:visited {
   display: inline-flex;
   height: auto;
   border: none;
-  background-color: #48484a;
-  color: white;
+  background-color: ${(props) => props.theme.qandaSearchBg};
+  color: ${(props) => props.theme.caretColor};
   font-size: 30px;
   align-items: center;
   border-left: ${(props) => props.theme.qandaIconBorderLeft};
@@ -489,10 +515,15 @@ a:visited {
 .question-body {
   display: flex;
   width: 1250px;
+<<<<<<< HEAD
   height: 400px;
+=======
+  height: 800px;
+>>>>>>> main
   flex-direction: column;
   justify-content: space-between;
   font-size: 16px;
+  overflow-y: auto;
 }
 
 .question-set {
@@ -543,13 +574,29 @@ a:visited {
   cursor: pointer;
 }
 
+.answer-photo {
+  display: inline-flex;
+  height: 100px;
+  margin: 5px 10px 5px 0;
+  // width: 20%;
+}
+
+.answer-photo:hover{
+  cursor: pointer;
+}
+
 input[type='file'] {
   color: rgba(0,0,0,0)
 }
 
 .answerPhotoThumbnail {
+<<<<<<< HEAD
   height: 100px;
   width: 20%;
+=======
+  height: 110px;
+  max-width: 20%;
+>>>>>>> main
 }
 
 /*
@@ -562,16 +609,27 @@ input[type='file'] {
   height: 30px;
   background-color: ${(props) => props.theme.tealAndBurly};
   color: ${(props) => props.theme.fontColor};
+<<<<<<< HEAD
+=======
+  border-radius: 6px;
+  border-style: none;
+  padding: 5px 10px;
+>>>>>>> main
 }
 
 .question-list-button {
-  height: 60px;
+  height: 30px;
   width: 150px;
   border-radius: 5px;
   border-style: none;
   display: inline-block;
   margin-right: 10px;
   margin-top: 10px;
+<<<<<<< HEAD
+=======
+  border-radius: 6px;
+  border-style: none;
+>>>>>>> main
   background-color: ${(props) => props.theme.tealAndBurly};
   color: ${(props) => props.theme.fontColor};
 }
@@ -774,7 +832,6 @@ input[type='file'] {
   position: relative;
   overflow: hidden;
   grid: auto / auto-flow max-content;
-  z-index: 1;
   padding-left: 20px;
 }
 
@@ -789,7 +846,7 @@ input[type='file'] {
   width:100%;
   height: 100%;
   background: rgba(0, 0, 0, .15);
-  z-index: 2;
+  z-index: 99;
 }
 
 .modal-main {
@@ -801,7 +858,8 @@ input[type='file'] {
   top:50%;
   left:50%;
   transform: translate(-50%,-50%);
-  border: 1px solid black;
+  border: ${(props) => props.theme.burlyBorderBlack};
+  z-index: 99;
 }
 
 .modalTable {
@@ -809,6 +867,7 @@ input[type='file'] {
   height: 300px;
   padding: 10px;
   padding-bottom: 30px;
+  z-index: 99;
 }
 
 .modalData {
@@ -816,19 +875,23 @@ input[type='file'] {
   height: 10px;
   text-align: center;
   padding: 3px;
+  z-index: 99;
 }
 
 .tableHead {
   width: 750px;
   text-align: center;
+  z-index: 99;
 }
 
 .display-block {
   display: block;
+  z-index: 99;
 }
 
 .display-none {
   display: none;
+  z-index: 99;
 }
 
 /*
@@ -845,7 +908,7 @@ input[type='file'] {
   top:170px;
   left:1125px;
   font-size: 30px;
-  z-index: 14;
+  z-index: 2;
 }
 
 .rightArrow:hover, .leftArrow:hover {
@@ -857,7 +920,7 @@ input[type='file'] {
   top: 170px;
   left: 0px;
   font-size: 30px;
-  z-index: 14;
+  z-index: 2;
 }
 
 /*
@@ -969,6 +1032,13 @@ input[type='file'] {
   margin-bottom: 20px;
   background-color: ${(props) => props.theme.tealAndBurly};
 }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
+>>>>>>> main
 .g-line-hidden {
   visibility: hidden;
   height: 3px;
@@ -1006,7 +1076,7 @@ input[type='file'] {
 /* ----------------- Expanded Section ----------------- */
 
 .slider-modal {
-  position: absolute;
+  position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -1033,6 +1103,7 @@ input[type='file'] {
   opacity: 0.5;
   height: 100%;
   width: 100%;
+  z-index: 3;
   }
 
 .sliderImg {
@@ -1041,9 +1112,13 @@ input[type='file'] {
   padding: 10px;
   max-width: unset !important;
   background-color: white;
+<<<<<<< HEAD
   border-radius: 10px;
+=======
+>>>>>>> main
   background-position: center;
   object-fit: cover;
+  border: ${(props) => props.theme.burlyBorderBlack};
   }
 
 .g-container-vertical {
@@ -1051,11 +1126,12 @@ input[type='file'] {
   align-items: space-between;
   justify-content: center;
   flex-direction: row;
-  position: absolute;
+  position: fixed;
   top: 90%;
-  left: 37%;
+  left: 50%;
+  transform: translate(-50%);
   font-size: 25px;
-  z-index: 3;
+  z-index: 4;
   cursor: pointer;
 }
 
@@ -1088,24 +1164,24 @@ input[type='file'] {
 }
 
 .left-arrow-v {
-  position: absolute;
+  position: fixed;
   top: 50%;
   transform: translate(0, -50%);
   left: 29%;
   font-size: 25px;
   color: white;
-  z-index: 2;
+  z-index: 4;
   cursor: pointer;
   }
 
 .right-arrow-v {
-  position: absolute;
+  position: fixed;
   top: 50%;
   transform: translate(0, -50%);
   left: 70%;
   font-size: 25px;
   color: white;
-  z-index: 2;
+  z-index: 4;
   cursor: pointer;
   }
 
@@ -1113,10 +1189,11 @@ input[type='file'] {
 .dot-container {
   display: flex;
   justify-content: center;
-  position: absolute;
+  position: fixed;
   display: flex;
   top: 92%;
-  left: 40%;
+  left: 50%;
+  transform: translate(-50%);
   color: gray;
   z-index: 4;
   }
@@ -1238,6 +1315,7 @@ input[type='file'] {
   margin: 5px;
   border-radius: 30px;
   object-fit: cover;
+  border: ${(props) => props.theme.burlyBorderBlack};
   background-color: ${(props) => props.theme.burlyAndTeal};
 }
 
@@ -1273,21 +1351,14 @@ input[type='file'] {
   margin: 30px 0;
 }
 
-.add-cart {
-  padding: 10px 30px;
-  margin: 5px 7px;
-  width: 150px;
-  background:  ${(props) => props.theme.tealAndBurly};
-  border-radius: 4px;
-  border: none;
-  transition: ease-in-out 0.5s;
+.out-of-stock {
+  font-size: 14px;
   color: ${(props) => props.theme.fontColor};
 }
-
-.add-cart:hover {
-  transition: ease-in-out 0.5s;
-  background-color: black;
-  color: white;
+.select-size-please {
+  font-size: 14px;
+  margin-left: 5px;
+  color: ${(props) => props.theme.fontColor};
 }
 
 .out-of-stock {
@@ -1317,6 +1388,7 @@ input[type='file'] {
   margin-bottom: 5px;
   margin-right: 20px;
   margin-left: 7px;
+  width: 500px;
 }
 
 .select > svg {
@@ -1324,9 +1396,65 @@ input[type='file'] {
   color: black;
 }
 
-.select select-star {
+.select-star {
   background: burlywood;
   color: black;
+}
+
+.select-size {
+  width: 70px;
+  height: 30px;
+}
+
+.add-cart {
+  // padding: 10px 30px;
+  // margin: 5px 7px;
+  height: 30px;
+  width: 175px;
+  background:  ${(props) => props.theme.tealAndBurly};
+  // border-radius: 4px;
+  border: none;
+  transition: ease-in-out 0.5s;
+  color: ${(props) => props.theme.fontColor};
+  margin-right: 5px;
+}
+
+.add-cart:hover {
+  transition: ease-in-out 0.5s;
+  background-color: black;
+  color: white;
+}
+
+.select-size-dropdown {
+  padding: 0;
+  margin: 0;
+  height: 30px;
+  width: 150px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  border: 1px solid ${(props) => props.theme.burlyBorderBlack};
+}
+
+.select-quantity {
+  padding: 0;
+  margin: 0;
+  height: 30px;
+  width: 55px;
+  margin-bottom: 5px;
+  border: 1px solid ${(props) => props.theme.burlyBorderBlack};
+}
+
+.select-star {
+  padding: 0;
+  margin: 0;
+  height: 30px;
+  width: 30px;
+  background: ${(props) => props.theme.tealAndBurly};
+}
+
+.select-star svg {
+  // margin-top: 4px;
+  color: ${(props) => props.theme.fontColor};
 }
 
 
@@ -1400,6 +1528,10 @@ input[type='file'] {
 .reviewList {
   height: auto;
   width: 800px;
+<<<<<<< HEAD
+=======
+  border-top: 1px dashed burlywood;
+>>>>>>> main
   overflow-y: auto;
 }
 
@@ -1441,6 +1573,18 @@ input[type='file'] {
 .averageRating svg {
   margin-top: 2px;
   // padding-bottom: 15px;
+<<<<<<< HEAD
+=======
+}
+
+.averageRating h1 {
+  font-size: 36px;
+}
+
+.averageRating svg {
+  margin-top: 2px;
+  // padding-bottom: 15px;
+>>>>>>> main
 }
 
 /*
@@ -1558,6 +1702,17 @@ input[type='file'] {
   margin-left: 60px;
   justify-content: space-between;
   height: 30px;
+<<<<<<< HEAD
+=======
+}
+
+.reviewCharacteristicBarLabels p {
+  margin-top: 0;
+}
+
+.reviewCharacteristicArrow {
+  margin-top: 10px;
+>>>>>>> main
 }
 
 .reviewCharacteristicBarLabels p {
@@ -1572,14 +1727,18 @@ input[type='file'] {
 
 
 
+
 /**********************
   REVIEW LIST
 ***********************/
 
-
 .reviewListHeader {
   display: flex;
   flex-direction: row;
+<<<<<<< HEAD
+=======
+  flex-wrap: wrap;
+>>>>>>> main
   width: 400px;
 }
 
@@ -1628,14 +1787,20 @@ input[type='file'] {
 
 .reviewSortDropDown {
   position: absolute;
-  background-color: ${(props) => props.theme.tealAndBurly};
+  padding: 5px;
+  background-color: ${(props) => props.theme.mainBColor};
   width: 80px;
+<<<<<<< HEAD
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+=======
+  box-shadow: 0px 8px 16px 0px ${(props) => props.theme.dropdownShadow};
+>>>>>>> main
   z-index: 1;
 }
 
 .reviewSortDropDown p {
   color: ${(props) => props.theme.fontColor};
+  padding: 5px;
   margin: 0;
   margin-bottom: 3px;
 }
@@ -1724,6 +1889,10 @@ input[type='file'] {
 .reviewExpandButton {
   height: 60px;
   margin-right: 10px;
+<<<<<<< HEAD
+=======
+  color: ${(props) => props.theme.buttonText};
+>>>>>>> main
 }
 
 .reviewCheckmark {
@@ -1744,7 +1913,7 @@ input[type='file'] {
   padding: 10px;
   background-color: white;
   border: 2px solid ${(props) => props.theme.burlyAndTeal};
-  z-index: 3;
+  z-index: 50;
   overflow-y: auto;
 }
 
@@ -1766,6 +1935,7 @@ input[type='file'] {
   opacity: 30%;
   height: 100vh;
   width: 100vw;
+  z-index: 49;
 }
 
 /**********************
@@ -1784,7 +1954,7 @@ input[type='file'] {
   padding: 6px 18px;
   background-color: ${(props) => props.theme.mainBColor};
   border: 2px solid burlywood;
-  z-index: 1;
+  z-index: 50;
   overflow-y:scroll;
 }
 
@@ -1841,13 +2011,31 @@ input[type='file'] {
   height: 60px;
   width: 150px;
   margin-top: 40px;
+<<<<<<< HEAD
+=======
+  color: ${(props) => props.theme.fontColor};
+>>>>>>> main
   background-color: ${(props) => props.theme.tealAndBurly};
   border-radius: 5px;
   margin-bottom: 15px;
+  border-style: none;
 }
 
 .reviewSubmitEnable {
   cursor: pointer;
+}
+
+.reviewInputErrors {
+  position: absolute;
+  left: 700px;
+  top: 985px;
+  color: red;
+}
+
+.reviewInputErrors p {
+  margin: 0;
+  margin-bottom: 5px;
+  margin-left: 6px;
 }
 
 /*
@@ -1999,5 +2187,32 @@ button:hover {
   border-style: none;
 }
 
+.fourOhFour {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: #0b1e1c;
+  z-index: 10;
+}
+
+.fourOhFourImage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 11;
+}
+
+.fourOhFourTimer {
+  position: absolute;
+  font-size: 40px;
+  top: 18%;
+  width: 100%;
+  z-index: 11;
+  text-align: center;
+  -webkit-text-stroke: 2px black;
+}
 
 `;

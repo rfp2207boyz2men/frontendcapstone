@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-
 import QandASearch from './QandASearch.jsx';
 import Question from './Question.jsx'
 import QuestionModal from './QuestionModal.jsx';
@@ -57,6 +56,7 @@ const QuestionList = (props) => {
   }
 
   return (
+<<<<<<< HEAD
     <div className='question-body'>
       {modal &&
         <QuestionModal
@@ -106,12 +106,42 @@ const QuestionList = (props) => {
                     className='question-list-button'
                     onClick={handleShowLess}>
                     SHOW LESS
+=======
+    <React.Fragment>
+      <QandASearch searchQuestion={searchQuestion} />
+      <div className='question-body'>
+        {modal &&
+          <QuestionModal
+            handleModal={handleModal}
+            productName={props.productName}
+            productId={props.productId}
+            getQuestions={props.getQuestions} />
+        }
+        {questionsCount ?
+          <>
+            {count < filteredCount ?
+              <>
+                <div className='question-list'>
+                  {filtered.slice(0, count).map(question =>
+                    <Question
+                      key={question.question_id}
+                      question={question}
+                      productName={props.productName} />
+                  )}
+                </div>
+                <div className='qandaButtons'>
+                  <button
+                    className='question-list-button'
+                    onClick={handleShowMore}>
+                    MORE QUESTIONS
+>>>>>>> main
                   </button>
                   <button
                     className='question-list-button'
                     onClick={handleModal}>
                     ADD A QUESTION +
                   </button>
+<<<<<<< HEAD
                 </div>}
             </>
           }
@@ -126,6 +156,46 @@ const QuestionList = (props) => {
         </>
       }
     </div>
+=======
+                </div>
+              </> :
+              <>
+                <div className='question-list'>
+                  {filtered.map(question =>
+                    <Question
+                      key={question.question_id}
+                      question={question}
+                      productName={props.productName} />
+                  )}
+                </div>
+                {filteredCount > 2 &&
+                  <div className='qandaButtons'>
+                    <button
+                      className='question-list-button'
+                      onClick={handleShowLess}>
+                      SHOW LESS
+                    </button>
+                    <button
+                      className='question-list-button'
+                      onClick={handleModal}>
+                      ADD A QUESTION +
+                    </button>
+                  </div>}
+              </>
+            }
+          </> :
+          <>
+            <h2>Got a Question? Press the button below!</h2>
+            <button
+              className='question-list-button'
+              onClick={handleModal}>
+              ADD A QUESTION +
+            </button>
+          </>
+        }
+      </div>
+    </React.Fragment>
+>>>>>>> main
   )
 }
 

@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Parse from '../../parse.js';
 import moment from 'moment';
+<<<<<<< HEAD
 import '../Reviews/ReviewsStyles.css';
+=======
+// import '../Reviews/ReviewsStyles.css';
+>>>>>>> main
 import PhotoOverlay from "../Reviews/PhotoOverlay.jsx";
 
 const Answer = (props) => {
