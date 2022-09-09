@@ -96,10 +96,30 @@ export const darkTheme = {
 
 export const GlobalStyles = createGlobalStyle`
 
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background-color: ${(props) => props.theme.mainBColor};
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: ${(props) => props.theme.fontColor};
+}
+
+
 
 /*
   BOTH MODES
 */
+
+img{
+  -khtml-user-select: none;
+  -o-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
 
 html {
   scroll-behavior: smooth;
@@ -497,8 +517,15 @@ a:visited {
 }
 
 .question-list::-webkit-scrollbar {
-  width: 0;
-  height: 0;
+  width: 1px;
+}
+
+.question-list::-webkit-scrollbar-track {
+  background-color: ${(props) => props.theme.mainBColor};
+}
+
+.question-list::-webkit-scrollbar-thumb {
+  background-color: ${(props) => props.theme.fontColor};
 }
 
 .qandaButtons {
@@ -582,8 +609,10 @@ input[type='file'] {
 }
 
 .answerPhotoThumbnail {
-  height: 110px;
-  max-width: 20%;
+  height: 100px;
+  max-width: 19%;
+  margin: 5px;
+  margin-right: 10px;
 }
 
 /*
@@ -715,6 +744,8 @@ input[type='file'] {
 .questionInputPhotoSection {
   display: flex;
   flex-direction: row;
+  border: ${(props) => props.theme.burlyBorderBlack};
+  background-color: ${(props) => props.theme.mainBColor};
 }
 
 /*
@@ -1080,15 +1111,27 @@ input[type='file'] {
   z-index: 3;
   }
 
-.sliderImg {
-  width: 700px;
-  height: 700px;
-  padding: 10px;
-  background-color: white;
-  background-position: center;
-  object-fit: cover;
-  border: ${(props) => props.theme.burlyBorderBlack};
+  .sliderImg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // width: 700px;
+    height: 800px;
+    // max-height: 70vh;
+    max-width: 700px;
+    //padding: 10px;
+    // max-width: unset !important;
+    background-color: ${(props) => props.theme.headerBColor};
+    border-radius: 10px;
+    background-position: center;
+    object-fit: scale-down;
+    border: ${(props) => props.theme.burlyBorderBlack};
   }
+
+  .sliderImg:hover {
+    cursor: crosshair;
+  }
+
 
 .g-container-vertical {
   display: flex;
@@ -1215,6 +1258,7 @@ input[type='file'] {
   margin: 0 auto;
 }
 
+
 /* ----------------- Style Section ----------------- */
 
 .info-container {
@@ -1326,6 +1370,15 @@ input[type='file'] {
 }
 .select-size-please {
   font-size: 14px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  color: ${(props) => props.theme.fontColor};
+}
+
+.select-size-please-hide {
+  visibility: hidden;
+  font-size: 14px;
+  margin-bottom: 5px;
   margin-left: 5px;
   color: ${(props) => props.theme.fontColor};
 }
@@ -1497,8 +1550,14 @@ input[type='file'] {
 }
 
 .reviewList::-webkit-scrollbar {
-  width: 0;
-  height: 0;
+  width: 1px;
+}
+.reviewList::-webkit-scrollbar-track {
+  background-color: ${(props) => props.theme.mainBColor};
+}
+
+.reviewList::-webkit-scrollbar-thumb {
+  background-color: ${(props) => props.theme.fontColor};
 }
 
 /*******************
@@ -2079,8 +2138,8 @@ input[type='file'] {
   flex-direction: row;
   height: 110px;
   width: calc(var(--width) - 100px);
-  border: 1px solid black;
-  background-color: white;
+  border: ${(props) => props.theme.burlyBorderBlack};
+  background-color: ${(props) => props.theme.mainBColor};
 }
 
 .reviewInputPhotoThumbnail {

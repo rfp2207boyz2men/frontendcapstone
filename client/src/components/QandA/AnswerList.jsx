@@ -4,10 +4,15 @@ import Answer from './Answer.jsx';
 
 const AnswerList = (props) => {
   const [count, setCount] = useState(2);
+  const [helpfulAnswers, setHelpfulAnswers] = useState({});
 
   let answers = props.answers;
   let answerCount = answers.length;
   let answerList;
+
+  useEffect(() => {
+    setHelpfulAnswers(JSON.parse(localStorage.getItem('helpfulAnswers')));
+  }, []);
 
   let handleShowMore = () => {
     setCount(answerCount);
@@ -19,10 +24,10 @@ const AnswerList = (props) => {
 
   if (count < answerCount) {
     answerList = answers.slice(0, count).map((answer, index) =>
-      <Answer key={answer.answer_id} answer={answer} count={count} index={index} answerCount={answerCount}/>)
+      <Answer key={answer.answer_id} answer={answer} count={count} index={index} answerCount={answerCount} helpfulAnswers={helpfulAnswers}/>)
   } else {
     answerList = answers.map((answer, index) =>
-      <Answer key={answer.answer_id} answer={answer} count={count} index={index} answerCount={answerCount}/>)
+      <Answer key={answer.answer_id} answer={answer} count={count} index={index} answerCount={answerCount} helpfulAnswers={helpfulAnswers}/>)
   }
 
   return (

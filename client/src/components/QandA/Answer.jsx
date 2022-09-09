@@ -20,6 +20,10 @@ const Answer = (props) => {
   let answerIsHelpful = () => {
     setIsHelpful(true);
 
+    let localStorageCopy = JSON.parse(localStorage.getItem('helpfulAnswers'));
+    localStorageCopy = JSON.stringify({...localStorageCopy, [answerId] : true});
+    localStorage.setItem('helpfulAnswers', localStorageCopy);
+
     Parse.update(`qa/answers/${answerId}/helpful`, params);
   }
 
@@ -29,7 +33,7 @@ const Answer = (props) => {
     Parse.update(`qa/answers/${answerId}/report`, params);
   }
 
-  if (isHelpful) {
+  if (isHelpful || props.helpfulAnswers[answerId]) {
     helpfulBtn = <u> Yes </u>
   } else {
     helpfulBtn =
@@ -80,7 +84,7 @@ const Answer = (props) => {
           by {username === 'Seller'
           ? <b>{username}</b>
           :username} , {date} | Helpful?
-          {helpfulBtn} ({props.answer.helpfulness}) |
+          {helpfulBtn} ({props.answer.helpfulness + (isHelpful ? 1 : 0)}) |
           {reportBtn}
         </small>
       </div>

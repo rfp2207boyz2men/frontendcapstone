@@ -46,17 +46,13 @@ const App = () => {
   }
 
   useEffect(() => {
-    if (!localStorage.getItem('helpfulReviews')) {
-      localStorage.setItem('helpfulReviews', JSON.stringify({}));
-    }
-    if (!localStorage.getItem('searchStars')) {
-      localStorage.setItem('searchStars', JSON.stringify({ 1: false, 2: false, 3: false, 4: false, 5: false }));
-    }
-    if (!localStorage.getItem('sort')) {
-      localStorage.setItem('sort', 'relevant');
+    if (!localStorage.getItem('helpfulQuestions')) {
+      localStorage.setItem('helpfulQuestions', JSON.stringify({}));
     }
 
-
+    if (!localStorage.getItem('helpfulAnswers')) {
+      localStorage.setItem('helpfulAnswers', JSON.stringify({}));
+    }
 
     if (!localStorage.getItem('helpfulReviews')) {
       localStorage.setItem('helpfulReviews', JSON.stringify({}));

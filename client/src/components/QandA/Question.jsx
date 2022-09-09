@@ -41,6 +41,12 @@ const Question = (props) => {
 
   let questionIsHelpful = () => {
     setHelpful(true);
+    let localStorageCopy = JSON.parse(localStorage.getItem('helpfulQuestions'));
+    localStorageCopy = JSON.stringify({...localStorageCopy, [questionId] : true});
+    console.log(props.helpfulQuestions);
+    console.log(localStorageCopy);
+    console.log(questionId);
+    localStorage.setItem('helpfulQuestions', localStorageCopy);
 
     Parse.update(`qa/questions/${questionId}/helpful`, params);
   }
@@ -74,7 +80,7 @@ const Question = (props) => {
     getAnswers();
   }, [isHelpful]);
 
-  if (isHelpful) {
+  if (isHelpful || props.helpfulQuestions[questionId]) {
     helpfulBtn = <u>Yes</u>
   } else {
     helpfulBtn =
@@ -100,7 +106,7 @@ const Question = (props) => {
           productName={props.productName} />
         }
         <span className='question-interaction'> Helpful?
-          {helpfulBtn} ({questionHelpfuless}) |
+          {helpfulBtn} ({questionHelpfuless + (isHelpful ? 1 : 0)}) |
           <button
             className='add-answer'
             onClick={handleModal}>

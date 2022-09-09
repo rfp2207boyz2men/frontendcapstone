@@ -202,7 +202,9 @@ function StyleInformation({
             </div>
             :
             <div className='add-container'>
-              {sizeClick ? <div className='select-size-please'>Please select a size</div> : <></>}
+              {sizeClick ? <div className='select-size-please'>Please select a size</div> :
+                <div className='select-size-please-hide'>Please select a size</div>
+              }
               <select className='select select-size-dropdown' value={qty} onChange={handleSize}>
                 <option className='select' value="0">SELECT SIZE</option>
                 {currentStyle &&

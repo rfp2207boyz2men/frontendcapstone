@@ -9,6 +9,7 @@ const QuestionList = (props) => {
   const [count, setCount] = useState(2);
   const [modal, setModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [helpfulQuestions, setHelpfulQuestions] = useState({});
 
   let questions = props.questions
   let questionsCount = questions.length;
@@ -20,6 +21,7 @@ const QuestionList = (props) => {
   useEffect(() => {
     setFiltered(props.questions);
     setFilteredCount(props.questions.length);
+    setHelpfulQuestions(JSON.parse(localStorage.getItem('helpfulQuestions')));
   }, [props.questions]);
 
   let searchQuestion = (query) => {
@@ -60,6 +62,7 @@ const QuestionList = (props) => {
   }
 
   let renderNoSearchedQuestions = () => {
+    let style = {alignSelf: 'flex-start'}
     return (
       <>
         <h2>No questions found with the current search.</h2>
@@ -93,7 +96,8 @@ const QuestionList = (props) => {
                     key={question.question_id}
                     question={question}
                     productName={props.productName}
-                    searchQuery={searchQuery} />
+                    searchQuery={searchQuery}
+                    helpfulQuestions={helpfulQuestions} />
                 )}
               </div>
               <div className='qandaButtons'>
@@ -116,7 +120,8 @@ const QuestionList = (props) => {
                     key={question.question_id}
                     question={question}
                     productName={props.productName}
-                    searchQuery={searchQuery} />
+                    searchQuery={searchQuery}
+                    helpfulQuestions={helpfulQuestions} />
                 )}
               </div>
               {filteredCount > 2 &&
