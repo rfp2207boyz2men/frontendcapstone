@@ -7,15 +7,13 @@ import {
   TiArrowMaximise,
   TiArrowMinimise,
 } from "react-icons/ti";
-import "./overview.css";
-import '../Reviews/ReviewsStyles.css';
 import styled, { css, keyframes } from 'styled-components';
 import ReactCSSTransitionGroup from 'react-transition-group';
 import { OrbitSpinner } from "react-epic-spinners";
 import Parse from "../../parse";
 import PhotoOverlay from "../Reviews/PhotoOverlay.jsx";
 
-/* --------------------  styled components  --------------------*/
+
 
 const fadeIn = keyframes`
   0% { opacity: 0; }
@@ -41,7 +39,6 @@ const PvImg = styled.img`
   animation: ${fadeIn} 1s;
 `
 
-/* --------------------  ImageGallery components  --------------------*/
 
 function ImageGallery({
   product,

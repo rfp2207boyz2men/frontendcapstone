@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import Parse from '../../parse.js';
 import { OrbitSpinner } from 'react-epic-spinners';
@@ -22,7 +21,6 @@ function Overview({ trackClick }) {
     getAverageRating } = useContext(AppContext);
 
 
-
   const [product, setProduct] = useState();
   const [stylesList, setStylesList] = useState([]);
   const [currentPhoto, setCurrentPhoto] = useState('');
@@ -36,7 +34,6 @@ function Overview({ trackClick }) {
 
 
   useEffect(() => {
-    console.log('OVERVIEW PROC')
     fetchData(selectedProduct);
     getCart();
   }, [])
@@ -75,7 +72,7 @@ function Overview({ trackClick }) {
   }
 
 
-  /* --------------------  style selection events  --------------------*/
+
   const handleProductClick = (e) => {
     e.preventDefault();
   }
@@ -90,10 +87,9 @@ function Overview({ trackClick }) {
     setCurrentStyle(prod);
     setCurrentPhoto(prod.photos[0].url);
   }
-  /* --------------------  style selection events  --------------------*/
 
 
-  /* --------------------  gallery arrows events  --------------------*/
+
   const handleThumbClick = (e, item) => {
     let lastIndex = currentStyle.photos.length - 1;
     currentStyle.photos[0].url === e.target.id ? setArrowLeft(false) : setArrowLeft(true);
@@ -169,8 +165,6 @@ function Overview({ trackClick }) {
     e.preventDefault();
     setExpand(prevExpand => !prevExpand);
   }
-  /* --------------------  gallery arrows events  --------------------*/
-
 
 
   return (

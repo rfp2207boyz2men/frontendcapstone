@@ -207,6 +207,11 @@ a:visited {
   color: ${(props) => props.theme.fontColor};
 }
 
+.logo:hover,
+.logotext:hover {
+  cursor: pointer;
+}
+
 .search {
   width: 500px;
   margin-top: 5px;
@@ -1164,6 +1169,7 @@ input[type='file'] {
 .reviewList {
   height: auto;
   width: 800px;
+  border-top: 1px dashed burlywood;
   overflow-y: auto;
 }
 
@@ -1340,10 +1346,10 @@ input[type='file'] {
   REVIEW LIST
 ***********************/
 
-
 .reviewListHeader {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   width: 400px;
 }
 
@@ -1605,13 +1611,28 @@ input[type='file'] {
   height: 60px;
   width: 150px;
   margin-top: 40px;
+  color: ${(props) => props.theme.fontColor};
   background-color: ${(props) => props.theme.tealAndBurly};
   border-radius: 5px;
   margin-bottom: 15px;
+  border-style: none;
 }
 
 .reviewSubmitEnable {
   cursor: pointer;
+}
+
+.reviewInputErrors {
+  position: absolute;
+  left: 700px;
+  top: 985px;
+  color: red;
+}
+
+.reviewInputErrors p {
+  margin: 0;
+  margin-bottom: 5px;
+  margin-left: 6px;
 }
 
 /*
@@ -1763,5 +1784,32 @@ button:hover {
   border-style: none;
 }
 
+.fourOhFour {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: #0b1e1c;
+  z-index: 10;
+}
+
+.fourOhFourImage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 11;
+}
+
+.fourOhFourTimer {
+  position: absolute;
+  font-size: 40px;
+  top: 18%;
+  width: 100%;
+  z-index: 11;
+  text-align: center;
+  -webkit-text-stroke: 2px black;
+}
 
 `;

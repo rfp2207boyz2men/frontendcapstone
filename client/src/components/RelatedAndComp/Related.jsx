@@ -13,18 +13,14 @@ const Related = ({ selectedProduct, addToOutfit, selectStyle, avgRating, starRen
   const [view, setView] = useState([])
 
   useEffect(() => {
-    console.log('RELATED PROCCED')
-    // Requests the related_ids from API based on selected product within App
     Parse.getAll('products', `/${selectedProduct.id}/related`)
       .then((relatedProducts) => {
-        // cleans the data for any dupes
         let cleanedData = [];
         relatedProducts.data.forEach(id => {
           if (!cleanedData.includes(id) && id !== selectedProduct.id) {
             cleanedData.push(id)
           }
         })
-        console.log(cleanedData)
         if (cleanedData.length > 4) {
           setCarousel(cleanedData.slice(0,4))
           setView(cleanedData.slice(0,4))

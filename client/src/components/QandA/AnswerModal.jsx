@@ -24,38 +24,25 @@ const AnswerModal = (props) => {
   let questionId = props.questionId;
 
   const handlePhotoClick = () => {
-    //Click the hidden input file button by invoking this function
     hiddenFileInput.current.click();
   }
 
   let handleSubmitCheck = (event) => {
     event.preventDefault();
     if (photos.length === 0) {
-      console.log('PHOTOS LENGTH IS 0')
       handleSubmit(event);
     } else {
-      console.log('PHOTOS LENGTH IS >0');
       uploadAllPhotos(event);
     }
   }
 
   let handleSubmit = (event, photos = []) => {
-    // event.preventDefault();
-
-    // uploadAllPhotos();
-    console.log('PHOTOS STATE: ', photos);
-    console.log(imageUrls);
-
     data = {
       body: userAnswer,
       name: nickname,
       email: email,
       photos: photos
     }
-
-    console.log('URL: ', url);
-    console.log('USER: ', CONFIG.CLOUDINARY_USER);
-    console.log('PHOTO URLS: ', data.photos);
 
     Parse.create(`qa/questions/${questionId}/answers`, undefined, data)
       .then((results) => {
@@ -103,24 +90,18 @@ const AnswerModal = (props) => {
   }
 
   let uploadAllPhotos = (event) => {
-    console.log('UPLOADALLPHOTOS INVOKED');
     return Promise.all(photosData.map((photo) => uploadPhoto(photo)))
       .then((response) => {
-        console.log('RESPONSE: ', response)
         photosUrl = [];
         for (let photo of response) {
           photosUrl.push(photo.data.secure_url);
         }
-        console.log('CLOUD PHOTOS URLS: ', photosUrl);
         return photosUrl;
-        // setImageUrls(photosUrl);
       })
       .then((photosUrl) => {
-        console.log('PHOTO UPLOAD CHECKPOINT PASSED');
         handleSubmit(event, photosUrl);
       })
       .catch((error) => {
-        console.log(error);
         setPhotos([]);
         setPhotosData([]);
       })
@@ -187,7 +168,6 @@ const AnswerModal = (props) => {
           <input
             type='submit'
             value='Submit'
-            // onSubmit={handleSubmit}
             >
           </input>
         </form>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Parse from '../../parse.js';
 import moment from 'moment';
-import '../Reviews/ReviewsStyles.css';
+// import '../Reviews/ReviewsStyles.css';
 import PhotoOverlay from "../Reviews/PhotoOverlay.jsx";
 
 const Answer = (props) => {

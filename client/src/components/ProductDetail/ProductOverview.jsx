@@ -6,8 +6,6 @@ import { FaFacebook, FaTwitter, FaPinterest } from 'react-icons/fa';
 import { FacebookShareButton, TwitterShareButton, PinterestShareButton } from 'react-share';
 import { TiTick } from 'react-icons/ti';
 
-/* --------------------  styled components  --------------------*/
-
 const slideIn = keyframes`
   from {
     opacity: 0;
@@ -68,10 +66,6 @@ const Feature = styled.div`
   margin: 0 10px;
 `
 
-
-
-/* --------------------  ProductOverview  --------------------*/
-
 function ProductOverview({ product, currentPhoto, currentStyle, trackClick }) {
   const [loading, setLoading] = useState(true);
   const [shareQuote, setShareQuote] = useState();
@@ -82,7 +76,6 @@ function ProductOverview({ product, currentPhoto, currentStyle, trackClick }) {
     if (currentStyle) {
       setShareQuote(`Check this Awesome item! ${product.name}, $${product.default_price}`);
       setShareHashtag([`Awesome:${product.category}`, `Reviews:${product.totalReviews}`]);
-      // set loading was moved to product useEffect
     }
   }, [currentStyle])
 

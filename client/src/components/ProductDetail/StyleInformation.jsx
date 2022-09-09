@@ -6,7 +6,7 @@ import { FacebookShareButton, TwitterShareButton, PinterestShareButton } from 'r
 import { OrbitSpinner } from 'react-epic-spinners';
 import { TiStarFullOutline, TiStarHalfOutline, TiStarOutline } from 'react-icons/ti';
 
-/* --------------------  styled-components  --------------------*/
+
 
 const InfoContainer = styled.div`
   margin: 0 30px;
@@ -114,7 +114,6 @@ const Reviews = styled.a`
   }
 `
 
-/* --------------------  ProductInformation  --------------------*/
 function ProductInformation({
   product,
   currentStyle,
@@ -138,7 +137,6 @@ function ProductInformation({
     if (currentStyle) {
       setShareQuote(`Check this Awesome item! ${product.name}, $${product.default_price}`);
       setShareHashtag([`Awesome:${product.category}`, `Reviews:${product.totalReviews}`]);
-      // set loading was moved to product useEffect
     }
   }, [currentStyle])
 
@@ -259,7 +257,6 @@ function ProductInformation({
                         id={item.style_id}
                         name={item.name}
                         onClick={(e, url, prod) => {
-                          // handleLocalClick(e);
                           handleStyleClick(e, item.url, item);
                         }}
                         src={item.photos[0].thumbnail_url}
