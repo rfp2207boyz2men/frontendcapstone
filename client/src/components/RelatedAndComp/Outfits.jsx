@@ -16,9 +16,9 @@ const Outfits = ({ outfits, current, outfitAdd, outfitRemove, avgRating, styleId
 
   useEffect(() => {
     if (outfits.length > 3) {
-      setCarousel([...outfits.slice(0,3)]);
+      setCarousel([...outfits.slice(0, 3)]);
       setRight([...outfits.slice(3)]);
-      setView([...outfits.slice(0,3)])
+      setView([...outfits.slice(0, 3)])
     } else {
       setCarousel([...outfits])
     }
@@ -32,9 +32,9 @@ const Outfits = ({ outfits, current, outfitAdd, outfitRemove, avgRating, styleId
   }
 
   const handleOutfitRemove = (outfitId) => {
-      let updatedList = [...outfits]
-      updatedList.splice(updatedList.map(outfit => outfit.id).indexOf(outfitId), 1)
-      setCarousel([...updatedList])
+    let updatedList = [...outfits]
+    updatedList.splice(updatedList.map(outfit => outfit.id).indexOf(outfitId), 1)
+    setCarousel([...updatedList])
   }
 
   useEffect(() => {
@@ -50,37 +50,37 @@ const Outfits = ({ outfits, current, outfitAdd, outfitRemove, avgRating, styleId
 
   const shiftRight = () => {
     setRight([view[2], ...right])
-    setCarousel([left[left.length-1], view[0], view[1]]);
-    setView([left[left.length-1], view[0], view[1]]);
-    setLeft([...left.slice(0, left.length-1)]);
+    setCarousel([left[left.length - 1], view[0], view[1]]);
+    setView([left[left.length - 1], view[0], view[1]]);
+    setLeft([...left.slice(0, left.length - 1)]);
   }
 
   return (
     <div onClick={trackClick}>
       <div className='sectionTitle'><h2>YOUR OUTFIT</h2></div>
-        <div className="carousel">
+      <div className="carousel">
         <div className="rightArrow" onClick={shiftLeft}>{right.length ? <RiArrowRightSLine /> : null}</div>
         <div className="leftArrow" onClick={shiftRight}>{left.length ? <RiArrowLeftSLine /> : null}</div>
-          <div className="outfits">
-            <div className='productCard'>
-              <div className='plusCardArea' onClick={handleOutfitClick}>
-                <div className='plusSymbol'><BsPlusCircle/></div>
-              </div>
+        <div className="outfits">
+          <div className='productCard'>
+            <div className='plusCardArea' onClick={handleOutfitClick}>
+              <div className='plusSymbol'><BsPlusCircle /></div>
+            </div>
             <div>
-            <div className='plusSymbolText'>
-              <div><p>ADD TO OUTFIT</p></div>
+              <div className='plusSymbolText'>
+                <div><p>ADD TO OUTFIT</p></div>
+              </div>
             </div>
           </div>
-        </div>
           {
             carousel.length ? carousel.map(outfit => {
-              return  <OutfitCard
-                        key={outfit.id}
-                        product_id={outfit.id}
-                        removeApp={outfitRemove}
-                        removeOutfit={handleOutfitRemove}
-                        styleId={styleId}
-                        starRender={starRender}/>
+              return <OutfitCard
+                key={outfit.id}
+                product_id={outfit.id}
+                removeApp={outfitRemove}
+                removeOutfit={handleOutfitRemove}
+                styleId={styleId}
+                starRender={starRender} />
             }) : null
           }
         </div>

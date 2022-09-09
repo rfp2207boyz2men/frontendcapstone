@@ -1,7 +1,7 @@
 import React from 'react';
 import { FcCheckmark } from 'react-icons/fc'
 
-const Modal = ({ handleClose, show, current, clicked }) => {
+const ComparisonModal = ({ handleClose, show, current, clicked }) => {
   const showHideClassName = show ? "modal display-block" : "modal display-none";
 
   let featuresList = [...current.features]
@@ -44,4 +44,4 @@ const Modal = ({ handleClose, show, current, clicked }) => {
   );
 };
 
-export default Modal;
+export default ComparisonModal;

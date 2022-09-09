@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Parse from '../../parse.js';
 import { OrbitSpinner } from 'react-epic-spinners';
 import { TiStarFullOutline, TiStarOutline } from 'react-icons/ti';
-import Modal from './Compare.jsx';
+import ComparisonModal from './Compare.jsx';
 
 const ProductCard = ({ product_id, addOutfit, select, current, avgStars, starRender }) => {
   const [productInfo, setProductInfo] = useState({});
@@ -11,7 +11,7 @@ const ProductCard = ({ product_id, addOutfit, select, current, avgStars, starRen
   const [stars, setStars] = useState(0);
   const [productLoad, setProductLoad] = useState(false);
   const [starHover, setStarHover] = useState(false);
-  const [showCompare, setShowCompare] = useState(false);
+  const [showCompare, setShowCompareModal] = useState(false);
 
   useEffect(() => {
     Promise.all([
@@ -46,13 +46,13 @@ const ProductCard = ({ product_id, addOutfit, select, current, avgStars, starRen
     setStarHover(false);
   }
 
-  const showModal = (event) => {
+  const showCompareModal = (event) => {
     event.stopPropagation();
-    setShowCompare(true)
+    setShowCompareModal(true)
   };
 
-  const hideModal = () => {
-    setShowCompare(false)
+  const hideCompareModal = () => {
+    setShowCompareModal(false)
   };
 
   const handleImageClick = (event) => {
@@ -62,12 +62,12 @@ const ProductCard = ({ product_id, addOutfit, select, current, avgStars, starRen
 
   return (
     <div>
-      {showCompare ? <Modal show={showCompare} handleClose={hideModal} clicked={productInfo} current={current}></Modal> : null}
+      {showCompare ? <ComparisonModal show={showCompare} handleClose={hideCompareModal} clicked={productInfo} current={current}></ComparisonModal> : null}
       {productLoad ?
         <div className='productCard'>
           <div className='productCardImg' onClick={(event) =>{handleImageClick(event)}}>
             <img className='productImages' src={productStyles[0].photos[0].thumbnail_url || `https://via.placeholder.com/150`} alt='Product Card Image'/>
-            <div className='starCard' onMouseEnter={mouseHoverStar} onMouseLeave={mouseExitStar} onClick={(event) => {showModal(event)}}>
+            <div className='starCard' onMouseEnter={mouseHoverStar} onMouseLeave={mouseExitStar} onClick={(event) => {showCompareModal(event)}}>
               { starHover ? <TiStarFullOutline/> : <TiStarOutline /> }
             </div>
           </div>
@@ -76,7 +76,8 @@ const ProductCard = ({ product_id, addOutfit, select, current, avgStars, starRen
               <div className='cardCat'>{productInfo.category ? productInfo.category.toUpperCase() : productInfo.category}</div>
               <div className='cardName'><strong>{productInfo.name}</strong></div>
               <div className='cardPrice'>
-                { productStyles[productStyles.length-1].sale_price ?
+                {
+                  productStyles[productStyles.length-1].sale_price ?
                   <div className='salePrice'>
                     ${productStyles[productStyles.length-1].sale_price} <div className='defaultPrice'>${productStyles[productStyles.length-1].original_price}</div>
                   </div>

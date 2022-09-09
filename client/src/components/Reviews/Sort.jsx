@@ -21,7 +21,7 @@ const Sort = (props) => {
   const capitalizeSort = () => {
     let firstLetter = props.sort.slice(0, 1).toUpperCase();
     let restOfWord = props.sort.slice(1);
-    return (<span onMouseEnter={handleDropDownEnter}>{firstLetter + restOfWord}<VscTriangleDown/></span>)
+    return (<span onMouseEnter={handleDropDownEnter}>{firstLetter + restOfWord}<VscTriangleDown /></span>)
   }
 
   return (

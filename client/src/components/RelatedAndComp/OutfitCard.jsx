@@ -21,7 +21,7 @@ const OutfitCard = ({ product_id, removeApp, styleId, removeOutfit, starRender }
     .then((response) => {
       setProductInfo(response[0].data);
       setProductStyles(response[1].data.results);
-      setStars(getAverage(response[2].data.results));
+      setStars(getAverageStars(response[2].data.results));
       setProductLoad(true);
     })
     .catch((err) => console.log(err));
@@ -32,7 +32,7 @@ const OutfitCard = ({ product_id, removeApp, styleId, removeOutfit, starRender }
     removeOutfit(productInfo.id);
   }
 
-  const getAverage = (reviewsArray) => {
+  const getAverageStars = (reviewsArray) => {
     let ratings = reviewsArray.map(review => review.rating);
     let starRating = (ratings.reduce((total, rating) => total += rating, 0)/(ratings.length));
     return starRating
@@ -42,7 +42,7 @@ const OutfitCard = ({ product_id, removeApp, styleId, removeOutfit, starRender }
     return starRender(stars).map((star => star))
   };
 
-  const findIndex = (id) => {
+  const findStyleIndex = (id) => {
     let index = productStyles.map(style => style.style_id).indexOf(id);
     if (index >= 0) {
       return index;
@@ -56,7 +56,7 @@ const OutfitCard = ({ product_id, removeApp, styleId, removeOutfit, starRender }
         productLoad ?
           <div className = 'productCard'>
             <div className = 'productCardImg'>
-              <img className = 'productImages' src={productStyles[findIndex(styleId)].photos[0].thumbnail_url || `https://via.placeholder.com/150`} alt='Outfit Card Image'/>
+              <img className = 'productImages' src={productStyles[findStyleIndex(styleId)].photos[0].thumbnail_url || `https://via.placeholder.com/150`} alt='Outfit Card Image'/>
               <div className = "actionCard" onClick={handleClickRemove}><AiFillCloseCircle color='crimson'/></div>
             </div>
             <div>

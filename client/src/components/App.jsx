@@ -20,7 +20,6 @@ import { AppContext } from './AppContext.js';
 import { lightTheme, darkTheme, GlobalStyles } from '../themes.js';
 
 const StyledApp = styled.div`
-
 `;
 
 const App = () => {
@@ -50,12 +49,27 @@ const App = () => {
       localStorage.setItem('helpfulReviews', JSON.stringify({}));
     }
     if (!localStorage.getItem('searchStars')) {
-      localStorage.setItem('searchStars', JSON.stringify({1:false, 2:false, 3:false, 4:false, 5:false}));
+      localStorage.setItem('searchStars', JSON.stringify({ 1: false, 2: false, 3: false, 4: false, 5: false }));
     }
     if (!localStorage.getItem('sort')) {
       localStorage.setItem('sort', 'relevant');
     }
 
+
+
+    if (!localStorage.getItem('helpfulReviews')) {
+      localStorage.setItem('helpfulReviews', JSON.stringify({}));
+    }
+    if (!localStorage.getItem('searchStars')) {
+      localStorage.setItem('searchStars', JSON.stringify({ 1: false, 2: false, 3: false, 4: false, 5: false }));
+    }
+    if (!localStorage.getItem('sort')) {
+      localStorage.setItem('sort', 'relevant');
+    }
+
+    if (!localStorage.getItem('theme')) {
+      localStorage.setItem('theme', 'light');
+    }
 
     Parse.getAll(`products/`)
       .then((products) => {
@@ -70,6 +84,7 @@ const App = () => {
   }, []);
 
   const resetToFirstProduct = () => {
+    setLoading(false);
     setCrashed(false);
     Parse.getAll(`products/`)
       .then((products) => {
@@ -92,8 +107,8 @@ const App = () => {
   const getAverage = (reviewsArray) => {
     let ratings = reviewsArray.map(review => review.rating);
     let starRating = (ratings.reduce((total, rating) => total += rating, 0) / (ratings.length));
-    return starRating
-  }
+    return starRating;
+  };
 
   const getTotalReviews = (recommended) => {
     let recommendValues = Object.values(recommended);
@@ -216,12 +231,16 @@ const App = () => {
       <AppContext.Provider value={{
         selectedProduct,
         localName,
+        outfits,
+        metaData,
         handleSelectedProduct,
         handleLocalClick,
         handleLocalSave,
         getAverageRating,
         getTotalReviews,
         renderStars,
+        getCart,
+        handleOutfitAdds,
       }}>
         {loading &&
           <StyledApp>
@@ -268,8 +287,7 @@ const App = () => {
                   metaData={metaData}
                   renderStars={renderStars}
                   productName={selectedProduct.name}
-                  productId={selectedProduct.id}
-                />
+                  productId={selectedProduct.id}/>
               </div>
             </div>
           </StyledApp>}

@@ -78,11 +78,11 @@ const Tile = (props) => {
   const renderHelpful = () => {
     let localStorageCopy = JSON.parse(localStorage.getItem('helpfulReviews'));
     if (localStorageCopy[props.review.review_id] === true) {
-      return(
+      return (
         <p>You set this review as: Helpful ({props.review.helpfulness + (localClick ? 1 : 0)})</p>
       )
     } else {
-      return(
+      return (
         <div className='reviewHelpful'>
           <p>Helpful?</p>
           <p onClick={()=>handleHelpful(true)}><u>Yes</u></p>
@@ -101,7 +101,7 @@ const Tile = (props) => {
     let review_id = props.review.review_id;
 
     let localStorageCopy = JSON.parse(localStorage.getItem('helpfulReviews'));
-    localStorageCopy = ({...localStorageCopy, [props.review.review_id]: value})
+    localStorageCopy = ({ ...localStorageCopy, [props.review.review_id]: value })
     localStorage.setItem('helpfulReviews', JSON.stringify(localStorageCopy));
     setLocalClick(true);
   };
@@ -117,8 +117,8 @@ const Tile = (props) => {
 
   const reportReview = () => {
     Parse.update(`reviews/`, `${props.review.review_id}/report`)
-    .then(() => props.handleReport(props.index))
-    .catch((err) => console.log(err));
+      .then(() => props.handleReport(props.index))
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -132,15 +132,17 @@ const Tile = (props) => {
         {parseBody()}
         {(props.review.body.length > 250 && !showMore) && <p className='reviewTileShowMore' onClick={handleShowMore}><u>Show more...</u></p>}
         {props.review.photos.length >= 1 &&
-        <div className='reviewPhotoThumbnailSection'>
-          {props.review.photos.map((photo, index) => <img src={photo.url} className='reviewPhotoThumbnail' alt='Review photo thumbnail' onClick={handlePhotoClick} key={index}/>)}
-        </div>}
+          <div className='reviewPhotoThumbnailSection'>
+            {props.review.photos.map((photo, index) => <img src={photo.url} className='reviewPhotoThumbnail' alt='Review photo thumbnail' onClick={handlePhotoClick} key={index}/>)}
+          </div>
+        }
         {props.review.response &&
-        <div className='reviewResponse'>
-          <span><b>Response:</b></span>
-          <p>{parseResponse()}</p>
-        </div>}
-        {props.review.recommend && <p><FaCheckCircle className='reviewCheckmark'/> I recommend this product</p>}
+          <div className='reviewResponse'>
+            <span><b>Response:</b></span>
+            <p>{parseResponse()}</p>
+          </div>
+        }
+        {props.review.recommend && <p><FaCheckCircle className='reviewCheckmark' /> I recommend this product</p>}
       </div>
       <div className='reviewInteractions'>
         {renderHelpful()}
