@@ -35,6 +35,7 @@ function ImageGallery({
   const [loading, setLoading] = useState(true);
   const [overlay, setOverlay] = useState(false);
   const [clickedPhoto, setClickedPhoto] = useState('');
+  const [isMagnify, setIsMagnify] = useState(false);
 
   useEffect(() => {
     if (product) {
@@ -117,49 +118,41 @@ function ImageGallery({
                     handleRightClick={handleRightClick}
                     arrowLeft={arrowLeft}
                     arrowRight={arrowRight}
-                    onClick={handleOverlay} />
+                    onClick={handleOverlay}
+                    isMagnify={isMagnify}
+                    setIsMagnify={setIsMagnify} />
                 </div>
-                {arrowLeft ? <TiArrowLeftThick onClick={handleLeftClick} className='left-arrow-v' /> : <TiArrowLeftThick onClick={handleLeftClick} className='arrow-hidden' />}
-                {arrowRight ? <TiArrowRightThick onClick={handleRightClick} className='right-arrow-v' /> : <TiArrowRightThick onClick={handleRightClick} className='arrow-hidden' />}
+                {!isMagnify ? arrowLeft ? <TiArrowLeftThick onClick={handleLeftClick} className='left-arrow-v' /> : <TiArrowLeftThick onClick={handleLeftClick} className='arrow-hidden' /> : <></>}
+
+                {!isMagnify ? arrowRight ? <TiArrowRightThick onClick={handleRightClick} className='right-arrow-v' /> : <TiArrowRightThick onClick={handleRightClick} className='arrow-hidden' /> : <></>}
                 <div className="g-container-vertical">
                   {arrowUp && (
                     <TiArrowSortedUp onClick={handleUpClick} className="arrow-side" />
                   )}
 
-                  {stylesList.map((style) => {
-                    let id = Math.random();
-
-                    if (currentPhoto === style.url) {
-                      if (style.thumbnail_url === null) {
-                        return;
+                  {!isMagnify ?
+                    stylesList.map((style) => {
+                      let id = Math.random();
+                      if (currentPhoto === style.url) {
+                        if (style.thumbnail_url === null) {
+                          return;
+                        }
+                        return (
+                          <div key={id}>
+                            <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry-v-b' alt='Style Thumbnail'></img>
+                          </div>
+                        )
+                      } else {
+                        if (style.thumbnail_url === null) {
+                          return;
+                        }
+                        return (
+                          <div key={id}>
+                            <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry-v' alt='Style Thumbnail'></img>
+                          </div>
+                        )
                       }
-                      return (
-                        <div key={id}>
-<<<<<<< HEAD
-                          <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry-v-b'></img>
-=======
-                          <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry-v-b' alt='Style Thumbnail'></img>
->>>>>>> main
-                        </div>
-                      )
-
-
-                    } else {
-                      if (style.thumbnail_url === null) {
-                        return;
-                      }
-                      return (
-                        <div key={id}>
-<<<<<<< HEAD
-                          <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry-v'></img>
-=======
-                          <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry-v' alt='Style Thumbnail'></img>
->>>>>>> main
-                        </div>
-                      )
-                    }
-
-                  })}
+                    }) : <></>}
 
                   {arrowDown && (
                     <TiArrowSortedDown onClick={handleDownClick} className="arrow-side" />

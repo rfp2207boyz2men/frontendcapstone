@@ -1,10 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Parse from '../../parse.js';
 import QuestionList from './QuestionList.jsx';
-<<<<<<< HEAD
-// import './QandA.css';
-=======
->>>>>>> main
 
 const QandA = (props) => {
   const [questions, setQuestions] = useState([]);

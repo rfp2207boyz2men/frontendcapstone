@@ -7,15 +7,7 @@ import { FacebookShareButton, TwitterShareButton, PinterestShareButton } from 'r
 import { TiTick } from 'react-icons/ti';
 
 
-<<<<<<< HEAD
-
-
-/* --------------------  ProductOverview  --------------------*/
-
 function ProductOverview({ product, currentPhoto, currentStyle, trackClick }) {
-=======
-function ProductOverview({ product, currentPhoto, currentStyle }) {
->>>>>>> main
   const [loading, setLoading] = useState(true);
   const [shareQuote, setShareQuote] = useState();
   const [shareHashtag, setShareHashtag] = useState();

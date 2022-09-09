@@ -1,11 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Parse from '../../parse.js';
 import moment from 'moment';
-<<<<<<< HEAD
-import '../Reviews/ReviewsStyles.css';
-=======
 // import '../Reviews/ReviewsStyles.css';
->>>>>>> main
 import PhotoOverlay from "../Reviews/PhotoOverlay.jsx";
 
 const Answer = (props) => {
@@ -69,13 +65,13 @@ const Answer = (props) => {
       <div className='answer-line'>
         <strong> A: {props.answer.body}</strong>
         <span>
-        {props.answer.photos.length > 0 ?
-        props.answer.photos.map((photo) => <img src={photo.url} className='answer-photo' onClick={handleClick} alt='Answer photo thumbnail' key={photo.id}/>) : null}
+          {props.answer.photos.length > 0 ?
+            props.answer.photos.map((photo) => <img src={photo.url} className='answer-photo' onClick={handleClick} alt='Answer photo thumbnail' key={photo.id} />) : null}
         </span>
         <small className='user-info'>
           by {username === 'Seller'
-          ? <b>{username}</b>
-          :username} , {date} | Helpful?
+            ? <b>{username}</b>
+            : username} , {date} | Helpful?
           {helpfulBtn} ({props.answer.helpfulness}) |
           {reportBtn}
         </small>

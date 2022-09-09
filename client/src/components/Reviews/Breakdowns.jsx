@@ -7,9 +7,9 @@ const Breakdowns = (props) => {
     let style;
     for (let i = 1; i <= 5; i++) {
       ratingBars.push(
-        <div className={props.clickedStars[i] ? 'reviewBarSectionOn' : 'reviewBarSectionOff'} key={i} onClick={()=>props.handleClick(i)}>
+        <div className={props.clickedStars[i] ? 'reviewBarSectionOn' : 'reviewBarSectionOff'} key={i} onClick={() => props.handleClick(i)}>
           <p className='reviewBarLabel'>{i} stars</p>
-          <div style={renderBarSize(i-1)} className='reviewBar'></div>
+          <div style={renderBarSize(i - 1)} className='reviewBar'></div>
           <p>({props.ratings[i]})</p>
         </div>
       )
@@ -18,11 +18,7 @@ const Breakdowns = (props) => {
   }
 
   const renderBarSize = (index) => {
-<<<<<<< HEAD
-    //Renders the green/gray proportion of the bar depending on the ratio of that star rating
-=======
->>>>>>> main
-    let background = {background: `linear-gradient(to right, teal, teal ${props.ratingPercentages[index]}%, gray ${props.ratingPercentages[index]}%)`};
+    let background = { background: `linear-gradient(to right, teal, teal ${props.ratingPercentages[index]}%, gray ${props.ratingPercentages[index]}%)` };
     return background;
   };
 

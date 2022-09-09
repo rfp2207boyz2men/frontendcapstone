@@ -515,11 +515,7 @@ a:visited {
 .question-body {
   display: flex;
   width: 1250px;
-<<<<<<< HEAD
-  height: 400px;
-=======
   height: 800px;
->>>>>>> main
   flex-direction: column;
   justify-content: space-between;
   font-size: 16px;
@@ -590,13 +586,8 @@ input[type='file'] {
 }
 
 .answerPhotoThumbnail {
-<<<<<<< HEAD
-  height: 100px;
-  width: 20%;
-=======
   height: 110px;
   max-width: 20%;
->>>>>>> main
 }
 
 /*
@@ -609,15 +600,9 @@ input[type='file'] {
   height: 30px;
   background-color: ${(props) => props.theme.tealAndBurly};
   color: ${(props) => props.theme.fontColor};
-<<<<<<< HEAD
-=======
-  border-radius: 6px;
-  border-style: none;
   padding: 5px 10px;
->>>>>>> main
 }
 
-.question-list-button {
   height: 30px;
   width: 150px;
   border-radius: 5px;
@@ -625,14 +610,8 @@ input[type='file'] {
   display: inline-block;
   margin-right: 10px;
   margin-top: 10px;
-<<<<<<< HEAD
-=======
-  border-radius: 6px;
-  border-style: none;
->>>>>>> main
   background-color: ${(props) => props.theme.tealAndBurly};
   color: ${(props) => props.theme.fontColor};
-}
 
 .show-more-or-less {
   margin-top: 10px;
@@ -1032,13 +1011,7 @@ input[type='file'] {
   margin-bottom: 20px;
   background-color: ${(props) => props.theme.tealAndBurly};
 }
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
 
-=======
->>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
->>>>>>> main
 .g-line-hidden {
   visibility: hidden;
   height: 3px;
@@ -1076,6 +1049,9 @@ input[type='file'] {
 /* ----------------- Expanded Section ----------------- */
 
 .slider-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: fixed;
   left: 50%;
   top: 50%;
@@ -1107,19 +1083,23 @@ input[type='file'] {
   }
 
 .sliderImg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 700px;
   height: 700px;
-  padding: 10px;
+  //padding: 10px;
   max-width: unset !important;
-  background-color: white;
-<<<<<<< HEAD
+  background-color: ${(props) => props.theme.headerBColor};
   border-radius: 10px;
-=======
->>>>>>> main
   background-position: center;
-  object-fit: cover;
+  object-fit: scale-down;
   border: ${(props) => props.theme.burlyBorderBlack};
-  }
+}
+
+.sliderImg:hover {
+  cursor: crosshair;
+}
 
 .g-container-vertical {
   display: flex;
@@ -1222,24 +1202,7 @@ input[type='file'] {
   width: 50%;
 }
 
-/* ----------------- Magnifying Section ----------------- */
 
-#featured {
-  max-width: 600px;
-  max-height: 600px;
-  cursor: pointer;
-  border: 2px solid black;
-}
-
-#img-container {
-  max-width: 500px;
-}
-
-#lens {
-  height: 125px;
-  width: 125px;
-  border: 2px solid black;
-}
 
 .expand {
   color: ${(props) => props.theme.fontColor};
@@ -1355,18 +1318,18 @@ input[type='file'] {
   font-size: 14px;
   color: ${(props) => props.theme.fontColor};
 }
+
 .select-size-please {
   font-size: 14px;
+  margin-bottom: 5px;
   margin-left: 5px;
   color: ${(props) => props.theme.fontColor};
 }
 
-.out-of-stock {
+.select-size-please-hide {
+  visibility: hidden;
   font-size: 14px;
-  color: ${(props) => props.theme.fontColor};
-}
-.select-size-please {
-  font-size: 14px;
+  margin-bottom: 5px;
   margin-left: 5px;
   color: ${(props) => props.theme.fontColor};
 }
@@ -1419,6 +1382,7 @@ input[type='file'] {
   margin-right: 5px;
 }
 
+
 .add-cart:hover {
   transition: ease-in-out 0.5s;
   background-color: black;
@@ -1454,6 +1418,7 @@ input[type='file'] {
 
 .select-star svg {
   // margin-top: 4px;
+  font-size: 12px;
   color: ${(props) => props.theme.fontColor};
 }
 
@@ -1528,10 +1493,7 @@ input[type='file'] {
 .reviewList {
   height: auto;
   width: 800px;
-<<<<<<< HEAD
-=======
   border-top: 1px dashed burlywood;
->>>>>>> main
   overflow-y: auto;
 }
 
@@ -1573,8 +1535,6 @@ input[type='file'] {
 .averageRating svg {
   margin-top: 2px;
   // padding-bottom: 15px;
-<<<<<<< HEAD
-=======
 }
 
 .averageRating h1 {
@@ -1584,7 +1544,6 @@ input[type='file'] {
 .averageRating svg {
   margin-top: 2px;
   // padding-bottom: 15px;
->>>>>>> main
 }
 
 /*
@@ -1702,8 +1661,6 @@ input[type='file'] {
   margin-left: 60px;
   justify-content: space-between;
   height: 30px;
-<<<<<<< HEAD
-=======
 }
 
 .reviewCharacteristicBarLabels p {
@@ -1712,7 +1669,6 @@ input[type='file'] {
 
 .reviewCharacteristicArrow {
   margin-top: 10px;
->>>>>>> main
 }
 
 .reviewCharacteristicBarLabels p {
@@ -1735,10 +1691,7 @@ input[type='file'] {
 .reviewListHeader {
   display: flex;
   flex-direction: row;
-<<<<<<< HEAD
-=======
   flex-wrap: wrap;
->>>>>>> main
   width: 400px;
 }
 
@@ -1790,11 +1743,7 @@ input[type='file'] {
   padding: 5px;
   background-color: ${(props) => props.theme.mainBColor};
   width: 80px;
-<<<<<<< HEAD
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-=======
   box-shadow: 0px 8px 16px 0px ${(props) => props.theme.dropdownShadow};
->>>>>>> main
   z-index: 1;
 }
 
@@ -1889,10 +1838,7 @@ input[type='file'] {
 .reviewExpandButton {
   height: 60px;
   margin-right: 10px;
-<<<<<<< HEAD
-=======
   color: ${(props) => props.theme.buttonText};
->>>>>>> main
 }
 
 .reviewCheckmark {
@@ -2011,10 +1957,7 @@ input[type='file'] {
   height: 60px;
   width: 150px;
   margin-top: 40px;
-<<<<<<< HEAD
-=======
   color: ${(props) => props.theme.fontColor};
->>>>>>> main
   background-color: ${(props) => props.theme.tealAndBurly};
   border-radius: 5px;
   margin-bottom: 15px;

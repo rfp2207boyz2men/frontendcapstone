@@ -13,11 +13,6 @@ const Related = ({ selectedProduct, addToOutfit, selectStyle, avgRating, starRen
   const [view, setView] = useState([])
 
   useEffect(() => {
-<<<<<<< HEAD
-    console.log('RELATED PROCCED')
-    // Requests the related_ids from API based on selected product within App
-=======
->>>>>>> main
     Parse.getAll('products', `/${selectedProduct.id}/related`)
       .then((relatedProducts) => {
         let cleanedData = [];

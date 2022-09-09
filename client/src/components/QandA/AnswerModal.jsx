@@ -24,39 +24,19 @@ const AnswerModal = (props) => {
   let questionId = props.questionId;
 
   const handlePhotoClick = () => {
-<<<<<<< HEAD
-    //Click the hidden input file button by invoking this function
-=======
->>>>>>> main
     hiddenFileInput.current.click();
   }
 
   let handleSubmitCheck = (event) => {
     event.preventDefault();
     if (photos.length === 0) {
-<<<<<<< HEAD
-      console.log('PHOTOS LENGTH IS 0')
       handleSubmit(event);
     } else {
-      console.log('PHOTOS LENGTH IS >0');
-=======
-      handleSubmit(event);
-    } else {
->>>>>>> main
       uploadAllPhotos(event);
     }
   }
 
   let handleSubmit = (event, photos = []) => {
-<<<<<<< HEAD
-    // event.preventDefault();
-
-    // uploadAllPhotos();
-    console.log('PHOTOS STATE: ', photos);
-    console.log(imageUrls);
-
-=======
->>>>>>> main
     data = {
       body: userAnswer,
       name: nickname,
@@ -64,13 +44,6 @@ const AnswerModal = (props) => {
       photos: photos
     }
 
-<<<<<<< HEAD
-    console.log('URL: ', url);
-    console.log('USER: ', CONFIG.CLOUDINARY_USER);
-    console.log('PHOTO URLS: ', data.photos);
-
-=======
->>>>>>> main
     Parse.create(`qa/questions/${questionId}/answers`, undefined, data)
       .then((results) => {
         props.getAnswers();
@@ -117,38 +90,18 @@ const AnswerModal = (props) => {
   }
 
   let uploadAllPhotos = (event) => {
-<<<<<<< HEAD
-    console.log('UPLOADALLPHOTOS INVOKED');
     return Promise.all(photosData.map((photo) => uploadPhoto(photo)))
       .then((response) => {
-        console.log('RESPONSE: ', response)
-=======
-    return Promise.all(photosData.map((photo) => uploadPhoto(photo)))
-      .then((response) => {
->>>>>>> main
         photosUrl = [];
         for (let photo of response) {
           photosUrl.push(photo.data.secure_url);
         }
-<<<<<<< HEAD
-        console.log('CLOUD PHOTOS URLS: ', photosUrl);
-        return photosUrl;
-        // setImageUrls(photosUrl);
-      })
-      .then((photosUrl) => {
-        console.log('PHOTO UPLOAD CHECKPOINT PASSED');
-        handleSubmit(event, photosUrl);
-      })
-      .catch((error) => {
-        console.log(error);
-=======
         return photosUrl;
       })
       .then((photosUrl) => {
         handleSubmit(event, photosUrl);
       })
       .catch((error) => {
->>>>>>> main
         setPhotos([]);
         setPhotosData([]);
       })
@@ -159,7 +112,7 @@ const AnswerModal = (props) => {
     <>
       <div
         className='portal-overlay'
-        onClick={props.handleModal}/>
+        onClick={props.handleModal} />
       <div
         className='answer-modal'
         onKeyDown={handleKeyDown}>
@@ -174,7 +127,7 @@ const AnswerModal = (props) => {
             type='text'
             maxLength='1000'
             onChange={handleChange}
-            required/>
+            required />
           <h4> Nickname: </h4>
           <textarea
             name='nickname'
@@ -182,7 +135,7 @@ const AnswerModal = (props) => {
             maxLength='60'
             placeholder='Example: jack543!'
             onChange={handleChange}
-            required/>
+            required />
           <small>For privacy reasons, do not use your full name or email address</small>
           <h4> Email address: </h4>
           <textarea
@@ -191,35 +144,31 @@ const AnswerModal = (props) => {
             maxLength='60'
             placeholder='Example: jack@email.com'
             onChange={handleChange}
-            required/>
+            required />
           <small>For authentication reasons, you will not be emailed</small>
           <h4> Upload your photos: </h4>
           <div className='answerInputPhotoSection'>
             {photos.length < 5 &&
               <div className='reviewInputPhotoButton' onClick={handlePhotoClick}>
-                <BsPlusCircle className='reviewInputPhotoButtonPlus'/>
+                <BsPlusCircle className='reviewInputPhotoButtonPlus' />
                 <p className='reviewInputPhotoButtonText'>Upload</p>
               </div>}
             {photos.length ?
-            photos.map((photo) => <img className='answerPhotoThumbnail' src={photo}/>) : null
+              photos.map((photo) => <img className='answerPhotoThumbnail' src={photo} />) : null
             }
           </div>
           {photos.length < 5 &&
-          <input
-            name='photos'
-            type='file'
-            style={{display:'none'}}
-            ref={hiddenFileInput}
-            onChange={handlePhotoInput} />
+            <input
+              name='photos'
+              type='file'
+              style={{ display: 'none' }}
+              ref={hiddenFileInput}
+              onChange={handlePhotoInput} />
           }
           <input
             type='submit'
             value='Submit'
-<<<<<<< HEAD
-            // onSubmit={handleSubmit}
-=======
->>>>>>> main
-            >
+          >
           </input>
         </form>
       </div>

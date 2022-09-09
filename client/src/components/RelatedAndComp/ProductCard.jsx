@@ -45,24 +45,13 @@ const ProductCard = ({ product_id, addOutfit, select, current, avgStars, starRen
       Parse.getAll('products', `/${product_id}/styles`),
       Parse.getAll('reviews', `?product_id=${product_id}`)
     ])
-<<<<<<< HEAD
       .then((response) => {
-        console.log(response);
         setProductInfo(response[0].data);
         setProductStyles(response[1].data.results);
         setStars(getAverage(response[2].data.results));
         setProductLoad(true);
       })
       .catch((err) => console.log(err));
-=======
-    .then((response) => {
-      setProductInfo(response[0].data);
-      setProductStyles(response[1].data.results);
-      setStars(getAverage(response[2].data.results));
-      setProductLoad(true);
-    })
-    .catch((err) => console.log(err));
->>>>>>> main
   }, []);
 
   const getAverage = (reviewsArray) => {
@@ -102,19 +91,10 @@ const ProductCard = ({ product_id, addOutfit, select, current, avgStars, starRen
       {showCompare ? <ComparisonModal show={showCompare} handleClose={hideCompareModal} clicked={productInfo} current={current}></ComparisonModal> : null}
       {productLoad ?
         <div className='productCard'>
-<<<<<<< HEAD
           <div className='productCardImg' onClick={(event) => { handleImageClick(event) }}>
             <img className='productImages' src={productStyles[0].photos[0].thumbnail_url || `https://via.placeholder.com/150`} alt='Product Card Image' />
-            <div className='starCard' onMouseEnter={mouseHoverStar} onMouseLeave={mouseExitStar} onClick={(event) => { showModal(event) }}>
-              { /* Show interaction with action button to show comparison modal */
-                starHover ? <TiStarFullOutline /> : <TiStarOutline />
-              }
-=======
-          <div className='productCardImg' onClick={(event) =>{handleImageClick(event)}}>
-            <img className='productImages' src={productStyles[0].photos[0].thumbnail_url || `https://via.placeholder.com/150`} alt='Product Card Image'/>
-            <div className='starCard' onMouseEnter={mouseHoverStar} onMouseLeave={mouseExitStar} onClick={(event) => {showCompareModal(event)}}>
-              { starHover ? <TiStarFullOutline/> : <TiStarOutline /> }
->>>>>>> main
+            <div className='starCard' onMouseEnter={mouseHoverStar} onMouseLeave={mouseExitStar} onClick={(event) => { showCompareModal(event) }}>
+              {starHover ? <TiStarFullOutline /> : <TiStarOutline />}
             </div>
           </div>
           <div>
@@ -122,21 +102,12 @@ const ProductCard = ({ product_id, addOutfit, select, current, avgStars, starRen
               <div className='cardCat'>{productInfo.category ? productInfo.category.toUpperCase() : productInfo.category}</div>
               <div className='cardName'><strong>{productInfo.name}</strong></div>
               <div className='cardPrice'>
-<<<<<<< HEAD
-                { /* Card Pricing Conditional - if sale price exists, render it, else render original price */
+                {
                   productStyles[productStyles.length - 1].sale_price ?
                     <div className='salePrice'>
                       ${productStyles[productStyles.length - 1].sale_price} <div className='defaultPrice'>${productStyles[productStyles.length - 1].original_price}</div>
                     </div>
                     : <div>${productStyles[productStyles.length - 1].original_price}</div>
-=======
-                {
-                  productStyles[productStyles.length-1].sale_price ?
-                  <div className='salePrice'>
-                    ${productStyles[productStyles.length-1].sale_price} <div className='defaultPrice'>${productStyles[productStyles.length-1].original_price}</div>
-                  </div>
-                  : <div>${productStyles[productStyles.length - 1].original_price}</div>
->>>>>>> main
                 }
               </div>
             </div>
