@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Parse from '../../parse.js';
-
 import AnswerList from './AnswerList.jsx';
 import AnswerModal from './AnswerModal.jsx';
-
 
 const Question = (props) => {
   const [answers, setAnswers] = useState([]);

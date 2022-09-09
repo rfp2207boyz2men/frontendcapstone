@@ -7,8 +7,6 @@ import {
   TiArrowMaximise,
   TiArrowMinimise,
 } from "react-icons/ti";
-import "./overview.css";
-import '../Reviews/ReviewsStyles.css';
 import styled, { css, keyframes } from 'styled-components';
 import ReactCSSTransitionGroup from 'react-transition-group';
 import { OrbitSpinner } from "react-epic-spinners";
@@ -76,7 +74,7 @@ function ImageGallery({
                   }
                   return (
                     <div key={id}>
-                      <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry'></img>
+                      <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry' alt='Style Thumbnail'></img>
                       <div className="g-line"></div>
                     </div>
                   )
@@ -88,7 +86,7 @@ function ImageGallery({
                   }
                   return (
                     <div key={id}>
-                      <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry'></img>
+                      <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry' alt='Style Thumbnail'></img>
                       <div className="g-line-hidden"></div>
                     </div>
                   )
@@ -107,7 +105,6 @@ function ImageGallery({
 
           <div className="pv-container">
             {arrowLeft ? <TiArrowLeftThick onClick={handleLeftClick} className='arrow' /> : <TiArrowLeftThick onClick={handleLeftClick} className='arrow-hidden' />}
-            {/* SLIDER STARTS HERE */}
             {overlay &&
               <div>
                 <div className="slider-modal">
@@ -139,8 +136,7 @@ function ImageGallery({
                       }
                       return (
                         <div key={id}>
-                          <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry-v-b'></img>
-                          {/* <div className="g-line-v"></div> */}
+                          <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry-v-b' alt='Style Thumbnail'></img>
                         </div>
                       )
 
@@ -151,8 +147,7 @@ function ImageGallery({
                       }
                       return (
                         <div key={id}>
-                          <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry-v'></img>
-                          {/* <div className="g-line-hidden"></div> */}
+                          <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry-v' alt='Style Thumbnail'></img>
                         </div>
                       )
                     }
@@ -167,7 +162,7 @@ function ImageGallery({
               </div>
             }
 
-            {!overlay && <img className='pv-img' onClick={handlePhotoClick} src={currentPhoto || `https://via.placeholder.com/500`} alt={product.name}></img>}
+            {!overlay && <img className='pv-img' onClick={handlePhotoClick} src={currentPhoto || `https://via.placeholder.com/500`} alt={product.name} alt='Style In View'></img>}
 
             {arrowRight ? <TiArrowRightThick onClick={handleRightClick} className='arrow' /> : <TiArrowRightThick onClick={handleRightClick} className='arrow-hidden' />}
 

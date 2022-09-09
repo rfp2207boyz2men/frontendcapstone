@@ -19,7 +19,6 @@ const OutfitCard = ({ product_id, removeApp, styleId, removeOutfit, starRender }
       Parse.getAll('reviews', `?product_id=${product_id}`)
     ])
     .then((response) => {
-      console.log(response);
       setProductInfo(response[0].data);
       setProductStyles(response[1].data.results);
       setStars(getAverageStars(response[2].data.results));

@@ -24,7 +24,6 @@ const Tile = (props) => {
   };
 
   const parseBody = () => {
-    //render body (or response) to allow paragraphs
     let parsedBody = props.review.body.replaceAll('\n\n', '\n');
     if (parsedBody.length > 250 && !showMore) {
       parsedBody = `${parsedBody.slice(0, 251)}...`;
@@ -37,14 +36,12 @@ const Tile = (props) => {
   };
 
   const highlightText = (body, index) => {
-    //If no search query, return the paragraph
     if (props.searchQuery === '') {
       return (<p key={body + index + props.review.review_id}>{body}</p>);
     }
 
-    let search = new RegExp(`(${props.searchQuery})`, 'i'); //Regex to split case-insensitive, preserve query text
+    let search = new RegExp(`(${props.searchQuery})`, 'i');
     let splitText = body.split(search);
-    //If search query not found in paragraph, return paragraph
     if (splitText.length === 1) {
       return (<p key={body + index + props.review.review_id}>{body}</p>);
     } else {
@@ -79,24 +76,16 @@ const Tile = (props) => {
   }
 
   const renderHelpful = () => {
-    // render message whether user voted review as helpful or not
-    //  will render based on current session
     let localStorageCopy = JSON.parse(localStorage.getItem('helpfulReviews'));
     if (localStorageCopy[props.review.review_id] === true) {
       return (
         <p>You set this review as: Helpful ({props.review.helpfulness + (localClick ? 1 : 0)})</p>
       )
-      // }
-      // } else if (localStorageCopy[props.review.review_id] === false) {
-      // return(
-      // <p>You set this review as: Not helpful ({props.review.helpfulness})</p>
-      // )
     } else {
       return (
         <div className='reviewHelpful'>
           <p>Helpful?</p>
-          <p onClick={() => handleHelpful(true)}><u>Yes</u></p>
-          {/* <p onClick={()=>handleHelpful(false)}><u>No</u></p> */}
+          <p onClick={()=>handleHelpful(true)}><u>Yes</u></p>
           <p>({props.review.helpfulness})</p>
         </div>
       )
@@ -104,12 +93,9 @@ const Tile = (props) => {
   };
 
   const handleHelpful = (value) => {
-    //save review_id to localStorage so it saves helpful vote on page refresh
-    //setLocalClick used to change a state to re-render tile
     if (value) {
       Parse.update(`reviews/`, `${props.review.review_id}/helpful`)
-        .then(() => console.log('helpful submit'))
-        .catch((err) => console.log(err));
+      .catch((err) => console.log(err));
     }
 
     let review_id = props.review.review_id;
@@ -130,8 +116,6 @@ const Tile = (props) => {
   };
 
   const reportReview = () => {
-    //update API to report review
-    //  then get new set of reviews
     Parse.update(`reviews/`, `${props.review.review_id}/report`)
       .then(() => props.handleReport(props.index))
       .catch((err) => console.log(err));
@@ -149,13 +133,15 @@ const Tile = (props) => {
         {(props.review.body.length > 250 && !showMore) && <p className='reviewTileShowMore' onClick={handleShowMore}><u>Show more...</u></p>}
         {props.review.photos.length >= 1 &&
           <div className='reviewPhotoThumbnailSection'>
-            {props.review.photos.map((photo, index) => <img src={photo.url} className='reviewPhotoThumbnail' alt='Review photo thumbnail' onClick={handlePhotoClick} key={index} />)}
-          </div>}
+            {props.review.photos.map((photo, index) => <img src={photo.url} className='reviewPhotoThumbnail' alt='Review photo thumbnail' onClick={handlePhotoClick} key={index}/>)}
+          </div>
+        }
         {props.review.response &&
           <div className='reviewResponse'>
             <span><b>Response:</b></span>
             <p>{parseResponse()}</p>
-          </div>}
+          </div>
+        }
         {props.review.recommend && <p><FaCheckCircle className='reviewCheckmark' /> I recommend this product</p>}
       </div>
       <div className='reviewInteractions'>

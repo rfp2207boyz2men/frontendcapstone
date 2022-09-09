@@ -20,7 +20,6 @@ const ProductCard = ({ product_id, addOutfit, select, current, avgStars, starRen
       Parse.getAll('reviews', `?product_id=${product_id}`)
     ])
     .then((response) => {
-      console.log(response);
       setProductInfo(response[0].data);
       setProductStyles(response[1].data.results);
       setStars(getAverage(response[2].data.results));
@@ -68,10 +67,8 @@ const ProductCard = ({ product_id, addOutfit, select, current, avgStars, starRen
         <div className='productCard'>
           <div className='productCardImg' onClick={(event) =>{handleImageClick(event)}}>
             <img className='productImages' src={productStyles[0].photos[0].thumbnail_url || `https://via.placeholder.com/150`} alt='Product Card Image'/>
-            <div className='starCard' onMouseEnter={mouseHoverStar} onMouseLeave={mouseExitStar} onClick={(event) => {showModal(event)}}>
-              { /* Show interaction with action button to show comparison modal */
-                starHover ? <TiStarFullOutline/> : <TiStarOutline />
-              }
+            <div className='starCard' onMouseEnter={mouseHoverStar} onMouseLeave={mouseExitStar} onClick={(event) => {showCompareModal(event)}}>
+              { starHover ? <TiStarFullOutline/> : <TiStarOutline /> }
             </div>
           </div>
           <div>

@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Parse from '../../parse.js';
-
 import QuestionList from './QuestionList.jsx';
-// import './QandA.css';
 
 const QandA = (props) => {
   const [questions, setQuestions] = useState([]);
@@ -24,7 +22,6 @@ const QandA = (props) => {
   }
 
   useEffect(() => {
-    console.log('Q AND A PROCCED')
     getQuestions();
   }, []);
 

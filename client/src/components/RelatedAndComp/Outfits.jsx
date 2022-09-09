@@ -15,7 +15,6 @@ const Outfits = ({ outfits, current, outfitAdd, outfitRemove, avgRating, styleId
   const [view, setView] = useState([])
 
   useEffect(() => {
-    console.log('OUTFITS PROCCED')
     if (outfits.length > 3) {
       setCarousel([...outfits.slice(0, 3)]);
       setRight([...outfits.slice(3)]);
