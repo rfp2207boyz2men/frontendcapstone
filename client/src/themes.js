@@ -510,7 +510,7 @@ a:visited {
   flex-direction: column;
   justify-content: space-between;
   font-size: 16px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .question-set {
@@ -1266,6 +1266,7 @@ input[type='file'] {
   border-radius: 30px;
   object-fit: cover;
   background-color: ${(props) => props.theme.burlyAndTeal};
+  border: 1px solid burlywood;
 }
 
 .style-container {
