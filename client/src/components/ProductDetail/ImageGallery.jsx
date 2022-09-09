@@ -33,7 +33,6 @@ function ImageGallery({
   handleDownClick,
   handleUpClick,
   handleExpandedView,
-  handleSelectedProduct,
 }) {
   const [loading, setLoading] = useState(true);
   const [overlay, setOverlay] = useState(false);
@@ -107,7 +106,6 @@ function ImageGallery({
 
           <div className="pv-container">
             {arrowLeft ? <TiArrowLeftThick onClick={handleLeftClick} className='arrow' /> : <TiArrowLeftThick onClick={handleLeftClick} className='arrow-hidden' />}
-            {/* SLIDER STARTS HERE */}
             {overlay &&
               <div>
                 <div className="slider-modal">
@@ -140,7 +138,6 @@ function ImageGallery({
                       return (
                         <div key={id}>
                           <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry-v-b'></img>
-                          {/* <div className="g-line-v"></div> */}
                         </div>
                       )
 
@@ -152,7 +149,6 @@ function ImageGallery({
                       return (
                         <div key={id}>
                           <img onClick={e => handleThumbClick(e, style)} id={style.url} src={style.thumbnail_url} className='g-entry-v'></img>
-                          {/* <div className="g-line-hidden"></div> */}
                         </div>
                       )
                     }

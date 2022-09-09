@@ -1003,7 +1003,7 @@ input[type='file'] {
   padding: 5px;
 }
 
-/* ----------------- Expaneded Section ----------------- */
+/* ----------------- Expanded Section ----------------- */
 
 .slider-modal {
   position: absolute;
@@ -1038,10 +1038,9 @@ input[type='file'] {
 .sliderImg {
   width: 700px;
   height: 700px;
-  //border: ${(props) => props.theme.productBorderColor};
   padding: 10px;
+  max-width: unset !important;
   background-color: white;
-  //border: 2px solid ${(props) => props.theme.burlyAndTeal};
   border-radius: 10px;
   background-position: center;
   object-fit: cover;
@@ -1111,7 +1110,6 @@ input[type='file'] {
   }
 
 
-
 .dot-container {
   display: flex;
   justify-content: center;
@@ -1147,14 +1145,17 @@ input[type='file'] {
   width: 50%;
 }
 
+/* ----------------- Magnifying Section ----------------- */
 
-
-.mainImage:hover {
-  cursor: zoom-in;
+#featured {
+  max-width: 600px;
+  max-height: 600px;
+  cursor: pointer;
+  border: 2px solid black;
 }
 
-.modalImage:hover {
-  cursor: crosshair;
+#img-container {
+  max-width: 500px;
 }
 
 .expand {

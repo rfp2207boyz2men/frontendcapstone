@@ -45,20 +45,20 @@ const ProductCard = ({ product_id, addOutfit, select, current, avgStars, starRen
       Parse.getAll('products', `/${product_id}/styles`),
       Parse.getAll('reviews', `?product_id=${product_id}`)
     ])
-    .then((response) => {
-      console.log(response);
-      setProductInfo(response[0].data);
-      setProductStyles(response[1].data.results);
-      setStars(getAverage(response[2].data.results));
-      setProductLoad(true);
-    })
-    .catch((err) => console.log(err));
+      .then((response) => {
+        console.log(response);
+        setProductInfo(response[0].data);
+        setProductStyles(response[1].data.results);
+        setStars(getAverage(response[2].data.results));
+        setProductLoad(true);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   // Function which takes in array of reviews for product, parses into a rating
   const getAverage = (reviewsArray) => {
     let ratings = reviewsArray.map(review => review.rating);
-    let starRating = (ratings.reduce((total, rating) => total += rating, 0)/(ratings.length));
+    let starRating = (ratings.reduce((total, rating) => total += rating, 0) / (ratings.length));
     return starRating
   }
 
@@ -100,11 +100,11 @@ const ProductCard = ({ product_id, addOutfit, select, current, avgStars, starRen
       {/*Related Section Condtionally Rendered Upon Initialization*/}
       {productLoad ?
         <div className='productCard'>
-          <div className='productCardImg' onClick={(event) =>{handleImageClick(event)}}>
-            <img className='productImages' src={productStyles[0].photos[0].thumbnail_url || `https://via.placeholder.com/150`} alt='Product Card Image'/>
-            <div className='starCard' onMouseEnter={mouseHoverStar} onMouseLeave={mouseExitStar} onClick={(event) => {showModal(event)}}>
+          <div className='productCardImg' onClick={(event) => { handleImageClick(event) }}>
+            <img className='productImages' src={productStyles[0].photos[0].thumbnail_url || `https://via.placeholder.com/150`} alt='Product Card Image' />
+            <div className='starCard' onMouseEnter={mouseHoverStar} onMouseLeave={mouseExitStar} onClick={(event) => { showModal(event) }}>
               { /* Show interaction with action button to show comparison modal */
-                starHover ? <TiStarFullOutline/> : <TiStarOutline />
+                starHover ? <TiStarFullOutline /> : <TiStarOutline />
               }
             </div>
           </div>
@@ -114,20 +114,20 @@ const ProductCard = ({ product_id, addOutfit, select, current, avgStars, starRen
               <div className='cardName'><strong>{productInfo.name}</strong></div>
               <div className='cardPrice'>
                 { /* Card Pricing Conditional - if sale price exists, render it, else render original price */
-                  productStyles[productStyles.length-1].sale_price ?
-                  <div className='salePrice'>
-                    ${productStyles[productStyles.length-1].sale_price} <div className='defaultPrice'>${productStyles[productStyles.length-1].original_price}</div>
-                  </div>
-                  : <div>${productStyles[productStyles.length - 1].original_price}</div>
+                  productStyles[productStyles.length - 1].sale_price ?
+                    <div className='salePrice'>
+                      ${productStyles[productStyles.length - 1].sale_price} <div className='defaultPrice'>${productStyles[productStyles.length - 1].original_price}</div>
+                    </div>
+                    : <div>${productStyles[productStyles.length - 1].original_price}</div>
                 }
               </div>
             </div>
-          <div className='productCardRating'>
-            {stars ? renderAvgStars() : null}
+            <div className='productCardRating'>
+              {stars ? renderAvgStars() : null}
+            </div>
           </div>
         </div>
-      </div>
-      : <div className="cardLoader"><OrbitSpinner color='burlywood' className='cardSpinner'/></div>
+        : <div className="cardLoader"><OrbitSpinner color='burlywood' className='cardSpinner' /></div>
       }
     </div>
   )

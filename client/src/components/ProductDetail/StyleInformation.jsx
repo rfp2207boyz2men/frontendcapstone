@@ -62,6 +62,7 @@ function StyleInformation({
 
 
   let findDuplicates = [];
+  let sizeRenderList = [];
 
   const handleSize = (e) => {
     let keys = [];
@@ -79,9 +80,11 @@ function StyleInformation({
       }
     }
     setQty(parseInt(e.target.value));
-    console.log(e.target.value);
     if (e.target.value === '0') {
       setSizeClick(true);
+    }
+    if (e.target.value !== '0') {
+      setSizeClick(false);
     }
   }
 
@@ -208,7 +211,12 @@ function StyleInformation({
                 {currentStyle &&
                   Object.values(currentStyle.skus).map((item => {
                     let idR = Math.random();
-                    return <option className='select' id={item.size} value={item.quantity} key={idR}>{item.size}</option>
+                    if (sizeRenderList.includes(item.size)) {
+                      return;
+                    } else {
+                      sizeRenderList.push(item.size);
+                      return <option className='select' id={item.size} value={item.quantity} key={idR}>{item.size}</option>
+                    }
                   }))}
               </select>
 

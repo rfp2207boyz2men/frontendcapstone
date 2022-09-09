@@ -286,7 +286,6 @@ const App = () => {
         selectedProduct,
         localName,
         outfits,
-        handleSelectedProduct,
         handleLocalClick,
         handleLocalSave,
         getAverageRating,

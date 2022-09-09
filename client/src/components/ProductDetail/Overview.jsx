@@ -201,7 +201,6 @@ function Overview({ trackClick }) {
           handleDownClick={handleDownClick}
           handleUpClick={handleUpClick}
           handleExpandedView={handleExpandedView}
-          handleSelectedProduct={handleSelectedProduct}
         />
         <StyleInformation
           product={product}
