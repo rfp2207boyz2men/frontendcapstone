@@ -15,12 +15,12 @@ export const lightTheme = {
   starCardColor: 'teal',
   defaultPrice: 'white',
   qandaSearchBg: 'white',
-  qandaBorderLeft: '1px solid black',
-  qandaBorderTop: '1px solid black',
-  qandaBorderBottom: '1px solid black',
-  qandaIconBorderLeft: '1px solid black',
-  qandaIconBorderTop: '1px solid black',
-  qandaIconBorderBottom: '1px solid black',
+  qandaBorderLeft: '1px solid white',
+  qandaBorderTop: '1px solid white',
+  qandaBorderBottom: '1px solid white',
+  qandaIconBorderLeft: '1px solid white',
+  qandaIconBorderTop: '1px solid white',
+  qandaIconBorderBottom: '1px solid white',
   qandaPlaceholder: 'gray',
   showMoreBg: 'teal',
   showMoreColor: 'white',
@@ -39,6 +39,10 @@ export const lightTheme = {
   linkColor: 'black',
   modalCompareBg: 'white',
   modalCompareText: 'black',
+  salePriceColor: 'red',
+  caretColor: 'black',
+  dropdownShadow: 'rgba(0,0,0,0.2)',
+  searchBarBG: 'white',
   styleBorder: '3px solid teal',
   priceColor: 'red',
 };
@@ -82,6 +86,10 @@ export const darkTheme = {
   linkColor: 'white',
   modalCompareBg: '#121212',
   modalCompareText: 'white',
+  salePriceColor: '#FF5C5C',
+  caretColor: 'white',
+  dropdownShadow: 'rgba(0,0,0,0.3)',
+  searchBarBG: '#1c1c1e',
   styleBorder: '3px solid burlywood',
   priceColor: '#FF5C5C',
 };
@@ -203,7 +211,7 @@ a:visited {
 .logo {
   margin-top: 10px;
   font-size: 60px;
-  color: ${(props) => props.theme.burlyAndTeal};
+  color: teal;
 }
 
 .logotext {
@@ -213,12 +221,12 @@ a:visited {
 
 .search {
   width: 500px;
-  margin-top: 5px;
   height: 30px;
   border-style: none;
-  padding-top: 5px;
-  outline:none;
-  background-color: ${(props) => props.theme.headerBColor};
+  outline: none;
+  background-color: ${(props) => props.theme.searchBarBG};
+  border-radius: 15px;
+  padding-left: 15px;
 }
 
 .search:focus {
@@ -226,12 +234,21 @@ a:visited {
 }
 
 .searchbar {
+  display: flex;
+  align-items: center;
   border-bottom: ${(props) => props.theme.borderColor};
-  padding: 1px;
+  background-color: ${(props) => props.theme.searchBarBG};
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 20px;
+  margin-right: 20px;
 }
 
 .searchIcon {
-  font-size: 20px;
+  font-size: 18px;
+  padding-right: 15px;
+  border-radius: 15px;
+  background-color: ${(props) => props.theme.searchBarBG};
 }
 
 .shoppingBag {
@@ -249,7 +266,7 @@ a:visited {
   border-radius: 50%;
   width: 24px;
   height: 24px;
-  background-color: ${(props) => props.theme.burlyAndTeal};
+  background-color: teal;
   color: #fff;
   text-align: center;
   font-size: 16px;
@@ -300,7 +317,7 @@ a:visited {
 */
 
 .productCard {
-  border: ${(props) => props.theme.productBorderColor};;
+  border: ${(props) => props.theme.productBorderColor};
   width: 255px;
   height: 400px;
   margin-left: 10px;
@@ -368,7 +385,7 @@ a:visited {
 }
 
 .salePrice {
-  color: red;
+  color: ${(props) => props.theme.salePriceColor};
 }
 
 .defaultPrice {
@@ -402,10 +419,9 @@ a:visited {
   display: flex;
   flex-direction: column;
   width: 1250px;
-  height: 500px;
+  height: 900px;
   border-bottom: 1px dashed burlywood;
   border-top: 1px dashed burlywood;
-  // overflow-y: auto;
   overflow-y: hidden;
   padding: 20px;
   margin-top: 50px;
@@ -424,10 +440,11 @@ a:visited {
 
 .qanda-search {
   display: inline-flex;
-  border: 1px solid white;
+  border: 1px solid ${(props) => props.theme.caretColor};
   width: 1248px;
   height: 50px;
   margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .qanda-search-input {
@@ -438,7 +455,7 @@ a:visited {
   height: 50px;
   background-color: ${(props) => props.theme.qandaSearchBg};
   align-items: center;
-  caret-color: white;
+  caret-color: ${(props) => props.theme.caretColor};
   padding-left: 10px;
   color: ${(props) => props.theme.qandaPlaceholder};
   font-size: 16px;
@@ -451,8 +468,8 @@ a:visited {
   display: inline-flex;
   height: auto;
   border: none;
-  background-color: #48484a;
-  color: white;
+  background-color: ${(props) => props.theme.qandaSearchBg};
+  color: ${(props) => props.theme.caretColor};
   font-size: 30px;
   align-items: center;
   border-left: ${(props) => props.theme.qandaIconBorderLeft};
@@ -489,10 +506,11 @@ a:visited {
 .question-body {
   display: flex;
   width: 1250px;
-  height: 400px;
+  height: 800px;
   flex-direction: column;
   justify-content: space-between;
   font-size: 16px;
+  overflow-y: scroll;
 }
 
 .question-set {
@@ -532,6 +550,12 @@ a:visited {
   margin: 5px
 }
 
+.photoThumbnail {
+  display: inline-flex;
+  height: auto;
+  width: 20%;
+}
+
 .answer-photo {
   display: inline-flex;
   height: 100px;
@@ -562,16 +586,21 @@ input[type='file'] {
   height: 30px;
   background-color: ${(props) => props.theme.tealAndBurly};
   color: ${(props) => props.theme.fontColor};
+  border-radius: 6px;
+  border-style: none;
+  padding: 5px 10px;
 }
 
 .question-list-button {
-  height: 60px;
+  height: 30px;
   width: 150px;
   border-radius: 5px;
   border-style: none;
   display: inline-block;
   margin-right: 10px;
   margin-top: 10px;
+  border-radius: 6px;
+  border-style: none;
   background-color: ${(props) => props.theme.tealAndBurly};
   color: ${(props) => props.theme.fontColor};
 }
@@ -774,7 +803,6 @@ input[type='file'] {
   position: relative;
   overflow: hidden;
   grid: auto / auto-flow max-content;
-  z-index: 1;
   padding-left: 20px;
 }
 
@@ -789,7 +817,7 @@ input[type='file'] {
   width:100%;
   height: 100%;
   background: rgba(0, 0, 0, .15);
-  z-index: 2;
+  z-index: 99;
 }
 
 .modal-main {
@@ -802,6 +830,7 @@ input[type='file'] {
   left:50%;
   transform: translate(-50%,-50%);
   border: 1px solid black;
+  z-index: 99;
 }
 
 .modalTable {
@@ -809,6 +838,7 @@ input[type='file'] {
   height: 300px;
   padding: 10px;
   padding-bottom: 30px;
+  z-index: 99;
 }
 
 .modalData {
@@ -816,19 +846,23 @@ input[type='file'] {
   height: 10px;
   text-align: center;
   padding: 3px;
+  z-index: 99;
 }
 
 .tableHead {
   width: 750px;
   text-align: center;
+  z-index: 99;
 }
 
 .display-block {
   display: block;
+  z-index: 99;
 }
 
 .display-none {
   display: none;
+  z-index: 99;
 }
 
 /*
@@ -1393,6 +1427,7 @@ input[type='file'] {
 .reviewList {
   height: auto;
   width: 800px;
+  /* border: 2px solid black; */
   overflow-y: auto;
 }
 
@@ -1434,6 +1469,14 @@ input[type='file'] {
 .averageRating svg {
   margin-top: 2px;
   // padding-bottom: 15px;
+}
+
+.averageRating h1 {
+  font-size: 36px;
+}
+
+.averageRating svg {
+  padding-bottom: 15px;
 }
 
 /*
@@ -1621,14 +1664,16 @@ input[type='file'] {
 
 .reviewSortDropDown {
   position: absolute;
-  background-color: ${(props) => props.theme.tealAndBurly};
+  padding: 5px;
+  background-color: ${(props) => props.theme.mainBColor};
   width: 80px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px ${(props) => props.theme.dropdownShadow};
   z-index: 1;
 }
 
 .reviewSortDropDown p {
   color: ${(props) => props.theme.fontColor};
+  padding: 5px;
   margin: 0;
   margin-bottom: 3px;
 }
@@ -1717,6 +1762,7 @@ input[type='file'] {
 .reviewExpandButton {
   height: 60px;
   margin-right: 10px;
+  color: ${(props) => props.theme.buttonText};
 }
 
 .reviewCheckmark {

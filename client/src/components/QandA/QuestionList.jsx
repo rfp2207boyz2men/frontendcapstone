@@ -57,6 +57,8 @@ const QuestionList = (props) => {
   }
 
   return (
+    <React.Fragment>
+    <QandASearch searchQuestion={searchQuestion} />
     <div className='question-body'>
       {modal &&
         <QuestionModal
@@ -67,7 +69,6 @@ const QuestionList = (props) => {
       }
       {questionsCount ?
         <>
-          <QandASearch searchQuestion={searchQuestion} />
           {count < filteredCount ?
             <>
               <div className='question-list'>
@@ -126,6 +127,7 @@ const QuestionList = (props) => {
         </>
       }
     </div>
+    </React.Fragment>
   )
 }
 
