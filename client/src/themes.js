@@ -1158,6 +1158,12 @@ input[type='file'] {
   max-width: 500px;
 }
 
+#lens {
+  height: 125px;
+  width: 125px;
+  border: 2px solid black;
+}
+
 .expand {
   color: ${(props) => props.theme.fontColor};
   cursor: pointer;
