@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-
 import QandASearch from './QandASearch.jsx';
 import Question from './Question.jsx'
 import QuestionModal from './QuestionModal.jsx';
@@ -57,6 +56,8 @@ const QuestionList = (props) => {
   }
 
   return (
+    <React.Fragment>
+    <QandASearch searchQuestion={searchQuestion} />
     <div className='question-body'>
       {modal &&
         <QuestionModal
@@ -67,7 +68,6 @@ const QuestionList = (props) => {
       }
       {questionsCount ?
         <>
-          <QandASearch searchQuestion={searchQuestion} />
           {count < filteredCount ?
             <>
               <div className='question-list'>
@@ -78,6 +78,7 @@ const QuestionList = (props) => {
                     productName={props.productName} />
                 )}
               </div>
+<<<<<<< HEAD
               <button
                 className='question-list-button'
                 onClick={handleShowMore}>
@@ -88,6 +89,20 @@ const QuestionList = (props) => {
                 onClick={handleModal}>
                 Add a Question +
               </button>
+=======
+              <div className='qandaButtons'>
+                <button
+                  className='question-list-button'
+                  onClick={handleShowMore}>
+                  MORE QUESTIONS
+                </button>
+                <button
+                  className='question-list-button'
+                  onClick={handleModal}>
+                  ADD A QUESTION +
+                </button>
+              </div>
+>>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
             </> :
             <>
               <div className='question-list'>
@@ -99,18 +114,32 @@ const QuestionList = (props) => {
                 )}
               </div>
               {filteredCount > 2 &&
+<<<<<<< HEAD
                 <>
                   <button
                     className='question-list-button'
                     onClick={handleShowLess}>
                     Show Less
+=======
+                <div className='qandaButtons'>
+                  <button
+                    className='question-list-button'
+                    onClick={handleShowLess}>
+                    SHOW LESS
+>>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
                   </button>
                   <button
                     className='question-list-button'
                     onClick={handleModal}>
+<<<<<<< HEAD
                     Add a Question +
                   </button>
                 </>}
+=======
+                    ADD A QUESTION +
+                  </button>
+                </div>}
+>>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
             </>
           }
         </> :
@@ -119,11 +148,12 @@ const QuestionList = (props) => {
           <button
             className='question-list-button'
             onClick={handleModal}>
-            Add a Question +
+            ADD A QUESTION +
           </button>
         </>
       }
     </div>
+    </React.Fragment>
   )
 }
 

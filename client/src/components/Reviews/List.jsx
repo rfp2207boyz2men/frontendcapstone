@@ -12,6 +12,16 @@ const List = (props) => {
     setOverlay(!overlay);
   };
 
+  const renderHeader = () => {
+    return (
+      <div className='reviewListHeader'>
+        <h3>{props.reviews.length} reviews, sorted by &nbsp;</h3>
+        <h3><Sort sort={props.sort} onChange={props.onSortChange} /></h3>
+        <h3>Currently showing {props.slicedReviews.length} reviews</h3>
+      </div>
+    );
+  };
+
   return (
     <div className='reviewsMainBar'>
       {overlay &&
@@ -22,6 +32,7 @@ const List = (props) => {
           productId={props.productId}
           getReviews={props.getReviews}
           handleSubmit={props.handleSubmit}
+<<<<<<< HEAD
         />}
       <div className='reviewListHeader'>
         <h3>
@@ -32,6 +43,12 @@ const List = (props) => {
         Sort by:<Sort onChange={props.onSortChange} />
         <Search onChange={props.onQueryChange} />
       </div>
+=======
+        />
+      }
+      <Search onChange={props.onQueryChange} />
+      {renderHeader()}
+>>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
       {props.reviews.length > 0
         ? <div className='reviewList' data-testid='reviewList'>
           {props.slicedReviews.map((review, index) => (

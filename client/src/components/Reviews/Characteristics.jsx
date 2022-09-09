@@ -4,7 +4,6 @@ import { VscTriangleDown } from 'react-icons/vsc';
 const Characteristics = (props) => {
 
   let renderSection = (characteristics) => {
-    //Render out the final div that combines all the characteristics
     let characteristicsFormat = [];
     for (let characteristic in characteristics) {
       let value = characteristics[characteristic].value;
@@ -33,7 +32,6 @@ const Characteristics = (props) => {
   };
 
   let renderAggregate = (label, count, value, barLabels) => {
-    //Render out the div for a specific characteristic
     return (
       <div className='reviewCharacteristicSection' key={label}>
         {renderLabel(label)}
@@ -49,7 +47,6 @@ const Characteristics = (props) => {
   };
 
   let renderBars = (count) => {
-    //Render 3 or 5 bars depending on the characteristic
     let bars = [];
     let width = (300 / count) - 2;
     let style = { width: `${width}px` };
@@ -60,7 +57,6 @@ const Characteristics = (props) => {
   };
 
   let renderBarLabels = (belowLabels) => {
-    //Render the labels below the charactistic breakdown bars depending on the characteristic
     return (
       <div className='reviewCharacteristicBarLabels'>
         {belowLabels.map((label) => <p key={label}>{label}</p>)}
@@ -69,16 +65,10 @@ const Characteristics = (props) => {
   };
 
   let renderArrow = (value) => {
-    //Initial position of arrow is 5px right from the bar
-    //This should adjust the arrow to the appropriate position on the bar
-    //  rating value is 1 - 5
-    //  5 rating = right end of bar (0 px)
-    //  1 rating = left end of bar (300 px)
-    //  1 * (4 * 0.25)
     let trueValue = value - 1;
     let percentage = trueValue / 4;
     let right = 10 + (300 * (1 - percentage));
-    return <div style={{position: 'relative', right: `${right}px`}}><VscTriangleDown /></div>
+    return <div className='reviewCharacteristicArrow' style={{position: 'relative', right: `${right}px`}}><VscTriangleDown /></div>
   };
 
   return(

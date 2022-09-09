@@ -6,10 +6,10 @@ import SideBar from './SideBar.jsx';
 import { OrbitSpinner } from 'react-epic-spinners';
 
 const Reviews = (props) => {
+
   const [ratingPercentages, setRatingPercentages] = useState([]);
   const [averageRecommended, setAverageRecommended] = useState(0);
   const [initialized, setInitialized] = useState(false);
-
   const [reviews, setReviews] = useState([]);
   const [totalReviews, setTotalReviews] = useState(0);
   const [ratings, setRatings] = useState({});
@@ -23,6 +23,7 @@ const Reviews = (props) => {
   const [sort, setSort] = useState('relevant');
 
   useEffect(() => {
+<<<<<<< HEAD
     console.log('REVIEWS PROCCED');
     if (!localStorage.getItem('helpfulReviews')) {
       localStorage.setItem('helpfulReviews', JSON.stringify({}));
@@ -34,10 +35,11 @@ const Reviews = (props) => {
       localStorage.setItem('sort', 'relevant');
     }
 
+=======
+>>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
     let sort = localStorage.getItem('sort');
     let searchStars = JSON.parse(localStorage.getItem('searchStars'));
     let ratings = props.metaData.ratings;
-    //If no star rating for the selecting product, set rating to 0
     for (let i = 1; i <= 5; i++) {
       if (!ratings[i]) {
         ratings[i] = 0;
@@ -64,7 +66,6 @@ const Reviews = (props) => {
   }, []);
 
   const getSortedReviews = (totalReviews, sort) => {
-    //Get reviews based on total reviews then the sort
     let params = `?product_id=${props.productId}&count=${totalReviews}&sort=${sort}`;
     return Parse.getAll(`reviews/`, params)
   };
@@ -81,7 +82,6 @@ const Reviews = (props) => {
 
 
   const filterReviews = (reviews) => {
-    //TODO: Set up highlighting (split text?)
     let filteredReviews = [];
     let starFilter = enableFilter(searchStars);
 
@@ -102,7 +102,6 @@ const Reviews = (props) => {
   };
 
   const enableFilter = (searchStars) => {
-    //Determine if no stars are clicked (renders as though all 5 are clicked)
     for (let star in searchStars) {
       if (searchStars[star]) {
         return true;
@@ -126,42 +125,48 @@ const Reviews = (props) => {
   };
 
   const handleStarClick = (value) => {
+<<<<<<< HEAD
     localStorage.setItem('searchStars', JSON.stringify({ ...searchStars, [value]: !searchStars[value] }));
     let stars = ({ ...searchStars, [value]: !searchStars[value] })
     // setSearchStars((prevStars) => ({...prevStars, [value]: !searchStars[value]}));
+=======
+    localStorage.setItem('searchStars', JSON.stringify({...searchStars, [value]: !searchStars[value]}));
+    let stars = ({...searchStars, [value]: !searchStars[value]})
+>>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
     setSearchStars(stars);
     setStarFilter(enableFilter(stars));
   };
 
+<<<<<<< HEAD
   const handleOnSortChange = (e) => {
     localStorage.setItem('sort', e.target.value);
     getSortedReviews(totalReviews, e.target.value)
+=======
+  const handleOnSortChange = (sort) => {
+    localStorage.setItem('sort', sort);
+    getSortedReviews(totalReviews, sort)
+>>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
       .then((reviews) => {
         setReviews(reviews.data.results);
         let filteredReviews = filterReviews(reviews.data.results);
         setFilteredReviews(filteredReviews);
         setSlicedReviews(filteredReviews.slice(0, showAmount));
+<<<<<<< HEAD
         setSort(e.target.value);
+=======
+        setSort(sort);
+>>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
       })
       .catch((err) => console.log(err));
   };
 
   useEffect(() => {
-    //If either stars or query change, filter reviews
     let filteredReviews = filterReviews(reviews);
     setFilteredReviews(filteredReviews);
     setSlicedReviews(filteredReviews.slice(0, showAmount));
   }, [searchStars, searchQuery])
 
-  // useEffect(() => {
-  //   console.log('SORT: ', sort);
-  //   console.log('PROPS REVIEWS: ', props.totalReviews);
-  //   //If the sort has changed, do another GET request with that sort parameter
-  //   getSortedReviews();
-  // }, [sort])
-
   const handleReport = (index) => {
-    //Immediately render out reported review instead of doing a GET request
     let filteredReviewsCopy = filteredReviews.slice();
     filteredReviewsCopy.splice(index, 1);
     setFilteredReviews(filteredReviewsCopy);
@@ -169,7 +174,6 @@ const Reviews = (props) => {
   };
 
   const handleShowMore = () => {
-    //Increased sliceReviews length by 2 reviews
     setSlicedReviews(filteredReviews.slice(0, showAmount + 2));
     setShowAmount(showAmount + 2);
   };
@@ -201,6 +205,7 @@ const Reviews = (props) => {
       .catch((err) => console.log(err));
   };
 
+<<<<<<< HEAD
   return (
     <div onClick={props.trackClick} data-testid='mainReviewPage'>
       {initialized
@@ -239,6 +244,45 @@ const Reviews = (props) => {
           />
         </div>
         : <OrbitSpinner color='green' />}
+=======
+  return(
+    <div onClick={props.trackClick}>
+      {initialized
+      ?<div className='reviewMain'>
+        <SideBar
+          renderStars={props.renderStars}
+          ratings={ratings}
+          totalReviews={totalReviews}
+          averageRating={averageRating}
+          ratingPercentages={ratingPercentages}
+          averageRecommended={averageRecommended}
+          characteristics={props.metaData.characteristics}
+          clickedStars={searchStars}
+          handleClick={handleStarClick}
+          starFilter={starFilter}
+          removeStarFilter={removeStarFilter}
+        />
+        <List
+          reviews={reviews}
+          renderStars={props.renderStars}
+          totalReviews={props.totalReviews}
+          characteristics={props.metaData.characteristics}
+          productName={props.productName}
+          productId={props.productId}
+          handleShowMore={handleShowMore}
+          filteredReviews={filteredReviews}
+          slicedReviews={slicedReviews}
+          sort={sort}
+          getReviews={getSortedReviews}
+          handleReport={handleReport}
+          onQueryChange={handleOnQueryChange}
+          onSortChange={handleOnSortChange}
+          handleSubmit={handleSubmitReview}
+          searchQuery={searchQuery}
+        />
+      </div>
+      :<OrbitSpinner color='green' />}
+>>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
     </div>
   )
 };

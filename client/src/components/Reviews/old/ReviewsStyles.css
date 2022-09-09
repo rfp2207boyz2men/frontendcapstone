@@ -1,0 +1,531 @@
+/* ******************
+  MAIN DIVS
+
+
+.reviewMain {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 1400px;
+  height: auto;
+  padding: 20px;
+}
+
+.reviewSideBar {
+  display: flex;
+  flex-direction: column;
+  height: 1150px;
+  width: 400px;
+  margin-right: 30px;
+  padding: 20px 10px;
+}
+
+.reviewList {
+  max-height: 1000px;
+  width: 900px;
+  overflow-y: auto;
+}
+
+.reviewList::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/*******************
+  SIDE BAR
+********************/
+
+/*
+  AVERAGE RATING
+*/
+
+.averageRating {
+  display: flex;
+}
+
+/*
+  RECOMMENDATIONS
+*/
+
+/*
+  RATING BREAKDOWNS
+*/
+
+.ratingBreakdown {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 400px;
+  height: 400px;
+}
+
+.reviewBarSectionOff,
+.reviewBarSectionOn {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  width: inherit;
+}
+
+.reviewBarSectionOn {
+  background-color: rgba(0, 128, 128, 0.274);
+}
+
+.reviewBarSectionOff:hover {
+  cursor: pointer;
+}
+
+.reviewBarSectionOn:hover {
+  cursor: pointer;
+}
+
+.reviewBarLabel {
+  width: 50px;
+  margin-right: 10px;
+}
+
+.reviewBar {
+  height: 10px;
+  width: 300px;
+  margin-top: 30px;
+}
+
+/* .ratingStarIndicator {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 80px;
+}
+
+.ratingStarIndicator u {
+  cursor: pointer;
+}
+
+
+.ratingStarIndicatorStars {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.ratingStarIndicatorStars p {
+  margin: 0;
+} */
+
+/*
+  CHARACTERISTICS
+*/
+
+.reviewCharacteristicSection {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 400px;
+  padding-left: 8px;
+}
+
+.reviewCharacteristicLabel {
+  height: 10px;
+  width: 50px;
+  margin-right: 10px;
+}
+
+.reviewCharacteristicBarSection {
+  display: flex;
+  flex-direction: row;
+}
+
+.reviewCharacteristicBar {
+  height: 10px;
+  background-color: gray;
+  margin-top: 15px;
+  margin-right: 2px;
+}
+
+.reviewCharacteristicBarLabels {
+  display: flex;
+  flex-direction: row;
+  width: 300px;
+  margin-left: 60px;
+  justify-content: space-between;
+  height: 30px;
+}
+
+
+
+
+/**********************
+  REVIEW LIST
+***********************/
+
+<<<<<<< HEAD:client/src/components/Reviews/ReviewsStyles.css
+=======
+.reviewSearchSection {
+  display: inline-flex;
+  border-bottom: 1px solid grey;
+  width: 800px;
+  height: 50px;
+  align-items: center;
+}
+
+.reviewSearchBar {
+  display: inline-flex;
+  width: 800px;
+  height: 50px;
+  background-color: transparent;
+  border: 0;
+  font-size: 16px;
+}
+
+.reviewSearchBarIcon {
+  float: right;
+  border: none;
+  background-color: transparent;
+  font-size: 30px;
+}
+
+.reviewSearchBar::placeholder {
+  display: flex;
+  font-size: 16px;
+}
+
+.reviewSortSection span {
+  border-bottom: 1px solid black;
+  cursor: pointer;
+}
+
+.reviewSortDropDown {
+  position: absolute;
+  /* margin-left: 53px; */
+  background-color: gray;
+}
+
+.reviewSortDropDown p {
+  margin: 0;
+}
+
+.reviewCheckmark {
+  color: red;
+}
+
+.reviewSortDropDown p:hover {
+  /* background-color: red; */
+  cursor: pointer;
+}
+
+>>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2:client/src/components/Reviews/old/ReviewsStyles.css
+.reviewListHeader {
+  display: flex;
+  flex-direction: row;
+}
+
+.reviewTile {
+  border-bottom: 3px solid gray;
+  padding: 4px 10px;
+}
+
+.reviewUserInfo {
+  display: flex;
+  flex-direction: row;
+}
+
+.reviewBodySection {
+  overflow-wrap: break-word;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.reviewPhotoThumbnail {
+  height: 100px;
+  margin-right: 10px;
+}
+
+.reviewResponse {
+  background-color: rgba(180, 179, 179, 0.938);
+  width: 80%;
+}
+
+.reviewInteractions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.reviewHelpful {
+  display: flex;
+  flex-direction: row;
+}
+
+.reviewHelpful p{
+  margin-right: 5px;
+}
+
+.reviewExpandButtonSection {
+  margin-top: 20px;
+}
+
+.reviewExpandButton {
+  height: 60px;
+  margin-right: 10px;
+}
+
+/**********************
+  PHOTO OVERLAY
+***********************/
+
+.reviewPhotoExpand {
+  position: fixed;
+  max-height: 90vh;
+  max-width: 90vw;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+  background-color: white;
+  border: 2px solid teal;
+  z-index: 3;
+  overflow-y: visible;
+}
+
+.reviewPhotoExit {
+  left: 10px;
+  top: 10px;
+}
+
+/**********************
+  INPUT OVERLAY
+***********************/
+
+.reviewOverlayBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 30%;
+  height: 100vh;
+  width: 100vw;
+}
+
+/**********************
+  REVIEW INPUT
+***********************/
+
+.reviewInput {
+  position: fixed;
+  --height: 900px;
+  --width: 1000px;
+  top: calc(50% - (var(--height) / 2));
+  left: calc(50% - (var(--width) / 2));
+  margin: auto;
+  height: var(--height);
+  width: var(--width);
+  padding: 6px 18px;
+  background-color: white;
+  border: 2px solid teal;
+  z-index: 1;
+  overflow-y:scroll;
+}
+
+.reviewInput h2 {
+  margin-top: 6px;
+  margin-bottom: 4px;
+}
+
+.reviewInput h3 {
+  margin-top: 20px;
+  margin-bottom: 6px;
+}
+
+.reviewInput>h4 {
+  margin-top: 0;
+  margin-left: 15px;
+}
+
+.reviewInput p {
+  margin-top: 0;
+}
+
+.reviewInput span {
+  margin-left: 3px;
+}
+
+.reviewInputExit {
+  position: absolute;
+  left: 96%;
+  top: 10px;
+}
+
+.reviewInput textarea {
+  width: calc(var(--width) - 105px);
+  height: 135px;
+  resize: none;
+}
+
+.reviewTextInput {
+  width: 550px;
+}
+
+.reviewInputExit:hover {
+  cursor: pointer;
+  color: red;
+}
+
+.reviewSubmit {
+  height: 60px;
+  width: 150px;
+  margin-top: 40px;
+}
+
+.reviewSubmitEnable {
+  cursor: pointer;
+}
+
+.reviewInputErrors {
+  position: absolute;
+  left: 700px;
+  top: 985px;
+  color: red;
+}
+
+.reviewInputErrors p {
+  margin: 0;
+  margin-bottom: 5px;
+  margin-left: 6px;
+}
+
+/*
+  STAR INPUT
+*/
+
+.reviewInputStarSection {
+  display: flex;
+  flex-direction: row;
+  width: 300px;
+  padding: 1px 5px;
+}
+
+.reviewInputStarSection p {
+  margin: 0;
+  margin-left: 10px;
+}
+
+.ratingInputStar {
+  margin-right: 7px;
+  cursor: pointer;
+}
+
+.ratingInputStar:first-child {
+  margin-left: 2px;
+}
+
+/*
+  RECOMMENDATION INPUT
+*/
+
+.reviewInputRecommendations {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: auto;
+  padding: 1px 5px;
+}
+
+.reviewInputRecommendations input {
+  margin-right: 6px;
+  cursor: pointer;
+}
+
+.reviewInputRecommendations p {
+  margin: 0;
+  margin-right: 40px;
+}
+
+/*
+  CHARACTERISTIC INPUT
+*/
+
+.reviewInputCharacteristicsAggregate {
+  padding: 1px 5px;
+  width: 550px;
+}
+
+.reviewInputCharacteristicSection {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: auto;
+  margin-top: 5px;
+  border-bottom: 1px solid black;
+}
+
+.reviewInputCharacteristicSection:first-child {
+  margin-top: 0;
+}
+
+.reviewInputCharacteristicLabel {
+  margin: 0;
+  margin-bottom: 3px;
+}
+
+.reviewInputCharacteristicButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.reviewInputCharacteristicButtons input {
+  cursor: pointer;
+}
+
+.reviewInputCharacteristicsDescriptors {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.reviewInputCharacteristicsDescriptors p {
+  margin: 5px 0;
+}
+
+
+/*
+  IMAGES INPUT
+*/
+
+.reviewInputPhotoSection {
+  display: flex;
+  flex-direction: row;
+  height: 110px;
+  width: calc(var(--width) - 100px);
+  border: 1px solid black;
+}
+
+.reviewInputPhotoThumbnail {
+  height: 100px;
+  margin: 5px;
+  margin-right: 10px;
+}
+
+.reviewInputPhotoButton {
+  display: flex;
+  flex-direction: column;
+  background-color: #cccccc;
+  height: 110px;
+  width: 80px;
+  justify-content: center;
+  align-items: center;
+}
+
+.reviewInputPhotoButton:hover {
+  background-color: teal;
+  cursor: pointer;
+}
+
+.reviewInputPhotoButtonPlus {
+  font-size: 40px;
+  margin: auto;
+}

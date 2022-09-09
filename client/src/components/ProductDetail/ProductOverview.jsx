@@ -7,10 +7,6 @@ import { FacebookShareButton, TwitterShareButton, PinterestShareButton } from 'r
 import { TiTick } from 'react-icons/ti';
 
 
-
-
-/* --------------------  ProductOverview  --------------------*/
-
 function ProductOverview({ product, currentPhoto, currentStyle }) {
   const [loading, setLoading] = useState(true);
   const [shareQuote, setShareQuote] = useState();
@@ -21,7 +17,6 @@ function ProductOverview({ product, currentPhoto, currentStyle }) {
     if (currentStyle) {
       setShareQuote(`Check this Awesome item! ${product.name}, $${product.default_price}`);
       setShareHashtag([`Awesome:${product.category}`, `Reviews:${product.totalReviews}`]);
-      // set loading was moved to product useEffect
     }
   }, [currentStyle])
 

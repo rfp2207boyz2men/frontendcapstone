@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import Parse from '../../parse.js';
 import { OrbitSpinner } from 'react-epic-spinners';
@@ -15,6 +14,7 @@ function Overview() {
     handleLocalClick,
     handleSelectedProduct,
     handleLocalSave,
+    metaData,
     localName,
     localId,
     renderStars,
@@ -24,7 +24,6 @@ function Overview() {
     handleOutfitAdds,
     outfits,
   } = useContext(AppContext);
-
 
 
   const [product, setProduct] = useState();
@@ -53,10 +52,10 @@ function Overview() {
 
     set.styles = requestStyles.data.results;
 
-    params = `?product_id=${selectedProduct.id}`;
-    const requestMeta = await Parse.getAll(`reviews/meta/`, params);
-    set.averageRating = getAverageRating(requestMeta.data.ratings);
-    set.totalReviews = getTotalReviews(requestMeta.data.recommended);
+    // params = `?product_id=${selectedProduct.id}`;
+    // const requestMeta = await Parse.getAll(`reviews/meta/`, params);
+    set.averageRating = getAverageRating(metaData.ratings);
+    set.totalReviews = getTotalReviews(metaData.recommended);
 
     if (set.styles[0].photos[0].url !== null) {
       setCurrentPhoto(set.styles[0].photos[0].url);
@@ -80,8 +79,11 @@ function Overview() {
   //   const request = await Parse.getAll('cart', undefined);
   // }
 
+<<<<<<< HEAD
+=======
 
-  /* --------------------  style selection events  --------------------*/
+>>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
+
   const handleProductClick = (e) => {
     e.preventDefault();
   }
@@ -96,10 +98,9 @@ function Overview() {
     setCurrentStyle(prod);
     setCurrentPhoto(prod.photos[0].url);
   }
-  /* --------------------  style selection events  --------------------*/
 
 
-  /* --------------------  gallery arrows events  --------------------*/
+
   const handleThumbClick = (e, item) => {
     let lastIndex = currentStyle.photos.length - 1;
     currentStyle.photos[0].url === e.target.id ? setArrowLeft(false) : setArrowLeft(true);
@@ -169,14 +170,12 @@ function Overview() {
     setArrowDown(true);
     setArrowRight(true);
     setStylesList(currentStyle.photos.slice(0, 7));
-    setCurrentPhoto(currentStyle.photos[0].url);
+    setCurrentPhoto(currentStyle.photos[6].url);
   }
   const handleExpandedView = (e) => {
     e.preventDefault();
     setExpand(prevExpand => !prevExpand);
   }
-  /* --------------------  gallery arrows events  --------------------*/
-
 
 
   return (
@@ -217,8 +216,8 @@ function Overview() {
           outfitAdd={handleOutfitAdds}
         />
       </div>
-      <ProductOverview product={product} currentPhoto={currentPhoto} currentStyle={currentStyle} />
-    </React.Fragment >
+      <ProductOverview product={product} currentPhoto={currentPhoto} currentStyle={currentStyle} trackClick={trackClick} />
+    </React.Fragment>
   )
 
 }

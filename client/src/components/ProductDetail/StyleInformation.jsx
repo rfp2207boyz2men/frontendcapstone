@@ -8,7 +8,10 @@ import { OrbitSpinner } from 'react-epic-spinners';
 import { TiStarFullOutline, TiStarHalfOutline, TiStarOutline } from 'react-icons/ti';
 
 
+<<<<<<< HEAD
 /* --------------------  StyleInformation  --------------------*/
+=======
+>>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
 function StyleInformation({
   product,
   currentStyle,
@@ -37,7 +40,10 @@ function StyleInformation({
     if (currentStyle) {
       setShareQuote(`Check this Awesome item! ${product.name}, $${product.default_price}`);
       setShareHashtag([`Awesome:${product.category}`, `Reviews:${product.totalReviews}`]);
+<<<<<<< HEAD
       // set loading was moved to product useEffect
+=======
+>>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
       if (currentStyle.skus.null) {
         setHaveStock(false);
       }
@@ -62,6 +68,7 @@ function StyleInformation({
 
 
   let findDuplicates = [];
+  let sizeRenderList = [];
 
   const handleSize = (e) => {
     let keys = [];
@@ -79,10 +86,19 @@ function StyleInformation({
       }
     }
     setQty(parseInt(e.target.value));
+<<<<<<< HEAD
     console.log(e.target.value);
     if (e.target.value === '0') {
       setSizeClick(true);
     }
+=======
+    if (e.target.value === '0') {
+      setSizeClick(true);
+    }
+    if (e.target.value !== '0') {
+      setSizeClick(false);
+    }
+>>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
   }
 
   const renderQty = (qty) => {
@@ -107,7 +123,10 @@ function StyleInformation({
   async function addToCart(skusId) {
     let params = { sku_id: skusId };
     const request = await Parse.create('cart', undefined, params);
+<<<<<<< HEAD
     console.log(request.data);
+=======
+>>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
     getCart();
   }
 
@@ -122,6 +141,10 @@ function StyleInformation({
   const relatedLink = (e) => {
     e.preventDefault();
     window.location.replace("/#related");
+  }
+
+  const handleOutfitClick = () => {
+    outfitAdd(product)
   }
 
   const handleOutfitClick = () => {
@@ -173,71 +196,106 @@ function StyleInformation({
                             onClick={(e, url, prod) => {
                               handleStyleClick(e, item.url, item);
                             }}
+<<<<<<< HEAD
                             src={item.photos[0].thumbnail_url}></img>
-                          <FaCheckCircle className='check-active' />
+=======
+                            src={item.photos[0].thumbnail_url}
+                            alt='Style Thumbnail'></img>
+>>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
+                        <FaCheckCircle className='check-active' />
                         </div>
-                      )
+            )
                     } else {
                       return (
-                        <img className='style-entry' key={id}
-                          id={item.style_id}
-                          name={item.name}
-                          onClick={(e, url, prod) => {
-                            handleStyleClick(e, item.url, item);
-                          }}
-                          src={item.photos[0].thumbnail_url} ></img>
-                      )
+            <img className='style-entry' key={id}
+              id={item.style_id}
+              name={item.name}
+              onClick={(e, url, prod) => {
+                handleStyleClick(e, item.url, item);
+              }}
+              src={item.photos[0].thumbnail_url}
+              alt='Style Thumbnail'></img>
+            )
                     }
                   }
 
                 })}
 
-            </div>
-          </div>
-
-
-          {!haveStock ?
-            <div className='add-container'>
-              <div className='out-of-stock'>out of stock :(</div>
-            </div>
-            :
-            <div className='add-container'>
-              {sizeClick ? <div className='select-size-please'>Please select a size</div> : <></>}
-              <select className='select' value={qty} onChange={handleSize}>
-                <option className='select' value="0">Select Size</option>
-                {currentStyle &&
-                  Object.values(currentStyle.skus).map((item => {
-                    let idR = Math.random();
-                    return <option className='select' id={item.size} value={item.quantity} key={idR}>{item.size}</option>
-                  }))}
-              </select>
-
-              <select className='select' onChange={handleQty}>
-                {qty ? <option className='option'>1</option> : <option className='option' value="-">-</option>}
-                {qty && renderQty(qty)}
-              </select>
-
-              <button className='add-cart' onClick={(e) => { handleLocalSave(e); handleAddToCart(e); }}>ADD TO CART</button>
-              <button className='select select-star' onClick={handleOutfitClick}><TiStarFullOutline /></button>
-            </div>
-          }
-
-          <div className='social'>
-            <FacebookShareButton className='social-btn' url={shareUrl} quote={shareQuote} hashtag={`#${shareHashtag}`}>
-              <FaFacebook />
-            </FacebookShareButton>
-            <TwitterShareButton className='social-btn' url={shareUrl} title={shareQuote} hashtag={`${shareHashtag}`}>
-              <FaTwitter />
-            </TwitterShareButton>
-            <PinterestShareButton className='social-btn' url={shareUrl} media={shareUrl} description={shareQuote} >
-              <FaPinterest />
-            </PinterestShareButton>
           </div>
         </div>
+          {!haveStock ?
+        <div className='add-container'>
+          <div className='out-of-stock'>out of stock :(</div>
+        </div>
         :
-        <OrbitSpinner color="teal" />
-      }
+        <div className='add-container'>
+          {sizeClick ? <div className='select-size-please'>Please select a size</div> : <></>}
+          <select className='select select-size-dropdown' value={qty} onChange={handleSize}>
+            <option className='select' value="0">SELECT SIZE</option>
+            {currentStyle &&
+              Object.values(currentStyle.skus).map((item => {
+                let idR = Math.random();
+                if (sizeRenderList.includes(item.size)) {
+                  return;
+                } else {
+                  sizeRenderList.push(item.size);
+                  return <option className='select' id={item.size} value={item.quantity} key={idR}>{item.size}</option>
+                }
+              }))}
+          </select>
+
+<<<<<<< HEAD
+
+  {
+    !haveStock ?
+    <div className='add-container'>
+      <div className='out-of-stock'>out of stock :(</div>
     </div>
+    :
+    <div className='add-container'>
+      {sizeClick ? <div className='select-size-please'>Please select a size</div> : <></>}
+      <select className='select' value={qty} onChange={handleSize}>
+        <option className='select' value="0">Select Size</option>
+        {currentStyle &&
+          Object.values(currentStyle.skus).map((item => {
+            let idR = Math.random();
+            return <option className='select' id={item.size} value={item.quantity} key={idR}>{item.size}</option>
+          }))}
+      </select>
+
+      <select className='select' onChange={handleQty}>
+=======
+              <select className='select select-quantity' onChange={handleQty}>
+>>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
+          {qty ? <option className='option'>1</option> : <option className='option' value="-">-</option>}
+          {qty && renderQty(qty)}
+        </select>
+
+        <button className='add-cart' onClick={(e) => { handleLocalSave(e); handleAddToCart(e); }}>ADD TO CART</button>
+<<<<<<< HEAD
+    <button className='select select-star' onClick={handleOutfitClick}><TiStarFullOutline /></button>
+=======
+              <button className='select select-star' aria-label='Add Outfit' onClick={handleOutfitClick}><TiStarFullOutline /></button>
+>>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
+            </div >
+          }
+
+  <div className='social'>
+    <FacebookShareButton className='social-btn' url={shareUrl} quote={shareQuote} hashtag={`#${shareHashtag}`}>
+      <FaFacebook />
+    </FacebookShareButton>
+    <TwitterShareButton className='social-btn' url={shareUrl} title={shareQuote} hashtag={`${shareHashtag}`}>
+      <FaTwitter />
+    </TwitterShareButton>
+    <PinterestShareButton className='social-btn' url={shareUrl} media={shareUrl} description={shareQuote} >
+      <FaPinterest />
+    </PinterestShareButton>
+  </div>
+        </div >
+        :
+  <OrbitSpinner color="teal" />
+}
+    </div >
 
 
 

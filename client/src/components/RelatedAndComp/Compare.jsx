@@ -1,10 +1,9 @@
 import React from 'react';
 import { FcCheckmark } from 'react-icons/fc'
 
-const Modal = ({ handleClose, show, current, clicked }) => {
+const ComparisonModal = ({ handleClose, show, current, clicked }) => {
   const showHideClassName = show ? "modal display-block" : "modal display-none";
 
-  // Creates a list of features to segment out dupes, then maps out it on the data table
   let featuresList = [...current.features]
   clicked.features.forEach(feature =>{
     if (featuresList.filter(ft => { if (ft.feature === feature.feature && ft.value === feature.value) return feature}).length === 0) {
@@ -45,4 +44,4 @@ const Modal = ({ handleClose, show, current, clicked }) => {
   );
 };
 
-export default Modal;
+export default ComparisonModal;

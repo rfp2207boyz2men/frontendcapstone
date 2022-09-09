@@ -4,7 +4,12 @@ import ProductCard from './ProductCard.jsx';
 import Outfits from './Outfits.jsx';
 import { RiArrowRightSLine, RiArrowLeftSLine } from 'react-icons/ri'
 
+<<<<<<< HEAD
 const Related = ({ selectedProduct, addToOutfit, selectStyle, avgRating, starRender }) => {
+=======
+const Related = ({ selectedProduct, addToOutfit, selectStyle, avgRating, starRender, trackClick }) => {
+
+>>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
   const [relatedIds, setRelatedIds] = useState([]);
   const [carousel, setCarousel] = useState([]);
   const [left, setLeft] = useState([]);
@@ -12,17 +17,14 @@ const Related = ({ selectedProduct, addToOutfit, selectStyle, avgRating, starRen
   const [view, setView] = useState([])
 
   useEffect(() => {
-    // Requests the related_ids from API based on selected product within App
     Parse.getAll('products', `/${selectedProduct.id}/related`)
       .then((relatedProducts) => {
-        // cleans the data for any dupes
         let cleanedData = [];
         relatedProducts.data.forEach(id => {
           if (!cleanedData.includes(id) && id !== selectedProduct.id) {
             cleanedData.push(id)
           }
         })
-        console.log(cleanedData)
         if (cleanedData.length > 4) {
           setCarousel(cleanedData.slice(0, 4))
           setView(cleanedData.slice(0, 4))
