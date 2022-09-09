@@ -81,24 +81,11 @@ const Tile = (props) => {
       return (
         <p>You set this review as: Helpful ({props.review.helpfulness + (localClick ? 1 : 0)})</p>
       )
-<<<<<<< HEAD
-      // }
-      // } else if (localStorageCopy[props.review.review_id] === false) {
-      // return(
-      // <p>You set this review as: Not helpful ({props.review.helpfulness})</p>
-      // )
-=======
->>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
     } else {
       return (
         <div className='reviewHelpful'>
           <p>Helpful?</p>
-<<<<<<< HEAD
           <p onClick={() => handleHelpful(true)}><u>Yes</u></p>
-          {/* <p onClick={()=>handleHelpful(false)}><u>No</u></p> */}
-=======
-          <p onClick={()=>handleHelpful(true)}><u>Yes</u></p>
->>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
           <p>({props.review.helpfulness})</p>
         </div>
       )
@@ -108,12 +95,7 @@ const Tile = (props) => {
   const handleHelpful = (value) => {
     if (value) {
       Parse.update(`reviews/`, `${props.review.review_id}/helpful`)
-<<<<<<< HEAD
-        .then(() => console.log('helpful submit'))
         .catch((err) => console.log(err));
-=======
-      .catch((err) => console.log(err));
->>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
     }
 
     let review_id = props.review.review_id;
@@ -152,25 +134,16 @@ const Tile = (props) => {
         {(props.review.body.length > 250 && !showMore) && <p onClick={handleShowMore}><u>Show more...</u></p>}
         {props.review.photos.length >= 1 &&
           <div className='reviewPhotoThumbnailSection'>
-<<<<<<< HEAD
-            {props.review.photos.map((photo, index) => <img src={photo.url} className='reviewPhotoThumbnail' onClick={handlePhotoClick} key={index} />)}
-          </div>}
-=======
-            {props.review.photos.map((photo, index) => <img src={photo.url} className='reviewPhotoThumbnail' alt='Review photo thumbnail' onClick={handlePhotoClick} key={index}/>)}
+            {props.review.photos.map((photo, index) => <img src={photo.url} className='reviewPhotoThumbnail' alt='Review photo thumbnail' onClick={handlePhotoClick} key={index} />)}
           </div>
         }
->>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
         {props.review.response &&
           <div className='reviewResponse'>
             <span><b>Response:</b></span>
             <p>{parseResponse()}</p>
-<<<<<<< HEAD
-          </div>}
-=======
           </div>
         }
         {props.review.recommend && <p><FaCheckCircle className='reviewCheckmark' /> I recommend this product</p>}
->>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
       </div>
       <div className='reviewInteractions'>
         {renderHelpful()}

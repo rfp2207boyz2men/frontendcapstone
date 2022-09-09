@@ -45,8 +45,6 @@ const App = () => {
   }
 
   useEffect(() => {
-<<<<<<< HEAD
-=======
     if (!localStorage.getItem('helpfulReviews')) {
       localStorage.setItem('helpfulReviews', JSON.stringify({}));
     }
@@ -58,7 +56,6 @@ const App = () => {
     }
 
 
->>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
 
     if (!localStorage.getItem('helpfulReviews')) {
       localStorage.setItem('helpfulReviews', JSON.stringify({}));
@@ -78,15 +75,10 @@ const App = () => {
       .then((products) => {
         updateSelectedProduct(products.data[0].id);
       })
-<<<<<<< HEAD
-
-
-=======
       .catch((err) => {
         console.log(err);
         return setCrashed(true);
       });
->>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
     retrieveStorage();
     getCart();
   }, []);
@@ -231,34 +223,7 @@ const App = () => {
   const OutfitsTrack = ClickTracker(Outfits, 'Outfits');
   const ReviewsTrack = ClickTracker(Reviews, 'Reviews');
   const QandATrack = ClickTracker(QandA, 'Questions & Answers');
-<<<<<<< HEAD
-
-  const trackHeader = (e) => {
-    //This particular tracker used for Header because of issues creating a separate header component
-    //When invoked via onClick, enable window.onclick
-    window.onclick = () => {
-      let date = (moment(new Date()).format('MMM DD[,] YYYY[,] hh:mm:ss a'));
-      // console.log(e.target.outerHTML);
-      console.log(`Widget: Header || Date: ${date}`);
-
-      let params = {
-        // element: `${e.target.className}`,
-        element: e.target.outerHTML,
-        widget: 'Header',
-        time: date
-      };
-
-      Parse.create('interactions', undefined, params)
-        // .then((response) => console.log(response))
-        .catch((err) => console.log(err));
-
-      //Disable window.onclick at the end of function to prevent from clicking on elements with no component(like page border)
-      window.onclick = () => { };
-    }
-  };
-=======
   const HeaderTrack = ClickTracker(Header, 'Header');
->>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
 
   return (
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
@@ -267,10 +232,7 @@ const App = () => {
         selectedProduct,
         localName,
         outfits,
-<<<<<<< HEAD
-=======
         metaData,
->>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
         handleSelectedProduct,
         handleLocalClick,
         handleLocalSave,
@@ -282,36 +244,12 @@ const App = () => {
       }}>
         {loading &&
           <StyledApp>
-<<<<<<< HEAD
-            <div className="header" onClick={trackHeader}>
-              <div className="logoheader">
-                <div className="logotext"><h1>Odin</h1></div>
-                <div className="logo"><GiTriquetra /></div>
-              </div>
-              <div className="toprightHeader">
-                <div className="searchbar"><input className="search" placeholder="Search"></input><GoSearch className="searchIcon" /></div>
-                <div className="shoppingBag"><BsBag />{cart && <div className='cart'>{cart.length}</div>}</div>
-              </div>
-              {theme === 'light' ?
-                <div className='theme-toggler' onClick={themeToggler}>
-                  <MdLightMode />
-                  Theme
-                </div>
-                :
-                <div className='theme-toggler' onClick={themeToggler}>
-                  <MdDarkMode />
-                  Theme
-                </div>
-              }
-            </div>
-=======
             <HeaderTrack
               theme={theme}
               cart={cart}
               themeToggler={themeToggler}
               onClick={resetToFirstProduct}
             />
->>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
             <div className="main">
               <div>
                 <OverviewTrack
@@ -349,18 +287,12 @@ const App = () => {
                   metaData={metaData}
                   renderStars={renderStars}
                   productName={selectedProduct.name}
-                  productId={selectedProduct.id}/>
+                  productId={selectedProduct.id} />
               </div>
             </div>
-<<<<<<< HEAD
-          </StyledApp>
-          : <OrbitSpinner color='teal' />
-        }
-=======
           </StyledApp>}
-          {(!loading && !crashed) && <StyledApp className="spinner"><OrbitSpinner color='teal' /></StyledApp>}
-          {crashed && <FourOhFour reset={resetToFirstProduct}/>}
->>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
+        {(!loading && !crashed) && <StyledApp className="spinner"><OrbitSpinner color='teal' /></StyledApp>}
+        {crashed && <FourOhFour reset={resetToFirstProduct} />}
       </AppContext.Provider>
     </ThemeProvider>
   )

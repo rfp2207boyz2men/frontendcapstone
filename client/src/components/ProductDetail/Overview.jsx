@@ -79,10 +79,6 @@ function Overview() {
   //   const request = await Parse.getAll('cart', undefined);
   // }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
 
   const handleProductClick = (e) => {
     e.preventDefault();

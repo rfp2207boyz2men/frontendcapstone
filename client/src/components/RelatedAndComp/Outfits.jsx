@@ -6,12 +6,8 @@ import { OrbitSpinner } from 'react-epic-spinners';
 import { BsPlusCircle } from 'react-icons/bs';
 import { RiArrowRightSLine, RiArrowLeftSLine } from 'react-icons/ri'
 
-<<<<<<< HEAD
-const Outfits = ({ outfits, current, outfitAdd, outfitRemove, avgRating, styleId, starRender }) => {
-=======
 const Outfits = ({ outfits, current, outfitAdd, outfitRemove, avgRating, styleId, starRender, trackClick }) => {
 
->>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
   const [outfitHover, setOutfitHover] = useState(false);
   const [carousel, setCarousel] = useState([]);
   const [left, setLeft] = useState([]);

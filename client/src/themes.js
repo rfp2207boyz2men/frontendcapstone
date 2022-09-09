@@ -39,13 +39,10 @@ export const lightTheme = {
   linkColor: 'black',
   modalCompareBg: 'white',
   modalCompareText: 'black',
-<<<<<<< HEAD
-=======
   salePriceColor: 'red',
   caretColor: 'black',
   dropdownShadow: 'rgba(0,0,0,0.2)',
   searchBarBG: 'white',
->>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
   styleBorder: '3px solid teal',
   priceColor: 'red',
 };
@@ -89,13 +86,10 @@ export const darkTheme = {
   linkColor: 'white',
   modalCompareBg: '#121212',
   modalCompareText: 'white',
-<<<<<<< HEAD
-=======
   salePriceColor: '#FF5C5C',
   caretColor: 'white',
   dropdownShadow: 'rgba(0,0,0,0.3)',
   searchBarBG: '#1c1c1e',
->>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
   styleBorder: '3px solid burlywood',
   priceColor: '#FF5C5C',
 };
@@ -1063,11 +1057,7 @@ input[type='file'] {
 /* ----------------- Expaneded Section ----------------- */
 
 .slider-modal {
-<<<<<<< HEAD
-  position: absolute;
-=======
   position: fixed;
->>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -1094,30 +1084,17 @@ input[type='file'] {
   opacity: 0.5;
   height: 100%;
   width: 100%;
-<<<<<<< HEAD
-=======
   z-index: 3;
->>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
   }
 
 .sliderImg {
   width: 700px;
   height: 700px;
-<<<<<<< HEAD
-  //border: ${(props) => props.theme.productBorderColor};
-  padding: 10px;
-  background-color: white;
-  //border: 2px solid ${(props) => props.theme.burlyAndTeal};
-  border-radius: 10px;
-  background-position: center;
-  object-fit: cover;
-=======
   padding: 10px;
   background-color: white;
   background-position: center;
   object-fit: cover;
   border: ${(props) => props.theme.burlyBorderBlack};
->>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
   }
 
 .g-container-vertical {
@@ -1125,20 +1102,12 @@ input[type='file'] {
   align-items: space-between;
   justify-content: center;
   flex-direction: row;
-<<<<<<< HEAD
-  position: absolute;
-  top: 90%;
-  left: 37%;
-  font-size: 25px;
-  z-index: 3;
-=======
   position: fixed;
   top: 90%;
   left: 50%;
   transform: translate(-50%);
   font-size: 25px;
   z-index: 4;
->>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
   cursor: pointer;
 }
 
@@ -1171,40 +1140,24 @@ input[type='file'] {
 }
 
 .left-arrow-v {
-<<<<<<< HEAD
-  position: absolute;
-=======
   position: fixed;
->>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
   top: 50%;
   transform: translate(0, -50%);
   left: 29%;
   font-size: 25px;
   color: white;
-<<<<<<< HEAD
-  z-index: 2;
-=======
   z-index: 4;
->>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
   cursor: pointer;
   }
 
 .right-arrow-v {
-<<<<<<< HEAD
-  position: absolute;
-=======
   position: fixed;
->>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
   top: 50%;
   transform: translate(0, -50%);
   left: 70%;
   font-size: 25px;
   color: white;
-<<<<<<< HEAD
-  z-index: 2;
-=======
   z-index: 4;
->>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
   cursor: pointer;
   }
 
@@ -1213,18 +1166,11 @@ input[type='file'] {
 .dot-container {
   display: flex;
   justify-content: center;
-<<<<<<< HEAD
-  position: absolute;
-  display: flex;
-  top: 92%;
-  left: 40%;
-=======
   position: fixed;
   display: flex;
   top: 92%;
   left: 50%;
   transform: translate(-50%);
->>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
   color: gray;
   z-index: 4;
   }
@@ -1337,10 +1283,7 @@ input[type='file'] {
   margin: 5px;
   border-radius: 30px;
   object-fit: cover;
-<<<<<<< HEAD
-=======
   border: ${(props) => props.theme.burlyBorderBlack};
->>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
   background-color: ${(props) => props.theme.burlyAndTeal};
 }
 
@@ -1413,10 +1356,7 @@ input[type='file'] {
   margin-bottom: 5px;
   margin-right: 20px;
   margin-left: 7px;
-<<<<<<< HEAD
-=======
   width: 500px;
->>>>>>> 45ffc64af63063a3666c2d3473266097df3f90a2
 }
 
 .select > svg {
