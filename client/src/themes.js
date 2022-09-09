@@ -39,15 +39,12 @@ export const lightTheme = {
   linkColor: 'black',
   modalCompareBg: 'white',
   modalCompareText: 'black',
-<<<<<<< HEAD
   salePriceColor: 'red',
   caretColor: 'black',
   dropdownShadow: 'rgba(0,0,0,0.2)',
   searchBarBG: 'white',
-=======
   styleBorder: '3px solid teal',
   priceColor: 'red',
->>>>>>> 4ead37027f8ba179f47361a73127810a6ebaaabc
 };
 
 export const darkTheme = {
@@ -89,15 +86,12 @@ export const darkTheme = {
   linkColor: 'white',
   modalCompareBg: '#121212',
   modalCompareText: 'white',
-<<<<<<< HEAD
   salePriceColor: '#FF5C5C',
   caretColor: 'white',
   dropdownShadow: 'rgba(0,0,0,0.3)',
-  searchBarBG: '#1c1c1e'
-=======
+  searchBarBG: '#1c1c1e',
   styleBorder: '3px solid burlywood',
   priceColor: '#FF5C5C',
->>>>>>> 4ead37027f8ba179f47361a73127810a6ebaaabc
 };
 
 export const GlobalStyles = createGlobalStyle`
@@ -1255,12 +1249,8 @@ input[type='file'] {
 }
 
 .price-sale {
-<<<<<<< HEAD
-  color: ${(props) => props.theme.salePriceColor};
-=======
   margin-right: 10px;
   color: ${(props) => props.theme.priceColor};
->>>>>>> 4ead37027f8ba179f47361a73127810a6ebaaabc
 }
 
 .style {

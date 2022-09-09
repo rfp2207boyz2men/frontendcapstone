@@ -12,55 +12,6 @@ const OutfitCard = ({ product_id, removeApp, styleId, removeOutfit, starRender }
   const [starHover, setStarHover] = useState(false);
   const [styleIndex, setStyleIndex] = useState(0);
 
-<<<<<<< HEAD
-  useEffect(() => {
-    Parse.getAll('products', `/${product_id}/`)
-    .then((productData) => {
-      setProductInfo(productData.data)
-    })
-    .then((data) => {
-      Parse.getAll('products', `/${product_id}/styles`)
-      .then((stylesData) => {
-        setProductStyles(stylesData.data.results)
-      })
-      .then((data) => {
-        Parse.getAll('reviews', `?product_id=${product_id}`)
-        .then((reviewsData) => {
-          setStars(getAverageStars(reviewsData.data.results))
-        })
-        .then((data) => {
-          setProductLoad(true);
-        })
-        .catch((err) => console.log(err));
-      })
-      .catch((err) => console.log(err))
-=======
-  // On load, get all data to be used on cards and render
-  // useEffect(() => {
-  //   Parse.getAll('products', `/${product_id}/`)
-  //   .then((productData) => {
-  //     setProductInfo(productData.data)
-  //   })
-  //   .then((data) => {
-  //     Parse.getAll('products', `/${product_id}/styles`)
-  //     .then((stylesData) => {
-  //       setProductStyles(stylesData.data.results)
-  //     })
-  //     .then((data) => {
-  //       Parse.getAll('reviews', `?product_id=${product_id}`)
-  //       .then((reviewsData) => {
-  //         setStars(getAverage(reviewsData.data.results))
-  //       })
-  //       .then((data) => {
-  //         setProductLoad(true);
-  //       })
-  //       .catch((err) => console.log(err));
-  //     })
-  //     .catch((err) => console.log(err))
-  //   })
-  //   .catch((err) => console.log(err))
-  // }, []);
-
   useEffect(() => {
     Promise.all([
       Parse.getAll('products', `/${product_id}/`),
@@ -71,9 +22,8 @@ const OutfitCard = ({ product_id, removeApp, styleId, removeOutfit, starRender }
       console.log(response);
       setProductInfo(response[0].data);
       setProductStyles(response[1].data.results);
-      setStars(getAverage(response[2].data.results));
+      setStars(getAverageStars(response[2].data.results));
       setProductLoad(true);
->>>>>>> 4ead37027f8ba179f47361a73127810a6ebaaabc
     })
     .catch((err) => console.log(err));
   }, []);
@@ -107,11 +57,7 @@ const OutfitCard = ({ product_id, removeApp, styleId, removeOutfit, starRender }
         productLoad ?
           <div className = 'productCard'>
             <div className = 'productCardImg'>
-<<<<<<< HEAD
-              <img className = 'productImages' src={productStyles[findStyleIndex(styleId)].photos[0].thumbnail_url || `https://via.placeholder.com/150`}/>
-=======
-              <img className = 'productImages' src={productStyles[findIndex(styleId)].photos[0].thumbnail_url || `https://via.placeholder.com/150`} alt='Outfit Card Image'/>
->>>>>>> 4ead37027f8ba179f47361a73127810a6ebaaabc
+              <img className = 'productImages' src={productStyles[findStyleIndex(styleId)].photos[0].thumbnail_url || `https://via.placeholder.com/150`} alt='Outfit Card Image'/>
               <div className = "actionCard" onClick={handleClickRemove}><AiFillCloseCircle color='crimson'/></div>
             </div>
             <div>
