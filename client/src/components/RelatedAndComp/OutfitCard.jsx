@@ -4,7 +4,7 @@ import Parse from '../../parse.js';
 import { OrbitSpinner } from 'react-epic-spinners';
 import { AiFillCloseCircle } from 'react-icons/ai';
 
-const OutfitCard = ({ product_id, removeApp, styleId, removeOutfit, starRender }) => {
+const OutfitCard = ({ product_id, removeApp, styleId, removeOutfit, starRender, carousel, left, right, placement }) => {
   const [productInfo, setProductInfo] = useState();
   const [productStyles, setProductStyles] = useState();
   const [stars, setStars] = useState(0);
@@ -39,7 +39,7 @@ const OutfitCard = ({ product_id, removeApp, styleId, removeOutfit, starRender }
   }
 
   let renderAvgStars = () => {
-    return starRender(stars).map((star => star))
+    return starRender(stars);
   };
 
   const findStyleIndex = (id) => {
@@ -50,11 +50,18 @@ const OutfitCard = ({ product_id, removeApp, styleId, removeOutfit, starRender }
     return 0;
   }
 
+  const renderMask = () => {
+    if (right.length >= 1 && placement === 2) {
+      return {WebkitMaskImage: `-webkit-gradient(linear, right center, center center,
+        from(rgba(0,0,0,0.2)), to(rgba(0,0,0,1)))`};
+    }
+  };
+
   return (
     <div>
       {
         productLoad ?
-          <div className = 'productCard'>
+          <div style={renderMask()} className = 'productCard'>
             <div className = 'productCardImg'>
               <img className = 'productImages' src={productStyles[findStyleIndex(styleId)].photos[0].thumbnail_url || `https://via.placeholder.com/150`} alt='Outfit Card Image'/>
               <div className = "actionCard" onClick={handleClickRemove}><AiFillCloseCircle color='crimson'/></div>

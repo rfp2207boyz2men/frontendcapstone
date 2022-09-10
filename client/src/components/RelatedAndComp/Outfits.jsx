@@ -55,6 +55,9 @@ const Outfits = ({ outfits, current, outfitAdd, outfitRemove, avgRating, styleId
     setLeft([...left.slice(0, left.length - 1)]);
   }
 
+  const renderMask = {WebkitMaskImage: left.length >= 1 ? `-webkit-gradient(linear, left center, center center,
+    from(rgba(0,0,0,0.2)), to(rgba(0,0,0,1)))` : null};
+
   return (
     <div onClick={trackClick}>
       <div className='sectionTitle'><h2>YOUR OUTFIT</h2></div>
@@ -62,7 +65,7 @@ const Outfits = ({ outfits, current, outfitAdd, outfitRemove, avgRating, styleId
         <div className="rightArrow" onClick={shiftLeft}>{right.length ? <RiArrowRightSLine /> : null}</div>
         <div className="leftArrow" onClick={shiftRight}>{left.length ? <RiArrowLeftSLine /> : null}</div>
         <div className="outfits">
-          <div className='productCard'>
+          <div style={renderMask} className='productCard'>
             <div className='plusCardArea' onClick={handleOutfitClick}>
               <div className='plusSymbol'><BsPlusCircle /></div>
             </div>
@@ -73,14 +76,18 @@ const Outfits = ({ outfits, current, outfitAdd, outfitRemove, avgRating, styleId
             </div>
           </div>
           {
-            carousel.length ? carousel.map(outfit => {
+            carousel.length ? carousel.map((outfit, index) => {
               return <OutfitCard
                 key={outfit.id}
                 product_id={outfit.id}
                 removeApp={outfitRemove}
                 removeOutfit={handleOutfitRemove}
                 styleId={styleId}
-                starRender={starRender} />
+                starRender={starRender}
+                carousel={carousel}
+                left={left}
+                right={right}
+                placement={index} />
             }) : null
           }
         </div>
