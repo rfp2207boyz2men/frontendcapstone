@@ -22,13 +22,13 @@ const ProductCard = ({ product_id, addOutfit, select, current, avgStars, starRen
     .then((response) => {
       setProductInfo(response[0].data);
       setProductStyles(response[1].data.results);
-      setStars(getAverage(response[2].data.results));
+      setStars(getAverageStars(response[2].data.results));
       setProductLoad(true);
     })
     .catch((err) => console.log(err));
   }, []);
 
-  const getAverage = (reviewsArray) => {
+  const getAverageStars = (reviewsArray) => {
     let ratings = reviewsArray.map(review => review.rating);
     let starRating = (ratings.reduce((total, rating) => total += rating, 0)/(ratings.length));
     return starRating

@@ -5,7 +5,6 @@ import { AppContext } from '../AppContext.js';
 import ImageGallery from './ImageGallery.jsx';
 import StyleInformation from './StyleInformation.jsx';
 import ProductOverview from './ProductOverview.jsx';
-import { select } from 'underscore';
 import { FcCheckmark } from 'react-icons/fc';
 
 function Overview({ trackClick }) {
