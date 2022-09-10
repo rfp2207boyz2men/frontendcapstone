@@ -56,6 +56,7 @@ You will also see any lint errors in the console.
 
 - [ ] Checkout cart
 - [ ] Related Product Cards Image Gallery on Hover
+- [ ] Infinite scrolling for the Reviews section
 
 ## Authors
 
