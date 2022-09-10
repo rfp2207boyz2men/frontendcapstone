@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled, { ThemeProvider } from "styled-components";
 import moment from 'moment';
+import StarRatings from 'react-star-ratings';
 import Parse from '../parse.js';
 import ClickTracker from './ClickTracker.jsx';
 import Header from './Header.jsx';
@@ -45,17 +46,13 @@ const App = () => {
   }
 
   useEffect(() => {
-    if (!localStorage.getItem('helpfulReviews')) {
-      localStorage.setItem('helpfulReviews', JSON.stringify({}));
-    }
-    if (!localStorage.getItem('searchStars')) {
-      localStorage.setItem('searchStars', JSON.stringify({ 1: false, 2: false, 3: false, 4: false, 5: false }));
-    }
-    if (!localStorage.getItem('sort')) {
-      localStorage.setItem('sort', 'relevant');
+    if (!localStorage.getItem('helpfulQuestions')) {
+      localStorage.setItem('helpfulQuestions', JSON.stringify({}));
     }
 
-
+    if (!localStorage.getItem('helpfulAnswers')) {
+      localStorage.setItem('helpfulAnswers', JSON.stringify({}));
+    }
 
     if (!localStorage.getItem('helpfulReviews')) {
       localStorage.setItem('helpfulReviews', JSON.stringify({}));
@@ -181,19 +178,17 @@ const App = () => {
   };
 
   const renderStars = (rating) => {
-    let ratingCopy = rating;
-    let stars = [];
-    for (let i = 0; i < 5; i++) {
-      if (ratingCopy >= 0 && ratingCopy < 0.33 || ratingCopy < 0) {
-        stars.push(<TiStarOutline className='star' key={i} />);
-      } else if (ratingCopy >= 0.33 && ratingCopy <= 0.67) {
-        stars.push(<TiStarHalfOutline className='star' key={i} />);
-      } else {
-        stars.push(<TiStarFullOutline className='star' key={i} />);
-      }
-      ratingCopy--;
-    }
-    return stars;
+    let roundedRating = parseFloat((Math.round(parseFloat(rating) * 4) / 4).toFixed(2));
+    return (
+      <StarRatings
+        rating={roundedRating}
+        starRatedColor="teal"
+        numberOfStars={5}
+        starDimension='16px'
+        starSpacing='3px'
+        name='rating'
+      />
+    );
   };
 
   const handleOutfitAdds = (outfitData) => {

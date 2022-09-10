@@ -5,7 +5,7 @@ import { FaCheckCircle } from 'react-icons/fa';
 import { FaFacebook, FaTwitter, FaPinterest } from 'react-icons/fa';
 import { FacebookShareButton, TwitterShareButton, PinterestShareButton } from 'react-share';
 import { OrbitSpinner } from 'react-epic-spinners';
-import { TiStarFullOutline, TiStarHalfOutline, TiStarOutline } from 'react-icons/ti';
+import { MdOutlineStar } from 'react-icons/md';
 
 
 function StyleInformation({
@@ -55,7 +55,7 @@ function StyleInformation({
   }, [product])
 
   let renderAvgStars = () => {
-    return renderStars(product.averageRating).map((star => star))
+    return renderStars(product.averageRating);
   };
 
 
@@ -113,9 +113,7 @@ function StyleInformation({
 
   const handleAddToCart = (e) => {
     e.preventDefault();
-    if (sizeSelected) {
       addToCart(skusId);
-    }
   }
 
 
@@ -202,7 +200,9 @@ function StyleInformation({
             </div>
             :
             <div className='add-container'>
-              {sizeClick ? <div className='select-size-please'>Please select a size</div> : <></>}
+              {sizeClick ? <div className='select-size-please'>Please select a size</div> :
+                <div className='select-size-please-hide'>Please select a size</div>
+              }
               <select className='select select-size-dropdown' value={qty} onChange={handleSize}>
                 <option className='select' value="0">SELECT SIZE</option>
                 {currentStyle &&
@@ -223,7 +223,7 @@ function StyleInformation({
               </select>
 
               <button className='add-cart' onClick={(e) => { handleLocalSave(e); handleAddToCart(e); }}>ADD TO CART</button>
-              <button className='select select-star' aria-label='Add Outfit' onClick={handleOutfitClick}><TiStarFullOutline /></button>
+              <button className='select select-star' aria-label='Add Outfit' onClick={handleOutfitClick}><MdOutlineStar /></button>
             </div>
           }
 

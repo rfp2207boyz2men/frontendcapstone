@@ -4,6 +4,7 @@ import Parse from '../../parse.js';
 import { SiIfixit } from 'react-icons/si';
 import { TiStarFullOutline, TiStarHalfOutline, TiStarOutline } from 'react-icons/ti';
 import { BsPlusCircle } from 'react-icons/bs';
+import { MdOutlineStar, MdOutlineStarOutline } from 'react-icons/md';
 
 const Input = (props) => {
   const [textInputs, setTextInputs] = useState({
@@ -30,7 +31,7 @@ const Input = (props) => {
   const renderStars = () => {
     let stars = [];
     for (let i = 1; i <= 5; i++) {
-      stars.push(renderStar(i))
+      stars.push(createStar(i))
     }
     return (
       <>
@@ -43,11 +44,11 @@ const Input = (props) => {
     )
   };
 
-  const renderStar = (value) => {
+  const createStar = (value) => {
     if (rating - value >= 0) {
-      return <div key={value}><TiStarFullOutline className='ratingInputStar star' size={20} onClick={()=>{handleStarClick(value)}}/></div>;
+      return <div key={value}><MdOutlineStar className='ratingInputStar star' size={20} onClick={()=>{handleStarClick(value)}}/></div>;
     } else {
-      return <div key={value}><TiStarOutline className='ratingInputStar star' size={20} onClick={()=>{handleStarClick(value)}}/></div>;
+      return <div key={value}><MdOutlineStarOutline className='ratingInputStar star' size={20} onClick={()=>{handleStarClick(value)}}/></div>;
     }
   };
 

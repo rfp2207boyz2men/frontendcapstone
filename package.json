@@ -25,6 +25,7 @@
     "boostrap": "^2.0.0",
     "bootstrap": "^5.2.0",
     "express": "^4.18.1",
+    "file-loader": "^6.2.0",
     "moment": "^2.29.4",
     "nodemon": "^2.0.19",
     "react": "^18.2.0",
@@ -32,7 +33,7 @@
     "react-dom": "^18.2.0",
     "react-epic-spinners": "^0.5.0",
     "react-icons": "^4.4.0",
-    "react-image-magnifiers": "^1.4.0",
+    "react-inner-image-zoom": "^3.0.2",
     "react-share": "^4.4.0",
     "react-star-ratings": "^2.3.0",
     "styled-components": "^5.3.5",
@@ -40,10 +41,6 @@
   },
   "overrides": {
     "react-share": {
-      "react": "18.2.0",
-      "react-dom": "18.2.0"
-    },
-    "react-image-magnifiers": {
       "react": "18.2.0",
       "react-dom": "18.2.0"
     },
