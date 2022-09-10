@@ -1330,6 +1330,7 @@ input[type='file'] {
   object-fit: cover;
   border: ${(props) => props.theme.burlyBorderBlack};
   background-color: ${(props) => props.theme.burlyAndTeal};
+  border: 1px solid burlywood;
 }
 
 .style-container {

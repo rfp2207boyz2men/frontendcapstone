@@ -113,9 +113,7 @@ function StyleInformation({
 
   const handleAddToCart = (e) => {
     e.preventDefault();
-    if (sizeSelected) {
       addToCart(skusId);
-    }
   }
 
 
