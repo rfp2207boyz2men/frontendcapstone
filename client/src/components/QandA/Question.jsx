@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Parse from '../../parse.js';
-
 import AnswerList from './AnswerList.jsx';
 import AnswerModal from './AnswerModal.jsx';
-
 
 const Question = (props) => {
   const [answers, setAnswers] = useState([]);
@@ -43,6 +41,12 @@ const Question = (props) => {
 
   let questionIsHelpful = () => {
     setHelpful(true);
+    let localStorageCopy = JSON.parse(localStorage.getItem('helpfulQuestions'));
+    localStorageCopy = JSON.stringify({...localStorageCopy, [questionId] : true});
+    console.log(props.helpfulQuestions);
+    console.log(localStorageCopy);
+    console.log(questionId);
+    localStorage.setItem('helpfulQuestions', localStorageCopy);
 
     Parse.update(`qa/questions/${questionId}/helpful`, params);
   }
@@ -51,11 +55,32 @@ const Question = (props) => {
     setModal(!modal);
   }
 
+  let highlightQuestion = () => {
+    if (props.searchQuery === '') {
+      return props.question.question_body;
+    }
+
+    let splitRegex = new RegExp(`(${props.searchQuery})`, `i`);
+    let splitQuestion = props.question.question_body.split(splitRegex);
+    if (splitQuestion.length === 1) {
+      return splitQuestion;
+    }
+
+    splitQuestion = splitQuestion.map((chunk) => {
+      if (chunk.toLowerCase() === props.searchQuery.toLowerCase()) {
+        return (<mark>{chunk}</mark>);
+      } else {
+        return chunk;
+      }
+    })
+    return splitQuestion;
+  }
+
   useEffect(() => {
     getAnswers();
   }, [isHelpful]);
 
-  if (isHelpful) {
+  if (isHelpful || props.helpfulQuestions[questionId]) {
     helpfulBtn = <u>Yes</u>
   } else {
     helpfulBtn =
@@ -66,10 +91,12 @@ const Question = (props) => {
       </button>
   }
 
+  let styleBottomBorder = {borderBottom: '1px solid burlywood'};
+
   return (
     <div className='question-set'>
       <div className='question-line'>
-        <strong className='question'>Q: {question}</strong>
+        <strong style={styleBottomBorder} className='question'>Q: {highlightQuestion()}</strong>
         {modal &&
         <AnswerModal
           handleModal={handleModal}
@@ -79,7 +106,7 @@ const Question = (props) => {
           productName={props.productName} />
         }
         <span className='question-interaction'> Helpful?
-          {helpfulBtn} ({questionHelpfuless}) |
+          {helpfulBtn} ({questionHelpfuless + (isHelpful ? 1 : 0)}) |
           <button
             className='add-answer'
             onClick={handleModal}>

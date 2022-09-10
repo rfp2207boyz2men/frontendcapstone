@@ -96,10 +96,30 @@ export const darkTheme = {
 
 export const GlobalStyles = createGlobalStyle`
 
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background-color: ${(props) => props.theme.mainBColor};
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: ${(props) => props.theme.fontColor};
+}
+
+
 
 /*
   BOTH MODES
 */
+
+img{
+  -khtml-user-select: none;
+  -o-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
 
 html {
   scroll-behavior: smooth;
@@ -217,6 +237,11 @@ a:visited {
 .logotext {
   font-size: 25px;
   color: ${(props) => props.theme.fontColor};
+}
+
+.logo:hover,
+.logotext:hover {
+  cursor: pointer;
 }
 
 .search {
@@ -492,8 +517,15 @@ a:visited {
 }
 
 .question-list::-webkit-scrollbar {
-  width: 0;
-  height: 0;
+  width: 1px;
+}
+
+.question-list::-webkit-scrollbar-track {
+  background-color: ${(props) => props.theme.mainBColor};
+}
+
+.question-list::-webkit-scrollbar-thumb {
+  background-color: ${(props) => props.theme.fontColor};
 }
 
 .qandaButtons {
@@ -545,6 +577,11 @@ a:visited {
   padding-bottom: 5px;
 }
 
+.answer-bottom-border {
+  width: 50%;
+  // border-bottom: 1px dotted burlywood;
+}
+
 .no-answer {
   justify-content: center;
   margin: 5px
@@ -573,7 +610,9 @@ input[type='file'] {
 
 .answerPhotoThumbnail {
   height: 100px;
-  width: 20%;
+  max-width: 19%;
+  margin: 5px;
+  margin-right: 10px;
 }
 
 /*
@@ -705,6 +744,8 @@ input[type='file'] {
 .questionInputPhotoSection {
   display: flex;
   flex-direction: row;
+  border: ${(props) => props.theme.burlyBorderBlack};
+  background-color: ${(props) => props.theme.mainBColor};
 }
 
 /*
@@ -829,7 +870,7 @@ input[type='file'] {
   top:50%;
   left:50%;
   transform: translate(-50%,-50%);
-  border: 1px solid black;
+  border: ${(props) => props.theme.burlyBorderBlack};
   z-index: 99;
 }
 
@@ -879,7 +920,7 @@ input[type='file'] {
   top:170px;
   left:1125px;
   font-size: 30px;
-  z-index: 14;
+  z-index: 2;
 }
 
 .rightArrow:hover, .leftArrow:hover {
@@ -891,7 +932,7 @@ input[type='file'] {
   top: 170px;
   left: 0px;
   font-size: 30px;
-  z-index: 14;
+  z-index: 2;
 }
 
 /*
@@ -1040,7 +1081,7 @@ input[type='file'] {
 /* ----------------- Expaneded Section ----------------- */
 
 .slider-modal {
-  position: absolute;
+  position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -1067,30 +1108,42 @@ input[type='file'] {
   opacity: 0.5;
   height: 100%;
   width: 100%;
+  z-index: 3;
   }
 
-.sliderImg {
-  width: 700px;
-  height: 700px;
-  //border: ${(props) => props.theme.productBorderColor};
-  padding: 10px;
-  background-color: white;
-  //border: 2px solid ${(props) => props.theme.burlyAndTeal};
-  border-radius: 10px;
-  background-position: center;
-  object-fit: cover;
+  .sliderImg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // width: 700px;
+    height: 800px;
+    // max-height: 70vh;
+    max-width: 700px;
+    //padding: 10px;
+    // max-width: unset !important;
+    background-color: ${(props) => props.theme.headerBColor};
+    border-radius: 10px;
+    background-position: center;
+    object-fit: scale-down;
+    border: ${(props) => props.theme.burlyBorderBlack};
   }
+
+  .sliderImg:hover {
+    cursor: crosshair;
+  }
+
 
 .g-container-vertical {
   display: flex;
   align-items: space-between;
   justify-content: center;
   flex-direction: row;
-  position: absolute;
+  position: fixed;
   top: 90%;
-  left: 37%;
+  left: 50%;
+  transform: translate(-50%);
   font-size: 25px;
-  z-index: 3;
+  z-index: 4;
   cursor: pointer;
 }
 
@@ -1123,24 +1176,24 @@ input[type='file'] {
 }
 
 .left-arrow-v {
-  position: absolute;
+  position: fixed;
   top: 50%;
   transform: translate(0, -50%);
   left: 29%;
   font-size: 25px;
   color: white;
-  z-index: 2;
+  z-index: 4;
   cursor: pointer;
   }
 
 .right-arrow-v {
-  position: absolute;
+  position: fixed;
   top: 50%;
   transform: translate(0, -50%);
   left: 70%;
   font-size: 25px;
   color: white;
-  z-index: 2;
+  z-index: 4;
   cursor: pointer;
   }
 
@@ -1149,10 +1202,11 @@ input[type='file'] {
 .dot-container {
   display: flex;
   justify-content: center;
-  position: absolute;
+  position: fixed;
   display: flex;
   top: 92%;
-  left: 40%;
+  left: 50%;
+  transform: translate(-50%);
   color: gray;
   z-index: 4;
   }
@@ -1204,12 +1258,21 @@ input[type='file'] {
   margin: 0 auto;
 }
 
+
 /* ----------------- Style Section ----------------- */
 
 .info-container {
   margin: 0 30px;
   width: 250px;
   scroll-behavior: smooth;
+}
+
+.style-category {
+  margin-left: 3px;
+}
+
+.star-ratings {
+  margin-right: 8px;
 }
 
 .reviewsInfo {
@@ -1265,6 +1328,7 @@ input[type='file'] {
   margin: 5px;
   border-radius: 30px;
   object-fit: cover;
+  border: ${(props) => props.theme.burlyBorderBlack};
   background-color: ${(props) => props.theme.burlyAndTeal};
   border: 1px solid burlywood;
 }
@@ -1301,29 +1365,21 @@ input[type='file'] {
   margin: 30px 0;
 }
 
-.add-cart {
-  padding: 10px 30px;
-  margin: 5px 7px;
-  width: 150px;
-  background:  ${(props) => props.theme.tealAndBurly};
-  border-radius: 4px;
-  border: none;
-  transition: ease-in-out 0.5s;
-  color: ${(props) => props.theme.fontColor};
-}
-
-.add-cart:hover {
-  transition: ease-in-out 0.5s;
-  background-color: black;
-  color: white;
-}
-
 .out-of-stock {
   font-size: 14px;
   color: ${(props) => props.theme.fontColor};
 }
 .select-size-please {
   font-size: 14px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  color: ${(props) => props.theme.fontColor};
+}
+
+.select-size-please-hide {
+  visibility: hidden;
+  font-size: 14px;
+  margin-bottom: 5px;
   margin-left: 5px;
   color: ${(props) => props.theme.fontColor};
 }
@@ -1345,6 +1401,7 @@ input[type='file'] {
   margin-bottom: 5px;
   margin-right: 20px;
   margin-left: 7px;
+  width: 500px;
 }
 
 .select > svg {
@@ -1352,9 +1409,69 @@ input[type='file'] {
   color: black;
 }
 
-.select select-star {
+.select-star {
   background: burlywood;
   color: black;
+}
+
+.select-size {
+  width: 70px;
+  height: 30px;
+}
+
+.add-cart {
+  // padding: 10px 30px;
+  // margin: 5px 7px;
+  height: 30px;
+  width: 175px;
+  background:  ${(props) => props.theme.tealAndBurly};
+  // border-radius: 4px;
+  border: none;
+  transition: ease-in-out 0.5s;
+  color: ${(props) => props.theme.fontColor};
+  margin-right: 5px;
+}
+
+.add-cart:hover {
+  transition: ease-in-out 0.5s;
+  background-color: black;
+  color: white;
+}
+
+.add-cart span {
+  margin: 0;
+}
+
+.select-size-dropdown {
+  padding: 0;
+  margin: 0;
+  height: 30px;
+  width: 150px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  border: 1px solid ${(props) => props.theme.burlyBorderBlack};
+}
+
+.select-quantity {
+  padding: 0;
+  margin: 0;
+  height: 30px;
+  width: 55px;
+  margin-bottom: 5px;
+  border: 1px solid ${(props) => props.theme.burlyBorderBlack};
+}
+
+.select-star {
+  padding: 0 0 2px 0;
+  margin: 0;
+  height: 30px;
+  width: 30px;
+  background: ${(props) => props.theme.tealAndBurly};
+}
+
+.select-star svg {
+  margin: 0;
+  color: ${(props) => props.theme.fontColor};
 }
 
 
@@ -1387,6 +1504,7 @@ input[type='file'] {
   flex-direction: row;
   cursor: pointer;
   font-size: 24px;
+  padding-right: 45px;
   color: ${(props) => props.theme.burlyAndTeal};
 }
 
@@ -1426,15 +1544,21 @@ input[type='file'] {
 }
 
 .reviewList {
-  height: auto;
+  height: 800px;
   width: 800px;
-  /* border: 2px solid black; */
+  border-top: 1px dashed burlywood;
   overflow-y: auto;
 }
 
 .reviewList::-webkit-scrollbar {
-  width: 0;
-  height: 0;
+  width: 1px;
+}
+.reviewList::-webkit-scrollbar-track {
+  background-color: ${(props) => props.theme.mainBColor};
+}
+
+.reviewList::-webkit-scrollbar-thumb {
+  background-color: ${(props) => props.theme.fontColor};
 }
 
 /*******************
@@ -1477,7 +1601,8 @@ input[type='file'] {
 }
 
 .averageRating svg {
-  padding-bottom: 15px;
+  margin-top: 2px;
+  // padding-bottom: 15px;
 }
 
 /*
@@ -1504,6 +1629,7 @@ input[type='file'] {
   flex-direction: row;
   width: inherit;
   align-items: center;
+  // margin-left: 10px;
 }
 
 .reviewBarSectionOn {
@@ -1520,8 +1646,9 @@ input[type='file'] {
 
 .reviewBarLabel {
   width: 50px;
-  padding:5px;
+  padding: 5px 5px 5px 0;
   text-align: center;
+  margin-right: 7px;
 }
 
 .reviewBar {
@@ -1613,10 +1740,10 @@ input[type='file'] {
   REVIEW LIST
 ***********************/
 
-
 .reviewListHeader {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   width: 400px;
 }
 
@@ -1784,7 +1911,7 @@ input[type='file'] {
   padding: 10px;
   background-color: white;
   border: 2px solid ${(props) => props.theme.burlyAndTeal};
-  z-index: 3;
+  z-index: 50;
   overflow-y: auto;
 }
 
@@ -1806,6 +1933,7 @@ input[type='file'] {
   opacity: 30%;
   height: 100vh;
   width: 100vw;
+  z-index: 49;
 }
 
 /**********************
@@ -1814,7 +1942,7 @@ input[type='file'] {
 
 .reviewInput {
   position: fixed;
-  --height: 900px;
+  --height: 92vh;
   --width: 1000px;
   top: calc(50% - (var(--height) / 2));
   left: calc(50% - (var(--width) / 2));
@@ -1824,7 +1952,7 @@ input[type='file'] {
   padding: 6px 18px;
   background-color: ${(props) => props.theme.mainBColor};
   border: 2px solid burlywood;
-  z-index: 1;
+  z-index: 50;
   overflow-y:scroll;
 }
 
@@ -1881,13 +2009,28 @@ input[type='file'] {
   height: 60px;
   width: 150px;
   margin-top: 40px;
+  color: ${(props) => props.theme.fontColor};
   background-color: ${(props) => props.theme.tealAndBurly};
   border-radius: 5px;
   margin-bottom: 15px;
+  border-style: none;
 }
 
 .reviewSubmitEnable {
   cursor: pointer;
+}
+
+.reviewInputErrors {
+  position: absolute;
+  left: 700px;
+  top: 985px;
+  color: red;
+}
+
+.reviewInputErrors p {
+  margin: 0;
+  margin-bottom: 5px;
+  margin-left: 6px;
 }
 
 /*
@@ -1996,8 +2139,8 @@ input[type='file'] {
   flex-direction: row;
   height: 110px;
   width: calc(var(--width) - 100px);
-  border: 1px solid black;
-  background-color: white;
+  border: ${(props) => props.theme.burlyBorderBlack};
+  background-color: ${(props) => props.theme.mainBColor};
 }
 
 .reviewInputPhotoThumbnail {
@@ -2039,5 +2182,32 @@ button:hover {
   border-style: none;
 }
 
+.fourOhFour {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: #0b1e1c;
+  z-index: 10;
+}
+
+.fourOhFourImage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 11;
+}
+
+.fourOhFourTimer {
+  position: absolute;
+  font-size: 40px;
+  top: 18%;
+  width: 100%;
+  z-index: 11;
+  text-align: center;
+  -webkit-text-stroke: 2px black;
+}
 
 `;

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import Parse from '../../parse.js';
 import { OrbitSpinner } from 'react-epic-spinners';
@@ -15,6 +14,7 @@ function Overview({ trackClick }) {
     handleLocalClick,
     handleSelectedProduct,
     handleLocalSave,
+    metaData,
     localName,
     localId,
     renderStars,
@@ -24,7 +24,6 @@ function Overview({ trackClick }) {
     handleOutfitAdds,
     outfits,
   } = useContext(AppContext);
-
 
 
   const [product, setProduct] = useState();
@@ -37,10 +36,10 @@ function Overview({ trackClick }) {
   const [arrowRight, setArrowRight] = useState(true);
   const [expand, setExpand] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [overlay, setOverlay] = useState(false);
 
 
   useEffect(() => {
-    console.log('OVERVIEW PROC')
     fetchData(selectedProduct);
   }, [])
 
@@ -54,10 +53,8 @@ function Overview({ trackClick }) {
 
     set.styles = requestStyles.data.results;
 
-    params = `?product_id=${selectedProduct.id}`;
-    const requestMeta = await Parse.getAll(`reviews/meta/`, params);
-    set.averageRating = getAverageRating(requestMeta.data.ratings);
-    set.totalReviews = getTotalReviews(requestMeta.data.recommended);
+    set.averageRating = getAverageRating(metaData.ratings);
+    set.totalReviews = getTotalReviews(metaData.recommended);
 
     if (set.styles[0].photos[0].url !== null) {
       setCurrentPhoto(set.styles[0].photos[0].url);
@@ -77,12 +74,9 @@ function Overview({ trackClick }) {
     }
   }
 
-  // async function getCart() {
-  //   const request = await Parse.getAll('cart', undefined);
-  // }
 
 
-  /* --------------------  style selection events  --------------------*/
+
   const handleProductClick = (e) => {
     e.preventDefault();
   }
@@ -97,10 +91,9 @@ function Overview({ trackClick }) {
     setCurrentStyle(prod);
     setCurrentPhoto(prod.photos[0].url);
   }
-  /* --------------------  style selection events  --------------------*/
 
 
-  /* --------------------  gallery arrows events  --------------------*/
+
   const handleThumbClick = (e, item) => {
     let lastIndex = currentStyle.photos.length - 1;
     currentStyle.photos[0].url === e.target.id ? setArrowLeft(false) : setArrowLeft(true);
@@ -176,8 +169,6 @@ function Overview({ trackClick }) {
     e.preventDefault();
     setExpand(prevExpand => !prevExpand);
   }
-  /* --------------------  gallery arrows events  --------------------*/
-
 
 
   return (

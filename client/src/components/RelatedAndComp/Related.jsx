@@ -2,7 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import Parse from '../../parse.js';
 import ProductCard from './ProductCard.jsx';
 import Outfits from './Outfits.jsx';
-import { RiArrowRightSLine, RiArrowLeftSLine } from 'react-icons/ri'
+import { RiArrowRightSLine, RiArrowLeftSLine } from 'react-icons/ri';
+import styled, { ThemeProvider } from "styled-components";
 
 const Related = ({ selectedProduct, addToOutfit, selectStyle, avgRating, starRender, trackClick }) => {
 
@@ -10,7 +11,7 @@ const Related = ({ selectedProduct, addToOutfit, selectStyle, avgRating, starRen
   const [carousel, setCarousel] = useState([]);
   const [leftCarousel, setLeftCarousel] = useState([]);
   const [rightCarousel, setRightCarousel] = useState([]);
-  const [viewCarousel, setViewCarousel] = useState([])
+  const [viewCarousel, setViewCarousel] = useState([]);
 
   useEffect(() => {
     Parse.getAll('products', `/${selectedProduct.id}/related`)
@@ -45,6 +46,7 @@ const Related = ({ selectedProduct, addToOutfit, selectStyle, avgRating, starRen
     setLeftCarousel([...leftCarousel.slice(0, leftCarousel.length-1)]);
   }
 
+
   return (
     <div onClick={trackClick}>
       <div className='sectionTitle'><h2>RELATED PRODUCTS</h2></div>
@@ -52,7 +54,7 @@ const Related = ({ selectedProduct, addToOutfit, selectStyle, avgRating, starRen
       <div className="rightArrow" onClick={shiftCarouselLeft}>{rightCarousel.length ? <RiArrowRightSLine /> : null}</div>
       <div className="leftArrow" onClick={shiftCarouselRight}>{leftCarousel.length ? <RiArrowLeftSLine /> : null}</div>
         <div className='related'>
-          {carousel.map(ids => {
+          {carousel.map((ids, index) => {
             return <ProductCard
               key={ids}
               product_id={ids}
@@ -60,7 +62,11 @@ const Related = ({ selectedProduct, addToOutfit, selectStyle, avgRating, starRen
               select={selectStyle}
               current={selectedProduct}
               avgStars={avgRating}
-              starRender={starRender} />
+              starRender={starRender}
+              carousel={carousel}
+              leftCarousel={leftCarousel}
+              rightCarousel={rightCarousel}
+              placement={index} />
           })}
         </div>
       </div>
