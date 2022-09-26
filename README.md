@@ -1,17 +1,12 @@
-# Boyz2Men Frontend Capstone Project
 <h1 align="center">Odin</h1>
 
 ![Preview](/Screen1.gif)
-
-<p align="center">Educational Capstone Project</p>
 
 ## Links
 
 - [Repo](https://github.com/rfp2207boyz2men/frontendcapstone "Front End Capstone Repo")
 
 - [Bugs](https://github.com/rfp2207boyz2men/frontendcapstone/issues "Issues Page")
-
-- API - Educational Private API (via Heroku)
 
 ## Screenshots
 
@@ -35,11 +30,6 @@ Builds the app for production to the `build` folder. It correctly bundles React 
 ### `"npm run test"`,
 
 Launches the test runner in the interactive watch mode.
-
-### `npm start"`,
-
-The app is built using `create-react-app` so this command Runs the app in Development mode. Open [http://localhost:8080](http://localhost:8080) to view it in the browser. You also need to run the server file as well to completely run the app. The page will reload if you make edits.
-You will also see any lint errors in the console.
 
 
 ## Built With
